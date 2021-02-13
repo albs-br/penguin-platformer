@@ -5,6 +5,44 @@
 ; some code from MSXlib basic example
 ;
 
+FNAME "penguim-platformer.rom"      ; output file
+
+    INCLUDE "Include/MsxBios.s"
+
+    INCLUDE "Include/Vram.s"
+
+
+;RomSize:	equ 0x4000	            ; For 16kB Rom size.
+RomSize:	equ 0x8000	            ; For 32kB Rom size.
+
+
+; DEBUG:      equ 255                 ; defines debug mode, value is irrelevant (comment it out for production version)
+
+; Compilation address
+	org 0x4000	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
+ 
+    INCLUDE "Include/RomHeader.s"
+
+
+; Program code entry point
+Execute:
+; init interrupt mode and stack pointer (in case the ROM isn't the first thing to be loaded)
+	di                          ; disable interrupts
+	im      1                   ; interrupt mode 1
+    ld      sp, (BIOS_HIMEM)    ; init SP
+
+    call    ClearRam
+
+    call    InitVram
+
+
+    call    EnableRomPage2
+
+
+; TODO: CONTINUE HERE
+
+
+
 ; -----------------------------------------------------------------------------
 ; MSXlib helper: default configuration
 	include	"lib/rom-default.asm"
@@ -21,11 +59,7 @@ INIT:
 ;
 ; YOUR CODE (ROM) START HERE
 ;
-; Example:            out IList<string> bgPattern_0,      // top left
-            out IList<string> bgColor_0,
-            
-            out IList<string> bgPattern_1,      // top right
-            out IList<string> bgColor_1
+; Example:           
 
 ;
 
