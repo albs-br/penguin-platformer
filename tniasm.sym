@@ -73,7 +73,8 @@ BIOS_TAPIN: equ 0E4h ; last def. pass 3
 BIOS_H_CHPH: equ 0FDA4h ; last def. pass 3
 BIOS_NSETRD: equ 016Eh ; last def. pass 3
 BIOS_JIFFY: equ 0FC9Eh ; last def. pass 3
-MainLoop: equ 041EBh ; last def. pass 3
+MainLoop: equ 04233h ; last def. pass 3
+TilePatterns_SmallBricks_Start: equ 041CEh ; last def. pass 3
 BIOS_H_GONE: equ 0FF43h ; last def. pass 3
 COLOR_LIGHT_BLUE: equ 07h ; last def. pass 3
 BIOS_PRSCNT: equ 0FB35h ; last def. pass 3
@@ -109,7 +110,7 @@ BIOS_KILBUF: equ 0156h ; last def. pass 3
 BIOS_DRWFLG: equ 0FCBBh ; last def. pass 3
 BIOS_DOT: equ 0F6B5h ; last def. pass 3
 BIOS_VOICCQ: equ 0FA75h ; last def. pass 3
-Execute: equ 041CEh ; last def. pass 3
+Execute: equ 04216h ; last def. pass 3
 BIOS_ESTBLS: equ 0FB1Dh ; last def. pass 3
 BIOS_CYOFF: equ 0F947h ; last def. pass 3
 BIOS_CXOFF: equ 0F945h ; last def. pass 3
@@ -122,7 +123,7 @@ BIOS_H_DSKF: equ 0FE12h ; last def. pass 3
 BIOS_CONLO: equ 0F66Ah ; last def. pass 3
 BIOS_SLTTBL: equ 0FCC5h ; last def. pass 3
 BIOS_DSCTMP: equ 0F698h ; last def. pass 3
-End: equ 0420Ah ; last def. pass 3
+End: equ 04252h ; last def. pass 3
 BIOS_H_LOC: equ 0FE99h ; last def. pass 3
 BIOS_H_CVS: equ 0FE44h ; last def. pass 3
 BIOS_MIVCNT: equ 0F951h ; last def. pass 3
@@ -142,6 +143,7 @@ ColorsTable: equ 02000h ; last def. pass 3
 BIOS_H_FORM: equ 0FFACh ; last def. pass 3
 BIOS_EXPTBL: equ 0FCC1h ; last def. pass 3
 BIOS_CRTCNT: equ 0F3B1h ; last def. pass 3
+TilePatterns_SmallBricks_End: equ 0420Eh ; last def. pass 3
 BIOS_LOHMSK: equ 0F949h ; last def. pass 3
 BIOS_RDSLT: equ 0Ch ; last def. pass 3
 BIOS_AUTFLG: equ 0F6AAh ; last def. pass 3
@@ -253,12 +255,13 @@ BIOS_VOICAQ: equ 0F975h ; last def. pass 3
 BIOS_BOTTOM: equ 0FC48h ; last def. pass 3
 BIOS_CHGCLR: equ 062h ; last def. pass 3
 BIOS_HIGH: equ 0F408h ; last def. pass 3
-Finished: equ 04208h ; last def. pass 3
+Finished: equ 04250h ; last def. pass 3
 BIOS_BDRCLR: equ 0F3EBh ; last def. pass 3
 BIOS_H_MKI: equ 0FE30h ; last def. pass 3
 BIOS_H_RSLF: equ 0FE8Fh ; last def. pass 3
 BIOS_FNKSB: equ 0C9h ; last def. pass 3
 BIOS_ARYTAB: equ 0F6C4h ; last def. pass 3
+TileColors_SmallBricks_Start: equ 0420Eh ; last def. pass 3
 BIOS_CHRGTR: equ 010h ; last def. pass 3
 BIOS_ONELIN: equ 0F6B9h ; last def. pass 3
 COLOR_YELLOW: equ 0Bh ; last def. pass 3
@@ -283,6 +286,7 @@ BIOS_TEMP: equ 0F6A7h ; last def. pass 3
 BIOS_EOL: equ 0168h ; last def. pass 3
 BIOS_PHYDIO: equ 0144h ; last def. pass 3
 BIOS_H_FINI: equ 0FF16h ; last def. pass 3
+TileColors_SmallBricks_End: equ 04216h ; last def. pass 3
 BIOS_HOLD2: equ 0F836h ; last def. pass 3
 BIOS_CLRSPR: equ 069h ; last def. pass 3
 BIOS_LFPROG: equ 0F954h ; last def. pass 3
