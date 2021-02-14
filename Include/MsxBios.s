@@ -592,3 +592,11 @@ BIOS_ENAINT:  equ 0xffd4
 ;https://github.com/nataliapc/MSX_devs/blob/master/sdcc_projects/sc2view/includes/msx_const.h
 ; #define ADDR_CLIKSW		0xf3db	//Key Press Click Switch 0:Off 1:On (1B/RW)
 ADDR_CLIKSW:   equ 0xf3db	;Key Press Click Switch 0:Off 1:On (1B/RW)
+
+
+
+; MSX system hooks
+	HKEYI:	equ $fd9a ; Interrupt handler
+	HTIMI:	equ $fd9f ; Interrupt handler
+
+	HOOK_SIZE:	equ HTIMI - HKEYI

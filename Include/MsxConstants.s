@@ -1,0 +1,18 @@
+;-----------------------------------------------
+; MSX1 colors:
+COLOR_TRANSPARENT:	equ 0
+COLOR_BLACK:		equ 1
+COLOR_GREEN:		equ 2
+COLOR_LIGHT_GREEN:	equ 3
+COLOR_DARK_BLUE:	equ 4
+COLOR_BLUE:			equ 5
+COLOR_DARK_RED:		equ 6
+COLOR_LIGHT_BLUE:	equ 7
+COLOR_RED:			equ 8
+COLOR_LIGHT_RED:	equ 9
+COLOR_DARK_YELLOW:	equ 10
+COLOR_YELLOW:		equ 11
+COLOR_DARK_GREEN:	equ 12
+COLOR_PURPLE:		equ 13
+COLOR_GREY:			equ 14
+COLOR_WHITE:		equ 15

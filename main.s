@@ -1,4 +1,4 @@
-
+;
 ; Penguim Platformer for MSX 1
 ; Andre Baptista (www.andrebaptista.com.br)
 ; 
@@ -7,9 +7,6 @@
 
 FNAME "penguim-platformer.rom"      ; output file
 
-    INCLUDE "Include/MsxBios.s"
-
-    INCLUDE "Include/Vram.s"
 
 
 ;RomSize:	equ 0x4000	            ; For 16kB Rom size.
@@ -24,6 +21,21 @@ RomSize:	equ 0x8000	            ; For 32kB Rom size.
     INCLUDE "Include/RomHeader.s"
 
 
+; Include common routines
+    INCLUDE "Include/MsxBios.s"
+    INCLUDE "Include/MsxConstants.s"
+    INCLUDE "Include/Vram.s"
+    INCLUDE "Include/CommonRoutines.s"
+    INCLUDE "Hook.s"
+
+; Include game routines
+    INCLUDE "GameLogic/GameLogic.s"
+
+; Include game data
+    INCLUDE "Graphics/Sprites/Sprites.s"
+    INCLUDE "Graphics/Tiles/Patterns.s"
+    INCLUDE "Graphics/Tiles/Colors.s"
+
 ; Program code entry point
 Execute:
 ; init interrupt mode and stack pointer (in case the ROM isn't the first thing to be loaded)
@@ -35,209 +47,80 @@ Execute:
 
     call    InitVram
 
-
     call    EnableRomPage2
 
+; Install the interrupt routine
+	di
+	ld	a, $c3 ; opcode for "JP nn"
+	ld	[HTIMI], a
+	ld	hl, HOOK
+	ld	[HTIMI +1], hl
+	ei
+; 
 
-; TODO: CONTINUE HERE
+    ;call    NewGame
+
+
+; Main loop
+MainLoop:
+	halt			        ; (v-blank sync)
+	; call	LDIRVM_SPRATR	; Blits the SPRATR buffer
+	; call	MOVE_PLAYER	; Moves the player
+	; call	ANIMATE_SPRITE	; Animates the sprite
+
+    ld 		a, COLOR_YELLOW       	; Border color
+    ld 		(BIOS_BDRCLR), a    
+    call 	BIOS_CHGCLR        		; Change Screen Color
+
+	; call	FAST_LDIRVM_NamesTable
+	call	FAST_LDIRVM_SpriteAttrTable
+
+    ; ld 		a, COLOR_BLUE       	; Border color
+    ; ld 		(BIOS_BDRCLR), a    
+    ; call 	BIOS_CHGCLR        		; Change Screen Color
+
+	call	GameLogic
+	
+	call	Delay
+
+    ld 		a, COLOR_PURPLE       	; Border color
+    ld 		(BIOS_BDRCLR), a    
+    call 	BIOS_CHGCLR        		; Change Screen Color
+
+	jp	    MainLoop
+
+
+Finished:
+	jr	    Finished	    ; Jump to itself endlessly.
+
+
+End:
+	ds      TableAlignedDataStart - End, 255	; 8000h + RomSize - End if org 8000h
 
 
 
-; -----------------------------------------------------------------------------
-; MSXlib helper: default configuration
-	include	"lib/rom-default.asm"
-; -----------------------------------------------------------------------------
+	org     0xbf00	                            ; table aligned data
+TableAlignedDataStart:
+TableAlignedDataEnd:
 
-; -----------------------------------------------------------------------------
-; Game entry point
-INIT:
+; Padding with 255 to make the file of 16K/32K size (can be 4K, 8K, 16k, etc) but
+; some MSX emulators or Rom loaders can not load 4K/8K Roms.
+; (Alternatively, include macros.asm and use ALIGN 4000H)
+	ds      0x4000 + RomSize - TableAlignedDataEnd, 255	; 8000h + RomSize - End if org 8000h
 
-; Besides the minimal initialization, the MSXlib hook has been installed
-; And VRAM buffer, text, and logical coordinates sprites routines are available
-; as well as input, timing & pause routines
 
-;
-; YOUR CODE (ROM) START HERE
-;
-; Example:           
 
-;
+; Variables (mapped to RAM memory)
+	org     0xc000, 0xefff                   ; for machines with 16kb of RAM (use it if you need 16kb RAM, will crash on 8kb machines, such as the Casio PV-7)
+	; CAUTION: do not use 0xe000, it causes the game to crash on real machines with some SD mappers
+    ;org 0xe000                          ; for machines with 8kb of RAM (use it if you need 8kb RAM or less, will work on any machine)
 
-; Charset and sprite patterns
-	call	INIT_GRAPHICS
+; use max addr for RAM:
+;         ORG  4000h,7FFFh        ; start from 4000h, warn if exceeding 7FFFh
 
-; Prepares the VRAM buffer of the NAMTBL
-	ld	hl, .MY_SCREEN_PACKED
-	ld	de, namtbl_buffer
-	call	UNPACK
+RamStart:
 
-; Initializes one sprite in the NAMTBL buffer
-	call	RESET_SPRITES
+    INCLUDE "Ram/Variables.s"
+    INCLUDE "Ram/VramBuffers.s"
 
-	ld	e, 96	; y
-	ld	d, 128	; x
-	ld	c, $40	; pattern
-	ld	b, 15	; color
-	call	PUT_SPRITE
-
-; Re-enables the screen, but using a fade-in to blit the NAMTBL buffer
-	call	ENASCR_FADE_IN
-
-; (infinite loop)
-.LOOP:
-	halt			; (sync)
-	call	LDIRVM_SPRATR	; Blits the SPRATR buffer
-	call	MOVE_PLAYER	; Moves the player
-	call	ANIMATE_SPRITE	; Animates the sprite
-	jr	.LOOP
-
-.MY_SCREEN_PACKED:
-	incbin	"games/examples/shared/screen.tmx.bin.zx7"
-; -----------------------------------------------------------------------------
-
-; -----------------------------------------------------------------------------
-INIT_GRAPHICS:
-; Uses MSXlib convenience routines
-; to unpack and LDIRVM the charset to the three banks
-	ld	hl, .MY_CHRTBL_PACKED
-	call	UNPACK_LDIRVM_CHRTBL
-	ld	hl, .MY_CLRTBL_PACKED
-	call	UNPACK_LDIRVM_CLRTBL
-
-; Also uses MSXlib to unpack and LDIRVM sprite patterns
-	ld	hl, .MY_SPRTBL_PACKED
-	ld	de, SPRTBL
-	ld	bc, SPRTBL_SIZE
-	jp	UNPACK_LDIRVM
-
-; The shared data of the examples
-.MY_CHRTBL_PACKED:
-	incbin	"games/examples/shared/charset.pcx.chr.zx7"
-.MY_CLRTBL_PACKED:
-	incbin	"games/examples/shared/charset.pcx.clr.zx7"
-.MY_SPRTBL_PACKED:
-	incbin	"games/examples/shared/sprites.pcx.spr.zx7"
-; -----------------------------------------------------------------------------
-
-; -----------------------------------------------------------------------------
-MOVE_PLAYER:
-; Uses MSXlib auto input to read the cursor or joystick
-
-; For the trigger, uses .edge to react only on new key presses
-	ld	a, [input.edge]
-	bit	BIT_TRIGGER_A, a
-	call	nz, ON_TRIGGER_A
-
-; For the movement, uses .level for fluid movement
-	ld	a, [input.level]
-
-	bit	BIT_STICK_UP, a
-	jr	nz, MOVE_PLAYER_UP
-
-	bit	BIT_STICK_DOWN, a
-	jr	nz, MOVE_PLAYER_DOWN
-
-	bit	BIT_STICK_LEFT, a
-	jr	nz, MOVE_PLAYER_LEFT
-
-	bit	BIT_STICK_RIGHT, a
-	jr	nz, MOVE_PLAYER_RIGHT
-
-	ret
-; -----------------------------------------------------------------------------
-
-; -----------------------------------------------------------------------------
-ON_TRIGGER_A:
-; Alternates the color of the sprite
-	ld	a, [spratr_buffer +3] ; color of sprite #0
-	xor	(15 XOR 14) ; alternates between 14 and 15
-	ld	[spratr_buffer +3], a
-	ret
-; -----------------------------------------------------------------------------
-
-; -----------------------------------------------------------------------------
-MOVE_PLAYER_UP:
-; Moves the sprite up (in spratr buffer)
-	ld	hl, spratr_buffer ; y of sprite #0
-	dec	[hl]
-; Changes the pattern (preserving the animation)
-	ld	a, [spratr_buffer + 2]; pattern of sprite #0
-	and	$07
-	or	$58
-	ld	[spratr_buffer + 2], a
-	ret
-; -----------------------------------------------------------------------------
-
-; -----------------------------------------------------------------------------
-MOVE_PLAYER_DOWN:
-; Moves the sprite down (in spratr buffer)
-	ld	hl, spratr_buffer ; y of sprite #0
-	inc	[hl]
-; Changes the pattern (preserving the animation)
-	ld	a, [spratr_buffer + 2]; pattern of sprite #0
-	and	$07
-	or	$50
-	ld	[spratr_buffer + 2], a
-	ret
-; -----------------------------------------------------------------------------
-
-; -----------------------------------------------------------------------------
-MOVE_PLAYER_LEFT:
-; Moves the sprite left (in spratr buffer)
-	ld	hl, spratr_buffer +1 ; x of sprite #0
-	dec	[hl]
-; Changes the pattern (preserving the animation)
-	ld	a, [spratr_buffer + 2]; pattern of sprite #0
-	and	$07
-	or	$48
-	ld	[spratr_buffer + 2], a
-	ret
-; -----------------------------------------------------------------------------
-
-; -----------------------------------------------------------------------------
-MOVE_PLAYER_RIGHT:
-; Moves the sprite right (in spratr buffer)
-	ld	hl, spratr_buffer +1 ; x of sprite #0
-	inc	[hl]
-; Changes the pattern (preserving the animation)
-	ld	a, [spratr_buffer + 2]; pattern of sprite #0
-	and	$07
-	or	$40
-	ld	[spratr_buffer + 2], a
-	ret
-; -----------------------------------------------------------------------------
-
-; -----------------------------------------------------------------------------
-ANIMATE_SPRITE:
-; Each 16 frames...
-	ld	a, [JIFFY]
-	and	$0f
-	ret	nz
-; ...animates the sprite (in spratr buffer)
-	ld	hl, spratr_buffer +2 ; pattern of sprite #0
-	ld	a, [hl]
-	xor	$04 ; (swaps with the next/previous pattern)
-	ld	[hl], a
-	ret
-; -----------------------------------------------------------------------------
-
-; -----------------------------------------------------------------------------
-
-	include	"lib/rom_end.asm"
-
-; -----------------------------------------------------------------------------
-; MSXlib core and game-related variables
-	include	"lib/ram.asm"
-
-; lib/ram.asm automatically starts the RAM section at the proper address
-; (either $C000 (16KB) or $E000 (8KB)) and includes everything MSXlib requires.
-
-;
-; YOUR VARIABLES (RAM) START HERE
-;
-
-; -----------------------------------------------------------------------------
-
-	include	"lib/ram_end.asm"
-
-; EOF
+RamEnd:
