@@ -33,8 +33,9 @@ RomSize:	equ 0x8000	            ; For 32kB Rom size.
 
 ; Include game data
     INCLUDE "Graphics/Sprites/Sprites.s"
-    INCLUDE "Graphics/Tiles/Patterns.s"
+    INCLUDE "Graphics/Tiles/Patterns/Patterns.s"
     INCLUDE "Graphics/Tiles/Colors.s"
+    INCLUDE "Graphics/TileMap.s"
 
 ; Program code entry point
 Execute:
@@ -60,6 +61,10 @@ Execute:
 
     ;call    NewGame
 
+    ; call initVariables
+    ld a, (BIOS_JIFFY)                  ; MSX BIOS time variable
+    or 0x80                             ; A value different of zero is granted
+    ld (SEED), a
 
 ; Main loop
 MainLoop:
@@ -72,7 +77,7 @@ MainLoop:
     ld 		(BIOS_BDRCLR), a    
     call 	BIOS_CHGCLR        		; Change Screen Color
 
-	; call	FAST_LDIRVM_NamesTable
+	call	FAST_LDIRVM_NamesTable
 	call	FAST_LDIRVM_SpriteAttrTable
 
     ; ld 		a, COLOR_BLUE       	; Border color
@@ -81,7 +86,7 @@ MainLoop:
 
 	call	GameLogic
 	
-	call	Delay
+	;call	Delay
 
     ld 		a, COLOR_PURPLE       	; Border color
     ld 		(BIOS_BDRCLR), a    
