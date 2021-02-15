@@ -1,4 +1,8 @@
-;-----------------------------------------------
+; Screen 2 constants:
+SCREEN_WIDTH_IN_TILES:          equ     32
+SCREEN_HEIGHT_IN_TILES:         equ     24
+
+
 ; MSX1 colors:
 COLOR_TRANSPARENT:	equ 0
 COLOR_BLACK:		equ 1

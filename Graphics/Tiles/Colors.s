@@ -1,21 +1,21 @@
 TileColors_Black_Start:
-        db  0x00
-        db  0x00
-        db  0x00
-        db  0x00
-        db  0x00
-        db  0x00
-        db  0x00
-        db  0x00
+        db  0x01
+        db  0x01
+        db  0x01
+        db  0x01
+        db  0x01
+        db  0x01
+        db  0x01
+        db  0x01
 TileColors_Black_End:
 
 TileColors_SmallBricks_Start:
-        db  0x00
-        db  0x70
-        db  0x50
-        db  0x50
-        db  0x00
-        db  0x50
-        db  0x40
-        db  0x40
+        db  0x01
+        db  0x71
+        db  0x51
+        db  0x51
+        db  0x01
+        db  0x51
+        db  0x41
+        db  0x41
 TileColors_SmallBricks_End:

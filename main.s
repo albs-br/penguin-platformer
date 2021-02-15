@@ -13,7 +13,7 @@ FNAME "penguim-platformer.rom"      ; output file
 RomSize:	equ 0x8000	            ; For 32kB Rom size.
 
 
-; DEBUG:      equ 255                 ; defines debug mode, value is irrelevant (comment it out for production version)
+DEBUG:      equ 255                 ; defines debug mode, value is irrelevant (comment it out for production version)
 
 ; Compilation address
 	org 0x4000	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
@@ -30,6 +30,7 @@ RomSize:	equ 0x8000	            ; For 32kB Rom size.
 
 ; Include game routines
     INCLUDE "GameLogic/GameLogic.s"
+    INCLUDE "GameLogic/Scroll.s"
 
 ; Include game data
     INCLUDE "Graphics/Sprites/Sprites.s"
@@ -73,24 +74,43 @@ MainLoop:
 	; call	MOVE_PLAYER	; Moves the player
 	; call	ANIMATE_SPRITE	; Animates the sprite
 
-    ld 		a, COLOR_YELLOW       	; Border color
-    ld 		(BIOS_BDRCLR), a    
-    call 	BIOS_CHGCLR        		; Change Screen Color
+    IFDEF DEBUG
+        ld 		a, COLOR_YELLOW       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
 
-	call	FAST_LDIRVM_NamesTable
 	call	FAST_LDIRVM_SpriteAttrTable
 
-    ; ld 		a, COLOR_BLUE       	; Border color
-    ; ld 		(BIOS_BDRCLR), a    
-    ; call 	BIOS_CHGCLR        		; Change Screen Color
+    IFDEF DEBUG
+        ld 		a, COLOR_BLUE       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
+
+	call	FAST_LDIRVM_NamesTable
+
 
 	call	GameLogic
+
+    IFDEF DEBUG
+        ld 		a, COLOR_LIGHT_GREEN       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
+
+	call	Scroll
 	
 	;call	Delay
 
-    ld 		a, COLOR_PURPLE       	; Border color
-    ld 		(BIOS_BDRCLR), a    
-    call 	BIOS_CHGCLR        		; Change Screen Color
+    IFDEF DEBUG
+        ld 		a, COLOR_PURPLE       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
+
+; .eternalLoop:
+;     jp .eternalLoop
 
 	jp	    MainLoop
 

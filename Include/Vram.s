@@ -94,7 +94,7 @@ InitVram:
     ; Set sprite attributes
 	; Y
     ld	    hl, SpriteAttrTableBuffer                   ; VRAM Address
-	ld	    a, 192-16-1                                 ; Value
+	ld	    a, 192-32-1                                 ; Value
 	ld      (hl), a
     ; X
     inc     hl

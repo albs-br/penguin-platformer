@@ -2,9 +2,12 @@
 
                                                 ; rb n  = reserve n bytes in RAM
                                                 ; rw n  = reserve n words in RAM
-    SEED:                       rw 1            ; Seed for random number generator
+SEED:                       rw 1            ; Seed for random number generator
 
-    X:                          rb 1
+X:                          rb 1
+
+BgScrollRegister:           rb 1
+;NextBgLineAddr:             rw 1
 
 
 ;     LevelDataStart:             rb LevelDataChunckSize * 100        ; reserve 1600 bytes for level data (100 max enemies per level)
@@ -16,8 +19,6 @@
 
 ;     CurrentBackgroundData_Unpacked:    rb 32 * 150      ; max 150 lines for bg data
 
-;     BgScrollRegister:           rb 1            ; 
-;     NextBgLineAddr:             rw 1
 
 ;     Level:                      rb 1            ; number of current level
     
