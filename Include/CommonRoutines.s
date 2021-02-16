@@ -152,30 +152,60 @@ FillColorTable:
 	; ld	de, ColorsTable+(Tile_Char_0_Number*8)     ; VRAM Address
 	; ld	hl, Colors_Char        ; RAM Address
 	; ld a, 10				; loop control variable
-; .loop:
-	ld	bc, 8               ; Block length
-	push hl
-    push af
-	push de
-	call BIOS_LDIRVM        ; Block transfer to VRAM from memory
-	pop de
-	pop af
+.loop:
+	ld	    bc, 8               ; Block length
+	push    hl
+    push    af
+	push    de
+	call    BIOS_LDIRVM        ; Block transfer to VRAM from memory
+	pop     de
+	pop     af
 	
-	ld	bc, 8               ; increment register pair de by 8
-	ld h, d					; 
-	ld l, e					;
-	add hl, bc
-	ld d, h
-	ld e, l
+	ld	    bc, 8               ; increment register pair de by 8
+	ld      h, d					; 
+	ld      l, e					;
+	add     hl, bc
+	ld      d, h
+	ld      e, l
 	
-	pop hl
+	pop     hl
 	
-	dec a
-	jr nz, FillColorTable
+	dec     a
+	jr      nz, .loop
 	
 	ret
 
+FillColorTable_3thirds:
+    ; Top third of screen
+    push    hl
+    push    de
+    push    af
+    call    FillColorTable
+    pop     af
+    pop     hl              ; from de to hl
+    ld      bc, 256 * 8     ; go to next color table
+    add     hl, bc
+    ld      d, h
+    ld      e, l
+    pop     hl
 
+    ; Middle third of screen
+    push    hl
+    push    de
+    push    af
+    call    FillColorTable
+    pop     af
+    pop     hl              ; from de to hl
+    ld      bc, 256 * 8     ; go to next color table
+    add     hl, bc
+    ld      d, h
+    ld      e, l
+    pop     hl
+    
+    ; Bottom third of screen
+    call    FillColorTable
+    
+    ret
 
 WaitSomeSeconds:
     ; Wait some seconds

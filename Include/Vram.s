@@ -134,40 +134,40 @@ LoadTilePatterns:
     ret
 
 
+
 LoadTileColors:
 	ld	    de, ColorsTable_1st_Third     	                                        ; VRAM color table start address
 	ld	    hl, TileColors_Black_Start                                              ; RAM start address of color pattern (8 bytes)
-	ld      a, 1;0 + (TileColors_Black_End - TileColors_Black_Start) / 8			; number of cells in color table to be filled by the pattern 
-	call    FillColorTable
+	ld      a, TilePatterns_Black_SizeInChars                                       ; number of cells in color table to be filled by the pattern
+	call    FillColorTable_3thirds
 
 	ld	    de, ColorsTable_1st_Third + 8    	                                    ; VRAM color table start address
 	ld	    hl, TileColors_SmallBricks_Start                                        ; RAM start address of color pattern (8 bytes)
-	ld      a, 8;0 + (TileColors_SmallBricks_End - TileColors_SmallBricks_Start) / 8  ; number of cells in color table to be filled by the pattern 
-	call    FillColorTable
+	ld      a, TilePatterns_SmallBricks_SizeInChars                                 ; number of cells in color table to be filled by the pattern
+	call    FillColorTable_3thirds
+
+
+	; ld	    de, ColorsTable_2nd_Third     	                                        ; VRAM color table start address
+	; ld	    hl, TileColors_Black_Start                                              ; RAM start address of color pattern (8 bytes)
+	; ld      a, 1;0 + (TileColors_Black_End - TileColors_Black_Start) / 8			; number of cells in color table to be filled by the pattern 
+	; call    FillColorTable
+
+	; ld	    de, ColorsTable_2nd_Third + 8    	                                    ; VRAM color table start address
+	; ld	    hl, TileColors_SmallBricks_Start                                        ; RAM start address of color pattern (8 bytes)
+	; ld      a, 24;0 + (TileColors_SmallBricks_End - TileColors_SmallBricks_Start) / 8  ; number of cells in color table to be filled by the pattern 
+	; call    FillColorTable
 
 
 
-	ld	    de, ColorsTable_2nd_Third     	                                        ; VRAM color table start address
-	ld	    hl, TileColors_Black_Start                                              ; RAM start address of color pattern (8 bytes)
-	ld      a, 1;0 + (TileColors_Black_End - TileColors_Black_Start) / 8			; number of cells in color table to be filled by the pattern 
-	call    FillColorTable
+	; ld	    de, ColorsTable_3rd_Third     	                                        ; VRAM color table start address
+	; ld	    hl, TileColors_Black_Start                                              ; RAM start address of color pattern (8 bytes)
+	; ld      a, 1;0 + (TileColors_Black_End - TileColors_Black_Start) / 8			; number of cells in color table to be filled by the pattern 
+	; call    FillColorTable
 
-	ld	    de, ColorsTable_2nd_Third + 8    	                                    ; VRAM color table start address
-	ld	    hl, TileColors_SmallBricks_Start                                        ; RAM start address of color pattern (8 bytes)
-	ld      a, 8;0 + (TileColors_SmallBricks_End - TileColors_SmallBricks_Start) / 8  ; number of cells in color table to be filled by the pattern 
-	call    FillColorTable
-
-
-
-	ld	    de, ColorsTable_3rd_Third     	                                        ; VRAM color table start address
-	ld	    hl, TileColors_Black_Start                                              ; RAM start address of color pattern (8 bytes)
-	ld      a, 1;0 + (TileColors_Black_End - TileColors_Black_Start) / 8			; number of cells in color table to be filled by the pattern 
-	call    FillColorTable
-
-	ld	    de, ColorsTable_3rd_Third + 8    	                                    ; VRAM color table start address
-	ld	    hl, TileColors_SmallBricks_Start                                        ; RAM start address of color pattern (8 bytes)
-	ld      a, 8;0 + (TileColors_SmallBricks_End - TileColors_SmallBricks_Start) / 8  ; number of cells in color table to be filled by the pattern 
-	call    FillColorTable
+	; ld	    de, ColorsTable_3rd_Third + 8    	                                    ; VRAM color table start address
+	; ld	    hl, TileColors_SmallBricks_Start                                        ; RAM start address of color pattern (8 bytes)
+	; ld      a, 24;0 + (TileColors_SmallBricks_End - TileColors_SmallBricks_Start) / 8  ; number of cells in color table to be filled by the pattern 
+	; call    FillColorTable
 
 
     ret
