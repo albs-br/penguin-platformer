@@ -67,7 +67,7 @@ Execute:
 
 ; Main loop
 MainLoop:
-	halt			        ; (v-blank sync)
+	halt			                    ; (v-blank sync)
 	; call	LDIRVM_SPRATR	; Blits the SPRATR buffer
 	; call	MOVE_PLAYER	; Moves the player
 	; call	ANIMATE_SPRITE	; Animates the sprite
@@ -86,18 +86,31 @@ MainLoop:
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF    
 
-	call	FAST_LDIRVM_NamesTable
+	; call	FAST_LDIRVM_NamesTable
+    call    Scroll_New
 
 
 	call	GameLogic
 
-    IFDEF DEBUG
-        ld 		a, COLOR_LIGHT_GREEN       	; Border color
-        ld 		(BIOS_BDRCLR), a    
-        call 	BIOS_CHGCLR        		; Change Screen Color
-    ENDIF    
+    ; IFDEF DEBUG
+    ;     ld 		a, COLOR_LIGHT_GREEN    ; Border color
+    ;     ld 		(BIOS_BDRCLR), a    
+    ;     call 	BIOS_CHGCLR        		; Change Screen Color
+    ; ENDIF    
 
-	call	Scroll
+	; call	Scroll
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	;call	Delay
 

@@ -76,7 +76,7 @@ ScrollTiles:
 
 Scroll_New:
 ; Sets the VRAM pointer
-	ld	    hl, NamesTableBuffer + (SCREEN_WIDTH_IN_TILES * 23)     ; start of last line
+	ld	    hl, NamesTable + (SCREEN_WIDTH_IN_TILES * 23)     ; start of last line
 	call    BIOS_SETWRT
 ; Initializes the OUTI loop
 	ld	    hl, (BgIndex)
@@ -86,18 +86,32 @@ Scroll_New:
 ; 32 Unrolled OUTIs (use only during v-blank)
     OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
 
-    ; TODO:
-	; ld	    hl, (BgIndex)
-    ; hl = hl + (TileMapSizeInColumns * FrameIndex)
-    ; ld        (BgIndex), hl
+	ld	    hl, (BgIndex)
+    ; hl = hl + TileMapSizeInColumns
+    ld      de, TileMapSizeInColumns
+    add     hl, de
+    ld      (BgIndex), hl
 
-    ; TODO:
-    ; inc (FrameIndex)
+    ; inc FrameIndex
+    ld      de, FrameIndex
+    ld      a, (de)
+    inc     a
 
     ; if (FrameIndex) == 8 {
     ;   FrameIndex = 0;
-    ;   BgIndexFirstFrame++;        
-    ;   BgIndex = BgIndexFirstFrame;
+    ;   (BgIndexFirstFrame)++;        
+    ;   (BgIndex) = (BgIndexFirstFrame);
     ; }
+    cp      8
+    jp      nz, .not8
 
+;FrameIndex == 8:
+    ld      hl, (BgIndexFirstFrame)
+    inc     hl
+    ld      (BgIndexFirstFrame), hl
+    ld      (BgIndex), hl
+
+    xor     a
+.not8:
+    ld      (de), a
 	ret
