@@ -10,6 +10,10 @@ BgScrollRegister:           rb 1
 ;NextBgLineAddr:             rw 1
 
 
+FrameIndex:                 rb 1
+BgIndex:                    rw 1
+BgIndexFirstFrame:          rw 1
+
 ;     LevelDataStart:             rb LevelDataChunckSize * 100        ; reserve 1600 bytes for level data (100 max enemies per level)
 ;     LevelDataEnd:               rb 1
 ;     LevelDataLastAddr:          rw 1

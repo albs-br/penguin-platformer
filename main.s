@@ -31,6 +31,7 @@ DEBUG:      equ 255                 ; defines debug mode, value is irrelevant (c
 ; Include game routines
     INCLUDE "GameLogic/GameLogic.s"
     INCLUDE "GameLogic/Scroll.s"
+    INCLUDE "GameLogic/InitVariables.s"
 
 ; Include game data
     INCLUDE "Graphics/Sprites/Sprites.s"
@@ -62,10 +63,7 @@ Execute:
 
     ;call    NewGame
 
-    ; call initVariables
-    ld a, (BIOS_JIFFY)                  ; MSX BIOS time variable
-    or 0x80                             ; A value different of zero is granted
-    ld (SEED), a
+    call    InitVariables
 
 ; Main loop
 MainLoop:
