@@ -1,90 +1,108 @@
-Scroll:
+; Scroll:
 
-    ; search names table buffer looking for tiles 
-    ; other than 0
-    ld      hl, NamesTableBuffer + 512
-    xor     a                           ; same as ld a, 0
-    ld      b, 0                        ; counter
-.loop:
-    or      (hl)
-    jp      z, .next
+;     ; search names table buffer looking for tiles 
+;     ; other than 0
+;     ld      hl, NamesTableBuffer + 512
+;     xor     a                           ; same as ld a, 0
+;     ld      b, 0                        ; counter
+; .loop:
+;     or      (hl)
+;     jp      z, .next
 
-.animate:
+; .animate:
 
-    inc     (hl)
+;     inc     (hl)
 
-.next:
+; .next:
 
-    inc     hl
-    djnz    .loop
+;     inc     hl
+;     djnz    .loop
     
-    ; at each 8 pixel fine scrolls, do a tile scroll
-    ld      a, (BgScrollRegister)
-    inc     a
-    cp      8
-    call    z, ScrollTiles
+;     ; at each 8 pixel fine scrolls, do a tile scroll
+;     ld      a, (BgScrollRegister)
+;     inc     a
+;     cp      8
+;     call    z, ScrollTiles
 
-    ld      (BgScrollRegister), a
+;     ld      (BgScrollRegister), a
 
-    ; call    UpdateNamesTable_BackGround
-    ;call    UpdateNamesTable
+;     ; call    UpdateNamesTable_BackGround
+;     ;call    UpdateNamesTable
 
-    ret
+;     ret
 
-ScrollTiles:
+; ScrollTiles:
 
-; test only last line
+; ; test only last line
 
-    ; scroll all tiles
-	; ld	    hl, (NextBgLineAddr)
-	ld	    hl, TileMap_LevelTest_Start + SCREEN_HEIGHT_IN_TILES - 1    ; Origin
-    ld      de, NamesTableBuffer + (SCREEN_WIDTH_IN_TILES * 23)         ; Destiny
-    ld      b, SCREEN_WIDTH_IN_TILES - 1
-.loop:
-    ld      a, (hl)
-    ld      (de), a
-    push    bc
-    ld      bc, SCREEN_HEIGHT_IN_TILES
-    add     hl, bc
-    pop     bc
-    inc     de
-; .loopEnternal:
-;     jp .loopEnternal
-    djnz    .loop    
+;     ; scroll all tiles
+; 	; ld	    hl, (NextBgLineAddr)
+; 	ld	    hl, TileMap_LevelTest_Start + SCREEN_HEIGHT_IN_TILES - 1    ; Origin
+;     ld      de, NamesTableBuffer + (SCREEN_WIDTH_IN_TILES * 23)         ; Destiny
+;     ld      b, SCREEN_WIDTH_IN_TILES - 1
+; .loop:
+;     ld      a, (hl)
+;     ld      (de), a
+;     push    bc
+;     ld      bc, SCREEN_HEIGHT_IN_TILES
+;     add     hl, bc
+;     pop     bc
+;     inc     de
+; ; .loopEnternal:
+; ;     jp .loopEnternal
+;     djnz    .loop    
 
-    ;inc     de
-    ld      a, 1
-    ld      (de), a ; load tile in last column
+;     ;inc     de
+;     ld      a, 1
+;     ld      (de), a ; load tile in last column
 
 
-    ; load next bg line
-    ; ld	    hl, (NextBgLineAddr)
-	; ld	    bc, 32                                                  ; Block length
-    ; and     a                                                       ; Clear C flag
-    ; sbc     hl, bc
-    ; ld	    (NextBgLineAddr), hl
-    ; ld      de, NamesTableBuffer + SCREEN_WIDTH_IN_TILES            ; Destiny
-    ; ; ldir                                                        ; Copy BC number of bytes from HL to DE
-    ; ; 32 unrolled ldi's (160 less cycles). Made with MSXUtilities
-    ; ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi 
+;     ; load next bg line
+;     ; ld	    hl, (NextBgLineAddr)
+; 	; ld	    bc, 32                                                  ; Block length
+;     ; and     a                                                       ; Clear C flag
+;     ; sbc     hl, bc
+;     ; ld	    (NextBgLineAddr), hl
+;     ; ld      de, NamesTableBuffer + SCREEN_WIDTH_IN_TILES            ; Destiny
+;     ; ; ldir                                                        ; Copy BC number of bytes from HL to DE
+;     ; ; 32 unrolled ldi's (160 less cycles). Made with MSXUtilities
+;     ; ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi ldi 
 
-    ; clear BgScrollRegister when exit subroutine
-    xor     a                                                       ; same as ld a, 0 but faster
+;     ; clear BgScrollRegister when exit subroutine
+;     xor     a                                                       ; same as ld a, 0 but faster
 
-    ret
+;     ret
 
 
 Scroll_New:
-; Sets the VRAM pointer
-	ld	    hl, NamesTable + (SCREEN_WIDTH_IN_TILES * 23)     ; start of last line
+; Sets the VRAM pointer (destiny)
+	ld	    hl, NamesTable
 	call    BIOS_SETWRT
-; Initializes the OUTI loop
+    ld      d, 24
+.loopLines:
+; Set the source pointer in RAM
 	ld	    hl, (BgIndex)
+
+    ; ld hl, TileMap_LevelTest_LastLine_Start ; debug
 
 	ld	    a, (BIOS_VDP_DW)
 	ld	    c, a
 ; 32 Unrolled OUTIs (use only during v-blank)
-    OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
+    ;OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
+    
+    ; TODO: partial unroll here
+    ;outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ld      b, 32
+ .loopOUTI:
+    outi
+ 	jp	    nz, .loopOUTI
+
+    dec     d
+    jp      nz, .loopLines
+
+; .forever:
+;     jp .forever
+
 
 	ld	    hl, (BgIndex)
     ; hl = hl + TileMapSizeInColumns
@@ -114,4 +132,5 @@ Scroll_New:
     xor     a
 .not8:
     ld      (de), a
-	ret
+    
+    ret

@@ -81,7 +81,7 @@ InitVram:
     call    LoadTilePatterns
     call    LoadTileColors
 
-    call    LoadNamesTableBuffer
+    ;call    LoadNamesTableBuffer
 
 
 
@@ -172,34 +172,33 @@ LoadTileColors:
 
     ret
 
-LoadNamesTableBuffer:
-    ; load first column
-    ld      hl, NamesTableBuffer
-    ld      de, TileMap_LevelTest_Start
-    ld      c, 32
-    
+; LoadNamesTableBuffer:
+;     ; load first column
+;     ld      hl, NamesTableBuffer
+;     ld      de, TileMap_LevelTest_Start
+;     ld      c, 32
 
-.loopColumns: 
-    push    hl
-    ld      b, 24
+; .loopColumns: 
+;     push    hl
+;     ld      b, 24
 
-.loopLines:
-    ld      a, (de)
-    ld      (hl), a
+; .loopLines:
+;     ld      a, (de)
+;     ld      (hl), a
 
-    inc     de
-    push    bc
-    ld      bc, 32
-    add     hl, bc
-    pop     bc
+;     inc     de
+;     push    bc
+;     ld      bc, 32
+;     add     hl, bc
+;     pop     bc
 
-    djnz    .loopLines
+;     djnz    .loopLines
 
-    pop     hl
-    inc     hl
+;     pop     hl
+;     inc     hl
 
-    ;inc     de
-    dec     c
-    jp      nz, .loopColumns
+;     ;inc     de
+;     dec     c
+;     jp      nz, .loopColumns
 
-    ret
+;     ret
