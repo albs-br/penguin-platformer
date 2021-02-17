@@ -1,4 +1,4 @@
-; Scroll:
+; Scroll_old:
 
 ;     ; search names table buffer looking for tiles 
 ;     ; other than 0
@@ -74,7 +74,16 @@
 ;     ret
 
 
-Scroll_New:
+Scroll:
+    ; check if scroll is at limit
+    ld      hl, (BgCurrentIndex)
+    ld      de, 8 * (TileMapSizeInColumns - SCREEN_WIDTH_IN_TILES + 1)
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    ret     nc
+
+    inc     hl
+    ld      (BgCurrentIndex), hl
+
     ; Sets the VRAM pointer (destiny)
 	ld	    hl, NamesTable
 	call    BIOS_SETWRT

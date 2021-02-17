@@ -92,7 +92,7 @@ MainLoop:
     ENDIF    
 
 	; call	FAST_LDIRVM_NamesTable
-    call    Scroll_New
+    call    Scroll
 
 
 	call	GameLogic

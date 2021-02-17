@@ -4,6 +4,7 @@ InitVariables:
     ld      (SEED), a
 
     xor     a
+    ld      (BgCurrentIndex), a
     ld      (FrameIndex), a
 
     ; ld      hl, TileMap_LevelTest_LastLine_Start
