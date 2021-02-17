@@ -16,28 +16,33 @@ RomSize:	equ 0x8000	            ; For 32kB Rom size.
 DEBUG:      equ 255                 ; defines debug mode, value is irrelevant (comment it out for production version)
 
 ; Compilation address
-	org 0x4000	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
+	org 0x4000, 0xbeff	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
  
     INCLUDE "Include/RomHeader.s"
 
-
 ; Include common routines
+CommonIncludes_Start:
     INCLUDE "Include/MsxBios.s"
     INCLUDE "Include/MsxConstants.s"
     INCLUDE "Include/Vram.s"
     INCLUDE "Include/CommonRoutines.s"
-    INCLUDE "Hook.s"
+    INCLUDE "Include/Hook.s"
+CommonIncludes_Size:    equ $ - CommonIncludes_Start
 
 ; Include game routines
+GameIncludes_Start:
     INCLUDE "GameLogic/GameLogic.s"
     INCLUDE "GameLogic/Scroll.s"
     INCLUDE "GameLogic/InitVariables.s"
+GameIncludes_Size:      equ $ - GameIncludes_Start
 
 ; Include game data
+GameData_Start:
     INCLUDE "Graphics/Sprites/Sprites.s"
     INCLUDE "Graphics/Tiles/Patterns/Patterns.s"
     INCLUDE "Graphics/Tiles/Colors.s"
     INCLUDE "Graphics/TileMap.s"
+GameData_Size:          equ $ - GameData_Start
 
 ; Program code entry point
 Execute:
@@ -50,14 +55,14 @@ Execute:
 
     call    InitVram
 
-    call    EnableRomPage2
+    ;call    EnableRomPage2
 
 ; Install the interrupt routine
 	di
-	ld	a, $c3 ; opcode for "JP nn"
-	ld	[HTIMI], a
-	ld	hl, HOOK
-	ld	[HTIMI +1], hl
+	ld	    a, $c3 ; opcode for "JP nn"
+	ld	    (HTIMI), a
+	ld	    hl, HOOK
+	ld	    (HTIMI + 1), hl
 	ei
 ; 
 
@@ -99,16 +104,6 @@ MainLoop:
     ; ENDIF    
 
 	; call	Scroll
-
-
-
-
-
-
-
-
-
-
 
 
 	

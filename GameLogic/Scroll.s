@@ -75,30 +75,34 @@
 
 
 Scroll_New:
-; Sets the VRAM pointer (destiny)
+    ; Sets the VRAM pointer (destiny)
 	ld	    hl, NamesTable
 	call    BIOS_SETWRT
-    ld      d, 24
-.loopLines:
-; Set the source pointer in RAM
-	ld	    hl, (BgIndex)
 
-    ; ld hl, TileMap_LevelTest_LastLine_Start ; debug
+            ld      d, 24
+        .loopLines:
+            ; Set the source pointer in RAM
+            ld	    hl, (BgIndex)
 
-	ld	    a, (BIOS_VDP_DW)
-	ld	    c, a
-; 32 Unrolled OUTIs (use only during v-blank)
-    ;OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
-    
-    ; TODO: partial unroll here
-    ;outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    ld      b, 32
- .loopOUTI:
-    outi
- 	jp	    nz, .loopOUTI
+            ; ld hl, TileMap_LevelTest_LastLine_Start ; debug
 
-    dec     d
-    jp      nz, .loopLines
+            ld	    a, (BIOS_VDP_DW)
+            ld	    c, a
+            ; 32 Unrolled OUTIs (use only during v-blank)
+            ;OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
+            
+            ; TODO: partial unroll here
+            ;outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+                    ld      b, 32
+                .loopOUTI:
+                    outi
+                    jp	    nz, .loopOUTI
+
+            ;TODO: update bgIndex to next line
+            ; BgIndex += 128 * 8
+
+            dec     d
+            jp      nz, .loopLines
 
 ; .forever:
 ;     jp .forever
@@ -123,7 +127,7 @@ Scroll_New:
     cp      8
     jp      nz, .not8
 
-;FrameIndex == 8:
+    ;FrameIndex == 8:
     ld      hl, (BgIndexFirstFrame)
     inc     hl
     ld      (BgIndexFirstFrame), hl

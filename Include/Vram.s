@@ -32,7 +32,7 @@ InitVram:
 
 
     ld 		a, 0
-    ld 		(ADDR_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
+    ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
 
     ; call BIOS_INIGRP        ; Screen 2
 
