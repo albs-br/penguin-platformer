@@ -79,10 +79,12 @@ Scroll_New:
 	ld	    hl, NamesTable
 	call    BIOS_SETWRT
 
+            ld	    hl, (BgIndex)
             ld      d, 24
         .loopLines:
             ; Set the source pointer in RAM
-            ld	    hl, (BgIndex)
+            ; ld	    hl, (BgIndex)
+            push    hl
 
             ; ld hl, TileMap_LevelTest_LastLine_Start ; debug
 
@@ -100,6 +102,9 @@ Scroll_New:
 
             ;TODO: update bgIndex to next line
             ; BgIndex += 128 * 8
+            pop     hl
+            ld      bc, 64 * 8
+            add     hl, bc
 
             dec     d
             jp      nz, .loopLines

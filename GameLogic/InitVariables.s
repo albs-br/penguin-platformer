@@ -6,7 +6,8 @@ InitVariables:
     xor     a
     ld      (FrameIndex), a
 
-    ld      hl, TileMap_LevelTest_LastLine_Start
+    ; ld      hl, TileMap_LevelTest_LastLine_Start
+    ld      hl, TileMap_LevelTest_Start
     ld      (BgIndex), hl
     ld      (BgIndexFirstFrame), hl
 
