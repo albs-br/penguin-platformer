@@ -92,8 +92,15 @@ MainLoop:
     ENDIF    
 
 	; call	FAST_LDIRVM_NamesTable
-    call    Scroll
 
+    ld      a, (ScrollDirection)
+    or      a
+    jp      nz, .goLeft
+    call    ScrollRight
+    jp      .continue
+.goLeft:
+    call    ScrollLeft
+.continue:
 
 	call	GameLogic
 

@@ -6,7 +6,7 @@ SEED:                       rw 1            ; Seed for random number generator
 
 X:                          rb 1
 
-BgScrollRegister:           rb 1
+; BgScrollRegister:           rb 1
 ;NextBgLineAddr:             rw 1
 
 BgCurrentIndex:             rw 1        ; current position of screen in the background
@@ -14,3 +14,7 @@ BgCurrentIndex:             rw 1        ; current position of screen in the back
 FrameIndex:                 rb 1        ; frame index inside a tile (0-7)
 BgIndex:                    rw 1
 BgIndexFirstFrame:          rw 1
+
+
+
+ScrollDirection:             rb 1

@@ -7,6 +7,8 @@ InitVariables:
     ld      (BgCurrentIndex), a
     ld      (FrameIndex), a
 
+    ld      (ScrollDirection), a
+
     ; ld      hl, TileMap_LevelTest_LastLine_Start
     ld      hl, TileMap_LevelTest_Start
     ld      (BgIndex), hl

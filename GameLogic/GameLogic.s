@@ -1,7 +1,7 @@
 GameLogic:
 
-    ld      hl, X
-    inc     (hl)
+    ; ld      hl, X
+    ; inc     (hl)
 
     call    UpdateSpriteAttrTableBuffer
 
