@@ -1,11 +1,11 @@
 ;
-; Penguim Platformer for MSX 1
+; Penguin Platformer for MSX 1
 ; Andre Baptista (www.andrebaptista.com.br)
 ; 
 ; some code from MSXlib basic example
 ;
 
-FNAME "penguim-platformer.rom"      ; output file
+FNAME "penguin-platformer.rom"      ; output file
 
 
 
