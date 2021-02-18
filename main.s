@@ -34,6 +34,7 @@ GameIncludes_Start:
     INCLUDE "GameLogic/GameLogic.s"
     INCLUDE "GameLogic/Scroll.s"
     INCLUDE "GameLogic/InitVariables.s"
+    INCLUDE "GameLogic/GameConstants.s"
 GameIncludes_Size:      equ $ - GameIncludes_Start
 
 ; Include game data

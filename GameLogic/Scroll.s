@@ -77,7 +77,7 @@
 ScrollRight:
     ; check if scroll is at limit
     ld      hl, (BgCurrentIndex)
-    ld      de, 8 * (TileMapSizeInColumns - SCREEN_WIDTH_IN_TILES + 1)
+    ld      de, 8 * (TileMapSizeInColumns - SCREEN_WIDTH_IN_TILES)
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     ;ret     nc
 
@@ -101,7 +101,7 @@ ScrollRight:
             ld	    hl, (BgIndex)
             
             ; First n lines with unroled OUTI's during Vblank
-            ld      d, 16
+            ld      d, SCROLL_TILE_LINES_DURING_VBLANK
         .loopLines1:
             ; Set the source pointer in RAM
             ; ld	    hl, (BgIndex)
@@ -126,8 +126,8 @@ ScrollRight:
 
 
             ; last 24-n lines with the slower OUTI inside loop after Vblank
-            ld      d, 8
-        .loopLines:
+            ld      d, SCROLL_TILE_LINES_AFTER_VBLANK
+        .loopLines2:
             ; Set the source pointer in RAM
             ; ld	    hl, (BgIndex)
             push    hl
@@ -149,8 +149,7 @@ ScrollRight:
             add     hl, bc
 
             dec     d
-            jp      nz, .loopLines
-
+            jp      nz, .loopLines2
 
 
 
@@ -212,8 +211,10 @@ ScrollLeft:
 	call    BIOS_SETWRT
 
             ld	    hl, (BgIndex)
-            ld      d, 24
-        .loopLines:
+
+            ; First n lines with unroled OUTI's during Vblank
+            ld      d, SCROLL_TILE_LINES_DURING_VBLANK
+        .loopLines1:
             ; Set the source pointer in RAM
             ; ld	    hl, (BgIndex)
             push    hl
@@ -223,10 +224,31 @@ ScrollLeft:
             ld	    a, (BIOS_VDP_DW)
             ld	    c, a
             ; 32 Unrolled OUTIs (use only during v-blank)
-            ;OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
+            OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
             
-            ; TODO: partial unroll here
-            ;outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+            ; Update bgIndex to next line
+            ; BgIndex += 128 * 8
+            pop     hl
+            ld      bc, TileMapSizeInColumns * 8
+            add     hl, bc
+
+            dec     d
+            jp      nz, .loopLines1
+
+
+
+            ; last 24-n lines with the slower OUTI inside loop after Vblank
+            ld      d, SCROLL_TILE_LINES_AFTER_VBLANK
+        .loopLines2:
+            ; Set the source pointer in RAM
+            ; ld	    hl, (BgIndex)
+            push    hl
+
+            ; ld hl, TileMap_LevelTest_LastLine_Start ; debug
+
+            ld	    a, (BIOS_VDP_DW)
+            ld	    c, a
+
                     ld      b, 32
                 .loopOUTI:
                     outi
@@ -239,10 +261,8 @@ ScrollLeft:
             add     hl, bc
 
             dec     d
-            jp      nz, .loopLines
+            jp      nz, .loopLines2
 
-; .forever:
-;      jp .forever
 
 
 	ld	    hl, (BgIndex)
