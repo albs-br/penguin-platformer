@@ -99,8 +99,10 @@ ScrollRight:
 	call    BIOS_SETWRT
 
             ld	    hl, (BgIndex)
-            ld      d, 24
-        .loopLines:
+            
+            ; First n lines with unroled OUTI's during Vblank
+            ld      d, 16
+        .loopLines1:
             ; Set the source pointer in RAM
             ; ld	    hl, (BgIndex)
             push    hl
@@ -110,10 +112,31 @@ ScrollRight:
             ld	    a, (BIOS_VDP_DW)
             ld	    c, a
             ; 32 Unrolled OUTIs (use only during v-blank)
-            ;OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
-            
-            ; TODO: partial unroll here
-            ;outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+            OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
+
+            ; Update bgIndex to next line
+            ; BgIndex += 128 * 8
+            pop     hl
+            ld      bc, TileMapSizeInColumns * 8
+            add     hl, bc
+
+            dec     d
+            jp      nz, .loopLines1
+
+
+
+            ; last 24-n lines with the slower OUTI inside loop after Vblank
+            ld      d, 8
+        .loopLines:
+            ; Set the source pointer in RAM
+            ; ld	    hl, (BgIndex)
+            push    hl
+
+            ; ld hl, TileMap_LevelTest_LastLine_Start ; debug
+
+            ld	    a, (BIOS_VDP_DW)
+            ld	    c, a
+
                     ld      b, 32
                 .loopOUTI:
                     outi
@@ -128,8 +151,7 @@ ScrollRight:
             dec     d
             jp      nz, .loopLines
 
-; .forever:
-;     jp .forever
+
 
 
 	ld	    hl, (BgIndex)
