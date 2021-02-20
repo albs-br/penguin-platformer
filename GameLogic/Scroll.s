@@ -74,6 +74,19 @@
 ;     ret
 
 
+NextPage:
+    inc     e   ; next page
+    ld      a, e
+	ld	    (Seg_P8000_SW), a
+
+    ; hl -= TileMapSizeInColumns * 8 * 4
+    ld      bc, - TileMapSizeInColumns * 8 * 4
+    add     hl, bc
+
+    ret
+
+
+
 ScrollRight:
     ; check if scroll is at limit
     ld      hl, (BgCurrentIndex)
@@ -100,14 +113,16 @@ ScrollRight:
 
             ld	    hl, (BgIndex)
             
+            ; set MegaROM initial page
+            ld      e, 1                    
+            ld      a, e
+	        ld	    (Seg_P8000_SW), a
+
             ; First n lines with unroled OUTI's during Vblank
             ld      d, SCROLL_TILE_LINES_DURING_VBLANK
         .loopLines1:
             ; Set the source pointer in RAM
-            ; ld	    hl, (BgIndex)
             push    hl
-
-            ; ld hl, TileMap_LevelTest_LastLine_Start ; debug
 
             ld	    a, (BIOS_VDP_DW)
             ld	    c, a
@@ -120,6 +135,12 @@ ScrollRight:
             ld      bc, TileMapSizeInColumns * 8
             add     hl, bc
 
+            ; check if line is multiple of 4 (go to next page)
+            ld      a, d
+            dec     a
+            and     0000 0011 b
+            call    z, NextPage
+
             dec     d
             jp      nz, .loopLines1
 
@@ -129,10 +150,7 @@ ScrollRight:
             ld      d, SCROLL_TILE_LINES_AFTER_VBLANK
         .loopLines2:
             ; Set the source pointer in RAM
-            ; ld	    hl, (BgIndex)
             push    hl
-
-            ; ld hl, TileMap_LevelTest_LastLine_Start ; debug
 
             ld	    a, (BIOS_VDP_DW)
             ld	    c, a
@@ -147,6 +165,12 @@ ScrollRight:
             pop     hl
             ld      bc, TileMapSizeInColumns * 8
             add     hl, bc
+
+            ; check if line is multiple of 4 (go to next page)
+            ld      a, d
+            dec     a
+            and     0000 0011 b
+            call    z, NextPage
 
             dec     d
             jp      nz, .loopLines2
@@ -212,14 +236,16 @@ ScrollLeft:
 
             ld	    hl, (BgIndex)
 
+            ; set MegaROM initial page
+            ld      e, 1                    
+            ld      a, e
+	        ld	    (Seg_P8000_SW), a
+
             ; First n lines with unroled OUTI's during Vblank
             ld      d, SCROLL_TILE_LINES_DURING_VBLANK
         .loopLines1:
             ; Set the source pointer in RAM
-            ; ld	    hl, (BgIndex)
             push    hl
-
-            ; ld hl, TileMap_LevelTest_LastLine_Start ; debug
 
             ld	    a, (BIOS_VDP_DW)
             ld	    c, a
@@ -232,6 +258,12 @@ ScrollLeft:
             ld      bc, TileMapSizeInColumns * 8
             add     hl, bc
 
+            ; check if line is multiple of 4 (go to next page)
+            ld      a, d
+            dec     a
+            and     0000 0011 b
+            call    z, NextPage
+
             dec     d
             jp      nz, .loopLines1
 
@@ -241,10 +273,7 @@ ScrollLeft:
             ld      d, SCROLL_TILE_LINES_AFTER_VBLANK
         .loopLines2:
             ; Set the source pointer in RAM
-            ; ld	    hl, (BgIndex)
             push    hl
-
-            ; ld hl, TileMap_LevelTest_LastLine_Start ; debug
 
             ld	    a, (BIOS_VDP_DW)
             ld	    c, a
@@ -259,6 +288,12 @@ ScrollLeft:
             pop     hl
             ld      bc, TileMapSizeInColumns * 8
             add     hl, bc
+
+            ; check if line is multiple of 4 (go to next page)
+            ld      a, d
+            dec     a
+            and     0000 0011 b
+            call    z, NextPage
 
             dec     d
             jp      nz, .loopLines2

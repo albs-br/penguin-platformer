@@ -226,27 +226,27 @@ WaitSomeSeconds:
 
 ; Fill all VRAM with 0x00
 ClearVRAM:
-	ld	hl, 0x0000 			; VRAM start address
-    ld  bc, 16768           ; number of bytes
-    ld  a, 0x00             ; value
-    call BIOS_FILVRM        ; Fill VRAM
+	ld	    hl, 0x0000 			; VRAM start address
+    ld      bc, 16768           ; number of bytes
+    ld      a, 0x00             ; value
+    call    BIOS_FILVRM        ; Fill VRAM
     
     ret
 
 
 ; Fill all RAM with 0x00
 ClearRam:
-    ld hl, RamStart         ; RAM start address
-    ld de, RamEnd + 1       ; RAM end address
+    ld      hl, RamStart         ; RAM start address
+    ld      de, RamEnd + 1       ; RAM end address
 
 .loop:
-    xor a                   ; same as ld a, 0, but faster
-    ld (hl), a
+    xor     a                   ; same as ld a, 0, but faster
+    ld      (hl), a
 
-    inc hl
-    call BIOS_DCOMPR        ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
-    ret z
-    jp .loop
+    inc     hl
+    call    BIOS_DCOMPR        ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
+    ret     z
+    jp      .loop
 
 
 
@@ -258,23 +258,23 @@ EnableRomPage2:
 	call	BIOS_RSLREG
 	rrca
 	rrca
-	and	3	;Keep bits corresponding to the page 8000h-BFFFh
-	ld	c,a
-	ld	b,0
-	ld	hl, BIOS_EXPTBL
-	add	hl,bc
-	ld	a,(hl)
-	and	80h
-	or	c
-	ld	c,a
-	inc	hl
-	inc	hl
-	inc	hl
-	inc	hl
-	ld	a,(hl)
-	and	0Ch
-	or	c
-	ld	h,080h
+	and	    3	;Keep bits corresponding to the page 4000h-7FFFh
+	ld	    c,a
+	ld	    b,0
+	ld	    hl, BIOS_EXPTBL
+	add	    hl,bc
+	ld	    a,(hl)
+	and	    80h
+	or	    c
+	ld	    c,a
+	inc	    hl
+	inc	    hl
+	inc	    hl
+	inc	    hl
+	ld	    a,(hl)
+	and	    0Ch
+	or	    c
+	ld	    h,080h
 	call	BIOS_ENASLT		; Select the ROM on page 8000h-BFFFh
 
     ret

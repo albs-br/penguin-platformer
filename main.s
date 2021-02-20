@@ -8,12 +8,11 @@
 FNAME "penguin-platformer.rom"      ; output file
 
 
+PageSize:	    equ	0x4000	        ; 16kB
+Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 8000h-BFFFh (ASCII 16k Mapper)
 
-;RomSize:	equ 0x4000	            ; For 16kB Rom size.
-RomSize:	equ 0x8000	            ; For 32kB Rom size.
 
-
-DEBUG:      equ 255                 ; defines debug mode, value is irrelevant (comment it out for production version)
+DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
 
 ; Compilation address
 	org 0x4000, 0xbeff	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
@@ -42,7 +41,7 @@ GameData_Start:
     INCLUDE "Graphics/Sprites/Sprites.s"
     INCLUDE "Graphics/Tiles/Patterns/Patterns.s"
     INCLUDE "Graphics/Tiles/Colors.s"
-    INCLUDE "Graphics/TileMap.s"
+    ;INCLUDE "Graphics/TileMap.s"; TODO: remove later
 GameData_Size:          equ $ - GameData_Start
 
 ; Program code entry point
@@ -56,16 +55,20 @@ Execute:
 
     call    InitVram
 
-    ;call    EnableRomPage2
+    call    EnableRomPage2
+
+	; enable page 1
+    ld	    a, 1
+	ld	    (Seg_P8000_SW), a
 
 ; Install the interrupt routine
 	di
-	ld	    a, $c3 ; opcode for "JP nn"
+	ld	    a, 0xc3 ; opcode for "JP nn"
 	ld	    (HTIMI), a
 	ld	    hl, HOOK
 	ld	    (HTIMI + 1), hl
 	ei
-; 
+ 
 
     ;call    NewGame
 
@@ -123,8 +126,6 @@ MainLoop:
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF    
 
-; .eternalLoop:
-;     jp .eternalLoop
 
 	jp	    MainLoop
 
@@ -134,18 +135,49 @@ Finished:
 
 
 End:
-	ds      TableAlignedDataStart - End, 255	; 8000h + RomSize - End if org 8000h
+
+	ds PageSize - ($ - 4000h), 255	; Fill the unused area with 0FFh
 
 
 
-	org     0xbf00	                            ; table aligned data
-TableAlignedDataStart:
-TableAlignedDataEnd:
+; ------- Page 1 --------------------------------------
+	org	8000h,0BFFFh
 
-; Padding with 255 to make the file of 16K/32K size (can be 4K, 8K, 16k, etc) but
-; some MSX emulators or Rom loaders can not load 4K/8K Roms.
-; (Alternatively, include macros.asm and use ALIGN 4000H)
-	ds      0x4000 + RomSize - TableAlignedDataEnd, 255	; 8000h + RomSize - End if org 8000h
+TileMap_LevelTest_Start:
+    INCLUDE "Graphics/TileMaps/TileMap_Page_1.s"
+	ds PageSize - ($ - 8000h), 255
+
+; ------- Page 2 --------------------------------------
+	org	8000h,0BFFFh
+
+    INCLUDE "Graphics/TileMaps/TileMap_Page_2.s"
+	ds PageSize - ($ - 8000h), 255
+
+; ------- Page 3 --------------------------------------
+	org	8000h,0BFFFh
+
+    INCLUDE "Graphics/TileMaps/TileMap_Page_3.s"
+	ds PageSize - ($ - 8000h), 255
+
+; ------- Page 4 --------------------------------------
+	org	8000h,0BFFFh
+
+    INCLUDE "Graphics/TileMaps/TileMap_Page_4.s"
+	ds PageSize - ($ - 8000h), 255
+
+; ------- Page 5 --------------------------------------
+	org	8000h,0BFFFh
+
+    INCLUDE "Graphics/TileMaps/TileMap_Page_5.s"
+	ds PageSize - ($ - 8000h), 255
+
+; ------- Page 6 --------------------------------------
+	org	8000h,0BFFFh
+
+    INCLUDE "Graphics/TileMaps/TileMap_Page_6.s"
+	ds PageSize - ($ - 8000h), 255
+
+
 
 
 
