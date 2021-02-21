@@ -3,4 +3,4 @@ SCROLL_TILE_LINES_DURING_VBLANK:        equ 16
 SCROLL_TILE_LINES_AFTER_VBLANK:         equ SCREEN_HEIGHT_IN_TILES - SCROLL_TILE_LINES_DURING_VBLANK
 
 
-TileMapSizeInColumns:                   equ 64
+TileMapSizeInColumns:                   equ 512

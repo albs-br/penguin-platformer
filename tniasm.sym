@@ -577,7 +577,7 @@ BIOS_MLTCGP: equ 0F3D5h ; last def. pass 3
 COLOR_RED: equ 08h ; last def. pass 3
 BIOS_MEXBIH: equ 0FB07h ; last def. pass 3
 BIOS_TAPIOF: equ 0E7h ; last def. pass 3
-TileMapSizeInColumns: equ 040h ; last def. pass 3
+TileMapSizeInColumns: equ 0200h ; last def. pass 3
 BIOS_INITIO: equ 03Bh ; last def. pass 3
 COLOR_WHITE: equ 0Fh ; last def. pass 3
 BIOS_VOICBQ: equ 0F9F5h ; last def. pass 3
