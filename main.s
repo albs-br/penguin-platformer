@@ -106,13 +106,16 @@ MainLoop:
     call    ScrollLeft
 .continue:
 
+; .eternal:
+;     jp .eternal
+
 	call	GameLogic
 
     ; IFDEF DEBUG
     ;     ld 		a, COLOR_LIGHT_GREEN    ; Border color
     ;     ld 		(BIOS_BDRCLR), a    
     ;     call 	BIOS_CHGCLR        		; Change Screen Color
-    ; ENDIF    
+    ; ENDIF
 
 	; call	Scroll
 
@@ -141,38 +144,38 @@ End:
 
 
 ; ------- Page 1 --------------------------------------
-	org	8000h,0BFFFh
+	org	8000h, 0BFFFh
 
 TileMap_LevelTest_Start:
     INCLUDE "Graphics/TileMaps/TileMap_Page_1.s"
 	ds PageSize - ($ - 8000h), 255
 
 ; ------- Page 2 --------------------------------------
-	org	8000h,0BFFFh
+	org	8000h, 0BFFFh
 
     INCLUDE "Graphics/TileMaps/TileMap_Page_2.s"
 	ds PageSize - ($ - 8000h), 255
 
 ; ------- Page 3 --------------------------------------
-	org	8000h,0BFFFh
+	org	8000h, 0BFFFh
 
     INCLUDE "Graphics/TileMaps/TileMap_Page_3.s"
 	ds PageSize - ($ - 8000h), 255
 
 ; ------- Page 4 --------------------------------------
-	org	8000h,0BFFFh
+	org	8000h, 0BFFFh
 
     INCLUDE "Graphics/TileMaps/TileMap_Page_4.s"
 	ds PageSize - ($ - 8000h), 255
 
 ; ------- Page 5 --------------------------------------
-	org	8000h,0BFFFh
+	org	8000h, 0BFFFh
 
     INCLUDE "Graphics/TileMaps/TileMap_Page_5.s"
 	ds PageSize - ($ - 8000h), 255
 
 ; ------- Page 6 --------------------------------------
-	org	8000h,0BFFFh
+	org	8000h, 0BFFFh
 
     INCLUDE "Graphics/TileMaps/TileMap_Page_6.s"
 	ds PageSize - ($ - 8000h), 255
