@@ -1,8 +1,8 @@
-TilePatterns_SmallBricks_SizeInChars:           equ ((TilePatterns_SmallBricks_End - TilePatterns_SmallBricks_Start) / 8)
-TilePatterns_SmallBricks_Top_SizeInChars:       equ TilePatterns_SmallBricks_SizeInChars / 2
-TilePatterns_SmallBricks_Bottom_SizeInChars:    equ TilePatterns_SmallBricks_SizeInChars / 2
+; TilePatterns_SmallBricks_SizeInChars:           equ ((TilePatterns_SmallBricks_End - TilePatterns_SmallBricks_Start) / 8)
+; TilePatterns_SmallBricks_Top_SizeInChars:       equ TilePatterns_SmallBricks_SizeInChars / 2
+; TilePatterns_SmallBricks_Bottom_SizeInChars:    equ TilePatterns_SmallBricks_SizeInChars / 2
 
-TilePatterns_SmallBricks_Start:
+;TilePatterns_SmallBricks_Start:
 ; -------- Tile transitions from Black to Small brick - top
 ;Frame # 0
         db      00000000 b
@@ -495,4 +495,4 @@ TilePatterns_SmallBricks_Start:
         db      00000000 b
 
 ; ----------------------------
-TilePatterns_SmallBricks_End:
+;TilePatterns_SmallBricks_End:

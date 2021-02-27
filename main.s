@@ -40,8 +40,7 @@ GameIncludes_Size:      equ $ - GameIncludes_Start
 GameData_Start:
     INCLUDE "Graphics/Sprites/Sprites.s"
     INCLUDE "Graphics/Tiles/Patterns/Patterns.s"
-    INCLUDE "Graphics/Tiles/Colors.s"
-    ;INCLUDE "Graphics/TileMap.s"; TODO: remove later
+    INCLUDE "Graphics/Tiles/Colors/Colors.s"
 GameData_Size:          equ $ - GameData_Start
 
 ; Program code entry point

@@ -36,23 +36,9 @@ TileColors_SmallBricks_Bottom_End:
 
 
 TileColors_BigBricks_Top_Start:
-        db  0x11
-        db  0x51
-        db  0x41
-        db  0x41
-        db  0x41
-        db  0x41
-        db  0x41
-        db  0xD1
-TileColors_BigBricks_Top_End:
+    INCLUDE "Graphics/Tiles/Colors/Color_BigBricks_top_left.s"
+
 
 TileColors_BigBricks_Bottom_Start:
-        db  0x11
-        db  0x51
-        db  0x41
-        db  0x41
-        db  0x41
-        db  0x41
-        db  0x41
-        db  0xD1
-TileColors_BigBricks_Bottom_End:
+    INCLUDE "Graphics/Tiles/Colors/Color_BigBricks_bottom_left.s"
+

@@ -80,7 +80,7 @@ NextPage:
 	ld	    (Seg_P8000_SW), a
 
     ; hl -= TileMapSizeInColumns * 8 * 4
-    ld      bc, - TileMapSizeInColumns * 8 * 4
+    ld      bc, - TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8 * 4
     add     hl, bc
 
     ret
@@ -90,7 +90,8 @@ NextPage:
 ScrollRight:
     ; check if scroll is at limit
     ld      hl, (BgCurrentIndex)
-    ld      de, 8 * (TileMapSizeInColumns - SCREEN_WIDTH_IN_TILES)
+    ld      de, 8 * (TILE_MAP_WIDTH_IN_8X8_COLUMNS - SCREEN_WIDTH_IN_TILES)
+    ;ld      de, 8 * (64 - SCREEN_WIDTH_IN_TILES)
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     ;ret     nc
 
@@ -132,7 +133,7 @@ ScrollRight:
             ; Update bgIndex to next line
             ; BgIndex += 128 * 8
             pop     hl
-            ld      bc, TileMapSizeInColumns * 8
+            ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
             add     hl, bc
 
             ; check if line is multiple of 4 (go to next page)
@@ -163,7 +164,7 @@ ScrollRight:
             ; Update bgIndex to next line
             ; BgIndex += 128 * 8
             pop     hl
-            ld      bc, TileMapSizeInColumns * 8
+            ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
             add     hl, bc
 
             ; check if line is multiple of 4 (go to next page)
@@ -179,7 +180,7 @@ ScrollRight:
 
 	ld	    hl, (BgIndex)
     ; hl = hl + TileMapSizeInColumns
-    ld      de, TileMapSizeInColumns
+    ld      de, TILE_MAP_WIDTH_IN_8X8_COLUMNS
     add     hl, de
     ld      (BgIndex), hl
 
@@ -255,7 +256,7 @@ ScrollLeft:
             ; Update bgIndex to next line
             ; BgIndex += 128 * 8
             pop     hl
-            ld      bc, TileMapSizeInColumns * 8
+            ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
             add     hl, bc
 
             ; check if line is multiple of 4 (go to next page)
@@ -286,7 +287,7 @@ ScrollLeft:
             ; Update bgIndex to next line
             ; BgIndex += 128 * 8
             pop     hl
-            ld      bc, TileMapSizeInColumns * 8
+            ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
             add     hl, bc
 
             ; check if line is multiple of 4 (go to next page)
@@ -302,7 +303,7 @@ ScrollLeft:
 
 	ld	    hl, (BgIndex)
     ; hl = hl - TileMapSizeInColumns
-    ld      de, - TileMapSizeInColumns
+    ld      de, - TILE_MAP_WIDTH_IN_8X8_COLUMNS
     ;or      a                               ; clear carry flag
     ; sbc     hl, de
     add     hl, de
@@ -327,7 +328,7 @@ ScrollLeft:
     dec     hl
     ld      (BgIndexFirstFrame), hl
     
-    ld      bc, TileMapSizeInColumns * 7
+    ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 7
     add     hl, bc
     ld      (BgIndex), hl
 

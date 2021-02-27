@@ -1,9 +1,4 @@
-TilePatterns_BigBricks_SizeInChars:           equ ((TilePatterns_BigBricks_End - TilePatterns_BigBricks_Start) / 8)
-TilePatterns_BigBricks_Top_SizeInChars:       equ TilePatterns_BigBricks_SizeInChars / 2
-TilePatterns_BigBricks_Bottom_SizeInChars:    equ TilePatterns_BigBricks_SizeInChars / 2
-
-
-TilePatterns_BigBricks_Start:
+; -------- Tile transitions from Bg to BigBricks - top left
 ;Frame # 0
 	db	00000000 b
 	db	00000000 b
@@ -84,6 +79,8 @@ TilePatterns_BigBricks_Start:
 	db	11111111 b
 	db	11101111 b
 
+; ----------------------------
+; -------- Tile transitions from BigBricks - top left to BigBricks - top right
 ;Frame # 0
 	db	00000000 b
 	db	10111111 b
@@ -164,6 +161,8 @@ TilePatterns_BigBricks_Start:
 	db	11110110 b
 	db	11111110 b
 
+; ----------------------------
+; -------- Tile transitions from BigBricks - top right to Bg
 ;Frame # 0
 	db	00000000 b
 	db	11111100 b
@@ -244,6 +243,8 @@ TilePatterns_BigBricks_Start:
 	db	00000000 b
 	db	00000000 b
 
+; ----------------------------
+; -------- Tile transitions from BigBricks - top right to BigBricks - top left
 ;Frame # 0
 	db	00000000 b
 	db	11111100 b
@@ -324,6 +325,8 @@ TilePatterns_BigBricks_Start:
 	db	11111111 b
 	db	11101111 b
 
+; ----------------------------
+; -------- Tile transitions from Bg to BigBricks - bottom left
 ;Frame # 0
 	db	00000000 b
 	db	00000001 b
@@ -404,6 +407,8 @@ TilePatterns_BigBricks_Start:
 	db	11111110 b
 	db	11111110 b
 
+; ----------------------------
+; -------- Tile transitions from BigBricks - bottom left to BigBricks - bottom
 ;Frame # 0
 	db	00000000 b
 	db	11111101 b
@@ -484,6 +489,8 @@ TilePatterns_BigBricks_Start:
 	db	11011111 b
 	db	11111111 b
 
+; ----------------------------
+; -------- Tile transitions from BigBricks - bottom right to Bg
 ;Frame # 0
 	db	00000000 b
 	db	01111110 b
@@ -564,6 +571,8 @@ TilePatterns_BigBricks_Start:
 	db	00000000 b
 	db	00000000 b
 
+; ----------------------------
+; -------- Tile transitions from BigBricks - bottom right to BigBricks - bottom left
 ;Frame # 0
 	db	00000000 b
 	db	01111111 b
@@ -645,6 +654,3 @@ TilePatterns_BigBricks_Start:
 	db	11111110 b
 
 ; ----------------------------
-
-
-TilePatterns_BigBricks_End:

@@ -80,7 +80,6 @@ BIOS_JIFFY: equ 0FC9Eh ; last def. pass 3
 GameIncludes_Size: equ 01B2h ; last def. pass 3
 MainLoop: equ 04E93h ; last def. pass 3
 ScrollDirection: equ 0C00Ah ; last def. pass 3
-TilePatterns_SmallBricks_Start: equ 04AC6h ; last def. pass 3
 BIOS_H_GONE: equ 0FF43h ; last def. pass 3
 COLOR_LIGHT_BLUE: equ 07h ; last def. pass 3
 BIOS_PRSCNT: equ 0FB35h ; last def. pass 3
@@ -116,11 +115,9 @@ BIOS_SETMLT: equ 081h ; last def. pass 3
 BIOS_QUEUEN: equ 0FB3Eh ; last def. pass 3
 BIOS_PROCNM: equ 0FD89h ; last def. pass 3
 PatternsTable_2nd_Third: equ 0800h ; last def. pass 3
-TilePatterns_SmallBricks_SizeInChars: equ 030h ; last def. pass 3
 BIOS_KILBUF: equ 0156h ; last def. pass 3
 BIOS_DRWFLG: equ 0FCBBh ; last def. pass 3
 BIOS_DOT: equ 0F6B5h ; last def. pass 3
-TilePatterns_BigBricks_SizeInChars: equ 040h ; last def. pass 3
 BIOS_VOICCQ: equ 0FA75h ; last def. pass 3
 Execute: equ 04E6Eh ; last def. pass 3
 BIOS_ESTBLS: equ 0FB1Dh ; last def. pass 3
@@ -135,7 +132,6 @@ BIOS_SETPLT: equ 014Dh ; last def. pass 3
 BIOS_H_DSKF: equ 0FE12h ; last def. pass 3
 BIOS_CONLO: equ 0F66Ah ; last def. pass 3
 TileColors_SmallBricks_Top_End: equ 04E56h ; last def. pass 3
-TilePatterns_SmallBricks_Top_SizeInChars: equ 018h ; last def. pass 3
 FillColorTable.loop: equ 04109h ; last def. pass 3
 MainLoop.continue: equ 04EB7h ; last def. pass 3
 BIOS_SLTTBL: equ 0FCC5h ; last def. pass 3
@@ -147,7 +143,6 @@ BIOS_H_CVS: equ 0FE44h ; last def. pass 3
 BIOS_MIVCNT: equ 0F951h ; last def. pass 3
 BIOS_H_CRUS: equ 0FF25h ; last def. pass 3
 BIOS_H_NOFO: equ 0FE58h ; last def. pass 3
-TilePatterns_BigBricks_Top_SizeInChars: equ 020h ; last def. pass 3
 GameData_Size: equ 03D0h ; last def. pass 3
 BIOS_LINWRK: equ 0FC18h ; last def. pass 3
 PatternsTable_3rd_Third: equ 01000h ; last def. pass 3
@@ -159,14 +154,11 @@ BIOS_H_LPTS: equ 0FFBBh ; last def. pass 3
 BIOS_ESCCNT: equ 0FCA7h ; last def. pass 3
 BIOS_RTYCNT: equ 0FC9Ah ; last def. pass 3
 BIOS_MEMSIZ: equ 0F672h ; last def. pass 3
-TilePatterns_SmallBricks_Bottom_SizeInChars: equ 018h ; last def. pass 3
 BIOS_H_INDS: equ 0FE8Ah ; last def. pass 3
 BIOS_H_FORM: equ 0FFACh ; last def. pass 3
 BIOS_EXPTBL: equ 0FCC1h ; last def. pass 3
 BIOS_CRTCNT: equ 0F3B1h ; last def. pass 3
-TilePatterns_SmallBricks_End: equ 04C46h ; last def. pass 3
 BIOS_LOHMSK: equ 0F949h ; last def. pass 3
-TileColors_BigBricks_Top_End: equ 04E66h ; last def. pass 3
 BIOS_RDSLT: equ 0Ch ; last def. pass 3
 BIOS_AUTFLG: equ 0F6AAh ; last def. pass 3
 BIOS_CPCNT: equ 0F939h ; last def. pass 3
@@ -243,7 +235,6 @@ copy_to_VDP_loop: equ 041B3h ; last def. pass 3
 BIOS_MINUPD: equ 0F3EFh ; last def. pass 3
 BIOS_ATRBAS: equ 0F928h ; last def. pass 3
 InitVariables: equ 04A82h ; last def. pass 3
-TilePatterns_BigBricks_Start: equ 04C46h ; last def. pass 3
 BIOS_LOWLIM: equ 0FCA4h ; last def. pass 3
 ScrollRight.setDirectionLeft: equ 04911h ; last def. pass 3
 BIOS_PRMLEN: equ 0F6E6h ; last def. pass 3
@@ -288,7 +279,6 @@ Finished: equ 04EC5h ; last def. pass 3
 BIOS_BDRCLR: equ 0F3EBh ; last def. pass 3
 ScrollLeft.continue: equ 049D4h ; last def. pass 3
 MainLoop.goLeft: equ 04EB4h ; last def. pass 3
-TilePatterns_BigBricks_Bottom_SizeInChars: equ 020h ; last def. pass 3
 BIOS_H_MKI: equ 0FE30h ; last def. pass 3
 BIOS_H_RSLF: equ 0FE8Fh ; last def. pass 3
 BIOS_FNKSB: equ 0C9h ; last def. pass 3
@@ -331,7 +321,6 @@ BIOS_H_SNGF: equ 0FF39h ; last def. pass 3
 BIOS_H_FRQI: equ 0FF93h ; last def. pass 3
 BIOS_SETGRP: equ 07Eh ; last def. pass 3
 BIOS_WRTVRM: equ 04Dh ; last def. pass 3
-TileColors_BigBricks_Bottom_End: equ 04E6Eh ; last def. pass 3
 BIOS_CLINEF: equ 0F935h ; last def. pass 3
 BIOS_H_OUTD: equ 0FEE4h ; last def. pass 3
 BIOS_CALLF: equ 030h ; last def. pass 3
@@ -413,7 +402,6 @@ BIOS_ERRORS: equ 0FB1Bh ; last def. pass 3
 BIOS_PRMSTK: equ 0F6E4h ; last def. pass 3
 BIOS_RG5SAV: equ 0F3E4h ; last def. pass 3
 BIOS_FORCLR: equ 0F3E9h ; last def. pass 3
-TilePatterns_BigBricks_End: equ 04E46h ; last def. pass 3
 ColorsTable_1st_Third: equ 02000h ; last def. pass 3
 BIOS_H_CRUN: equ 0FF20h ; last def. pass 3
 BIOS_NULBUF: equ 0F862h ; last def. pass 3
@@ -507,6 +495,7 @@ BIOS_TXTCGP: equ 0F3B7h ; last def. pass 3
 BIOS_FLGINP: equ 0F6A6h ; last def. pass 3
 ScrollRight: equ 04902h ; last def. pass 3
 BIOS_T32COL: equ 0F3BFh ; last def. pass 3
+TILE_MAP_WIDTH_IN_8X8_COLUMNS: equ 0200h ; last def. pass 3
 BIOS_H_ERAC: equ 0FDAEh ; last def. pass 3
 BIOS_H_INLI: equ 0FDE5h ; last def. pass 3
 BIOS_ENSTOP: equ 0FBB0h ; last def. pass 3
@@ -594,7 +583,6 @@ BIOS_MLTCGP: equ 0F3D5h ; last def. pass 3
 COLOR_RED: equ 08h ; last def. pass 3
 BIOS_MEXBIH: equ 0FB07h ; last def. pass 3
 BIOS_TAPIOF: equ 0E7h ; last def. pass 3
-TileMapSizeInColumns: equ 0200h ; last def. pass 3
 BIOS_INITIO: equ 03Bh ; last def. pass 3
 COLOR_WHITE: equ 0Fh ; last def. pass 3
 BIOS_VOICBQ: equ 0F9F5h ; last def. pass 3
