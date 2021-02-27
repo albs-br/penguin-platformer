@@ -47,3 +47,10 @@ TileColors_Grass_Top_Start:
 TileColors_Grass_Bottom_Start:
     INCLUDE "Graphics/Tiles/Colors/Color_Grass_bottom_left.s"
 
+
+
+TileColors_Rocks_Top_Start:
+    INCLUDE "Graphics/Tiles/Colors/Color_Rocks_top_left.s"
+TileColors_Rocks_Bottom_Start:
+    INCLUDE "Graphics/Tiles/Colors/Color_Rocks_bottom_left.s"
+

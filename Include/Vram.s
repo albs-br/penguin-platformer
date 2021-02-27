@@ -174,6 +174,17 @@ ColorsTable_Addr_Grass_Bottom_Start:	equ	ColorsTable_Addr_Grass_Top_Start + (32*
 	ld      a, 32;TilePatterns_SmallBricks_Bottom_SizeInChars                          ; number of cells in color table to be filled by the pattern
 	call    FillColorTable_3thirds
 
+ColorsTable_Addr_Rocks_Top_Start:		equ	ColorsTable_Addr_Grass_Bottom_Start + (32*8);(TilePatterns_SmallBricks_Bottom_SizeInChars * 8)
+	ld	    de, ColorsTable_Addr_Rocks_Top_Start								; VRAM color table start address
+	ld	    hl, TileColors_Rocks_Top_Start                                    	; RAM start address of color pattern (8 bytes)
+	ld      a, 32;TilePatterns_SmallBricks_Top_SizeInChars                             ; number of cells in color table to be filled by the pattern
+	call    FillColorTable_3thirds
+ColorsTable_Addr_Rocks_Bottom_Start:	equ	ColorsTable_Addr_Rocks_Top_Start + (32*8);(TilePatterns_SmallBricks_Top_SizeInChars * 8)
+	ld	    de, ColorsTable_Addr_Rocks_Bottom_Start								; VRAM color table start address
+	ld	    hl, TileColors_Rocks_Bottom_Start                                   ; RAM start address of color pattern (8 bytes)
+	ld      a, 32;TilePatterns_SmallBricks_Bottom_SizeInChars                          ; number of cells in color table to be filled by the pattern
+	call    FillColorTable_3thirds
+
     ret
 
 ; LoadNamesTableBuffer:
