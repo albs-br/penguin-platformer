@@ -15,16 +15,18 @@
 HOOK:
 	push	af ; Preserves VDP status register S#0 (a)
 
+    call    ReadInput
+
 ; Reads the inputs
 	; call	READ_KEYBOARD
 	; call	READ_INPUT
 
 ; Tricks BIOS' KEYINT to skip keyboard scan, TRGFLG, OLDKEY/NEWKEY, ON STRIG...
-	xor	a
-	ld	[BIOS_SCNCNT], a
-	ld	[BIOS_INTCNT], a
+	xor		a
+	ld		[BIOS_SCNCNT], a
+	ld		[BIOS_INTCNT], a
 
-	pop	af ; Restores VDP status register S#0 (a)
+	pop		af ; Restores VDP status register S#0 (a)
 
 ; IFDEF CFG_INIT_USE_HIMEM_KEEP_HOOKS
 ; ; Invokes the previously existing hook

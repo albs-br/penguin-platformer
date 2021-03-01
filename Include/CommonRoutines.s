@@ -423,3 +423,21 @@ HideAllSprites:
     call    BIOS_WRTVRM		                            ; Writes data in VRAM (HL: address, A: value)
 
     ret
+
+
+; From MSX Lib
+; -----------------------------------------------------------------------------
+; Alternative implementation of BIOS' SNSMAT without DI and EI
+; param a/c: the keyboard matrix row to be read
+; ret a: the keyboard matrix row read
+SNSMAT_NO_DI_EI:
+	ld	    c, a
+.C_OK:
+; Initializes PPI.C value
+	in	    a, (PPI.C)
+	and	    $f0 ; (keep bits 4-7)
+	or	    c
+; Reads the keyboard matrix row
+	out	    (PPI.C), a
+	in	    a, (PPI.B)
+	ret

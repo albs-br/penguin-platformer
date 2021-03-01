@@ -31,6 +31,7 @@ CommonIncludes_Size:    equ $ - CommonIncludes_Start
 ; Include game routines
 GameIncludes_Start:
     INCLUDE "GameLogic/GameLogic.s"
+    INCLUDE "GameLogic/ReadInput.s"
     INCLUDE "GameLogic/Scroll.s"
     INCLUDE "GameLogic/InitVariables.s"
     INCLUDE "GameLogic/GameConstants.s"
@@ -73,6 +74,9 @@ Execute:
 
     call    InitVariables
 
+    halt                    ; wait for V-Blank
+    call    ScrollRight
+
 ; Main loop
 MainLoop:
 	halt			                    ; (v-blank sync)
@@ -98,6 +102,8 @@ MainLoop:
 
     ld      a, (ScrollDirection)
     or      a
+    jp      z, .continue
+    cp      1
     jp      nz, .goLeft
     call    ScrollRight
     jp      .continue
@@ -108,19 +114,23 @@ MainLoop:
 ; .eternal:
 ;     jp .eternal
 
+    IFDEF DEBUG
+        ld 		a, COLOR_LIGHT_GREEN    ; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF
+
+
 	call	GameLogic
 
-    ; IFDEF DEBUG
-    ;     ld 		a, COLOR_LIGHT_GREEN    ; Border color
-    ;     ld 		(BIOS_BDRCLR), a    
-    ;     call 	BIOS_CHGCLR        		; Change Screen Color
-    ; ENDIF
+
 
 	; call	Scroll
 
 
 	
 	;call	Delay
+
 
     IFDEF DEBUG
         ld 		a, COLOR_PURPLE       	; Border color

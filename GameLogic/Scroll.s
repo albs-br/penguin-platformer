@@ -89,7 +89,7 @@ NextPage:
 
 ScrollRight:
     ; check if scroll is at limit
-    ld      hl, (BgCurrentIndex)
+    ld      hl, (BgAddrCurrentIndex)
     ;ld      de, 8 * (TILE_MAP_WIDTH_IN_8X8_COLUMNS - SCREEN_WIDTH_IN_TILES)
     ld      de, 8 * (256 - SCREEN_WIDTH_IN_TILES)
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
@@ -106,13 +106,13 @@ ScrollRight:
 
 
     inc     hl
-    ld      (BgCurrentIndex), hl
+    ld      (BgAddrCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
 	ld	    hl, NamesTable
 	call    BIOS_SETWRT
 
-            ld	    hl, (BgIndex)
+            ld	    hl, (BgAddrIndex)
             
             ; set MegaROM initial page
             ld      e, 1                    
@@ -178,11 +178,11 @@ ScrollRight:
 
 
 
-	ld	    hl, (BgIndex)
+	ld	    hl, (BgAddrIndex)
     ; hl = hl + TileMapSizeInColumns
     ld      de, TILE_MAP_WIDTH_IN_8X8_COLUMNS
     add     hl, de
-    ld      (BgIndex), hl
+    ld      (BgAddrIndex), hl
 
     ; inc FrameIndex
     ld      de, FrameIndex
@@ -198,10 +198,10 @@ ScrollRight:
     jp      nz, .not8
 
     ;FrameIndex == 8:
-    ld      hl, (BgIndexFirstFrame)
+    ld      hl, (BgAddrIndexFirstFrame)
     inc     hl
-    ld      (BgIndexFirstFrame), hl
-    ld      (BgIndex), hl
+    ld      (BgAddrIndexFirstFrame), hl
+    ld      (BgAddrIndex), hl
 
     xor     a
 .not8:
@@ -214,14 +214,14 @@ ScrollRight:
 
 ScrollLeft:
     ; check if scroll is at limit
-    ld      hl, (BgCurrentIndex)
+    ld      hl, (BgAddrCurrentIndex)
     ld      de, 0
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
 
     jp      z, .setDirectionRight
     jp      .continue
 .setDirectionRight:
-    xor     a
+    ld      a, 2
     ld      (ScrollDirection), a
     ret
 .continue:
@@ -229,13 +229,13 @@ ScrollLeft:
 
 
     dec     hl
-    ld      (BgCurrentIndex), hl
+    ld      (BgAddrCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
 	ld	    hl, NamesTable
 	call    BIOS_SETWRT
 
-            ld	    hl, (BgIndex)
+            ld	    hl, (BgAddrIndex)
 
             ; set MegaROM initial page
             ld      e, 1                    
@@ -301,13 +301,13 @@ ScrollLeft:
 
 
 
-	ld	    hl, (BgIndex)
+	ld	    hl, (BgAddrIndex)
     ; hl = hl - TileMapSizeInColumns
     ld      de, - TILE_MAP_WIDTH_IN_8X8_COLUMNS
     ;or      a                               ; clear carry flag
     ; sbc     hl, de
     add     hl, de
-    ld      (BgIndex), hl
+    ld      (BgAddrIndex), hl
 
     ; dec FrameIndex
     ld      de, FrameIndex
@@ -324,13 +324,13 @@ ScrollLeft:
 
 ;  
     ;FrameIndex == -1:
-    ld      hl, (BgIndexFirstFrame)
+    ld      hl, (BgAddrIndexFirstFrame)
     dec     hl
-    ld      (BgIndexFirstFrame), hl
+    ld      (BgAddrIndexFirstFrame), hl
     
     ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 7
     add     hl, bc
-    ld      (BgIndex), hl
+    ld      (BgAddrIndex), hl
 
     ld      a, 7
 .notMinus1:
