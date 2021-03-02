@@ -19,3 +19,8 @@ BgAddrIndexFirstFrame:      rw 1
 
 
 ScrollDirection:            rb 1       ; 0: none, 1: left, 2 right
+
+
+
+;test
+Test_sprite_color: rb 1
