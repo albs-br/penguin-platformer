@@ -4,11 +4,11 @@
                                                 ; rw n  = reserve n words in RAM
 SEED:                       rw 1            ; Seed for random number generator
 
+
 Player_X:                   rb 1
 Player_Y:                   rb 1
+Player_Sprite_Number:       rb 1
 
-; BgScrollRegister:           rb 1
-;NextBgLineAddr:             rw 1
 
 BgAddrCurrentIndex:         rw 1        ; current position of screen in the background (0-TILE_MAP_WIDTH_IN_8X8_COLUMNS), currently (0-512)
 
@@ -23,4 +23,6 @@ ScrollDirection:            rb 1       ; 0: none, 1: left, 2 right
 
 
 ;test
-Test_sprite_color: rb 1
+Test_Sprite_Color: rb 1
+Test_Sprite_X:                   rb 1
+Test_Sprite_Y:                   rb 1

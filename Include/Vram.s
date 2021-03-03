@@ -94,20 +94,20 @@ InitVram:
     ; Set sprite attributes [debug]
 	; Y
     ld	    hl, SpriteAttrTableBuffer                   ; VRAM Address
-	ld	    a, 192-32-1                                 ; Value
-	ld      (hl), a
+	; ld	    a, 192-32-1                                 ; Value
+	; ld      (hl), a
     ; X
     inc     hl
-	ld	    a, 0                                        ; Value
-	ld      (hl), a
+	; ld	    a, 0                                        ; Value
+	; ld      (hl), a
     ; Pattern number
     inc     hl
-	ld	    a, 0                                        ; Value
+	ld	    a, 0 * 4                                       ; Value
 	ld      (hl), a
     ; Color
-    inc     hl
-	ld	    a, COLOR_GREEN                              ; Value
-	ld      (hl), a
+    ; inc     hl
+	; ld	    a, COLOR_GREEN                              ; Value
+	; ld      (hl), a
 
 
 	call 	BIOS_ENASCR		; 

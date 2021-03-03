@@ -8,7 +8,7 @@ GameLogic:
     
 
     ; b = LINE_NUMBER:
-    ld      a, (Player_Y)
+    ld      a, (Test_Sprite_Y)
     srl     a       ; divide by 8
     srl     a
     srl     a
@@ -34,7 +34,7 @@ GameLogic:
 .continue:
 
     ; de = COL_NUMBER:
-    ld      a, (Player_X)
+    ld      a, (Test_Sprite_X)
     srl     a       ; divide by 8
     srl     a
     srl     a
@@ -58,7 +58,7 @@ GameLogic:
     call    z, .playerAtEmptySpace
     call    nz, .playerAtOccupiedSpace
 
-    ld      (Test_sprite_color), a
+    ld      (Test_Sprite_Color), a
 
 
 
@@ -73,16 +73,32 @@ GameLogic:
 
 .playerAtEmptySpace:
     ld      a, COLOR_RED
-    ld      (Test_sprite_color), a
+    ld      (Test_Sprite_Color), a
     ret
 
 .playerAtOccupiedSpace:
     ld      a, COLOR_GREEN
-    ld      (Test_sprite_color), a
+    ld      (Test_Sprite_Color), a
     ret
 
 UpdateSpriteAttrTableBuffer:
     ld      hl, SpriteAttrTableBuffer
+
+    ; Sprite # 0
+    ld      a, (Test_Sprite_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Test_Sprite_X)
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+    ld      a, (Test_Sprite_Color)
+    ld      (hl), a
+
+    ; Sprite # 1
+    inc     hl
     ld      a, (Player_Y)
     ld      (hl), a
 
@@ -91,8 +107,29 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
+    ld      a, (Player_Sprite_Number)
+    ld      (hl), a
+
     inc     hl
-    ld      a, (Test_sprite_color)
+    ld      a, COLOR_DARK_BLUE
+    ld      (hl), a
+
+    ; Sprite # 2
+    inc     hl
+    ld      a, (Player_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Player_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Player_Sprite_Number)
+    add     4
+    ld      (hl), a
+
+    inc     hl
+    ld      a, COLOR_WHITE
     ld      (hl), a
 
     ret

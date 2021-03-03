@@ -1,4 +1,5 @@
 StartSpritePatterns:
+; test sprite
     db  11111111 b
     db  10000001 b
     db  10000001 b
@@ -34,5 +35,74 @@ StartSpritePatterns:
     db  00111110 b
     db  00011100 b
     db  11111111 b
+; 
+; --- Penguin
+; color 4
+    DB 00000011b
+    DB 00001111b
+    DB 00011111b
+    DB 00111111b
+    DB 00111111b
+    DB 00111111b
+    DB 00111111b
+    DB 00111111b
+    DB 00111111b
+    DB 01111111b
+    DB 11111001b
+    DB 00000111b
+    DB 00111111b
+    DB 00011111b
+    DB 00100111b
+    DB 11111100b
+    DB 11110000b
+    DB 11111000b
+    DB 10101100b
+    DB 00000100b
+    DB 00000100b
+    DB 00000100b
+    DB 10000010b
+    DB 00000001b
+    DB 11000110b
+    DB 10000010b
+    DB 10000010b
+    DB 11000100b
+    DB 11111000b
+    DB 11110000b
+    DB 11001000b
+    DB 01111100b
+    ; color 15
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 01010000b
+    DB 11111000b
+    DB 10101000b
+    DB 10101000b
+    DB 00000000b
+    DB 00000000b
+    DB 00111000b
+    DB 01111100b
+    DB 01111100b
+    DB 00111000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    ; 
 
 EndSpritePatterns:
