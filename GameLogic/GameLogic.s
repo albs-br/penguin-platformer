@@ -104,7 +104,7 @@ CheckBackGround:
 
     ; b = LINE_NUMBER:
     ld      a, l
-    srl     a       ; divide by 8
+    srl     a                   ; divide by 8
     srl     a
     srl     a
     ld      c, a
@@ -123,6 +123,8 @@ CheckBackGround:
 
     ; hl = (TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8) * LINE_NUMBER
     ld      hl, 0
+    ld      a, b
+    or      a
     jp      z, .continue
     ld      de, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
 .loopMulti:
