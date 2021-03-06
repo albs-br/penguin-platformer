@@ -13,7 +13,7 @@ InitVariables:
     ld      (Player_Y), a
     ld      a, 128-8
     ld      (Player_X), a
-    ld      a, 1 * 4
+    ld      a, PENGUIN_RIGHT_STANDING
     ld      (Player_Sprite_Number), a
 
 

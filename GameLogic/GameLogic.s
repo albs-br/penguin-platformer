@@ -111,20 +111,9 @@ CheckBackGround:
     and     0000 0011 b         ; mask to get only lower 2 bits of line number and make it a line number 0-3
     ld      b, a
     
-    ; c = MegaROM Page number
-    ld      a, c
-    and     0001 1100 b         ; mask to get the page number (0-5)
-    srl     a                   ; align to right
-    srl     a
-    inc     a                   ; pages are numbered 1-6, not 0-5
-    ld      c, a
-
-
 
     ; hl = (TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8) * LINE_NUMBER
     ld      hl, 0
-    ld      a, b
-    or      a
     jp      z, .continue
     ld      de, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
 .loopMulti:
@@ -147,7 +136,14 @@ CheckBackGround:
 
 
     ; set MegaROM page
+    ; c = MegaROM Page number
     ld      a, c
+    and     0001 1100 b         ; mask to get the page number (0-5)
+    srl     a                   ; align to right
+    srl     a
+    inc     a                   ; pages are numbered 1-6, not 0-5
+    ; ld      c, a
+    ; ld      a, c
     ld	    (Seg_P8000_SW), a
 
     ld      hl, (BgAddrIndex)
