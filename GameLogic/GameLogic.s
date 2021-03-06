@@ -18,30 +18,33 @@ GameLogic:
 
 
     ; Penguin animation
-;     ld      a, (KeyPressed)
-;     or      a
-;     jp      z, .noKeyPressed                         ; if (KeyPressed == 0) ?
-;     dec     a
-;     jp      nz, .keyRightNotPressed                   ; if (KeyPressed == 1) ?
+    ld      a, (KeyPressed)
+    or      a
+    jp      z, .noKeyPressed                            ; if (KeyPressed == 0)
+    dec     a
+    jp      nz, .skip                                   ; if (KeyPressed == 1)
 
-    ;playerRight
+    ; walking right
     ld      a, (Player_Animation_Frame)
     inc     a
-    and     0000 0111 b             ; each n frames
+    and     0000 0111 b                                 ; each 8 frames
     ld      (Player_Animation_Frame), a
-    jp      nz, .keyRightNotPressed
+    jp      nz, .skip
 
     ld      a, (Player_Sprite_Number)
     cp      PENGUIN_RIGHT_WALKING_LAST_FRAME
-    jp      z, .restartWalkingRight           ; if (Player_Sprite_Number == ?) ?
-    add     8                                 ; next frame
+    jp      z, .restartWalkingRight                     ; if (Player_Sprite_Number == PENGUIN_RIGHT_WALKING_LAST_FRAME)
+    add     8                                           ; next frame
     jp      .savePlayerFrame
 .restartWalkingRight:
     ld      a, PENGUIN_RIGHT_WALKING_1
+    jp      .savePlayerFrame
+
+.noKeyPressed:
+    ld      a, PENGUIN_RIGHT_STANDING
 .savePlayerFrame:
     ld      (Player_Sprite_Number), a
-
-.keyRightNotPressed:
+.skip:
 
 ;--------------------
 
