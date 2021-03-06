@@ -2,7 +2,7 @@ ReadInput:
     ; read keyboard
     ld      a, 8                    ; 8th line
     call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
-    ; ld c, a                       ; save keyboard status
+    ld      c, a                    ; save keyboard status
 
     ; test
     ; ld a, c
@@ -13,7 +13,12 @@ ReadInput:
     jp      z, .scrollRight
 
 
-    ; ld a, c
+    ; ----- Read player inputs
+    xor     a
+    ld      (KeyPressed), a
+
+    ld      a, c                    ; restore keyboard status
+
     bit     4, a                    ; 4th bit (key left), table with all keys on MSX Progs em Ling. de Maq. pag 58
     jp      z, .playerLeft
 
@@ -43,25 +48,27 @@ ReadInput:
     ret
 
 .scrollLeft:
-    ld      a, 2
+    ld      a, SCROLL_DIRECTION_LEFT
     ld      (ScrollDirection), a
     ret
 
 .scrollRight:
-    ld      a, 1
+    ld      a, SCROLL_DIRECTION_RIGHT
     ld      (ScrollDirection), a
     ret
 
 
 
 .playerLeft:
-    ld      a, 2
+    ld      a, SCROLL_DIRECTION_LEFT
     ld      (ScrollDirection), a
+    ld      (KeyPressed), a
     ret
 
 .playerRight:
-    ld      a, 1
+    ld      a, SCROLL_DIRECTION_RIGHT
     ld      (ScrollDirection), a
+    ld      (KeyPressed), a
     ret
 
 

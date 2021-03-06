@@ -8,6 +8,10 @@ InitVariables:
     ld      (FrameIndex), a
 
     ld      (ScrollDirection), a
+    
+    ld      (KeyPressed), a
+    
+    ld      (Player_Animation_Frame), a
 
     ld	    a, 192-32-1
     ld      (Player_Y), a

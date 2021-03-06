@@ -11,15 +11,37 @@ GameLogic:
     ld      a, (Test_Sprite_Y)
     ld      l, a
     call    CheckBackGround
-    call    z, .playerAtEmptySpace
-    call    nz, .playerAtOccupiedSpace
-
-
+    call    z, .testSpriteAtEmptySpace
+    call    nz, .testSpriteAtOccupiedSpace
     ld      (Test_Sprite_Color), a
 
 
 
+    ; Penguin animation
+;     ld      a, (KeyPressed)
+;     or      a
+;     jp      z, .noKeyPressed                         ; if (KeyPressed == 0) ?
+;     dec     a
+;     jp      nz, .keyRightNotPressed                   ; if (KeyPressed == 1) ?
 
+    ;playerRight
+    ld      a, (Player_Animation_Frame)
+    inc     a
+    and     0000 0111 b             ; each n frames
+    ld      (Player_Animation_Frame), a
+    jp      nz, .keyRightNotPressed
+
+    ld      a, (Player_Sprite_Number)
+    cp      PENGUIN_RIGHT_WALKING_LAST_FRAME
+    jp      z, .restartWalkingRight           ; if (Player_Sprite_Number == ?) ?
+    add     8                                 ; next frame
+    jp      .savePlayerFrame
+.restartWalkingRight:
+    ld      a, PENGUIN_RIGHT_WALKING_1
+.savePlayerFrame:
+    ld      (Player_Sprite_Number), a
+
+.keyRightNotPressed:
 
 ;--------------------
 
@@ -28,12 +50,12 @@ GameLogic:
     ret
 
 
-.playerAtEmptySpace:
+.testSpriteAtEmptySpace:
     ld      a, COLOR_RED
     ld      (Test_Sprite_Color), a
     ret
 
-.playerAtOccupiedSpace:
+.testSpriteAtOccupiedSpace:
     ld      a, COLOR_GREEN
     ld      (Test_Sprite_Color), a
     ret
