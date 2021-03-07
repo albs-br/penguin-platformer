@@ -9,6 +9,9 @@ SCROLL_DIRECTION_RIGHT:                 equ 1
 TILE_MAP_WIDTH_IN_8X8_COLUMNS:          equ 512    
 
 
+PENGUIN_WIDTH:                          equ 16
+
+
 ; Sprite pattern numbers for animation frames:
 PENGUIN_RIGHT_STANDING:                 equ 1 * 4
 PENGUIN_RIGHT_WALKING_1:                equ 3 * 4

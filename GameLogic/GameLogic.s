@@ -2,10 +2,12 @@ GameLogic:
 
 ;--------------------
 
-    ; [debug]
     ; check if player is at empty space
+
     ; formula: COL_NUMBER + ((TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8) * LINE_NUMBER)     (only first 4 rows)
     
+    ; [debug]
+    ; test only
     ld      a, (Test_Sprite_X)
     ld      h, a
     ld      a, (Test_Sprite_Y)
@@ -17,12 +19,18 @@ GameLogic:
 
 
 
+
+
+
+
     ; Penguin animation
     ld      a, (KeyPressed)
     or      a
     jp      z, .noKeyPressed                            ; if (KeyPressed == 0)
     dec     a
     jp      nz, .skip                                   ; if (KeyPressed == 1)
+
+
 
     ; walking right
     ld      a, (Player_Animation_Frame)

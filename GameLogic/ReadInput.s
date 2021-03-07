@@ -66,12 +66,26 @@ ReadInput:
     ret
 
 .playerRight:
+    ; check if has a tile on the right
+    ld      a, (Player_X)
+    add     PENGUIN_WIDTH
+    ld      h, a
+    ld      a, (Player_Y)
+    add     8
+    ld      l, a
+    call    CheckBackGround
+    jp      nz, .cancelMovement
+
     ld      a, SCROLL_DIRECTION_RIGHT
     ld      (ScrollDirection), a
     ld      (KeyPressed), a
     ret
 
-
+.cancelMovement:
+    xor     a
+    ld      (ScrollDirection), a
+    ld      (KeyPressed), a
+    ret
 
 
 
