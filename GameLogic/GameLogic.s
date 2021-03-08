@@ -21,6 +21,11 @@ GameLogic:
 
 
 
+    ld      a, (Player_IsGrounded)
+    or      a
+    jp      z, .isFalling
+
+
 
 
     ; Penguin animation
@@ -59,6 +64,17 @@ GameLogic:
     call    UpdateSpriteAttrTableBuffer
 
     ret
+
+
+.isFalling:
+    ld      a, (Player_Y)
+    cp      SCREEN_HEIGHT_IN_PIXELS
+    jp      z, .skip
+    inc     a
+    ; TODO: check if there is ground under the updated position
+    ld      (Player_Y), a
+
+    jp      .skip
 
 
 .testSpriteAtEmptySpace:

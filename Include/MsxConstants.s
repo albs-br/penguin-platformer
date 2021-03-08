@@ -1,6 +1,8 @@
 ; Screen 2 constants:
 SCREEN_WIDTH_IN_TILES:          equ     32
 SCREEN_HEIGHT_IN_TILES:         equ     24
+SCREEN_WIDTH_IN_PIXELS:         equ     32 * 8
+SCREEN_HEIGHT_IN_PIXELS:        equ     24 * 8
 
 
 ; MSX1 colors:

@@ -10,6 +10,7 @@ TILE_MAP_WIDTH_IN_8X8_COLUMNS:          equ 512
 
 
 PENGUIN_WIDTH:                          equ 16
+PENGUIN_HEIGHT:                         equ 16
 
 
 ; Sprite pattern numbers for animation frames:

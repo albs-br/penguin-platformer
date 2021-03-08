@@ -4,7 +4,7 @@ InitVariables:
     ld      (SEED), a
 
     xor     a
-    ld      (BgAddrCurrentIndex), a
+    ld      (BgCurrentIndex), a
     ld      (FrameIndex), a
 
     ld      (ScrollDirection), a
@@ -19,6 +19,9 @@ InitVariables:
     ld      (Player_X), a
     ld      a, PENGUIN_RIGHT_STANDING
     ld      (Player_Sprite_Number), a
+
+    ld      a, 1
+    ld      (Player_IsGrounded), a
 
 
     ; Load level Bg

@@ -6,5 +6,5 @@
 	dw 0		; Execution address of a program used to control a device
 				; built into the cartridge.
 	dw 0		; Basic program pointer contained in ROM.
-	dw 0,0,0	; Reserved
+	dw 0, 0, 0	; Reserved
  

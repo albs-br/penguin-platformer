@@ -66,15 +66,15 @@ ReadInput:
     ret
 
 .playerRight:
-    ; Check if there is a tile on the right
+    ; ---------------- Check if there is a tile on the right
 
     ld      a, (Player_X)
-    add     PENGUIN_WIDTH - 1       ; x of last column
+    add     PENGUIN_WIDTH - 1 - 7      ; PENGUIN_WIDTH - 1: x of last column; -7: compensate the scrolled tiles
     ld      h, a
     
     ; Add FrameIndex - 7 to X to compensate the scrolled tiles
     ld      a, (FrameIndex)
-    sub     7
+    ;sub     7
     add     h
     ld      h, a
 
@@ -83,6 +83,18 @@ ReadInput:
     ld      l, a
     call    CheckBackGround
     jp      nz, .cancelMovement
+
+    ; ---------------- Check if there is a tile under the player
+
+    ld      a, (Player_X)
+    ld      h, a
+    
+    ld      a, (Player_Y)
+    add     PENGUIN_HEIGHT + 8
+    ld      l, a
+    call    CheckBackGround
+    jp      z, .resetIsGounded
+
 
     ld      a, SCROLL_DIRECTION_RIGHT
     ld      (ScrollDirection), a
@@ -95,6 +107,10 @@ ReadInput:
     ld      (KeyPressed), a
     ret
 
+.resetIsGounded:
+    xor     a
+    ld      (Player_IsGrounded), a
+    jp      .cancelMovement
 
 
 ; test

@@ -89,7 +89,7 @@ NextPage:
 
 ScrollRight:
     ; check if scroll is at limit
-    ld      hl, (BgAddrCurrentIndex)
+    ld      hl, (BgCurrentIndex)
     ;ld      de, 8 * (TILE_MAP_WIDTH_IN_8X8_COLUMNS - SCREEN_WIDTH_IN_TILES)
     ld      de, 8 * (256 - SCREEN_WIDTH_IN_TILES)
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
@@ -106,7 +106,7 @@ ScrollRight:
 
 
     inc     hl
-    ld      (BgAddrCurrentIndex), hl
+    ld      (BgCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
 	ld	    hl, NamesTable
@@ -214,7 +214,7 @@ ScrollRight:
 
 ScrollLeft:
     ; check if scroll is at limit
-    ld      hl, (BgAddrCurrentIndex)
+    ld      hl, (BgCurrentIndex)
     ld      de, 0
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
 
@@ -229,7 +229,7 @@ ScrollLeft:
 
 
     dec     hl
-    ld      (BgAddrCurrentIndex), hl
+    ld      (BgCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
 	ld	    hl, NamesTable
