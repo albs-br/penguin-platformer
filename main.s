@@ -70,13 +70,13 @@ Execute:
 	ld	    (HTIMI + 1), hl
 	ei
  
-
+InitGame:
     ;call    NewGame
 
     call    InitVariables
 
     halt                    ; wait for V-Blank
-    call    ScrollRight
+    call    ScrollRight     ; show first screen TODO: maybe there should be funtion to show the screen without scroll it
 
 ; Main loop
 MainLoop:

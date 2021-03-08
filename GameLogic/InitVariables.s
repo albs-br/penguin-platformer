@@ -21,6 +21,7 @@ InitVariables:
     ld      (Player_Sprite_Number), a
 
     ld      a, 1
+    ld      (Player_IsAlive), a
     ld      (Player_IsGrounded), a
 
 

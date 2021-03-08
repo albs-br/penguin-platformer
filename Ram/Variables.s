@@ -7,6 +7,7 @@ SEED:                       rw 1            ; Seed for random number generator
 
 KeyPressed:                 rb 1
 
+Player_IsAlive:             rb 1
 Player_X:                   rb 1
 Player_Y:                   rb 1
 Player_Sprite_Number:       rb 1

@@ -2,9 +2,7 @@ GameLogic:
 
 ;--------------------
 
-    ; check if player is at empty space
 
-    ; formula: COL_NUMBER + ((TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8) * LINE_NUMBER)     (only first 4 rows)
     
     ; [debug]
     ; test only
@@ -19,8 +17,14 @@ GameLogic:
 
 
 
+    ld      a, (Player_IsAlive)
+    or      a
+    jp      z, InitGame
 
 
+
+    ; check if player is at empty space
+    ; formula: COL_NUMBER + ((TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8) * LINE_NUMBER)     (only first 4 rows)
     ld      a, (Player_IsGrounded)
     or      a
     jp      z, .isFalling
@@ -65,16 +69,21 @@ GameLogic:
 
     ret
 
-
 .isFalling:
     ld      a, (Player_Y)
     cp      SCREEN_HEIGHT_IN_PIXELS
-    jp      z, .skip
+    jp      z, .isDead
     inc     a
     ; TODO: check if there is ground under the updated position
     ld      (Player_Y), a
 
     jp      .skip
+
+.isDead:
+    xor     a
+    ld      (Player_IsAlive), a
+    jp      .skip
+
 
 
 .testSpriteAtEmptySpace:
