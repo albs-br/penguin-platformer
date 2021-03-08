@@ -66,10 +66,18 @@ ReadInput:
     ret
 
 .playerRight:
-    ; check if has a tile on the right
+    ; Check if there is a tile on the right
+
     ld      a, (Player_X)
-    add     PENGUIN_WIDTH
+    add     PENGUIN_WIDTH - 1       ; x of last column
     ld      h, a
+    
+    ; Add FrameIndex - 7 to X to compensate the scrolled tiles
+    ld      a, (FrameIndex)
+    sub     7
+    add     h
+    ld      h, a
+
     ld      a, (Player_Y)
     add     8
     ld      l, a

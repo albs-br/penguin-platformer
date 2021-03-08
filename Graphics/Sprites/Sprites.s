@@ -179,20 +179,20 @@ StartSpritePatterns:
     ; 
     ; --- Right walking frame 2
     ; color 4
-    DB 00000001b
-    DB 00000111b
+    DB 00000011b
     DB 00001111b
-    DB 00011110b
-    DB 00011110b
-    DB 00011110b
     DB 00011111b
+    DB 00111110b
+    DB 00111110b
+    DB 00111110b
+    DB 00111111b
+    DB 00111111b
+    DB 00111101b
+    DB 00111110b
+    DB 00111011b
+    DB 00011100b
     DB 00011111b
-    DB 00011101b
-    DB 00011110b
-    DB 00011011b
-    DB 00001100b
     DB 00001111b
-    DB 00000111b
     DB 00000111b
     DB 00000111b
     DB 11100000b
@@ -248,11 +248,11 @@ StartSpritePatterns:
     ; --- Right walking frame 3
     ; color 4
     DB 00000000b
-    DB 00000001b
-    DB 00000111b
+    DB 00000011b
     DB 00001111b
-    DB 00011110b
-    DB 00011110b
+    DB 00011111b
+    DB 00111110b
+    DB 00111110b
     DB 00111110b
     DB 00111111b
     DB 00111000b
@@ -312,5 +312,6 @@ StartSpritePatterns:
     DB 00000000b
     DB 00000000b
     DB 00000000b
+
 
 EndSpritePatterns:
