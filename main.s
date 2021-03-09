@@ -31,6 +31,7 @@ CommonIncludes_Size:    equ $ - CommonIncludes_Start
 ; Include game routines
 GameIncludes_Start:
     INCLUDE "GameLogic/GameLogic.s"
+    INCLUDE "GameLogic/UpdateSpriteAttrTableBuffer.s"
     INCLUDE "GameLogic/ReadInput.s"
     INCLUDE "GameLogic/Scroll.s"
     INCLUDE "GameLogic/CheckBackGround.s"
@@ -77,6 +78,8 @@ InitGame:
 
     halt                    ; wait for V-Blank
     call    ScrollRight     ; show first screen TODO: maybe there should be funtion to show the screen without scroll it
+    halt                    ; wait for V-Blank
+    call    ScrollLeft      ; show first screen TODO: maybe there should be funtion to show the screen without scroll it
 
 ; Main loop
 MainLoop:

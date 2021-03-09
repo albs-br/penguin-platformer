@@ -95,10 +95,11 @@ ScrollRight:
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     ;ret     nc
 
+    ; TODO: this is only for automatic scrolling - not for actual game
     jp      nc, .setDirectionLeft
     jp      .continue
 .setDirectionLeft:
-    ld      a, 1
+    ld      a, 1                    
     ld      (ScrollDirection), a
     ret
 .continue:
@@ -218,6 +219,7 @@ ScrollLeft:
     ld      de, 0
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
 
+    ; TODO: this is only for automatic scrolling - not for actual game
     jp      z, .setDirectionRight
     jp      .continue
 .setDirectionRight:

@@ -7,6 +7,9 @@
 ;       z: is at empty space
 ;       nz: is not at empty space
 CheckBackGround:
+    ; check if player is at empty space
+    ; formula: COL_NUMBER + ((TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8) * LINE_NUMBER)     (only first 4 rows)
+
     push    hl                  ; save h (x coord)
 
     ; b = LINE_NUMBER:

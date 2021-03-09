@@ -23,41 +23,25 @@ GameLogic:
 
 
 
-    ; check if player is at empty space
-    ; formula: COL_NUMBER + ((TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8) * LINE_NUMBER)     (only first 4 rows)
     ld      a, (Player_IsGrounded)
     or      a
     jp      z, .isFalling
 
 
-
-
-    ; Penguin animation
+    ; get the current key pressed
     ld      a, (KeyPressed)
     or      a
-    jp      z, .noKeyPressed                            ; if (KeyPressed == 0)
+    jp      z, .setPlayerStandingRight                            ; if (KeyPressed == 0)
     dec     a
     jp      nz, .skip                                   ; if (KeyPressed == 1)
 
+    jp      .PlayerRight
 
 
-    ; walking right
-    ld      a, (Player_Animation_Frame)
-    inc     a
-    and     0000 0111 b                                 ; each 8 frames
-    ld      (Player_Animation_Frame), a
-    jp      nz, .skip
 
-    ld      a, (Player_Sprite_Number)
-    cp      PENGUIN_RIGHT_WALKING_LAST_FRAME
-    jp      z, .restartWalkingRight                     ; if (Player_Sprite_Number == PENGUIN_RIGHT_WALKING_LAST_FRAME)
-    add     8                                           ; next frame
-    jp      .savePlayerFrame
-.restartWalkingRight:
-    ld      a, PENGUIN_RIGHT_WALKING_1
-    jp      .savePlayerFrame
-
-.noKeyPressed:
+.setPlayerStandingRight:
+    xor     a
+    ld      (ScrollDirection), a
     ld      a, PENGUIN_RIGHT_STANDING
 .savePlayerFrame:
     ld      (Player_Sprite_Number), a
@@ -96,56 +80,66 @@ GameLogic:
     ld      (Test_Sprite_Color), a
     ret
 
-UpdateSpriteAttrTableBuffer:
-    ld      hl, SpriteAttrTableBuffer
 
-    ; Sprite # 0
-    ld      a, (Test_Sprite_Y)
-    ld      (hl), a
 
-    inc     hl
-    ld      a, (Test_Sprite_X)
-    ld      (hl), a
+.PlayerRight:
+    ; ---------------- Check if there is a tile on the right
 
-    inc     hl
-    inc     hl
-    ld      a, (Test_Sprite_Color)
-    ld      (hl), a
-
-    ; Sprite # 1
-    inc     hl
-    ld      a, (Player_Y)
-    ld      (hl), a
-
-    inc     hl
     ld      a, (Player_X)
-    ld      (hl), a
+    add     PENGUIN_WIDTH - 1 - 7      ; PENGUIN_WIDTH - 1: x of last column; -7: compensate for the scrolled tiles
+    ld      h, a
+    
+    ; Add FrameIndex - 7 to X to compensate for the scrolled tiles
+    ld      a, (FrameIndex)
+    ;sub     7
+    add     h
+    ld      h, a
 
-    inc     hl
-    ld      a, (Player_Sprite_Number)
-    ld      (hl), a
-
-    inc     hl
-    ld      a, COLOR_DARK_BLUE
-    ld      (hl), a
-
-    ; Sprite # 2
-    inc     hl
     ld      a, (Player_Y)
-    ld      (hl), a
+    add     8
+    ld      l, a
+    call    CheckBackGround
+    jp      nz, .cancelMovement
 
-    inc     hl
+    ; ---------------- Check if there is a tile under the player
+
     ld      a, (Player_X)
-    ld      (hl), a
+    ld      h, a
+    
+    ld      a, (Player_Y)
+    add     PENGUIN_HEIGHT + 8
+    ld      l, a
+    call    CheckBackGround
+    jp      z, .resetIsGounded
 
-    inc     hl
+.walkingRight:
+    ; walking right
+    ld      a, DIRECTION_RIGHT
+    ld      (ScrollDirection), a
+
+
+    ld      a, (Player_Animation_Frame)
+    inc     a
+    and     0000 0111 b                                 ; each 8 frames
+    ld      (Player_Animation_Frame), a
+    jp      nz, .skip
+
     ld      a, (Player_Sprite_Number)
-    add     4
-    ld      (hl), a
+    cp      PENGUIN_RIGHT_WALKING_LAST_FRAME
+    jp      z, .restartWalkingRight                     ; if (Player_Sprite_Number == PENGUIN_RIGHT_WALKING_LAST_FRAME)
+    add     8                                           ; next frame
+    jp      .savePlayerFrame
+.restartWalkingRight:
+    ld      a, PENGUIN_RIGHT_WALKING_1
+    jp      .savePlayerFrame
 
-    inc     hl
-    ld      a, COLOR_WHITE
-    ld      (hl), a
 
-    ret
+.cancelMovement:
+    xor     a
+    ld      (ScrollDirection), a
+    jp      .setPlayerStandingRight
 
+.resetIsGounded:
+    xor     a
+    ld      (Player_IsGrounded), a
+    jp      .cancelMovement
