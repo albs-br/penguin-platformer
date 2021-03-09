@@ -56,10 +56,21 @@ GameLogic:
 .isFalling:
     ld      a, (Player_Y)
     cp      SCREEN_HEIGHT_IN_PIXELS
-    jp      z, .isDead
-    inc     a
-    ; TODO: check if there is ground under the updated position
+    jp      nc, .isDead             ; if (a >= n)
+    add     2 ;inc     a
     ld      (Player_Y), a
+
+    ; only test for ground if not currently on last line
+    cp      SCREEN_HEIGHT_IN_PIXELS - PENGUIN_HEIGHT - 8
+    jp      nc, .skip               ; if (a >= n)
+
+    ; ---------------- Check if there is a tile under the player
+    add     PENGUIN_HEIGHT + 1
+    ld      l, a
+    ld      a, (Player_X)
+    ld      h, a
+    call    CheckBackGround
+    jp      nz, .setIsGrounded
 
     jp      .skip
 
@@ -110,7 +121,7 @@ GameLogic:
     add     PENGUIN_HEIGHT + 8
     ld      l, a
     call    CheckBackGround
-    jp      z, .resetIsGounded
+    jp      z, .resetIsGrounded
 
 .walkingRight:
     ; walking right
@@ -139,7 +150,12 @@ GameLogic:
     ld      (ScrollDirection), a
     jp      .setPlayerStandingRight
 
-.resetIsGounded:
+.resetIsGrounded:
     xor     a
+    ld      (Player_IsGrounded), a
+    jp      .cancelMovement
+
+.setIsGrounded:
+    ld      a, 1
     ld      (Player_IsGrounded), a
     jp      .cancelMovement

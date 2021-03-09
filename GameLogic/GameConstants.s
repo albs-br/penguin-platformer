@@ -3,8 +3,8 @@ SCROLL_TILE_LINES_DURING_VBLANK:        equ 12
 SCROLL_TILE_LINES_AFTER_VBLANK:         equ SCREEN_HEIGHT_IN_TILES - SCROLL_TILE_LINES_DURING_VBLANK
 
 
-DIRECTION_LEFT:                  equ 2
-DIRECTION_RIGHT:                 equ 1
+DIRECTION_LEFT:                         equ 2
+DIRECTION_RIGHT:                        equ 1
 
 TILE_MAP_WIDTH_IN_8X8_COLUMNS:          equ 512    
 

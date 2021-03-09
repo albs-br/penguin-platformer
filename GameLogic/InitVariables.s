@@ -13,7 +13,7 @@ InitVariables:
     
     ld      (Player_Animation_Frame), a
 
-    ld	    a, 192-32-1
+    ld	    a, 192-48-1
     ld      (Player_Y), a
     ld      a, 128-8
     ld      (Player_X), a
