@@ -19,3 +19,13 @@ PENGUIN_RIGHT_WALKING_1:                equ 3 * 4
 PENGUIN_RIGHT_WALKING_2:                equ 5 * 4
 PENGUIN_RIGHT_WALKING_3:                equ 7 * 4
 PENGUIN_RIGHT_WALKING_LAST_FRAME:       equ PENGUIN_RIGHT_WALKING_3
+
+
+; Keyboard constants to current key(s) pressed
+; KEY_LEFT:                               equ 1000 0000 b
+; KEY_RIGHT:                              equ 0100 0000 b
+; KEY_UP:                                 equ 0010 0000 b
+; KEY_DOWN:                               equ 0001 0000 b
+; KEY_JUMP:                               equ 0000 1000 b
+; KEY_RUN:                                equ 0000 0100 b
+; KEY_PAUSE:                              equ 0000 0010 b

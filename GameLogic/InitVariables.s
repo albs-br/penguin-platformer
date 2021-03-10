@@ -9,9 +9,11 @@ InitVariables:
 
     ld      (ScrollDirection), a
     
-    ld      (KeyPressed), a
+    ld      (DirectionKeyPressed), a
+    ld      (JumpKeyPressed), a
     
     ld      (Player_Animation_Frame), a
+    ld      (Player_JumpCounter), a
 
     ld	    a, 192-48-1
     ld      (Player_Y), a

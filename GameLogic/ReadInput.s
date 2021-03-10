@@ -15,16 +15,23 @@ ReadInput:
 
     ; ----- Read player inputs
     xor     a
-    ld      (KeyPressed), a
+    ld      (DirectionKeyPressed), a
 
     ld      a, c                    ; restore keyboard status
 
-    bit     4, a                    ; 4th bit (key left), table with all keys on MSX Progs em Ling. de Maq. pag 58
+    bit     4, a                    ; 4th bit (key left)
     jp      z, .playerLeft
 
     ; ld a, c
     bit     7, a                    ; 7th bit (key right)
     jp      z, .playerRight
+
+    ; Test if jump is pressed
+    ; ld      a, 5                    ; 5th line
+    ; call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
+
+    ; bit     5, a                    ; 5th bit (key X)
+    ; jp      z, .playerJump
 
 
     ; test sprite
@@ -57,12 +64,12 @@ ReadInput:
 
 .playerLeft:
     ld      a, DIRECTION_LEFT
-    ld      (KeyPressed), a
+    ld      (DirectionKeyPressed), a
     ret
 
 .playerRight:
     ld      a, DIRECTION_RIGHT
-    ld      (KeyPressed), a
+    ld      (DirectionKeyPressed), a
     ret
 
 

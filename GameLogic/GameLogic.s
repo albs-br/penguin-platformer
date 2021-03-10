@@ -28,8 +28,8 @@ GameLogic:
     jp      z, .isFalling
 
 
-    ; get the current key pressed
-    ld      a, (KeyPressed)
+    ; Get the current direction key pressed
+    ld      a, (DirectionKeyPressed)
     or      a
     jp      z, .setPlayerStandingRight                            ; if (KeyPressed == 0)
     dec     a

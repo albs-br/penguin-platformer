@@ -5,7 +5,8 @@
 SEED:                       rw 1            ; Seed for random number generator
 
 
-KeyPressed:                 rb 1
+DirectionKeyPressed:        rb 1
+JumpKeyPressed:             rb 1
 
 Player_IsAlive:             rb 1
 Player_X:                   rb 1
@@ -13,6 +14,7 @@ Player_Y:                   rb 1
 Player_Sprite_Number:       rb 1
 Player_Animation_Frame:     rb 1
 Player_IsGrounded:          rb 1
+Player_JumpCounter:         rb 1
 
 
 BgCurrentIndex:             rw 1        ; current position of screen in the background (0-TILE_MAP_WIDTH_IN_8X8_COLUMNS), currently (0-512)
