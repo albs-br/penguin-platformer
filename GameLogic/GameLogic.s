@@ -28,13 +28,29 @@ GameLogic:
     jp      z, .isFalling
 
 
+
+    ; Check if is jumping
+    ld      a, (Player_JumpCounter)
+    or      a
+    jp      nz, .jumping
+
+    ; skip test jump pressed if already jumping
+    ld      a, (Player_JumpCounter)
+    or      a
+    jp      nz, .skipCheckJumpKeyPressed
+    
+    ; Check if jump pressed
+    ld      a, (JumpKeyPressed)
+    or      a
+    call    nz, .startJump
+.skipCheckJumpKeyPressed:
+
     ; Get the current direction key pressed
     ld      a, (DirectionKeyPressed)
     or      a
     jp      z, .setPlayerStandingRight                            ; if (KeyPressed == 0)
     dec     a
     jp      nz, .skip                                   ; if (KeyPressed == 1)
-
     jp      .PlayerRight
 
 
@@ -64,13 +80,25 @@ GameLogic:
     cp      SCREEN_HEIGHT_IN_PIXELS - PENGUIN_HEIGHT - 8
     jp      nc, .skip               ; if (a >= n)
 
-    ; ---------------- Check if there is a tile under the player
+    ; ---------------- Check if there is a tile under the player (bottom left)
     add     PENGUIN_HEIGHT + 1
     ld      l, a
     ld      a, (Player_X)
     ld      h, a
     call    CheckBackGround
     jp      nz, .setIsGrounded
+
+    ; ---------------- Check if there is a tile under the player (bottom right)
+    ; ld      a, (Player_Y)
+    ; add     PENGUIN_HEIGHT + 1
+    ; ld      l, a
+    ; ld      a, (Player_X)
+    ; add     PENGUIN_WIDTH - 1
+    ; ld      h, a
+    ; call    CheckBackGround
+    ; jp      nz, .setIsGrounded
+
+    call    CheckDirectionWhenOffGround
 
     jp      .skip
 
@@ -113,15 +141,13 @@ GameLogic:
     jp      nz, .cancelMovement
 
     ; ---------------- Check if there is a tile under the player
-
     ld      a, (Player_X)
     ld      h, a
-    
     ld      a, (Player_Y)
     add     PENGUIN_HEIGHT + 8
     ld      l, a
     call    CheckBackGround
-    jp      z, .resetIsGrounded
+    jp      z, .hitGround
 
 .walkingRight:
     ; walking right
@@ -150,12 +176,115 @@ GameLogic:
     ld      (ScrollDirection), a
     jp      .setPlayerStandingRight
 
-.resetIsGrounded:
+.hitGround:
     xor     a
     ld      (Player_IsGrounded), a
+    ld      (Player_JumpCounter), a
     jp      .cancelMovement
 
 .setIsGrounded:
     ld      a, 1
     ld      (Player_IsGrounded), a
+    xor     a
+    ld      (Player_JumpCounter), a
     jp      .cancelMovement
+
+
+
+
+.startJump:
+    ld      hl, Player_JumpCounter
+    inc     (hl)
+    ret
+
+.jumping:
+    ld      a, (Player_JumpCounter)
+    inc     a
+    cp      32
+    jp      nc, .falling               ; if (a >= n)
+    ld      (Player_JumpCounter), a
+
+    call    CheckDirectionWhenOffGround
+
+    ld      a, (Player_Y)
+    sub     2
+    ld      (Player_Y), a
+
+    ; Check if there is a tile above the player (top left)
+    ld      l, a
+    ld      a, (Player_X)
+    ld      h, a
+    call    CheckBackGround
+    jp      nz, .falling
+    
+    ; Check if there is a tile above the player (top right)
+    ld      a, (Player_Y)
+    ld      l, a
+    ld      a, (Player_X)
+    add     PENGUIN_WIDTH - 1
+    ld      h, a
+    call    CheckBackGround
+    jp      nz, .falling
+
+    jp      .skip
+
+.falling:
+    xor     a
+    ld      (Player_IsGrounded), a
+    jp      .skip
+
+
+
+CheckDirectionWhenOffGround:
+    ld      a, (DirectionKeyPressed)
+    or      a
+    jp      z, .setDirectionNone
+    cp      DIRECTION_RIGHT
+    jp      z, .setDirectionRight
+    cp      DIRECTION_LEFT
+    jp      z, .setDirectionLeft
+    ret
+
+.setDirectionRight:
+    ; ---------------- Check if there is a tile on the right
+
+    ld      a, (Player_X)
+    add     PENGUIN_WIDTH - 1 - 7      ; PENGUIN_WIDTH - 1: x of last column; -7: compensate for the scrolled tiles
+    ld      h, a
+    
+    ; Add FrameIndex - 7 to X to compensate for the scrolled tiles
+    ld      a, (FrameIndex)
+    ;sub     7
+    add     h
+    ld      h, a
+
+    ; Check top right
+    ld      a, (Player_Y)
+    add     8
+    ld      l, a
+    push    hl
+    call    CheckBackGround
+    pop     hl
+    jp      nz, .setDirectionNone
+    
+    ; Check bottom right
+    ; ld      a, l
+    ; add     PENGUIN_HEIGHT + 15
+    ; ld      l, a
+    ; call    CheckBackGround
+    ; jp      nz, .setDirectionNone
+
+    ld      a, DIRECTION_RIGHT
+    ld      (ScrollDirection), a
+
+    ret
+
+.setDirectionLeft:
+    ; TODO
+    ld      (ScrollDirection), a
+    ret
+
+.setDirectionNone:
+    xor     a
+    ld      (ScrollDirection), a
+    ret

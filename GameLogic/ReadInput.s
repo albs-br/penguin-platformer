@@ -13,10 +13,14 @@ ReadInput:
     jp      z, .scrollRight
 
 
-    ; ----- Read player inputs
+    ; Reset player direction inputs
     xor     a
     ld      (DirectionKeyPressed), a
+    ld      (JumpKeyPressed), a
 
+
+
+    ; ----- Read player direction inputs
     ld      a, c                    ; restore keyboard status
 
     bit     4, a                    ; 4th bit (key left)
@@ -26,12 +30,14 @@ ReadInput:
     bit     7, a                    ; 7th bit (key right)
     jp      z, .playerRight
 
-    ; Test if jump is pressed
-    ; ld      a, 5                    ; 5th line
-    ; call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
 
-    ; bit     5, a                    ; 5th bit (key X)
-    ; jp      z, .playerJump
+.readOtherKeys:
+    ; Test if jump is pressed
+    ld      a, 5                    ; 5th line
+    call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
+
+    bit     5, a                    ; 5th bit (key X)
+    call    z, .playerJump
 
 
     ; test sprite
@@ -65,11 +71,16 @@ ReadInput:
 .playerLeft:
     ld      a, DIRECTION_LEFT
     ld      (DirectionKeyPressed), a
-    ret
+    jp      .readOtherKeys
 
 .playerRight:
     ld      a, DIRECTION_RIGHT
     ld      (DirectionKeyPressed), a
+    jp      .readOtherKeys
+
+.playerJump:
+    ld      a, 1
+    ld      (JumpKeyPressed), a
     ret
 
 
