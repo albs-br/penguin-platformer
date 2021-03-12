@@ -89,14 +89,14 @@ GameLogic:
     jp      nz, .setIsGrounded
 
     ; ---------------- Check if there is a tile under the player (bottom right)
-    ; ld      a, (Player_Y)
-    ; add     PENGUIN_HEIGHT + 1
-    ; ld      l, a
-    ; ld      a, (Player_X)
-    ; add     PENGUIN_WIDTH - 1
-    ; ld      h, a
-    ; call    CheckBackGround
-    ; jp      nz, .setIsGrounded
+    ld      a, (Player_Y)
+    add     PENGUIN_HEIGHT + 1
+    ld      l, a
+    ld      a, (Player_X)
+    add     PENGUIN_WIDTH - 1
+    ld      h, a
+    call    CheckBackGround
+    jp      nz, .setIsGrounded
 
     call    CheckDirectionWhenOffGround
 
@@ -201,8 +201,8 @@ GameLogic:
     ld      a, (Player_JumpCounter)
     inc     a
     cp      32
-    jp      nc, .falling               ; if (a >= n)
     ld      (Player_JumpCounter), a
+    jp      nc, .falling               ; if (a >= n)
 
     call    CheckDirectionWhenOffGround
 
@@ -240,12 +240,12 @@ CheckDirectionWhenOffGround:
     or      a
     jp      z, .setDirectionNone
     cp      DIRECTION_RIGHT
-    jp      z, .setDirectionRight
+    jp      z, .checkDirectionRight
     cp      DIRECTION_LEFT
-    jp      z, .setDirectionLeft
+    jp      z, .checkDirectionLeft
     ret
 
-.setDirectionRight:
+.checkDirectionRight:
     ; ---------------- Check if there is a tile on the right
 
     ld      a, (Player_X)
@@ -260,7 +260,7 @@ CheckDirectionWhenOffGround:
 
     ; Check top right
     ld      a, (Player_Y)
-    add     8
+    ;add     8
     ld      l, a
     push    hl
     call    CheckBackGround
@@ -268,18 +268,18 @@ CheckDirectionWhenOffGround:
     jp      nz, .setDirectionNone
     
     ; Check bottom right
-    ; ld      a, l
-    ; add     PENGUIN_HEIGHT + 15
-    ; ld      l, a
-    ; call    CheckBackGround
-    ; jp      nz, .setDirectionNone
+    ld      a, l
+    add     PENGUIN_HEIGHT - 1
+    ld      l, a
+    call    CheckBackGround
+    jp      nz, .setDirectionNone
 
     ld      a, DIRECTION_RIGHT
     ld      (ScrollDirection), a
 
     ret
 
-.setDirectionLeft:
+.checkDirectionLeft:
     ; TODO
     ld      (ScrollDirection), a
     ret

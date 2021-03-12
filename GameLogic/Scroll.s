@@ -90,10 +90,10 @@ NextPage:
 ScrollRight:
     ; check if scroll is at limit
     ld      hl, (BgCurrentIndex)
-    ;ld      de, 8 * (TILE_MAP_WIDTH_IN_8X8_COLUMNS - SCREEN_WIDTH_IN_TILES)
-    ld      de, 8 * (256 - SCREEN_WIDTH_IN_TILES)
+    ld      de, 8 * (TILE_MAP_WIDTH_IN_8X8_COLUMNS - SCREEN_WIDTH_IN_TILES)
+    ; ld      de, 8 * (256 - SCREEN_WIDTH_IN_TILES)
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    ;ret     nc
+    ret     nc
 
     ; TODO: this is only for automatic scrolling - not for actual game
     jp      nc, .setDirectionLeft
