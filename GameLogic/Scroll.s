@@ -93,20 +93,22 @@ ScrollRight:
     ld      de, 8 * (TILE_MAP_WIDTH_IN_8X8_COLUMNS - SCREEN_WIDTH_IN_TILES)
     ; ld      de, 8 * (256 - SCREEN_WIDTH_IN_TILES)
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    ret     nc
+    ret     nc                          ; hl >= de
 
     ; TODO: this is only for automatic scrolling - not for actual game
-    jp      nc, .setDirectionLeft
-    jp      .continue
-.setDirectionLeft:
-    ld      a, 1                    
-    ld      (ScrollDirection), a
-    ret
-.continue:
+;     jp      nc, .setDirectionLeft
+;     jp      .continue
+; .setDirectionLeft:
+;     xor     a ; ld      a, 1                    
+;     ld      (ScrollDirection), a
+;     ret
+; .continue:
 
 
 
+; TODO: 1x or 2x speed here
     inc     hl
+    ;inc     hl
     ld      (BgCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
@@ -178,34 +180,38 @@ ScrollRight:
             jp      nz, .loopLines2
 
 
-
+; TODO: 1x or 2x speed here
 	ld	    hl, (BgAddrIndex)
     ; hl = hl + TileMapSizeInColumns
     ld      de, TILE_MAP_WIDTH_IN_8X8_COLUMNS
     add     hl, de
+    ;add     hl, de
     ld      (BgAddrIndex), hl
 
+; TODO: 1x or 2x speed here
     ; inc FrameIndex
     ld      de, FrameIndex
     ld      a, (de)
     inc     a
+    ;inc     a
 
-    ; if (FrameIndex) == 8 {
+    ; if (FrameIndex >= 8) {
     ;   FrameIndex = 0;
     ;   (BgIndexFirstFrame)++;        
     ;   (BgIndex) = (BgIndexFirstFrame);
     ; }
     cp      8
-    jp      nz, .not8
+    ;jp      nz, .not8
+    jp      c, .lessThan8                ; if (a < n)
 
-    ;FrameIndex == 8:
+    ;FrameIndex >= 8:
     ld      hl, (BgAddrIndexFirstFrame)
     inc     hl
     ld      (BgAddrIndexFirstFrame), hl
     ld      (BgAddrIndex), hl
 
     xor     a
-.not8:
+.lessThan8:
     ld      (de), a
     
     ;scf                                     ; set carry flag
@@ -216,17 +222,27 @@ ScrollRight:
 ScrollLeft:
     ; check if scroll is at limit
     ld      hl, (BgCurrentIndex)
-    ld      de, 0
-    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    ld      a, l
+    or      h
+    ret     z
+    ;ld      de, 8 * (TILE_MAP_WIDTH_IN_8X8_COLUMNS - SCREEN_WIDTH_IN_TILES) ; 0
+    ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    ; ret     nc
+;     jp      c, .resetBgCurrentIndex
+;     jp      .continue
+
+; .resetBgCurrentIndex:
+;     ld      hl, 0
+;     ld      (BgCurrentIndex), hl
 
     ; TODO: this is only for automatic scrolling - not for actual game
-    jp      z, .setDirectionRight
-    jp      .continue
-.setDirectionRight:
-    ld      a, 2
-    ld      (ScrollDirection), a
-    ret
-.continue:
+;     jp      nc, .setDirectionRight
+;     jp      .continue
+; .setDirectionRight:
+;     xor     a ; ld      a, 2
+;     ld      (ScrollDirection), a
+;     ret
+;.continue:
 
 
 

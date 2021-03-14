@@ -35,10 +35,14 @@ ReadInput:
     ; Test if jump is pressed
     ld      a, 5                    ; 5th line
     call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
+    ld      c, a
 
     bit     5, a                    ; 5th bit (key X)
     call    z, .playerJump
 
+    ld      a, c
+    bit     7, a                    ; 7th bit (key Z)
+    call    z, .playerRun
 
     ; test sprite
     ld      a, 0
@@ -83,6 +87,10 @@ ReadInput:
     ld      (JumpKeyPressed), a
     ret
 
+.playerRun:
+    ld      a, 1
+    ld      (RunKeyPressed), a
+    ret
 
 
 ; test

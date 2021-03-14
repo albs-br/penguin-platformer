@@ -11,6 +11,7 @@ InitVariables:
     
     ld      (DirectionKeyPressed), a
     ld      (JumpKeyPressed), a
+    ld      (RunKeyPressed), a
     
     ld      (Player_Animation_Frame), a
     ld      (Player_JumpCounter), a

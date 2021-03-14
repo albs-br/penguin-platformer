@@ -202,12 +202,23 @@ GameLogic:
     inc     a
     cp      32
     ld      (Player_JumpCounter), a
-    jp      nc, .falling               ; if (a >= n)
+    jp      nc, .falling                ; if (a >= n)
 
     call    CheckDirectionWhenOffGround
 
+    ld      a, (Player_JumpCounter)
+    cp      24
+    jp      nc, .topOfJump              ; if (a >= n)
+
     ld      a, (Player_Y)
     sub     2
+    jp      .saveY
+
+.topOfJump:
+    ld      a, (Player_Y)
+    dec     a
+
+.saveY:
     ld      (Player_Y), a
 
     ; Check if there is a tile above the player (top left)

@@ -2,17 +2,23 @@ UpdateSpriteAttrTableBuffer:
     ld      hl, SpriteAttrTableBuffer
 
     ; Sprite # 0
-    ld      a, (Test_Sprite_Y)
-    ld      (hl), a
+    IFDEF DEBUG
+        ld      a, (Test_Sprite_Y)
+        ld      (hl), a
 
-    inc     hl
-    ld      a, (Test_Sprite_X)
-    ld      (hl), a
+        inc     hl
+        ld      a, (Test_Sprite_X)
+        ld      (hl), a
 
-    inc     hl
-    inc     hl
-    ld      a, (Test_Sprite_Color)
-    ld      (hl), a
+        inc     hl
+        inc     hl
+        ld      a, (Test_Sprite_Color)
+        ld      (hl), a
+    ELSE
+        inc     hl
+        inc     hl
+        inc     hl
+    ENDIF    
 
     ; Sprite # 1
     inc     hl
