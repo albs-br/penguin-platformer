@@ -108,7 +108,12 @@ ScrollRight:
 
 ; TODO: 1x or 2x speed here
     inc     hl
-    ;inc     hl
+    ld      a, (ScrollSpeed)
+    or      a
+    jp      z, .normalSpeed
+    inc     hl
+.normalSpeed:
+    
     ld      (BgCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
@@ -185,15 +190,26 @@ ScrollRight:
     ; hl = hl + TileMapSizeInColumns
     ld      de, TILE_MAP_WIDTH_IN_8X8_COLUMNS
     add     hl, de
-    ;add     hl, de
+
+    ld      a, (ScrollSpeed)
+    or      a
+    jp      z, .normalSpeed_1
+    add     hl, de
+.normalSpeed_1:
+
     ld      (BgAddrIndex), hl
 
 ; TODO: 1x or 2x speed here
     ; inc FrameIndex
     ld      de, FrameIndex
+
+    ld      a, (ScrollSpeed)
+    or      a
     ld      a, (de)
+    jp      z, .normalSpeed_2
     inc     a
-    ;inc     a
+.normalSpeed_2:
+    inc     a
 
     ; if (FrameIndex >= 8) {
     ;   FrameIndex = 0;

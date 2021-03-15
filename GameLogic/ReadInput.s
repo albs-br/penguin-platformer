@@ -43,6 +43,7 @@ ReadInput:
     ld      a, c
     bit     7, a                    ; 7th bit (key Z)
     call    z, .playerRun
+    call    nz, .playerNoRun
 
     ; test sprite
     ld      a, 0
@@ -92,6 +93,10 @@ ReadInput:
     ld      (RunKeyPressed), a
     ret
 
+.playerNoRun:
+    xor     a
+    ld      (RunKeyPressed), a
+    ret
 
 ; test
 .spriteUp:

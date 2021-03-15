@@ -22,12 +22,21 @@ GameLogic:
     jp      z, InitGame
 
 
+    xor     a
+    ld      (ScrollSpeed), a
+
 
     ld      a, (Player_IsGrounded)
     or      a
     jp      z, .isFalling
 
-
+    ; if (Player_IsGrounded && RunKeyPressed) ScrollSpeed = 1
+    ld      a, (RunKeyPressed)
+    or      a
+    jp      z, .notRunning
+    ld      a, 1
+    ld      (ScrollSpeed), a
+.notRunning:    
 
     ; Check if is jumping
     ld      a, (Player_JumpCounter)

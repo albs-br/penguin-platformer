@@ -8,6 +8,7 @@ InitVariables:
     ld      (FrameIndex), a
 
     ld      (ScrollDirection), a
+    ld      (ScrollSpeed), a
     
     ld      (DirectionKeyPressed), a
     ld      (JumpKeyPressed), a

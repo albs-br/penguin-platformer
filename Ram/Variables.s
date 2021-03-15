@@ -26,6 +26,7 @@ BgAddrIndexFirstFrame:      rw 1
 
 
 ScrollDirection:            rb 1       ; 0: none, 1: left, 2: right
+ScrollSpeed:                rb 1       ; 0: normal (1px), 1: fast (2px)
 
 
 
