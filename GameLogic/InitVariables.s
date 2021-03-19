@@ -3,8 +3,10 @@ InitVariables:
     or      0x80                             ; A value different of zero is granted
     ld      (SEED), a
 
+    ld      hl, 0
+    ld      (BgCurrentIndex), hl
+
     xor     a
-    ld      (BgCurrentIndex), a
     ld      (FrameIndex), a
 
     ld      (ScrollDirection), a

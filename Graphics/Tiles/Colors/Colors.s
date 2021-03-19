@@ -54,3 +54,9 @@ TileColors_Rocks_Top_Start:
 TileColors_Rocks_Bottom_Start:
     INCLUDE "Graphics/Tiles/Colors/Color_Rocks_bottom_left.s"
 
+
+
+; TileColors_Rocks_Top_Start:
+;     INCLUDE "Graphics/Tiles/Colors/Color_Diamonds_top_left.s"
+; TileColors_Rocks_Bottom_Start:
+;     INCLUDE "Graphics/Tiles/Colors/Color_Diamonds_bottom_left.s"

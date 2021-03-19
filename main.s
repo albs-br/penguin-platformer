@@ -109,7 +109,7 @@ MainLoop:
     ld      a, (ScrollDirection)
     or      a
     jp      z, .continue
-    cp      1
+    dec     a
     jp      nz, .goLeft
     call    ScrollRight
     jp      .continue
