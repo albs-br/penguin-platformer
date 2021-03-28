@@ -1,5 +1,16 @@
 GameLogic:
 
+
+    ; --- Put Bg objs on screen
+	ld	    hl, NamesTable + (32 * 16) + 16
+	call    BIOS_SETWRT
+    ld      hl, BgObjectsInitialState_Start + 1
+    ld	    a, (BIOS_VDP_DW)
+    ld	    c, a
+    outi
+
+
+
 ;--------------------
 
 

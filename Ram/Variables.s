@@ -18,7 +18,7 @@ Player_IsGrounded:          rb 1
 Player_JumpCounter:         rb 1
 
 
-BgCurrentIndex:             rw 1        ; current position of screen in the background (0-TILE_MAP_WIDTH_IN_8X8_COLUMNS-1), currently (0-511)
+BgCurrentIndex:             rw 1        ; current position of screen in the background (0-(TILE_MAP_WIDTH_IN_8X8_COLUMNS*8))
 FrameIndex:                 rb 1        ; frame index inside a tile (0-7)
 BgAddrIndex:                rw 1
 BgAddrIndexFirstFrame:      rw 1
@@ -28,6 +28,12 @@ BgAddrIndexFirstFrame:      rw 1
 ScrollDirection:            rb 1       ; 0: none, 1: left, 2: right
 ScrollSpeed:                rb 1       ; 0: normal (1px), 1: fast (2px)
 
+
+
+; --- Background objects with state (diamonds for example)
+NUMBER_OF_BG_OBJS:          equ 256     ; TODO: should these contants be moved to contants file?
+BG_OBJ_STRUCT_SIZE:         equ 4
+BgObjects:                  rb NUMBER_OF_BG_OBJS * BG_OBJ_STRUCT_SIZE
 
 
 ;test

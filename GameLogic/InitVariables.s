@@ -38,6 +38,13 @@ InitVariables:
     ld      (BgAddrIndexFirstFrame), hl
 
 
+
+    ; Load bg objects initial state
+    ld      hl, BgObjectsInitialState_Start
+    ld      de, BgObjects
+    ld      bc, BgObjectsInitialState_End - BgObjectsInitialState_Start
+    ldir                                    ; copies BC bytes from HL to DE
+
     ; test
     ld	    a, 192-32-1
     ld      (Test_Sprite_Y), a

@@ -44,6 +44,7 @@ GameData_Start:
     INCLUDE "Graphics/Sprites/Sprites.s"
     INCLUDE "Graphics/Tiles/Patterns/Patterns.s"
     INCLUDE "Graphics/Tiles/Colors/Colors.s"
+    INCLUDE "Graphics/TileMaps/BgObjects.s"
 GameData_Size:          equ $ - GameData_Start
 
 ; Program code entry point
