@@ -5,5 +5,5 @@
 ;       to be defined
 BgObjectsInitialState_Start:
     db      4,  184,  0,  0
-    db      8, 184,  0,  0
+    db      40, 8,  0,  0
 BgObjectsInitialState_End:

@@ -37,7 +37,7 @@ UpdateBgObjects:
 
 ; -------------------------------------
 
-    ; get HL and divide by 8, to convert index expressed in pixels into tiles (first visible row)
+    ; get HL and divide by 8, to convert index expressed in pixels into tiles (first visible column)
     ld      hl, (BgCurrentIndex)
     srl     h
     rr      l
@@ -53,27 +53,27 @@ UpdateBgObjects:
     ;ld      b, h ; will always be 0
     ld      c, l
 
-    ; set BgCurrentIndex + 31 (last visible row)
+    ; set BgCurrentIndex + 31 (last visible column)
     ld      a, c
     add     31
     ld      b, a
 
 
     ; search
-    ld      hl, BgObjects
+    ld      hl, BgObjects_Start
 .loop:    
     ld      a, (hl)
     or      a
     jp      z, .end
     
-    ; compare with first visible row
+    ; compare with first visible column
     cp      c
     jp      z, .isVisible
-    jp      nc, .next          ; if a <= n
+    jp      c, .next          ; if a < n
 
-    ; compare with last visible row
+    ; compare with last visible column
     cp      b
-    jp      c, .end          ; if a > n
+    jp      nc, .end          ; if a >= n
     jp      .isVisible
 
     ;jp      .loop
@@ -81,6 +81,11 @@ UpdateBgObjects:
 .next:
     ld      de, BG_OBJ_STRUCT_SIZE
     add     hl, de
+    
+    ld      de, BgObjects_End
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    jp      nc, .end
+    
     jp      .loop
 
 .isVisible:

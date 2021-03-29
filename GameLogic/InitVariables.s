@@ -41,7 +41,7 @@ InitVariables:
 
     ; Load bg objects initial state
     ld      hl, BgObjectsInitialState_Start
-    ld      de, BgObjects
+    ld      de, BgObjects_Start
     ld      bc, BgObjectsInitialState_End - BgObjectsInitialState_Start
     ldir                                    ; copies BC bytes from HL to DE
 
