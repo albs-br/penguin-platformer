@@ -63,16 +63,18 @@ UpdateBgObjects:
     ld      hl, BgObjects
 .loop:    
     ld      a, (hl)
+    or      a
+    jp      z, .end
     
     ; compare with first visible row
     cp      c
-    jp      z, .found
+    jp      z, .isVisible
     jp      nc, .next          ; if a <= n
 
     ; compare with last visible row
     cp      b
     jp      c, .end          ; if a > n
-    jp      .found
+    jp      .isVisible
 
     ;jp      .loop
 
@@ -81,11 +83,50 @@ UpdateBgObjects:
     add     hl, de
     jp      .loop
 
-.found:
-    ;push   bc
-    ;   call   ShowBgObject
-    ;pop    bc
+.isVisible:
+    push    hl
+    push    bc
+      call      ShowBgObject
+    pop     bc
+    pop     hl
     jp      .next
 
 .end:
+    ret
+
+
+ShowBgObject:
+    ; --- Put Bg objs on screen
+    ld	    a, (BIOS_VDP_DW)
+    ld	    c, a
+    
+    ; First row
+    ld	    hl, NamesTable + (32 * 16) + 16
+	call    BIOS_SETWRT
+    
+        ; top left
+        ld      hl, BgObjectsInitialState_Start + 1
+        ld      a, (hl)
+        out     (c), a
+
+        ; top right
+        add     a, 8
+        out     (c), a
+
+    ; Second row
+    ld	    hl, NamesTable + (32 * 16) + 16
+    ld      de, 32
+    add     hl, de
+	call    BIOS_SETWRT
+    
+        ; bottom left
+        ld      hl, BgObjectsInitialState_Start + 1
+        ld      a, (hl)
+        add     a, 32
+        out     (c), a
+
+        ; bottom right
+        add     a, 8
+        out     (c), a
+    
     ret
