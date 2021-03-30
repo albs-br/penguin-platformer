@@ -19,6 +19,7 @@ Player_JumpCounter:         rb 1
 
 
 BgCurrentIndex:             rw 1        ; current position of screen in the background (0 - (TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8))
+BgCurrentIndex_InTiles:     rw 1        ; current position of screen in the background (0 - (TILE_MAP_WIDTH_IN_8X8_COLUMNS))
 FrameIndex:                 rb 1        ; frame index inside a tile (0-7)
 BgAddrIndex:                rw 1
 BgAddrIndexFirstFrame:      rw 1

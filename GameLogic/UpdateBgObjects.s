@@ -47,8 +47,10 @@ UpdateBgObjects:
     rr      l
 
     ; one more, because the value to be found is previously divided by 2
-    srl     h
-    rr      l
+    ; srl     h
+    ; rr      l
+
+    ld      (BgCurrentIndex_InTiles), hl
 
     ;ld      b, h ; will always be 0
     ld      c, l
@@ -100,38 +102,72 @@ UpdateBgObjects:
     ret
 
 
+; inputs:
+;   A: position
 ShowBgObject:
     ; --- Put Bg objs on screen
+
+    ; position of object on bg
+    ld      d, 0
+    ld      e, a
+    ;push    de
+
     ld	    a, (BIOS_VDP_DW)
     ld	    c, a
     
     ; First row
-    ld	    hl, NamesTable + (32 * 16) + 16
+    ld	    hl, NamesTable + (32 * 16)
+    add     hl, de
+    ld      a, (BgCurrentIndex_InTiles)
+    ;ld      d, 0
+    ld      e, a
+    or      a                               ; clear carry flag
+    sbc     hl, de
+    dec     hl
+    push    hl
 	call    BIOS_SETWRT
     
         ; top left
+        ; TODO: check if is < 0 (bug showing on the other side of screen)
         ld      hl, BgObjectsInitialState_Start + 1
-        ld      a, (hl)
+        ld      b, (hl)
+        ld      a, (FrameIndex)
+        add     b
+        out     (c), a
+
+        ; top center
+        add     a, 8
+        nop
         out     (c), a
 
         ; top right
         add     a, 8
+        nop
         out     (c), a
 
     ; Second row
-    ld	    hl, NamesTable + (32 * 16) + 16
+    ;ld	    hl, NamesTable + (32 * 16) + 16
+    pop     hl
     ld      de, 32
     add     hl, de
 	call    BIOS_SETWRT
     
         ; bottom left
         ld      hl, BgObjectsInitialState_Start + 1
-        ld      a, (hl)
+        ld      b, (hl)
+        ld      a, (FrameIndex)
+        add     b
         add     a, 32
         out     (c), a
 
+        ; bottom center
+        add     a, 8
+        nop
+        out     (c), a
+    
         ; bottom right
         add     a, 8
+        nop
         out     (c), a
     
     ret
