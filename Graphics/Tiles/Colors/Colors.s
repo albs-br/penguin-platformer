@@ -35,11 +35,14 @@ TileColors_SmallBricks_Bottom_End:
 
 
 
+; TileColors_BigBricks_Top_Start:
+;     INCLUDE "Graphics/Tiles/Colors/Color_BigBricks_top_left.s"
+; TileColors_BigBricks_Bottom_Start:
+;     INCLUDE "Graphics/Tiles/Colors/Color_BigBricks_bottom_left.s"
 TileColors_BigBricks_Top_Start:
-    INCLUDE "Graphics/Tiles/Colors/Color_BigBricks_top_left.s"
+    INCLUDE "Graphics/Tiles/Colors/Color_TestSquare_top_left.s"
 TileColors_BigBricks_Bottom_Start:
-    INCLUDE "Graphics/Tiles/Colors/Color_BigBricks_bottom_left.s"
-
+    INCLUDE "Graphics/Tiles/Colors/Color_TestSquare_bottom_left.s"
 
 
 TileColors_Grass_Top_Start:

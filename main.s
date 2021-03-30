@@ -78,12 +78,15 @@ InitGame:
 
     call    InitVariables
 
+    ; load first screen
+    halt
+    call    DrawScreen
     ; halt
     ; call    DrawBackground
-    halt                    ; wait for V-Blank
-    call    ScrollRight     ; show first screen TODO: maybe there should be funtion to show the screen without scroll it
-    halt                    ; wait for V-Blank
-    call    ScrollLeft      ; show first screen TODO: maybe there should be funtion to show the screen without scroll it
+    ; halt                    ; wait for V-Blank
+    ; call    ScrollRight     ; show first screen TODO: maybe there should be funtion to show the screen without scroll it
+    ; halt                    ; wait for V-Blank
+    ; call    ScrollLeft      ; show first screen TODO: maybe there should be funtion to show the screen without scroll it
 
 ; Main loop
 MainLoop:

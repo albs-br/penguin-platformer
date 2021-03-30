@@ -10,6 +10,11 @@ NextPage:
     ret
 
 
+DrawScreen:
+    ld      hl, (BgCurrentIndex)
+    call    DrawBackground
+    ret
+
 
 ScrollRight:
     ; check if scroll is at limit
@@ -94,7 +99,10 @@ ScrollLeft:
     ld      hl, (BgCurrentIndex)
     ld      a, l
     or      h
-    ret     z
+    jp      nz, .continue
+
+    call    DrawScreen
+    ret
     ;ld      de, 8 * (TILE_MAP_WIDTH_IN_8X8_COLUMNS - SCREEN_WIDTH_IN_TILES) ; 0
     ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     ; ret     nc
@@ -114,7 +122,7 @@ ScrollLeft:
 ;     ret
 ;.continue:
 
-
+.continue:
 
     dec     hl
 

@@ -128,7 +128,7 @@ ShowBgObject:
 	call    BIOS_SETWRT
     
         ; top left
-        ; TODO: check if is < 0 (bug showing on the other side of screen)
+        ; TODO: check if column is < 0 (bug showing on the other side of screen)
         ld      hl, BgObjectsInitialState_Start + 1
         ld      b, (hl)
         ld      a, (FrameIndex)
