@@ -45,14 +45,9 @@ UpdateBgObjects:
     rr      l
     srl     h
     rr      l
-
-    ; one more, because the value to be found is previously divided by 2
-    ; srl     h
-    ; rr      l
-
     ld      (BgCurrentIndex_InTiles), hl
 
-    ;ld      b, h ; will always be 0
+    ld      b, h
     ld      c, l
 
     ; set BgCurrentIndex + 31 (last visible column)
@@ -67,7 +62,10 @@ UpdateBgObjects:
     ld      a, (hl)
     or      a
     jp      z, .end
-    
+
+    ; TODO: error here, A cannot hold (0-510) values
+    sla     a                 ; multiply by 2, because the value is (0-510) but stored as (0-255)
+
     ; compare with first visible column
     cp      c
     jp      z, .isVisible
@@ -102,8 +100,9 @@ UpdateBgObjects:
     ret
 
 
+; TODO: error here, A cannot hold (0-510) values
 ; inputs:
-;   A: position
+;   A: column position of object on the bg (0-511)
 ShowBgObject:
     ; --- Put Bg objs on screen
 
@@ -115,7 +114,7 @@ ShowBgObject:
     ld	    a, (BIOS_VDP_DW)
     ld	    c, a
     
-    ; First row
+    ; First row of 16x16 object
     ld	    hl, NamesTable + (32 * 16)
     add     hl, de
     ld      a, (BgCurrentIndex_InTiles)
@@ -145,7 +144,7 @@ ShowBgObject:
         nop
         out     (c), a
 
-    ; Second row
+    ; Second row of 16x16 object
     ;ld	    hl, NamesTable + (32 * 16) + 16
     pop     hl
     ld      de, 32
