@@ -223,11 +223,15 @@ GameLogic:
     jp      nc, .topOfJump              ; if (a >= n)
 
     ld      a, (Player_Y)
+    cp      2                           ; check if is at screen top
+    jp      c, .falling                 ; if (a < n)
     sub     2
     jp      .saveY
 
 .topOfJump:
     ld      a, (Player_Y)
+    cp      1                           ; check if is at screen top
+    jp      c, .falling                 ; if (a < n)
     dec     a
 
 .saveY:
