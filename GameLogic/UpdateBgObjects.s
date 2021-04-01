@@ -116,6 +116,7 @@ ShowBgObject:
     ; --- Put Bg objs on screen
 
     ; position of object on bg
+    push    hl
     ex      de, hl
 
     ld	    a, (BIOS_VDP_DW)
@@ -176,4 +177,28 @@ ShowBgObject:
         nop
         out     (c), a
     
+    ; Check collision between penguin and object
+    ld      a, (Player_X)
+    ld      b, a
+    ld      a, (Player_Y)
+    ld      c, a
+
+    pop     hl                              ; x of object = (ObjPositionOnBg - BgCurrentIndex_InTiles) * 8
+    ld      de, (BgCurrentIndex_InTiles)
+    or      a                               ; clear carry flag
+    sbc     hl, de
+    add     hl, hl                          ; multiply by 8
+    add     hl, hl
+    add     hl, hl
+    ld      a, (FrameIndex)
+    ld      e, a
+    ld      a, l
+    sub     a, e
+    ld      d, a
+
+    ld      e, 16 * 8
+    call    CheckCollision_8x8_8x8
+    jp      c, InitGame
+
+
     ret

@@ -26,6 +26,7 @@ CommonIncludes_Start:
     INCLUDE "Include/Vram.s"
     INCLUDE "Include/CommonRoutines.s"
     INCLUDE "Include/Hook.s"
+    INCLUDE "Include/CheckCollision.s"
 CommonIncludes_Size:    equ $ - CommonIncludes_Start
 
 ; Include game routines
