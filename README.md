@@ -3,3 +3,5 @@ Platform game for MSX 1 with pixel fine scroll (maybe 8 directions), parallax ba
 
 Info on development here:
 https://www.msx.org/forum/msx-talk/development/first-test-horizontal-scrolling-game-possibly-named-penguim-platformer#comment-400553
+
+[![HitCount](http://hits.dwyl.com/albs-br/penguin-platformer.svg)](http://hits.dwyl.com/albs-br/penguin-platformer)
