@@ -37,50 +37,59 @@ UpdateBgObjects:
 
 ; -------------------------------------
 
-    ; get HL and divide by 8, to convert index expressed in pixels into tiles (first visible column)
+    ; get BgCurrentIndex and divide by 8, to convert index expressed in pixels into tiles (first visible column)
     ld      hl, (BgCurrentIndex)
-    srl     h
+    srl     h                 ; shift right HL
     rr      l
-    srl     h
+    srl     h                 ; shift right HL
     rr      l
-    srl     h
+    srl     h                 ; shift right HL
     rr      l
     ld      (BgCurrentIndex_InTiles), hl
 
-    ld      b, h
-    ld      c, l
-
-    ; set BgCurrentIndex + 31 (last visible column)
-    ld      a, c
-    add     31
-    ld      b, a
+    ld      (FirstVisibleColumn), hl
+    ld      de, 31
+    add     hl, de
+    ld      (LastVisibleColumn), hl
 
 
     ; search
     ld      hl, BgObjects_Start
+    ld      (UpdateBgObjects_CurrentAddr), hl
 .loop:    
+    ld      hl, (UpdateBgObjects_CurrentAddr)
     ld      a, (hl)
     or      a
     jp      z, .end
 
-    ; TODO: error here, A cannot hold (0-510) values
-    sla     a                 ; multiply by 2, because the value is (0-510) but stored as (0-255)
+    ld      h, 0
+    ld      l, a
+
+    ; multiply by 2, because the value is (0-510) but stored as (0-255)
+    add     hl, hl
+    
 
     ; compare with first visible column
-    cp      c
+    ;cp      c
+    ld      de, (FirstVisibleColumn)
+    call    BIOS_DCOMPR       ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp      z, .isVisible
-    jp      c, .next          ; if a < n
+    jp      c, .next          ; if hl < de
 
     ; compare with last visible column
-    cp      b
-    jp      nc, .end          ; if a >= n
+    ; cp      b
+    ld      de, (LastVisibleColumn)
+    call    BIOS_DCOMPR       ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    jp      nc, .end          ; if hl >= de
     jp      .isVisible
 
-    ;jp      .loop
-
 .next:
+    ld      hl, (UpdateBgObjects_CurrentAddr)
+
     ld      de, BG_OBJ_STRUCT_SIZE
     add     hl, de
+
+    ld      (UpdateBgObjects_CurrentAddr), hl
     
     ld      de, BgObjects_End
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
@@ -89,11 +98,11 @@ UpdateBgObjects:
     jp      .loop
 
 .isVisible:
-    push    hl
-    push    bc
+    ;push    hl
+    ;push    bc
       call      ShowBgObject
-    pop     bc
-    pop     hl
+    ;pop     bc
+    ;pop     hl
     jp      .next
 
 .end:
@@ -102,14 +111,12 @@ UpdateBgObjects:
 
 ; TODO: error here, A cannot hold (0-510) values
 ; inputs:
-;   A: column position of object on the bg (0-511)
+;   HL: column position of object on the bg (0-511)
 ShowBgObject:
     ; --- Put Bg objs on screen
 
     ; position of object on bg
-    ld      d, 0
-    ld      e, a
-    ;push    de
+    ex      de, hl
 
     ld	    a, (BIOS_VDP_DW)
     ld	    c, a
@@ -117,9 +124,9 @@ ShowBgObject:
     ; First row of 16x16 object
     ld	    hl, NamesTable + (32 * 16)
     add     hl, de
-    ld      a, (BgCurrentIndex_InTiles)
-    ;ld      d, 0
-    ld      e, a
+    ld      de, (BgCurrentIndex_InTiles)
+    ; ;ld      d, 0
+    ; ld      e, a
     or      a                               ; clear carry flag
     sbc     hl, de
     dec     hl
