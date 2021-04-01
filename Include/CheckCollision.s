@@ -78,12 +78,11 @@ CheckCollision_8x8_8x8:
         ret     nc                          ; return if no collision
         jp      .checkVerticalCollision
 .x1IsLarger:
-        ;neg                                ; use negative value (Z80)
+        neg                                 ; use negative value (Z80)
         ; emulate neg instruction (Gameboy)
         ; ld      b, a
         ; xor     a                           ; same as ld a, 0
         ; sub     a, b
-        neg     
     
         sub     WIDTH8                      ; compare with size 2
         ret     nc                          ; return if no collision
@@ -95,12 +94,11 @@ CheckCollision_8x8_8x8:
         sub     HEIGHT1                     ; compare with size 1
         ret                                 ; return collision or no collision
 .y1IsLarger:
-        ;neg                                ; use negative value (Z80)
+        neg                                 ; use negative value (Z80)
         ; emulate neg instruction (Gameboy)
         ; ld      c, a
         ; xor     a                           ; same as ld a, 0
         ; sub     a, c
-        neg     
     
         sub     HEIGHT2                     ; compare with size 2
         ret                                 ; return collision or no collision

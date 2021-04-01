@@ -119,11 +119,29 @@ ShowBgObject:
     push    hl
     ex      de, hl
 
+    
+    ; get row number
+    ld      hl, (UpdateBgObjects_CurrentAddr)
+    inc     hl
+    inc     hl
+    ld      a, (hl)
+    ld      h, 0
+    ld      l, a
+    ; add     hl, hl                          ; multiply by 32
+    ; add     hl, hl                          ; this multiplication is now pre calculated on BgObjects.s
+    ; add     hl, hl
+    ld      a, l
+    ld      (TempVariable_Byte), a          ; save object pixel position
+    add     hl, hl
+    add     hl, hl                          
+    ld      bc, NamesTable
+    add     hl, bc
+
     ld	    a, (BIOS_VDP_DW)
     ld	    c, a
-    
+
     ; First row of 16x16 object
-    ld	    hl, NamesTable + (32 * 16)
+    ;ld	    hl, NamesTable + (32 * 16)
     add     hl, de
     ld      de, (BgCurrentIndex_InTiles)
     ; ;ld      d, 0
@@ -136,7 +154,7 @@ ShowBgObject:
     
         ; top left
         ; TODO: check if column is < 0 (bug showing on the other side of screen)
-        ld      hl, BgObjectsInitialState_Start + 1
+        ld      hl, BgObjectsInitialState_Start + 1     ; TODO get object from second byte of struct
         ld      b, (hl)
         ld      a, (FrameIndex)
         add     b
@@ -181,6 +199,7 @@ ShowBgObject:
     ld      a, (Player_X)
     ld      b, a
     ld      a, (Player_Y)
+    inc     a                               ; small adjust needed (because of the y+1 issue of TMS9918 ?)
     ld      c, a
 
     pop     hl                              ; x of object = (ObjPositionOnBg - BgCurrentIndex_InTiles) * 8
@@ -196,7 +215,8 @@ ShowBgObject:
     sub     a, e
     ld      d, a
 
-    ld      e, 16 * 8
+    ld      a, (TempVariable_Byte)
+    ld      e, a ;16 * 8
     call    CheckCollision_8x8_8x8
     jp      c, InitGame
 
