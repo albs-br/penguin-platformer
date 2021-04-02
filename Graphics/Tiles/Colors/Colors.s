@@ -1,3 +1,5 @@
+    INCLUDE "Graphics/Tiles/Colors/ColorTableStructure.s"
+
 TileColors_Black_Start:
         db  0x01
         db  0x01

@@ -25,5 +25,5 @@ PatternTableStructure_3rd_Third:
     dw  TilePatterns_SmallBricks_Start          ,  48 * 8
     dw  TilePatterns_BigBricks_Start            ,  64 * 8
     dw  TilePatterns_Grass_Start                ,  64 * 8
-    dw  TilePatterns_Rocks_Start                ,  64 * 8
+    dw  TilePatterns_Diamonds_Start             ,  64 * 8
 PatternTableStructure_3rd_Third_End:
