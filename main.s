@@ -80,8 +80,8 @@ InitGame:
     call    InitVariables
 
     ; load first screen
-    halt
-    call    DrawScreen
+    ; halt
+    ; call    DrawBgWithoutScrolling
     ; halt
     ; call    DrawBackground
     ; halt                    ; wait for V-Blank
@@ -114,13 +114,16 @@ MainLoop:
 
     ld      a, (ScrollDirection)
     or      a
-    jp      z, .continue
+    jp      z, .drawBg
     dec     a
     jp      nz, .goLeft
     call    ScrollRight
     jp      .continue
 .goLeft:
     call    ScrollLeft
+    jp      .continue
+.drawBg:
+    call    DrawBgWithoutScrolling
 .continue:
 
 ; .eternal:

@@ -10,7 +10,7 @@ NextPage:
     ret
 
 
-DrawScreen:
+DrawBgWithoutScrolling:
     ld      hl, (BgCurrentIndex)
     call    DrawBackground
     ret
@@ -101,7 +101,7 @@ ScrollLeft:
     or      h
     jp      nz, .continue
 
-    call    DrawScreen
+    call    DrawBgWithoutScrolling
     ret
     ;ld      de, 8 * (TILE_MAP_WIDTH_IN_8X8_COLUMNS - SCREEN_WIDTH_IN_TILES) ; 0
     ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.

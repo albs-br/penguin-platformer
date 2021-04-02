@@ -70,14 +70,12 @@ UpdateBgObjects:
     
 
     ; compare with first visible column
-    ;cp      c
     ld      de, (FirstVisibleColumn)
     call    BIOS_DCOMPR       ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp      z, .isVisible
     jp      c, .next          ; if hl < de
 
     ; compare with last visible column
-    ; cp      b
     ld      de, (LastVisibleColumn)
     call    BIOS_DCOMPR       ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp      nc, .end          ; if hl >= de
@@ -98,39 +96,40 @@ UpdateBgObjects:
     jp      .loop
 
 .isVisible:
-    ;push    hl
-    ;push    bc
-      call      ShowBgObject
-    ;pop     bc
-    ;pop     hl
+    call    ShowBgObject
     jp      .next
 
 .end:
     ret
 
 
-; TODO: error here, A cannot hold (0-510) values
 ; inputs:
 ;   HL: column position of object on the bg (0-511)
 ShowBgObject:
-    ; --- Put Bg objs on screen
+    ; --- Put a Bg obj on screen
 
     ; position of object on bg
-    push    hl
+    ld      (UpdateBgObjects_PosObjOnBG), hl
     ex      de, hl
 
-    
-    ; get row number
+    ; check if object is enabled
     ld      hl, (UpdateBgObjects_CurrentAddr)
     inc     hl
     inc     hl
+    inc     hl
+    ld      a, (hl)
+    or      a
+    ret     z
+    
+    ; get row number
+    dec     hl
     ld      a, (hl)
     ld      h, 0
     ld      l, a
     ; add     hl, hl                          ; multiply by 32
     ; add     hl, hl                          ; this multiplication is now pre calculated on BgObjects.s
     ; add     hl, hl
-    ld      a, l
+    ;ld      a, l
     ld      (TempVariable_Byte), a          ; save object pixel position
     add     hl, hl
     add     hl, hl                          
@@ -144,13 +143,11 @@ ShowBgObject:
     ;ld	    hl, NamesTable + (32 * 16)
     add     hl, de
     ld      de, (BgCurrentIndex_InTiles)
-    ; ;ld      d, 0
-    ; ld      e, a
     or      a                               ; clear carry flag
     sbc     hl, de
     dec     hl
     push    hl
-	call    BIOS_SETWRT
+	    call    BIOS_SETWRT
     
         ; top left
         ; TODO: check if column is < 0 (bug showing on the other side of screen)
@@ -199,14 +196,14 @@ ShowBgObject:
     ld      a, (Player_X)
     ld      b, a
     ld      a, (Player_Y)
-    inc     a                               ; small adjust needed (because of the y+1 issue of TMS9918 ?)
+    inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
     ld      c, a
 
-    pop     hl                              ; x of object = (ObjPositionOnBg - BgCurrentIndex_InTiles) * 8
+    ld      hl, (UpdateBgObjects_PosObjOnBG)    ; x of object = (ObjPositionOnBg - BgCurrentIndex_InTiles) * 8
     ld      de, (BgCurrentIndex_InTiles)
-    or      a                               ; clear carry flag
+    or      a                                   ; clear carry flag
     sbc     hl, de
-    add     hl, hl                          ; multiply by 8
+    add     hl, hl                              ; multiply by 8
     add     hl, hl
     add     hl, hl
     ld      a, (FrameIndex)
@@ -218,7 +215,14 @@ ShowBgObject:
     ld      a, (TempVariable_Byte)
     ld      e, a ;16 * 8
     call    CheckCollision_8x8_8x8
-    jp      c, InitGame
+    ret     nc
 
+    ; if collided, disable object
+    ld      hl, (UpdateBgObjects_CurrentAddr)
+    inc     hl
+    inc     hl
+    inc     hl
+    xor     a ; same as ld a, 0
+    ld      (hl), a
 
     ret

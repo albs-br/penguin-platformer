@@ -30,6 +30,7 @@ FirstVisibleColumn:         rw 1
 LastVisibleColumn:          rw 1
 
 UpdateBgObjects_CurrentAddr:            rw 1
+UpdateBgObjects_PosObjOnBG:             rw 1
 
 
 
@@ -41,7 +42,7 @@ ScrollSpeed:                rb 1       ; 0: normal (1px), 1: fast (2px)
 ; --- Background objects with state (diamonds for example)
 NUMBER_OF_BG_OBJS:          equ 256     ; TODO: should these constants be moved to constants file?
 BG_OBJ_STRUCT_SIZE:         equ 4
-BgObjects_Start:                  rb NUMBER_OF_BG_OBJS * BG_OBJ_STRUCT_SIZE
+BgObjects_Start:            rb NUMBER_OF_BG_OBJS * BG_OBJ_STRUCT_SIZE
 BgObjects_End:
 
 
