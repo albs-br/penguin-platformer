@@ -5,6 +5,34 @@ SCREEN_WIDTH_IN_PIXELS:         equ     32 * 8
 SCREEN_HEIGHT_IN_PIXELS:        equ     24 * 8
 
 
+; VRAM memory mapping (Screen 2)
+NamesTable:	                    equ 6144	; 0x1800 - Base address for names table (6144 to 6911); 256 * 3 = 768 bytes
+
+PatternsTable_1st_Third:	    equ 0	    ; 0x0000 - Base address for 3 patterns tables (0 to 6143); 256 * 8 * 3 = 6144 bytes
+PatternsTable_2nd_Third:	    equ PatternsTable_1st_Third + (256 * 8)
+PatternsTable_3rd_Third:	    equ PatternsTable_2nd_Third + (256 * 8)
+
+ColorsTable_1st_Third:	        equ 8192	; 0x2000 - Base address for colors table (8192 to 14335); 256 * 8 * 3 = 6144 bytes
+ColorsTable_2nd_Third:	        equ ColorsTable_1st_Third + (256 * 8)
+ColorsTable_3rd_Third:	        equ ColorsTable_2nd_Third + (256 * 8)
+
+; Sprite attr table: 6912
+; sprite 0:
+;     6192 Y
+; 	  6193 X
+; 	  6194 N
+; 	  6195 C
+; sprite 1:
+;       6196 Y
+; (...)
+
+; Sprite formation table: 14336
+SpriteAttrTable:                equ 6912	; 0x1b00 - Base address for sprite attributes table (6912 to 7040); 32 * 4 = 128 bytes
+SpritePatternTable:             equ 14336	; 0x3800 - Base address for sprite patterns table (14336 to 16383); 256 * 8 = 2048 bytes for 8x8, 64 * 32 = 2048 bytes for 16x16
+
+
+
+
 ; MSX1 colors:
 COLOR_TRANSPARENT:	equ 0
 COLOR_BLACK:		equ 1

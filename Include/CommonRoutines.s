@@ -178,28 +178,28 @@ FillColorTable:
 FillColorTable_3thirds:
     ; Top third of screen
     push    hl
-    push    de
-    push    af
-    call    FillColorTable
-    pop     af
-    pop     hl              ; from de to hl
-    ld      bc, 256 * 8     ; go to next color table
-    add     hl, bc
-    ld      d, h
-    ld      e, l
+        push    de
+            push    af
+                call    FillColorTable
+            pop     af
+        pop     hl              ; from de to hl
+        ld      bc, 256 * 8     ; go to next color table
+        add     hl, bc
+        ld      d, h
+        ld      e, l
     pop     hl
 
     ; Middle third of screen
     push    hl
-    push    de
-    push    af
-    call    FillColorTable
-    pop     af
-    pop     hl              ; from de to hl
-    ld      bc, 256 * 8     ; go to next color table
-    add     hl, bc
-    ld      d, h
-    ld      e, l
+        push    de
+            push    af
+                call    FillColorTable
+            pop     af
+        pop     hl              ; from de to hl
+        ld      bc, 256 * 8     ; go to next color table
+        add     hl, bc
+        ld      d, h
+        ld      e, l
     pop     hl
     
     ; Bottom third of screen

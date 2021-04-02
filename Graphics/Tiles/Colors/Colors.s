@@ -35,14 +35,14 @@ TileColors_SmallBricks_Bottom_End:
 
 
 
-; TileColors_BigBricks_Top_Start:
-;     INCLUDE "Graphics/Tiles/Colors/Color_BigBricks_top_left.s"
-; TileColors_BigBricks_Bottom_Start:
-;     INCLUDE "Graphics/Tiles/Colors/Color_BigBricks_bottom_left.s"
 TileColors_BigBricks_Top_Start:
-    INCLUDE "Graphics/Tiles/Colors/Color_TestSquare_top_left.s"
+    INCLUDE "Graphics/Tiles/Colors/Color_BigBricks_top_left.s"
 TileColors_BigBricks_Bottom_Start:
-    INCLUDE "Graphics/Tiles/Colors/Color_TestSquare_bottom_left.s"
+    INCLUDE "Graphics/Tiles/Colors/Color_BigBricks_bottom_left.s"
+; TileColors_BigBricks_Top_Start:
+;     INCLUDE "Graphics/Tiles/Colors/Color_TestSquare_top_left.s"
+; TileColors_BigBricks_Bottom_Start:
+;     INCLUDE "Graphics/Tiles/Colors/Color_TestSquare_bottom_left.s"
 
 
 TileColors_Grass_Top_Start:
@@ -59,7 +59,7 @@ TileColors_Rocks_Bottom_Start:
 
 
 
-; TileColors_Rocks_Top_Start:
-;     INCLUDE "Graphics/Tiles/Colors/Color_Diamonds_top_left.s"
-; TileColors_Rocks_Bottom_Start:
-;     INCLUDE "Graphics/Tiles/Colors/Color_Diamonds_bottom_left.s"
+TileColors_Diamonds_Top_Start:
+    INCLUDE "Graphics/Tiles/Colors/Color_Diamonds_top_left.s"
+TileColors_Diamonds_Bottom_Start:
+    INCLUDE "Graphics/Tiles/Colors/Color_Diamonds_bottom_left.s"

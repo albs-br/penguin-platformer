@@ -1,31 +1,3 @@
-; VRAM memory mapping (Screen 2)
-NamesTable:	        equ 6144	; 0x1800 - Base address for names table (6144 to 6911); 256 * 3 = 768 bytes
-
-PatternsTable_1st_Third:	    equ 0	    ; 0x0000 - Base address for 3 patterns tables (0 to 6143); 256 * 8 * 3 = 6144 bytes
-PatternsTable_2nd_Third:	    equ PatternsTable_1st_Third + (256 * 8)
-PatternsTable_3rd_Third:	    equ PatternsTable_2nd_Third + (256 * 8)
-
-ColorsTable_1st_Third:	        equ 8192	; 0x2000 - Base address for colors table (8192 to 14335); 256 * 8 * 3 = 6144 bytes
-ColorsTable_2nd_Third:	        equ ColorsTable_1st_Third + (256 * 8)
-ColorsTable_3rd_Third:	        equ ColorsTable_2nd_Third + (256 * 8)
-
-; Sprite attr table: 6912
-; sprite 0:
-;     6192 Y
-; 	  6193 X
-; 	  6194 N
-; 	  6195 C
-; sprite 1:
-;       6196 Y
-; (...)
-
-; Sprite formation table: 14336
-
-SpriteAttrTable:    equ 6912	; 0x1b00 - Base address for sprite attributes table (6912 to 7040); 32 * 4 = 128 bytes
-SpritePatternTable: equ 14336	; 0x3800 - Base address for sprite patterns table (14336 to 16383); 256 * 8 = 2048 bytes for 8x8, 64 * 32 = 2048 bytes for 16x16
-
-
-
 InitVram:
 
 	call 	BIOS_DISSCR		; 
@@ -116,20 +88,78 @@ InitVram:
 
 
 LoadTilePatterns:
-	ld	    bc, TilePatterns_End - TilePatterns_Start                               ; Block length
+	; ld	    bc, TilePatterns_End - TilePatterns_Start                               ; Block length
+	; ld	    de, PatternsTable_1st_Third                                             ; VRAM Address
+	; ld	    hl, TilePatterns_Start                                                  ; RAM Address
+    ; call    BIOS_LDIRVM                                                             ; Block transfer to VRAM from memory
+
+	; ld	    bc, TilePatterns_End - TilePatterns_Start                               ; Block length
+	; ld	    de, PatternsTable_2nd_Third                                             ; VRAM Address
+	; ld	    hl, TilePatterns_Start                                                  ; RAM Address
+    ; call    BIOS_LDIRVM                                                             ; Block transfer to VRAM from memory
+
+	; ld	    bc, TilePatterns_End - TilePatterns_Start                               ; Block length
+	; ld	    de, PatternsTable_3rd_Third                                             ; VRAM Address
+	; ld	    hl, TilePatterns_Start                                                  ; RAM Address
+    ; call    BIOS_LDIRVM                                                             ; Block transfer to VRAM from memory
+
+
+    ld		ix, PatternTableStructure_1st_Third										; Source on RAM (Start)
+	ld		iy, PatternTableStructure_1st_Third_End									; Source on RAM (End)
 	ld	    de, PatternsTable_1st_Third                                             ; VRAM Address
-	ld	    hl, TilePatterns_Start                                                  ; RAM Address
-    call    BIOS_LDIRVM                                                             ; Block transfer to VRAM from memory
+	call 	LoadTilePatterns_OneThird
 
-	ld	    bc, TilePatterns_End - TilePatterns_Start                               ; Block length
+    ld		ix, PatternTableStructure_2nd_Third										; Source on RAM (Start)
+	ld		iy, PatternTableStructure_2nd_Third_End									; Source on RAM (End)
 	ld	    de, PatternsTable_2nd_Third                                             ; VRAM Address
-	ld	    hl, TilePatterns_Start                                                  ; RAM Address
-    call    BIOS_LDIRVM                                                             ; Block transfer to VRAM from memory
+	call 	LoadTilePatterns_OneThird
 
-	ld	    bc, TilePatterns_End - TilePatterns_Start                               ; Block length
+    ld		ix, PatternTableStructure_3rd_Third										; Source on RAM (Start)
+	ld		iy, PatternTableStructure_3rd_Third_End									; Source on RAM (End)
 	ld	    de, PatternsTable_3rd_Third                                             ; VRAM Address
-	ld	    hl, TilePatterns_Start                                                  ; RAM Address
-    call    BIOS_LDIRVM                                                             ; Block transfer to VRAM from memory
+	call 	LoadTilePatterns_OneThird
+
+	ret
+
+LoadTilePatterns_OneThird:
+.loop:
+	; Get start address of patterns
+	ld		l, (ix)
+	ld		h, (ix + 1)
+	
+	; Get size in bytes
+	ld		c, (ix + 2)
+	ld		b, (ix + 3)
+
+	; Do the copy
+	push	bc
+		push	de
+			call    BIOS_LDIRVM                                                             ; Block transfer to VRAM from memory
+		pop		hl	; from DE to HL
+	pop		bc
+	; Update DE (destiny on VRAM to the start of next pattern sequence)
+	add		hl, bc
+	ex		de, hl
+
+	; Go to next register
+	inc		ix
+	inc		ix
+	inc		ix
+	inc		ix
+
+	; Check if passed the end of the source patterns
+	push	de
+		ld		d, ixh
+		ld		e, ixl
+		ld		h, d
+		ld		l, e
+	pop		de
+	push	de
+		ld		d, iyh
+		ld		e, iyl
+		call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+	pop		de
+	jp		c, .loop
 
     ret
 
@@ -138,13 +168,13 @@ LoadTilePatterns:
 LoadTileColors:
 	ld	    de, ColorsTable_1st_Third     	                                        ; VRAM color table start address
 	ld	    hl, TileColors_Black_Start                                              ; RAM start address of color pattern (8 bytes)
-	ld      a, TilePatterns_Black_SizeInChars                                       ; number of cells in color table to be filled by the pattern
+	ld      a, TilePatterns_Black_SizeInChars          								; number of cells in color table to be filled by the pattern
 	call    FillColorTable_3thirds
 
 ColorsTable_Addr_SmallBricks_Top_Start:		equ	ColorsTable_1st_Third + 8
-	ld	    de, ColorsTable_Addr_SmallBricks_Top_Start								; VRAM color table start address
-	ld	    hl, TileColors_SmallBricks_Top_Start                                    ; RAM start address of color pattern (8 bytes)
-	ld      a, 24;TilePatterns_SmallBricks_Top_SizeInChars                             ; number of cells in color table to be filled by the pattern
+	ld	    de, ColorsTable_Addr_SmallBricks_Top_Start											; VRAM color table start address
+	ld	    hl, TileColors_SmallBricks_Top_Start                                    			; RAM start address of color pattern (8 bytes)
+	ld      a, 0 + (TilePatterns_SmallBricks_End - TilePatterns_SmallBricks_Start) / 8          ; number of cells in color table to be filled by the pattern
 	call    FillColorTable_3thirds
 ColorsTable_Addr_SmallBricks_Bottom_Start:	equ	ColorsTable_Addr_SmallBricks_Top_Start + (24*8);(TilePatterns_SmallBricks_Top_SizeInChars * 8)
 	ld	    de, ColorsTable_Addr_SmallBricks_Bottom_Start 							; VRAM color table start address
@@ -152,18 +182,53 @@ ColorsTable_Addr_SmallBricks_Bottom_Start:	equ	ColorsTable_Addr_SmallBricks_Top_
 	ld      a, 24;ilePatterns_SmallBricks_Bottom_SizeInChars                          ; number of cells in color table to be filled by the pattern
 	call    FillColorTable_3thirds
 
-ColorsTable_Addr_BigBricks_Top_Start:		equ	ColorsTable_Addr_SmallBricks_Bottom_Start + (24*8);(TilePatterns_SmallBricks_Bottom_SizeInChars * 8)
-	ld	    de, ColorsTable_Addr_BigBricks_Top_Start								; VRAM color table start address
-	ld	    hl, TileColors_BigBricks_Top_Start                                    	; RAM start address of color pattern (8 bytes)
-	ld      a, 32;TilePatterns_SmallBricks_Top_SizeInChars                             ; number of cells in color table to be filled by the pattern
-	call    FillColorTable_3thirds
-ColorsTable_Addr_BigBricks_Bottom_Start:	equ	ColorsTable_Addr_BigBricks_Top_Start + (32*8);(TilePatterns_SmallBricks_Top_SizeInChars * 8)
-	ld	    de, ColorsTable_Addr_BigBricks_Bottom_Start								; VRAM color table start address
-	ld	    hl, TileColors_BigBricks_Bottom_Start                                   ; RAM start address of color pattern (8 bytes)
-	ld      a, 32;TilePatterns_SmallBricks_Bottom_SizeInChars                          ; number of cells in color table to be filled by the pattern
-	call    FillColorTable_3thirds
 
-ColorsTable_Addr_Grass_Top_Start:		equ	ColorsTable_Addr_BigBricks_Bottom_Start + (32*8);(TilePatterns_SmallBricks_Bottom_SizeInChars * 8)
+
+; Filling color table separatly for each third of screen
+ColorsTable_Addr_BigBricks_Top_Start_1st_Third:		equ	ColorsTable_Addr_SmallBricks_Bottom_Start + (24*8)
+	ld	    de, ColorsTable_Addr_BigBricks_Top_Start_1st_Third									; VRAM color table start address
+	ld	    hl, TileColors_BigBricks_Top_Start                                    				; RAM start address of color pattern (8 bytes)
+	ld      a, 32                             													; number of cells in color table to be filled by the pattern
+	call    FillColorTable
+ColorsTable_Addr_BigBricks_Top_Start_2nd_Third:		equ	ColorsTable_Addr_BigBricks_Top_Start_1st_Third + (256*8)
+	ld	    de, ColorsTable_Addr_BigBricks_Top_Start_2nd_Third									; VRAM color table start address
+	ld	    hl, TileColors_BigBricks_Top_Start                                    				; RAM start address of color pattern (8 bytes)
+	ld      a, 32                             													; number of cells in color table to be filled by the pattern
+	call    FillColorTable
+ColorsTable_Addr_BigBricks_Top_Start_3rd_Third:		equ	ColorsTable_Addr_BigBricks_Top_Start_2nd_Third + (256*8)
+	ld	    de, ColorsTable_Addr_BigBricks_Top_Start_3rd_Third									; VRAM color table start address
+	ld	    hl, TileColors_Diamonds_Top_Start                                    				; RAM start address of color pattern (8 bytes)
+	ld      a, 32                             													; number of cells in color table to be filled by the pattern
+	call    FillColorTable
+
+
+
+; Filling color table separatly for each third of screen
+ColorsTable_Addr_BigBricks_Bottom_Start_1st_Third:		equ	ColorsTable_Addr_BigBricks_Top_Start_1st_Third + (32*8)
+	ld	    de, ColorsTable_Addr_BigBricks_Bottom_Start_1st_Third									; VRAM color table start address
+	ld	    hl, TileColors_BigBricks_Bottom_Start                                    				; RAM start address of color pattern (8 bytes)
+	ld      a, 32                             													; number of cells in color table to be filled by the pattern
+	call    FillColorTable
+ColorsTable_Addr_BigBricks_Bottom_Start_2nd_Third:		equ	ColorsTable_Addr_BigBricks_Bottom_Start_1st_Third + (256*8)
+	ld	    de, ColorsTable_Addr_BigBricks_Bottom_Start_2nd_Third									; VRAM color table start address
+	ld	    hl, TileColors_BigBricks_Bottom_Start                                    				; RAM start address of color pattern (8 bytes)
+	ld      a, 32                             													; number of cells in color table to be filled by the pattern
+	call    FillColorTable
+ColorsTable_Addr_BigBricks_Bottom_Start_3rd_Third:		equ	ColorsTable_Addr_BigBricks_Bottom_Start_2nd_Third + (256*8)
+	ld	    de, ColorsTable_Addr_BigBricks_Bottom_Start_3rd_Third									; VRAM color table start address
+	ld	    hl, TileColors_Diamonds_Bottom_Start                                    				; RAM start address of color pattern (8 bytes)
+	ld      a, 32                             													; number of cells in color table to be filled by the pattern
+	call    FillColorTable
+
+
+
+; ColorsTable_Addr_BigBricks_Bottom_Start:	equ	ColorsTable_Addr_BigBricks_Top_Start_1st_Third + (32*8);(TilePatterns_SmallBricks_Top_SizeInChars * 8)
+; 	ld	    de, ColorsTable_Addr_BigBricks_Bottom_Start								; VRAM color table start address
+; 	ld	    hl, TileColors_BigBricks_Bottom_Start                                   ; RAM start address of color pattern (8 bytes)
+; 	ld      a, 32;TilePatterns_SmallBricks_Bottom_SizeInChars                          ; number of cells in color table to be filled by the pattern
+; 	call    FillColorTable_3thirds
+
+ColorsTable_Addr_Grass_Top_Start:		equ	ColorsTable_Addr_BigBricks_Bottom_Start_1st_Third + (32*8);(TilePatterns_SmallBricks_Bottom_SizeInChars * 8)
 	ld	    de, ColorsTable_Addr_Grass_Top_Start								; VRAM color table start address
 	ld	    hl, TileColors_Grass_Top_Start                                    	; RAM start address of color pattern (8 bytes)
 	ld      a, 32;TilePatterns_SmallBricks_Top_SizeInChars                             ; number of cells in color table to be filled by the pattern
