@@ -316,7 +316,6 @@ StartSpritePatterns:
 
     ; --- Diamond disappearing
     ; frames # 0 to 3
-    ; color 15
 
 
     ; --- Slot 0
@@ -463,7 +462,6 @@ StartSpritePatterns:
 
     ; --- Diamond disappearing
     ; frames # 4 to 7
-    ; color 15
 
     ; --- Slot 0
     ; color 15

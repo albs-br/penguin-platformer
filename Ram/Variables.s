@@ -31,7 +31,8 @@ LastVisibleColumn:          rw 1
 
 UpdateBgObjects_CurrentAddr:            rw 1
 UpdateBgObjects_PosObjOnBG:             rw 1
-
+UpdateBgObjects_X:                      rb 1
+UpdateBgObjects_Y:                      rb 1
 
 
 ScrollDirection:            rb 1       ; 0: none, 1: left, 2: right
@@ -46,6 +47,16 @@ BgObjects_Start:            rb NUMBER_OF_BG_OBJS * BG_OBJ_STRUCT_SIZE
 BgObjects_End:
 
 
+
+; Animation for diamond disappearing
+DiamondDisappearing_X:                  rb 1
+DiamondDisappearing_Y:                  rb 1
+DiamondDisappearing_FrameNumber:        rb 1
+DiamondDisappearing_Counter:            rb 1
+
+
+
+
 ;test
 Test_Sprite_Color:          rb 1
 Test_Sprite_X:              rb 1
@@ -53,4 +64,3 @@ Test_Sprite_Y:              rb 1
 
 
 
-TempVariable_Byte:          rb 1

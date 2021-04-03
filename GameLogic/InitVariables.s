@@ -45,6 +45,17 @@ InitVariables:
     ld      bc, BgObjectsInitialState_End - BgObjectsInitialState_Start
     ldir                                    ; copies BC bytes from HL to DE
 
+
+    ; Animation for diamond disappearing
+    xor     a
+    ld      (DiamondDisappearing_Counter), a
+    ld      (DiamondDisappearing_FrameNumber), a
+    ld      (DiamondDisappearing_X), a
+    ld      a, 192
+    ld      (DiamondDisappearing_Y), a
+
+
+
     ; test
     ld	    a, 192-32-1
     ld      (Test_Sprite_Y), a

@@ -33,8 +33,14 @@ ScrollRight:
 ; .continue:
 
 
+    ; TODO: 1x or 2x speed here
+    ; Update X position of diamond disappearing sprite
+    ld      a, (DiamondDisappearing_X)
+    dec     a
+    ld      (DiamondDisappearing_X), a
 
-; TODO: 1x or 2x speed here
+
+; TODO: 1x or 2x speed here (it's bugged)
     inc     hl
     ld      a, (ScrollSpeed)
     or      a
@@ -44,7 +50,7 @@ ScrollRight:
     
     call    DrawBackground
 
-; TODO: 1x or 2x speed here
+; TODO: 1x or 2x speed here (it's bugged)
 	ld	    hl, (BgAddrIndex)
     ; hl = hl + TileMapSizeInColumns
     ld      de, TILE_MAP_WIDTH_IN_8X8_COLUMNS
@@ -58,7 +64,7 @@ ScrollRight:
 
     ld      (BgAddrIndex), hl
 
-; TODO: 1x or 2x speed here
+; TODO: 1x or 2x speed here (it's bugged)
     ; inc FrameIndex
     ld      de, FrameIndex
 

@@ -39,6 +39,7 @@ GameIncludes_Start:
     INCLUDE "GameLogic/InitVariables.s"
     INCLUDE "GameLogic/GameConstants.s"
     INCLUDE "GameLogic/UpdateBgObjects.s"
+    INCLUDE "GameLogic/UpdateDiamondDisappearingAnimation.s"
 GameIncludes_Size:      equ $ - GameIncludes_Start
 
 ; Include game data

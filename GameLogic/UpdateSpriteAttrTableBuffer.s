@@ -55,4 +55,21 @@ UpdateSpriteAttrTableBuffer:
     ld      a, COLOR_WHITE
     ld      (hl), a
 
+    ; Sprite # 3
+    inc     hl
+    ld      a, (DiamondDisappearing_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (DiamondDisappearing_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (DiamondDisappearing_FrameNumber)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, COLOR_WHITE
+    ld      (hl), a
+
     ret

@@ -130,7 +130,7 @@ ShowBgObject:
     ; add     hl, hl                          ; this multiplication is now pre calculated on BgObjects.s
     ; add     hl, hl
     ;ld      a, l
-    ld      (TempVariable_Byte), a          ; save object pixel position
+    ld      (UpdateBgObjects_Y), a          ; save object pixel Y position
     add     hl, hl
     add     hl, hl                          
     ld      bc, NamesTable
@@ -211,8 +211,9 @@ ShowBgObject:
     ld      a, l
     sub     a, e
     ld      d, a
+    ld      (UpdateBgObjects_X), a
 
-    ld      a, (TempVariable_Byte)
+    ld      a, (UpdateBgObjects_Y)
     ld      e, a ;16 * 8
     call    CheckCollision_8x8_8x8
     ret     nc
@@ -224,5 +225,15 @@ ShowBgObject:
     inc     hl
     xor     a ; same as ld a, 0
     ld      (hl), a
+
+    ; start diamond disappearing animation
+    ld      a, DIAMOND_DISAPPEARING_FIRST_FRAME
+    ld      (DiamondDisappearing_FrameNumber), a
+    ld      a, (UpdateBgObjects_Y)
+    ld      (DiamondDisappearing_Y), a
+    ld      a, (UpdateBgObjects_X)
+    ld      (DiamondDisappearing_X), a
+    xor     a
+    ld      (DiamondDisappearing_Counter), a
 
     ret
