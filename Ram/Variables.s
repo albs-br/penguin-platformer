@@ -52,7 +52,7 @@ BgObjects_End:
 DiamondDisappearing_X:                  rb 1
 DiamondDisappearing_Y:                  rb 1
 DiamondDisappearing_FrameNumber:        rb 1
-DiamondDisappearing_Counter:            rb 1
+DiamondDisappearing_Counter:            rb 1        ; counter for each animation frame
 
 
 
