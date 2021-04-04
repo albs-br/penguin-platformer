@@ -1,42 +1,5 @@
 UpdateBgObjects:
 
-; --------------- test with fixed values
-
-    ; ; --- Put Bg objs on screen
-    ; ld	    a, (BIOS_VDP_DW)
-    ; ld	    c, a
-    
-    ; ; First row
-    ; ld	    hl, NamesTable + (32 * 16) + 16
-	; call    BIOS_SETWRT
-    
-    ;     ; top left
-    ;     ld      hl, BgObjectsInitialState_Start + 1
-    ;     ld      a, (hl)
-    ;     out     (c), a
-
-    ;     ; top right
-    ;     add     a, 8
-    ;     out     (c), a
-
-    ; ; Second row
-    ; ld	    hl, NamesTable + (32 * 16) + 16
-    ; ld      de, 32
-    ; add     hl, de
-	; call    BIOS_SETWRT
-    
-    ;     ; bottom left
-    ;     ld      hl, BgObjectsInitialState_Start + 1
-    ;     ld      a, (hl)
-    ;     add     a, 32
-    ;     out     (c), a
-
-    ;     ; bottom right
-    ;     add     a, 8
-    ;     out     (c), a
-
-; -------------------------------------
-
     ; get BgCurrentIndex and divide by 8, to convert index expressed in pixels into tiles (first visible column)
     ld      hl, (BgCurrentIndex)
     srl     h                 ; shift right HL
@@ -45,7 +8,6 @@ UpdateBgObjects:
     rr      l
     srl     h                 ; shift right HL
     rr      l
-    ld      (BgCurrentIndex_InTiles), hl
 
     ld      (FirstVisibleColumn), hl
     ld      de, 31
@@ -60,7 +22,7 @@ UpdateBgObjects:
     ld      hl, (UpdateBgObjects_CurrentAddr)
     ld      a, (hl)
     or      a
-    jp      z, .end
+    ret     z ;jp      z, .end
 
     ld      h, 0
     ld      l, a
@@ -71,14 +33,14 @@ UpdateBgObjects:
 
     ; compare with first visible column
     ld      de, (FirstVisibleColumn)
-    call    BIOS_DCOMPR       ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    jp      z, .isVisible
-    jp      c, .next          ; if hl < de
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    jp      z, .isVisible               ; if hl == de
+    jp      c, .next                    ; if hl < de
 
     ; compare with last visible column
     ld      de, (LastVisibleColumn)
-    call    BIOS_DCOMPR       ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    jp      nc, .end          ; if hl >= de
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    ret     nc ; jp      nc, .end       ; if hl >= de
     jp      .isVisible
 
 .next:
@@ -91,7 +53,7 @@ UpdateBgObjects:
     
     ld      de, BgObjects_End
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    jp      nc, .end
+    ret     nc ;jp      nc, .end        ; if hl >= de
     
     jp      .loop
 
@@ -99,8 +61,8 @@ UpdateBgObjects:
     call    ShowBgObject
     jp      .next
 
-.end:
-    ret
+; .end:
+;     ret
 
 
 ; inputs:
@@ -142,7 +104,7 @@ ShowBgObject:
     ; First row of 16x16 object
     ;ld	    hl, NamesTable + (32 * 16)
     add     hl, de
-    ld      de, (BgCurrentIndex_InTiles)
+    ld      de, (FirstVisibleColumn)
     or      a                               ; clear carry flag
     sbc     hl, de
     dec     hl
@@ -199,8 +161,8 @@ ShowBgObject:
     inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
     ld      c, a
 
-    ld      hl, (UpdateBgObjects_PosObjOnBG)    ; x of object = (ObjPositionOnBg - BgCurrentIndex_InTiles) * 8
-    ld      de, (BgCurrentIndex_InTiles)
+    ld      hl, (UpdateBgObjects_PosObjOnBG)    ; x of object = (ObjPositionOnBg - FirstVisibleColumn) * 8
+    ld      de, (FirstVisibleColumn)
     or      a                                   ; clear carry flag
     sbc     hl, de
     add     hl, hl                              ; multiply by 8
