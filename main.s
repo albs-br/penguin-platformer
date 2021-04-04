@@ -80,22 +80,9 @@ InitGame:
 
     call    InitVariables
 
-    ; load first screen
-    ; halt
-    ; call    DrawBgWithoutScrolling
-    ; halt
-    ; call    DrawBackground
-    ; halt                    ; wait for V-Blank
-    ; call    ScrollRight     ; show first screen TODO: maybe there should be funtion to show the screen without scroll it
-    ; halt                    ; wait for V-Blank
-    ; call    ScrollLeft      ; show first screen TODO: maybe there should be funtion to show the screen without scroll it
-
 ; Main loop
 MainLoop:
 	halt			                    ; (v-blank sync)
-	; call	LDIRVM_SPRATR	; Blits the SPRATR buffer
-	; call	MOVE_PLAYER	; Moves the player
-	; call	ANIMATE_SPRITE	; Animates the sprite
 
     IFDEF DEBUG
         ld 		a, COLOR_YELLOW       	; Border color
@@ -105,30 +92,31 @@ MainLoop:
 
 	call	FAST_LDIRVM_SpriteAttrTable
 
+; ----------------------------------------------------------------
+
     IFDEF DEBUG
         ld 		a, COLOR_BLUE       	; Border color
         ld 		(BIOS_BDRCLR), a    
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF    
 
-	; call	FAST_LDIRVM_NamesTable
+    call    DrawStaticBg
 
-    ld      a, (ScrollDirection)
-    or      a
-    jp      z, .drawBg
-    dec     a
-    jp      nz, .goLeft
-    call    ScrollRight
-    jp      .continue
-.goLeft:
-    call    ScrollLeft
-    jp      .continue
-.drawBg:
-    call    DrawBgWithoutScrolling
-.continue:
+; ----------------------------------------------------------------
 
-; .eternal:
-;     jp .eternal
+
+    IFDEF DEBUG
+        ld 		a, COLOR_GREY           ; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF
+
+
+    call    UpdateBgObjects
+
+    call    UpdateDiamondDisappearingAnimation
+
+; ----------------------------------------------------------------
 
     IFDEF DEBUG
         ld 		a, COLOR_LIGHT_GREEN    ; Border color
@@ -136,16 +124,10 @@ MainLoop:
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF
 
-
 	call	GameLogic
 
 
-
-	; call	Scroll
-
-
-	
-	;call	Delay
+; ----------------------------------------------------------------
 
 
     IFDEF DEBUG

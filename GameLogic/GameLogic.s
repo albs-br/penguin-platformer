@@ -1,9 +1,6 @@
 GameLogic:
 
 
-    call    UpdateBgObjects
-    call    UpdateDiamondDisappearingAnimation
-
 ;--------------------
 
 

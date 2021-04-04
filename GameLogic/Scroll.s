@@ -1,3 +1,21 @@
+DrawStaticBg:
+    ld      a, (ScrollDirection)
+    or      a
+    jp      z, .drawBg
+    dec     a
+    jp      nz, .goLeft
+    call    ScrollRight
+    ret     ;jp      .continue
+.goLeft:
+    call    ScrollLeft
+    ret     ;jp      .continue
+.drawBg:
+    call    DrawBgWithoutScrolling
+;.continue:
+    ret
+
+
+
 NextPage:
     inc     e   ; next page
     ld      a, e
