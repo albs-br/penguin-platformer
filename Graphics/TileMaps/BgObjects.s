@@ -1,4 +1,4 @@
-DIAMOND_FIRST_TILE:             equ 184-7
+DIAMOND_FIRST_TILE:             equ 184 - 7 - 24
 
 
 ; Format:
@@ -33,6 +33,8 @@ BgObjectsInitialState_Start:
     db      50,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
     db      51,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1
     db      52,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1
+    
+    db      66,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
     
     db      127,    8,         16 * 8,      1
     db      130,    8,         16 * 8,      1
