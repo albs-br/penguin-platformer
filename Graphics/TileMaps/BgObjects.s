@@ -8,19 +8,19 @@ DIAMOND_FIRST_TILE:             equ 184 - 7 - 24
 ;       enabled: 1; disabled: 0
 BgObjectsInitialState_Start:
     db      1,      DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
-    db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
-    db      14,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    db      12,     DIAMOND_FIRST_TILE - 64,     9 * 2 * 8,      1
+    db      14,     DIAMOND_FIRST_TILE - 128,     8 * 2 * 8,      1
     db      15,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
     db      17,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
     db      20,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
     db      28,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
     db      32,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
-    db      32,     8,                     10 * 2 * 8,      1
-    db      34,     8,                     10 * 2 * 8,      1
-    db      36,     8,                     10 * 2 * 8,      1
-    db      38,     8,                     10 * 2 * 8,      1
-    db      40,     8,                     10 * 2 * 8,      1
-    db      42,     8,                     10 * 2 * 8,      1
+    db      32,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      34,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      36,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      38,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      40,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      42,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
     db      44,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
     db      44,     DIAMOND_FIRST_TILE,     5 * 2 * 8,      1
     db      44,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1

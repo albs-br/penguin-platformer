@@ -113,7 +113,9 @@ ShowBgObject:
     
         ; top left
         ; TODO: check if column is < 0 (bug showing on the other side of screen)
-        ld      hl, BgObjectsInitialState_Start + 1     ; TODO get object from second byte of struct
+        ;ld      hl, BgObjectsInitialState_Start + 1     ; TODO get object from second byte of struct
+        ld      hl, (UpdateBgObjects_CurrentAddr)
+        inc     hl
         ld      b, (hl)
         ld      a, (FrameIndex)
         add     b
@@ -137,7 +139,9 @@ ShowBgObject:
 	call    BIOS_SETWRT
     
         ; bottom left
-        ld      hl, BgObjectsInitialState_Start + 1
+        ;ld      hl, BgObjectsInitialState_Start + 1     ; TODO get object from second byte of struct
+        ld      hl, (UpdateBgObjects_CurrentAddr)
+        inc     hl
         ld      b, (hl)
         ld      a, (FrameIndex)
         add     b
