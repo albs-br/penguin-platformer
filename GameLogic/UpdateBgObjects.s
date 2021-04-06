@@ -20,6 +20,7 @@ UpdateBgObjects:
     ld      (UpdateBgObjects_CurrentAddr), hl
 .loop:    
     ld      hl, (UpdateBgObjects_CurrentAddr)
+    ;ld      (UpdateBgObjects_LastSearchedAddr), hl
     ld      a, (hl)
     or      a
     ret     z ;jp      z, .end
@@ -33,13 +34,21 @@ UpdateBgObjects:
 
     ; compare with first visible column
     ld      de, (FirstVisibleColumn)
-    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    or      a
+    sbc     hl, de
+    add     hl, de
+
     jp      z, .isVisible               ; if hl == de
     jp      c, .next                    ; if hl < de
 
     ; compare with last visible column
     ld      de, (LastVisibleColumn)
-    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    or      a
+    sbc     hl, de
+    add     hl, de
+
     ret     nc ; jp      nc, .end       ; if hl >= de
     jp      .isVisible
 
@@ -52,7 +61,10 @@ UpdateBgObjects:
     ld      (UpdateBgObjects_CurrentAddr), hl
     
     ld      de, BgObjects_End
-    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    or      a
+    sbc     hl, de
+
     ret     nc ;jp      nc, .end        ; if hl >= de
     
     jp      .loop

@@ -39,6 +39,11 @@ InitVariables:
 
 
 
+    ; ld      hl, BgObjects_Start
+    ; ld      (UpdateBgObjects_CurrentAddr), hl
+    ; ld      (UpdateBgObjects_LastSearchedAddr), hl
+
+
     ; Load bg objects initial state
     ld      hl, BgObjectsInitialState_Start
     ld      de, BgObjects_Start

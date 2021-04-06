@@ -38,7 +38,22 @@ ScrollRight:
     ; check if scroll is at limit
     ld      hl, (BgCurrentIndex)
     ld      de, 8 * (TILE_MAP_WIDTH_IN_8X8_COLUMNS - SCREEN_WIDTH_IN_TILES)
-    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    or      a                           ; DCOMPR alternative (30 cycles)
+    sbc     hl, de
+    add     hl, de
+
+
+    ; code of DCOMPR BIOS routine: (54/48 cycles)
+    ; ; call    BIOS_DCOMPR
+    ; ld a,h
+    ; sub d
+    ; ret nz
+    ; ld a,l
+    ; sub e
+    ; ret
+
+
     ret     nc                          ; hl >= de
 
     ; TODO: this is only for automatic scrolling - not for actual game
@@ -113,7 +128,6 @@ ScrollRight:
 .lessThan8:
     ld      (de), a
     
-    ;scf                                     ; set carry flag
     ret
 
 

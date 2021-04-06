@@ -30,6 +30,7 @@ FirstVisibleColumn:         rw 1
 LastVisibleColumn:          rw 1
 
 UpdateBgObjects_CurrentAddr:            rw 1
+;UpdateBgObjects_LastSearchedAddr:       rw 1
 UpdateBgObjects_PosObjOnBG:             rw 1
 UpdateBgObjects_X:                      rb 1
 UpdateBgObjects_Y:                      rb 1

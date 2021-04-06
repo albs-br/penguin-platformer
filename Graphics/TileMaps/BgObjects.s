@@ -34,8 +34,55 @@ BgObjectsInitialState_Start:
     db      51,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1
     db      52,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1
     
+    db      66,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1
+    db      66,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1
     db      66,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
     
-    db      127,    8,         16 * 8,      1
-    db      130,    8,         16 * 8,      1
+    db      72,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    db      72,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db      72,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+
+    db      74,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    db      74,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db      74,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+
+    db      76,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    db      76,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db      76,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+
+    db      82,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
+    db      84,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
+    db      86,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
+    
+    db      95,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      96,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db      97,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+
+    db     101,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db     102,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db     103,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db     103,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    db     104,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db     105,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db     105,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    db     106,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db     107,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    
+    db     110,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db     115,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db     119,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db     123,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+
+    db     127,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    db     130,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    
+    db     149,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    
+    db     160,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    
+    db     190,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    
+    db     206,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    
+    db     224,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
 BgObjectsInitialState_End:
