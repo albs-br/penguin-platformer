@@ -2,6 +2,17 @@
 
                                                 ; rb n  = reserve n bytes in RAM
                                                 ; rw n  = reserve n words in RAM
+
+; Table aligned to 0xC000
+; --- Background objects with state (diamonds for example)
+NUMBER_OF_BG_OBJS:          equ 256     ; TODO: should these constants be moved to constants file?
+BG_OBJ_STRUCT_SIZE:         equ 4
+;BgObjects_Start:            rb 256 * 16   ; bytes per page * number of pages
+BgObjects_Start:            rb NUMBER_OF_BG_OBJS * BG_OBJ_STRUCT_SIZE   ; old
+BgObjects_End:
+
+
+
 SEED:                       rw 1            ; Seed for random number generator
 
 
@@ -38,14 +49,6 @@ UpdateBgObjects_Y:                      rb 1
 
 ScrollDirection:            rb 1       ; 0: none, 1: left, 2: right
 ScrollSpeed:                rb 1       ; 0: normal (1px), 1: fast (2px)
-
-
-
-; --- Background objects with state (diamonds for example)
-NUMBER_OF_BG_OBJS:          equ 256     ; TODO: should these constants be moved to constants file?
-BG_OBJ_STRUCT_SIZE:         equ 4
-BgObjects_Start:            rb NUMBER_OF_BG_OBJS * BG_OBJ_STRUCT_SIZE
-BgObjects_End:
 
 
 

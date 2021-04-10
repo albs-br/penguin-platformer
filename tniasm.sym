@@ -28,7 +28,7 @@ COLOR_DARK_RED: equ 06h ; last def. pass 3
 BIOS_H_ERRP: equ 0FEFDh ; last def. pass 3
 RamEnd: equ 0C7A6h ; last def. pass 3
 BIOS_POSIT: equ 0C6h ; last def. pass 3
-ScrollSpeed: equ 0C01Eh ; last def. pass 3
+ScrollSpeed: equ 0C41Eh ; last def. pass 3
 BIOS_MLTNAM: equ 0F3D1h ; last def. pass 3
 BIOS_PINLIN: equ 0AEh ; last def. pass 3
 GameLogic.PlayerRight: equ 04A19h ; last def. pass 3
@@ -37,11 +37,11 @@ BIOS_ROMSLT: equ 0FCC0h ; last def. pass 3
 BgObjectsInitialState_End: equ 05BFEh ; last def. pass 3
 WaitSomeSeconds: equ 0419Bh ; last def. pass 3
 BIOS_VOICEN: equ 0FB38h ; last def. pass 3
-LastVisibleColumn: equ 0C015h ; last def. pass 3
+LastVisibleColumn: equ 0C415h ; last def. pass 3
 BIOS_ERRTXT: equ 0F6B7h ; last def. pass 3
 BIOS_CPNCNT8: equ 0F93Bh ; last def. pass 3
 BIOS_DECCNT: equ 0F7F4h ; last def. pass 3
-BgAddrIndexFirstFrame: equ 0C011h ; last def. pass 3
+BgAddrIndexFirstFrame: equ 0C411h ; last def. pass 3
 BIOS_H_PHYD: equ 0FFA7h ; last def. pass 3
 ReadInput.spriteRight: equ 04BF1h ; last def. pass 3
 BIOS_SAVVOL: equ 0FB39h ; last def. pass 3
@@ -55,7 +55,7 @@ BIOS_RSIQLN: equ 0FB06h ; last def. pass 3
 BIOS_VCBB: equ 0FB66h ; last def. pass 3
 BIOS_NAMBAS: equ 0F922h ; last def. pass 3
 BIOS_ROMA: equ 0FAFAh ; last def. pass 3
-UpdateBgObjects_X: equ 0C01Bh ; last def. pass 3
+UpdateBgObjects_X: equ 0C41Bh ; last def. pass 3
 BIOS_H_NTFN: equ 0FF2Fh ; last def. pass 3
 BIOS_H_ISFL: equ 0FEDFh ; last def. pass 3
 BIOS_PROMPT: equ 0181h ; last def. pass 3
@@ -95,7 +95,7 @@ BIOS_NSETRD: equ 016Eh ; last def. pass 3
 BIOS_JIFFY: equ 0FC9Eh ; last def. pass 3
 GameIncludes_Size: equ 0599h ; last def. pass 3
 MainLoop: equ 05C23h ; last def. pass 3
-ScrollDirection: equ 0C01Dh ; last def. pass 3
+ScrollDirection: equ 0C41Dh ; last def. pass 3
 TilePatterns_SmallBricks_Start: equ 0518Ah ; last def. pass 3
 BIOS_H_GONE: equ 0FF43h ; last def. pass 3
 COLOR_LIGHT_BLUE: equ 07h ; last def. pass 3
@@ -131,7 +131,7 @@ BIOS_BAKCLR: equ 0F3EAh ; last def. pass 3
 BIOS_H_NEWS: equ 0FF3Eh ; last def. pass 3
 BIOS_HIMEM: equ 0FC4Ah ; last def. pass 3
 TilePatterns_Diamonds_End: equ 05A4Ah ; last def. pass 3
-Player_JumpCounter: equ 0C00Bh ; last def. pass 3
+Player_JumpCounter: equ 0C40Bh ; last def. pass 3
 CheckCollision_8x8_8x8.checkVerticalCollision: equ 04961h ; last def. pass 3
 BIOS_SETMLT: equ 081h ; last def. pass 3
 BIOS_QUEUEN: equ 0FB3Eh ; last def. pass 3
@@ -168,9 +168,9 @@ End: equ 05C60h ; last def. pass 3
 CheckCollision_8x8_8x8.y1IsLarger: equ 04968h ; last def. pass 3
 ScrollRight.normalSpeed_1: equ 04C50h ; last def. pass 3
 BIOS_H_LOC: equ 0FE99h ; last def. pass 3
-Player_IsGrounded: equ 0C00Ah ; last def. pass 3
+Player_IsGrounded: equ 0C40Ah ; last def. pass 3
 GameLogic.topOfJump: equ 04AA9h ; last def. pass 3
-Player_Sprite_Number: equ 0C008h ; last def. pass 3
+Player_Sprite_Number: equ 0C408h ; last def. pass 3
 BIOS_H_CVS: equ 0FE44h ; last def. pass 3
 BIOS_MIVCNT: equ 0F951h ; last def. pass 3
 PENGUIN_RIGHT_WALKING_LAST_FRAME: equ 01Ch ; last def. pass 3
@@ -193,13 +193,13 @@ BgObjectsInitialState_Start: equ 05B02h ; last def. pass 3
 LoadTilePatterns_OneThird.loop: equ 04080h ; last def. pass 3
 BIOS_H_INDS: equ 0FE8Ah ; last def. pass 3
 BIOS_H_FORM: equ 0FFACh ; last def. pass 3
-Player_X: equ 0C006h ; last def. pass 3
+Player_X: equ 0C406h ; last def. pass 3
 BIOS_EXPTBL: equ 0FCC1h ; last def. pass 3
 BIOS_CRTCNT: equ 0F3B1h ; last def. pass 3
 TilePatterns_SmallBricks_End: equ 0524Ah ; last def. pass 3
 BIOS_LOHMSK: equ 0F949h ; last def. pass 3
 BIOS_RDSLT: equ 0Ch ; last def. pass 3
-UpdateBgObjects_CurrentAddr: equ 0C017h ; last def. pass 3
+UpdateBgObjects_CurrentAddr: equ 0C417h ; last def. pass 3
 BIOS_AUTFLG: equ 0F6AAh ; last def. pass 3
 BIOS_CPCNT: equ 0F939h ; last def. pass 3
 BIOS_DCOMPR: equ 020h ; last def. pass 3
@@ -250,7 +250,7 @@ BIOS_VDP_DR: equ 06h ; last def. pass 3
 DelayWithParameters.loop: equ 0412Dh ; last def. pass 3
 BIOS_TOCNT: equ 0FB03h ; last def. pass 3
 DelayWithParameters: equ 0412Dh ; last def. pass 3
-Player_Animation_Frame: equ 0C009h ; last def. pass 3
+Player_Animation_Frame: equ 0C409h ; last def. pass 3
 ScrollRight.normalSpeed: equ 04C3Eh ; last def. pass 3
 BIOS_ASPCT2: equ 0F40Dh ; last def. pass 3
 BIOS_INTVAL: equ 0FCA0h ; last def. pass 3
@@ -264,7 +264,7 @@ BIOS_TEMP3: equ 0F69Dh ; last def. pass 3
 BIOS_H_ISRE: equ 0FF2Ah ; last def. pass 3
 BIOS_TEMPST: equ 0F67Ah ; last def. pass 3
 TilePatterns_Diamonds_Start: equ 0584Ah ; last def. pass 3
-UpdateBgObjects_PosObjOnBG: equ 0C019h ; last def. pass 3
+UpdateBgObjects_PosObjOnBG: equ 0C419h ; last def. pass 3
 BIOS_PRMFLG: equ 0F7B4h ; last def. pass 3
 PENGUIN_RIGHT_WALKING_3: equ 01Ch ; last def. pass 3
 DiamondDisappearing_X: equ 0C41Fh ; last def. pass 3
@@ -305,7 +305,7 @@ BIOS_TXTNAM: equ 0F3B3h ; last def. pass 3
 BIOS_TXTCOL: equ 0F3B5h ; last def. pass 3
 BIOS_RG8SAV: equ 0FFE7h ; last def. pass 3
 DIAMOND_FIRST_TILE: equ 099h ; last def. pass 3
-SEED: equ 0C000h ; last def. pass 3
+SEED: equ 0C400h ; last def. pass 3
 UpdateBgObjects.next: equ 04E15h ; last def. pass 3
 BIOS_T32ATR: equ 0F3C3h ; last def. pass 3
 BIOS_RUNBNF: equ 0FCBEh ; last def. pass 3
@@ -314,7 +314,7 @@ BIOS_LDIRVM: equ 05Ch ; last def. pass 3
 BIOS_TXTPAT: equ 0F3BBh ; last def. pass 3
 DiamondDisappearing_Counter: equ 0C422h ; last def. pass 3
 BIOS_CALATR: equ 087h ; last def. pass 3
-Player_Y: equ 0C007h ; last def. pass 3
+Player_Y: equ 0C407h ; last def. pass 3
 CommonIncludes_Start: equ 04010h ; last def. pass 3
 BIOS_CAPST: equ 0FCABh ; last def. pass 3
 DrawBackground.loopLines2: equ 04D13h ; last def. pass 3
@@ -330,7 +330,7 @@ BIOS_H_EVAL: equ 0FF70h ; last def. pass 3
 BIOS_PARM1: equ 0F6E8h ; last def. pass 3
 BIOS_ONGSBF: equ 0FBD8h ; last def. pass 3
 BIOS_H_LOF: equ 0FE9Eh ; last def. pass 3
-JumpKeyPressed: equ 0C003h ; last def. pass 3
+JumpKeyPressed: equ 0C403h ; last def. pass 3
 Vpoke: equ 04156h ; last def. pass 3
 BIOS_GRPCGP: equ 0F3CBh ; last def. pass 3
 BIOS_VOICAQ: equ 0F975h ; last def. pass 3
@@ -388,7 +388,7 @@ BIOS_H_LOPD: equ 0FED5h ; last def. pass 3
 BIOS_DPPAGE: equ 0FAF5h ; last def. pass 3
 GameLogic.falling: equ 04AD3h ; last def. pass 3
 TileColors_Black_Start: equ 05AAAh ; last def. pass 3
-RunKeyPressed: equ 0C004h ; last def. pass 3
+RunKeyPressed: equ 0C404h ; last def. pass 3
 SCREEN_WIDTH_IN_TILES: equ 020h ; last def. pass 3
 BIOS_DIMFLG: equ 0F662h ; last def. pass 3
 BIOS_H_SNGF: equ 0FF39h ; last def. pass 3
@@ -422,8 +422,8 @@ BIOS_H_EOF: equ 0FEA3h ; last def. pass 3
 BIOS_LOW: equ 0F406h ; last def. pass 3
 BIOS_CHPUT: equ 0A2h ; last def. pass 3
 BIOS_OLDTXT: equ 0F6C0h ; last def. pass 3
-BgCurrentIndex: equ 0C00Ch ; last def. pass 3
-FrameIndex: equ 0C00Eh ; last def. pass 3
+BgCurrentIndex: equ 0C40Ch ; last def. pass 3
+FrameIndex: equ 0C40Eh ; last def. pass 3
 BIOS_DEFTBL: equ 0F6CAh ; last def. pass 3
 copy_to_VDP: equ 041FFh ; last def. pass 3
 BIOS_H_CMD: equ 0FE0Dh ; last def. pass 3
@@ -497,7 +497,7 @@ ColorsTable_1st_Third: equ 02000h ; last def. pass 3
 BIOS_H_CRUN: equ 0FF20h ; last def. pass 3
 BIOS_NULBUF: equ 0F862h ; last def. pass 3
 BIOS_SLTWRK: equ 0FD09h ; last def. pass 3
-DirectionKeyPressed: equ 0C002h ; last def. pass 3
+DirectionKeyPressed: equ 0C402h ; last def. pass 3
 DiamondDisappearing_FrameNumber: equ 0C421h ; last def. pass 3
 BIOS_OLDKEY: equ 0FBDAh ; last def. pass 3
 BIOS_STKTOP: equ 0F674h ; last def. pass 3
@@ -507,7 +507,7 @@ BIOS_FNKSW1: equ 0FBCDh ; last def. pass 3
 UpdateBgObjects: equ 04DD2h ; last def. pass 3
 BIOS_H_MKS: equ 0FE35h ; last def. pass 3
 GameData_Start: equ 04F06h ; last def. pass 3
-BgObjects_End: equ 0C41Fh ; last def. pass 3
+BgObjects_End: equ 0C400h ; last def. pass 3
 BIOS_CNPNTS: equ 0F936h ; last def. pass 3
 BIOS_ERAFNK: equ 0CCh ; last def. pass 3
 BIOS_MLTATR: equ 0F3D7h ; last def. pass 3
@@ -582,7 +582,7 @@ BIOS_PATWRK: equ 0FC40h ; last def. pass 3
 BIOS_H_TRMN: equ 0FF61h ; last def. pass 3
 BIOS_H_STKE: equ 0FEDAh ; last def. pass 3
 BIOS_CHGMDP: equ 01B5h ; last def. pass 3
-Player_IsAlive: equ 0C005h ; last def. pass 3
+Player_IsAlive: equ 0C405h ; last def. pass 3
 BIOS_H_ERRO: equ 0FFB1h ; last def. pass 3
 COLOR_LIGHT_RED: equ 09h ; last def. pass 3
 BIOS_MCLLEN: equ 0FB3Bh ; last def. pass 3
@@ -592,7 +592,7 @@ EndSpritePatterns: equ 05146h ; last def. pass 3
 TileColors_Diamonds_Bottom_Start: equ 05AFAh ; last def. pass 3
 BIOS_PTRFLG: equ 0F6A9h ; last def. pass 3
 BIOS_CSCLXY: equ 0F941h ; last def. pass 3
-FirstVisibleColumn: equ 0C013h ; last def. pass 3
+FirstVisibleColumn: equ 0C413h ; last def. pass 3
 BIOS_TXTCGP: equ 0F3B7h ; last def. pass 3
 BIOS_FLGINP: equ 0F6A6h ; last def. pass 3
 TileColors_Grass_Bottom_Start: equ 05ADAh ; last def. pass 3
@@ -613,7 +613,7 @@ COLOR_DARK_BLUE: equ 04h ; last def. pass 3
 BIOS_H_MAIN: equ 0FF0Ch ; last def. pass 3
 BIOS_RDVDP: equ 013Eh ; last def. pass 3
 BIOS_RG6SAV: equ 0F3E5h ; last def. pass 3
-UpdateBgObjects_Y: equ 0C01Ch ; last def. pass 3
+UpdateBgObjects_Y: equ 0C41Ch ; last def. pass 3
 BIOS_CPCSUM: equ 0F93Dh ; last def. pass 3
 ColorsTable_3rd_Third: equ 03000h ; last def. pass 3
 HKEYI: equ 0FD9Ah ; last def. pass 3
@@ -636,7 +636,7 @@ BIOS_BASROM: equ 0FBB1h ; last def. pass 3
 TilePatterns_Black_SizeInChars: equ 01h ; last def. pass 3
 CommonIncludes_Size: equ 095Dh ; last def. pass 3
 BIOS_H_OKNO: equ 0FF75h ; last def. pass 3
-BgObjects_Start: equ 0C01Fh ; last def. pass 3
+BgObjects_Start: equ 0C000h ; last def. pass 3
 BIOS_TEMP2: equ 0F6BCh ; last def. pass 3
 BIOS_RG4SAV: equ 0F3E3h ; last def. pass 3
 BIOS_RG7SAV: equ 0F3E6h ; last def. pass 3
@@ -727,7 +727,7 @@ BIOS_H_GEND: equ 0FEC6h ; last def. pass 3
 GameLogic.saveY: equ 04AB2h ; last def. pass 3
 BIOS_STATFL: equ 0F3E7h ; last def. pass 3
 BIOS_CGTABL: equ 04h ; last def. pass 3
-BgAddrIndex: equ 0C00Fh ; last def. pass 3
+BgAddrIndex: equ 0C40Fh ; last def. pass 3
 BIOS_CALSLT: equ 01Ch ; last def. pass 3
 COLOR_BLACK: equ 01h ; last def. pass 3
 ColorTableStructure_3rd_Third_End: equ 05AAAh ; last def. pass 3
