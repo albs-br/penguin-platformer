@@ -7,14 +7,14 @@ GameLogic:
     
     ; [debug]
     ; test only
-    ld      a, (Test_Sprite_X)
-    ld      h, a
-    ld      a, (Test_Sprite_Y)
-    ld      l, a
-    call    CheckBackGround
-    call    z, .testSpriteAtEmptySpace
-    call    nz, .testSpriteAtOccupiedSpace
-    ld      (Test_Sprite_Color), a
+    ; ld      a, (Test_Sprite_X)
+    ; ld      h, a
+    ; ld      a, (Test_Sprite_Y)
+    ; ld      l, a
+    ; call    CheckBackGround
+    ; call    z, .testSpriteAtEmptySpace
+    ; call    nz, .testSpriteAtOccupiedSpace
+    ; ld      (Test_Sprite_Color), a
 
 
 
@@ -119,15 +119,15 @@ GameLogic:
 
 
 
-.testSpriteAtEmptySpace:
-    ld      a, COLOR_RED
-    ld      (Test_Sprite_Color), a
-    ret
+; .testSpriteAtEmptySpace:
+;     ld      a, COLOR_RED
+;     ld      (Test_Sprite_Color), a
+;     ret
 
-.testSpriteAtOccupiedSpace:
-    ld      a, COLOR_GREEN
-    ld      (Test_Sprite_Color), a
-    ret
+; .testSpriteAtOccupiedSpace:
+;     ld      a, COLOR_GREEN
+;     ld      (Test_Sprite_Color), a
+;     ret
 
 
 

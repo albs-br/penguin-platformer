@@ -62,10 +62,10 @@ InitVariables:
 
 
     ; test
-    ld	    a, 192-32-1
-    ld      (Test_Sprite_Y), a
-    ld	    a, 64
-    ld      (Test_Sprite_X), a
+    ; ld	    a, 192-32-1
+    ; ld      (Test_Sprite_Y), a
+    ; ld	    a, 64
+    ; ld      (Test_Sprite_X), a
 
 
 

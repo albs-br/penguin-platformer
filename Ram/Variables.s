@@ -62,9 +62,9 @@ DiamondDisappearing_Counter:            rb 1        ; counter for each animation
 
 
 ;test
-Test_Sprite_Color:          rb 1
-Test_Sprite_X:              rb 1
-Test_Sprite_Y:              rb 1
+; Test_Sprite_Color:          rb 1
+; Test_Sprite_X:              rb 1
+; Test_Sprite_Y:              rb 1
 
 
 
