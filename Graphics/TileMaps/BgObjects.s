@@ -1,5 +1,9 @@
 DIAMOND_FIRST_TILE:             equ 184 - 7 - 24
 
+; test objects, just to show it's possible use objects other than diamonds
+OTHER_OBJECT:                   equ DIAMOND_FIRST_TILE - 64
+ANOOTHER_OBJECT:                equ DIAMOND_FIRST_TILE - 128
+
 
 ; Format:
 ;       position (1-255), based on 16x16 tiles; 0 is forbidden
@@ -10,8 +14,8 @@ BgObjectsInitialState_Start:
 
 ; screen / page 0 (0-15)
     db      1,      DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
-    db      12,     DIAMOND_FIRST_TILE - 64,     9 * 2 * 8,      1
-    db      14,     DIAMOND_FIRST_TILE - 128,     8 * 2 * 8,      1
+    db      12,     OTHER_OBJECT,           9 * 2 * 8,      1
+    db      14,     ANOOTHER_OBJECT,        8 * 2 * 8,      1
     db      15,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0000)), 0                 ; fill with 0s until end of page
 
@@ -24,11 +28,17 @@ BgObjectsInitialState_Start:
 ; screen / page 2 (32-47)
     db      32,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
     db      32,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      32,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1
     db      34,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      34,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1
     db      36,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      36,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1
     db      38,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      38,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1
     db      40,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      40,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1
     db      42,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      42,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1
     db      44,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
     db      44,     DIAMOND_FIRST_TILE,     5 * 2 * 8,      1
     db      44,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1

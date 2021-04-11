@@ -75,8 +75,13 @@ UpdateBgObjects:
 .next:
     ld      hl, (UpdateBgObjects_CurrentAddr)
 
-    ld      de, BG_OBJ_STRUCT_SIZE
-    add     hl, de
+    ; ld      de, BG_OBJ_STRUCT_SIZE
+    ; add     hl, de
+    ld      a, BG_OBJ_STRUCT_SIZE
+    add     l
+    ld      l, a
+
+
 
     ld      (UpdateBgObjects_CurrentAddr), hl
     
