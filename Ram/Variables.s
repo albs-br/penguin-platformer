@@ -7,8 +7,8 @@
 ; --- Background objects with state (diamonds for example)
 NUMBER_OF_BG_OBJS:          equ 256     ; TODO: should these constants be moved to constants file?
 BG_OBJ_STRUCT_SIZE:         equ 4
-;BgObjects_Start:            rb 256 * 16   ; bytes per page * number of pages
-BgObjects_Start:            rb NUMBER_OF_BG_OBJS * BG_OBJ_STRUCT_SIZE   ; old
+BgObjects_Start:            rb 256 * 16   ; bytes per page * number of pages
+;BgObjects_Start:            rb NUMBER_OF_BG_OBJS * BG_OBJ_STRUCT_SIZE   ; old
 BgObjects_End:
 
 
@@ -36,9 +36,10 @@ BgAddrIndex:                rw 1
 BgAddrIndexFirstFrame:      rw 1
 
 
-
-FirstVisibleColumn:         rw 1
-LastVisibleColumn:          rw 1
+FirstVisibleColumn:         rw 1            ; column index based on 8x8 tiles (0-511)
+LastVisibleColumn:          rw 1            ; column index based on 8x8 tiles (0-511)
+Addr_Screen_FirstVisibleColumn:  rw 1        ; addr of RAM objects of the screen of the first visible column
+Addr_Screen_LastVisibleColumn:   rw 1
 
 UpdateBgObjects_CurrentAddr:            rw 1
 ;UpdateBgObjects_LastSearchedAddr:       rw 1

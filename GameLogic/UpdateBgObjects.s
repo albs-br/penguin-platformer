@@ -1,29 +1,49 @@
 UpdateBgObjects:
 
-    ; get BgCurrentIndex and divide by 8, to convert index expressed in pixels into tiles (first visible column)
-    ld      hl, (BgCurrentIndex)
+    ; get BgCurrentIndex (0-4095) and divide by 8, to convert index expressed in pixels into 8x8 tiles (first visible column)
+    ld      hl, (BgCurrentIndex)                    ; 0-4095
     srl     h                 ; shift right HL
     rr      l
     srl     h                 ; shift right HL
     rr      l
     srl     h                 ; shift right HL
     rr      l
+    ld      (FirstVisibleColumn), hl                ; 0-511
 
-    ld      (FirstVisibleColumn), hl
+    ; get the screen number (0-15); it's also the number of the page with the Bg Objects (page aligned)
+    srl     h                 ; shift right HL
+    rr      l                                       ; 0-255
+    ld      a, l
+    and     1111 0000 b       ; masking to get high nibble
+    srl     a                 ; shift right 4 times
+    srl     a
+    srl     a
+    srl     a
+    ld      b, a
+    ld      c, 0
+
+    ld      hl, (FirstVisibleColumn)
     ld      de, 31
     add     hl, de
     ld      (LastVisibleColumn), hl
 
 
-    ; search
+
+    ; Search on current page and next
     ld      hl, BgObjects_Start
+    add     hl, bc
+    ld      (Addr_Screen_FirstVisibleColumn), hl
     ld      (UpdateBgObjects_CurrentAddr), hl
+    ld      bc, 256 + 256
+    add     hl, bc
+    ld      (Addr_Screen_LastVisibleColumn), hl
 .loop:    
     ld      hl, (UpdateBgObjects_CurrentAddr)
     ;ld      (UpdateBgObjects_LastSearchedAddr), hl
     ld      a, (hl)
     or      a
-    ret     z ;jp      z, .end
+    jp      z, .nextPage
+    ;ret     z ;jp      z, .end
 
     ld      h, 0
     ld      l, a
@@ -60,7 +80,8 @@ UpdateBgObjects:
 
     ld      (UpdateBgObjects_CurrentAddr), hl
     
-    ld      de, BgObjects_End
+    ;ld      de, BgObjects_End
+    ld      de, (Addr_Screen_LastVisibleColumn)
     ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     or      a
     sbc     hl, de
@@ -72,6 +93,12 @@ UpdateBgObjects:
 .isVisible:
     call    ShowBgObject
     jp      .next
+
+.nextPage:
+    inc     h
+    ld      l, 0
+    ld      (UpdateBgObjects_CurrentAddr), hl
+    jp      .loop
 
 ; .end:
 ;     ret
