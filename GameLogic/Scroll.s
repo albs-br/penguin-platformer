@@ -10,7 +10,7 @@ DrawStaticBg:
     call    ScrollLeft
     ret     ;jp      .continue
 .drawBg:
-    call    DrawBgWithoutScrolling
+    call    DrawBackground_3_Thirds
 ;.continue:
     ret
 
@@ -28,9 +28,18 @@ NextPage:
     ret
 
 
-DrawBgWithoutScrolling:
-    ld      hl, (BgCurrentIndex)
-    call    DrawBackground
+DrawBackground_3_Thirds:
+    ; set MegaROM initial page
+    ld      e, 1                    
+    ld      a, e
+    ld	    (Seg_P8000_SW), a
+
+    call    DrawBackground_1st_Third
+
+    call    DrawBackground_2nd_Third
+
+    call    DrawBackground_3rd_Third
+
     ret
 
 
@@ -80,8 +89,9 @@ ScrollRight:
     jp      z, .normalSpeed
     inc     hl
 .normalSpeed:
+    ld      (BgCurrentIndex), hl
     
-    call    DrawBackground
+    call    DrawBackground_3_Thirds
 
 ; TODO: 1x or 2x speed here (it's bugged)
 	ld	    hl, (BgAddrIndex)
@@ -139,7 +149,7 @@ ScrollLeft:
     or      h
     jp      nz, .continue
 
-    call    DrawBgWithoutScrolling
+    call    DrawBackground_3_Thirds
     ret
     ;ld      de, 8 * (TILE_MAP_WIDTH_IN_8X8_COLUMNS - SCREEN_WIDTH_IN_TILES) ; 0
     ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
@@ -163,8 +173,9 @@ ScrollLeft:
 .continue:
 
     dec     hl
+    ld      (BgCurrentIndex), hl
 
-    call    DrawBackground
+    call    DrawBackground_3_Thirds
 
 	ld	    hl, (BgAddrIndex)
     ; hl = hl - TileMapSizeInColumns
@@ -205,8 +216,8 @@ ScrollLeft:
 
 
 
-DrawBackground:
-    ld      (BgCurrentIndex), hl
+DrawBackground_1st_Third:
+    ;ld      (BgCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
 	ld	    hl, NamesTable
@@ -214,13 +225,13 @@ DrawBackground:
 
             ld	    hl, (BgAddrIndex)
 
-            ; set MegaROM initial page
-            ld      e, 1                    
-            ld      a, e
-	        ld	    (Seg_P8000_SW), a
+            ; ; set MegaROM initial page
+            ; ld      e, 1                    
+            ; ld      a, e
+	        ; ld	    (Seg_P8000_SW), a
 
             ; First n lines with unroled OUTI's during Vblank
-            ld      d, SCROLL_TILE_LINES_DURING_VBLANK
+            ld      d, 8 ; SCROLL_TILE_LINES_DURING_VBLANK
         .loopLines1:
             ; Set the source pointer in RAM
             push    hl
@@ -244,11 +255,26 @@ DrawBackground:
 
             dec     d
             jp      nz, .loopLines1
+    
+    ld	    (BgAddrIndex), hl
+    ret
 
+DrawBackground_2nd_Third:
+    ;ld      (BgCurrentIndex), hl
 
+    ; Sets the VRAM pointer (destiny)
+	ld	    hl, NamesTable + 256
+	call    BIOS_SETWRT
 
-            ; last 24-n lines with the slower OUTI inside loop after Vblank
-            ld      d, SCROLL_TILE_LINES_AFTER_VBLANK
+            ld	    hl, (BgAddrIndex)
+
+            ; set MegaROM initial page
+            ; ld      e, 1                    
+            ; ld      a, e
+	        ; ld	    (Seg_P8000_SW), a
+
+            ; mid 8 lines with the slower OUTI inside loop after Vblank
+            ld      d, 8 ; SCROLL_TILE_LINES_AFTER_VBLANK
         .loopLines2:
             ; Set the source pointer in RAM
             push    hl
@@ -276,4 +302,51 @@ DrawBackground:
             dec     d
             jp      nz, .loopLines2
 
+    ld	    (BgAddrIndex), hl
+    ret
+
+DrawBackground_3rd_Third:
+    ;ld      (BgCurrentIndex), hl
+
+    ; Sets the VRAM pointer (destiny)
+	ld	    hl, NamesTable + 512
+	call    BIOS_SETWRT
+
+            ld	    hl, (BgAddrIndex)
+
+            ; set MegaROM initial page
+            ; ld      e, 1                    
+            ; ld      a, e
+	        ; ld	    (Seg_P8000_SW), a
+
+            ; last 8 lines with the slower OUTI inside loop after Vblank
+            ld      d, 8 ; SCROLL_TILE_LINES_AFTER_VBLANK
+        .loopLines2:
+            ; Set the source pointer in RAM
+            push    hl
+
+            ld	    a, (BIOS_VDP_DW)
+            ld	    c, a
+
+                    ld      b, 32
+                .loopOUTI:
+                    outi
+                    jp	    nz, .loopOUTI
+
+            ; Update bgIndex to next line
+            ; BgIndex += 128 * 8
+            pop     hl
+            ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
+            add     hl, bc
+
+            ; check if line is multiple of 4 (go to next page)
+            ld      a, d
+            dec     a
+            and     0000 0011 b
+            call    z, NextPage
+
+            dec     d
+            jp      nz, .loopLines2
+
+    ld	    (BgAddrIndex), hl
     ret
