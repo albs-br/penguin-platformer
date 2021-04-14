@@ -19,6 +19,20 @@ BgObjectsInitialState_Start:
     db      15,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0000)), 0                 ; fill with 0s until end of page
 
+; ; screen / page 0 (columns 0-15)
+;     ; 1st third (lines 0-3) - 64 bytes
+; 	ds     64 - ($ - (BgObjectsInitialState_Start + 0x0000)), 0                 ; fill with 0s until end of page
+    
+;     ; 2nd third (lines 4-7) - 96 bytes
+;     db      1,      DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
+; 	ds     96 - ($ - (BgObjectsInitialState_Start + 0x0040)), 0                 ; fill with 0s until end of page
+
+;     ; 3rd third (lines 8-11) - 96 bytes
+;     db      12,     OTHER_OBJECT,           9 * 2 * 8,      1
+;     db      14,     ANOOTHER_OBJECT,        8 * 2 * 8,      1
+;     db      15,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+; 	ds     96 - ($ - (BgObjectsInitialState_Start + 0x00a0)), 0                 ; fill with 0s until end of page
+
 ; screen / page 1 (16-31)
     db      17,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
     db      20,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1

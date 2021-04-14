@@ -288,16 +288,16 @@ EnableRomPage2:
 ;Author: Ricardo Bittencourt aka RicBit (BrMSX, Tetrinet and several other projects)
 ; choose a random number in the set [0,255] with uniform distribution
 RandomNumber:
-    PUSH HL
-    LD HL, (SEED)
-    ADD HL,HL
-    SBC A,A
-    AND 83h
-    XOR L
-    LD L,A
-    LD (SEED), HL
-    POP HL
-    RET
+    push    hl
+    ld      hl, (SEED)
+    add     hl, hl
+    sbc     a, a
+    and     0x83
+    xor     l
+    ld      l, a
+    ld      (SEED), hl
+    pop     hl
+    ret
 
     ; The random number generated will be any number from 0 to FFh.
     ; Despite be a random number generator routine, your results will pass in several statistical tests.

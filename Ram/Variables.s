@@ -8,7 +8,11 @@
 NUMBER_OF_BG_OBJS:          equ 256     ; TODO: should these constants be moved to constants file?
 BG_OBJ_STRUCT_SIZE:         equ 4
 BgObjects_Start:            rb 256 * 16   ; bytes per page * number of pages
-;BgObjects_Start:            rb NUMBER_OF_BG_OBJS * BG_OBJ_STRUCT_SIZE   ; old
+
+; BgObjects_1st_Third_Start:  rb 64 * 16   ; bytes per page * number of pages
+; BgObjects_2nd_Third_Start:  rb 96 * 16   ; bytes per page * number of pages
+; BgObjects_3rd_Third_Start:  rb 96 * 16   ; bytes per page * number of pages
+
 BgObjects_End:
 
 
@@ -30,26 +34,24 @@ Player_JumpCounter:         rb 1
 
 
 BgCurrentIndex:             rw 1        ; current position of screen in the background (0 - (TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8)), that is (0-4095)
-;BgCurrentIndex_InTiles:     rw 1        ; current position of screen in the background (0 - (TILE_MAP_WIDTH_IN_8X8_COLUMNS)), that is (0-511)
 FrameIndex:                 rb 1        ; frame index inside a tile (0-7)
 BgAddrIndex:                rw 1
 BgAddrIndexFirstFrame:      rw 1
 
 
-FirstVisibleColumn:         rw 1            ; column index based on 8x8 tiles (0-511)
-LastVisibleColumn:          rw 1            ; column index based on 8x8 tiles (0-511)
-Addr_Screen_FirstVisibleColumn:  rw 1        ; addr of RAM objects of the screen of the first visible column
-Addr_Screen_LastVisibleColumn:   rw 1
+FirstVisibleColumn:                     rw 1            ; column index based on 8x8 tiles (0-511)
+LastVisibleColumn:                      rw 1            ; column index based on 8x8 tiles (0-511)
+Addr_Screen_FirstVisibleColumn:         rw 1            ; addr of RAM objects of the screen of the first visible column
+Addr_Screen_LastVisibleColumn:          rw 1
 
 UpdateBgObjects_CurrentAddr:            rw 1
-;UpdateBgObjects_LastSearchedAddr:       rw 1
 UpdateBgObjects_PosObjOnBG:             rw 1
 UpdateBgObjects_X:                      rb 1
 UpdateBgObjects_Y:                      rb 1
 
 
-ScrollDirection:            rb 1       ; 0: none, 1: left, 2: right
-ScrollSpeed:                rb 1       ; 0: normal (1px), 1: fast (2px)
+ScrollDirection:                        rb 1       ; 0: none, 1: left, 2: right
+ScrollSpeed:                            rb 1       ; 0: normal (1px), 1: fast (2px)
 
 
 

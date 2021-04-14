@@ -37,13 +37,13 @@ UpdateBgObjects:
     ld      bc, 256 + 256
     add     hl, bc
     ld      (Addr_Screen_LastVisibleColumn), hl
+
+
 .loop:    
     ld      hl, (UpdateBgObjects_CurrentAddr)
-    ;ld      (UpdateBgObjects_LastSearchedAddr), hl
     ld      a, (hl)
     or      a
     jp      z, .nextPage
-    ;ret     z ;jp      z, .end
 
     ld      h, 0
     ld      l, a
