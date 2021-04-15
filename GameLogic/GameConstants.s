@@ -21,9 +21,9 @@ PENGUIN_RIGHT_WALKING_3:                equ 7 * 4
 PENGUIN_RIGHT_WALKING_LAST_FRAME:       equ PENGUIN_RIGHT_WALKING_3
 
 
-; Sprite pattern numbers for diamond disappearing animation frames:
-DIAMOND_DISAPPEARING_FIRST_FRAME:       equ 9 * 4
-DIAMOND_DISAPPEARING_LAST_FRAME:        equ 17 * 4
+; Sprite pattern numbers for sparkles animation frames:
+SPARKLES_FIRST_FRAME:       equ 9 * 4
+SPARKLES_LAST_FRAME:        equ 17 * 4
 
 
 ; Keyboard constants to current key(s) pressed

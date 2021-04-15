@@ -55,11 +55,11 @@ ScrollSpeed:                            rb 1       ; 0: normal (1px), 1: fast (2
 
 
 
-; Animation for diamond disappearing
-DiamondDisappearing_X:                  rb 1
-DiamondDisappearing_Y:                  rb 1
-DiamondDisappearing_FrameNumber:        rb 1
-DiamondDisappearing_Counter:            rb 1        ; counter for each animation frame
+; Animation for sparkles
+Sparkles_X:                  rb 1
+Sparkles_Y:                  rb 1
+Sparkles_FrameNumber:        rb 1
+Sparkles_Counter:            rb 1        ; counter for each animation frame
 
 
 

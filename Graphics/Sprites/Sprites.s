@@ -314,7 +314,7 @@ StartSpritePatterns:
     DB 00000000b
 ;---------------------------------------------
 
-    ; --- Diamond disappearing
+    ; --- Sparkles
     ; frames # 0 to 3
 
 
@@ -460,7 +460,7 @@ StartSpritePatterns:
 
 
 
-    ; --- Diamond disappearing
+    ; --- Sparkles
     ; frames # 4 to 7
 
     ; --- Slot 0
@@ -604,7 +604,7 @@ StartSpritePatterns:
     DB 00000000b
 
 
-    ; --- Diamond disappearing
+    ; --- Sparkles
     ; frame # 8
     ; color 15
     DB 00000000b

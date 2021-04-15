@@ -1,5 +1,7 @@
 UpdateBgObjects:
 
+; ---------------- Setup variables
+
     ; get BgCurrentIndex (0-4095) and divide by 8, to convert index expressed in pixels into 8x8 tiles (first visible column)
     ld      hl, (BgCurrentIndex)                    ; 0-4095
     srl     h                 ; shift right HL
@@ -29,7 +31,7 @@ UpdateBgObjects:
 
 
 
-    ; Search on current page and next
+    ; setup adresses of current page and next
     ld      hl, BgObjects_Start
     add     hl, bc
     ld      (Addr_Screen_FirstVisibleColumn), hl
@@ -38,6 +40,7 @@ UpdateBgObjects:
     add     hl, bc
     ld      (Addr_Screen_LastVisibleColumn), hl
 
+; --------------------------------
 
 .loop:    
     ld      hl, (UpdateBgObjects_CurrentAddr)
@@ -236,14 +239,14 @@ ShowBgObject:
     xor     a ; same as ld a, 0
     ld      (hl), a
 
-    ; start diamond disappearing animation
-    ld      a, DIAMOND_DISAPPEARING_FIRST_FRAME
-    ld      (DiamondDisappearing_FrameNumber), a
+    ; start sparkles animation
+    ld      a, SPARKLES_FIRST_FRAME
+    ld      (Sparkles_FrameNumber), a
     ld      a, (UpdateBgObjects_Y)
-    ld      (DiamondDisappearing_Y), a
+    ld      (Sparkles_Y), a
     ld      a, (UpdateBgObjects_X)
-    ld      (DiamondDisappearing_X), a
+    ld      (Sparkles_X), a
     xor     a
-    ld      (DiamondDisappearing_Counter), a
+    ld      (Sparkles_Counter), a
 
     ret

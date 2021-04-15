@@ -46,13 +46,13 @@ InitVariables:
     ldir                                    ; copies BC bytes from HL to DE
 
 
-    ; Animation for diamond disappearing
+    ; Animation for sparkles
     xor     a
-    ld      (DiamondDisappearing_Counter), a
-    ld      (DiamondDisappearing_FrameNumber), a
-    ld      (DiamondDisappearing_X), a
+    ld      (Sparkles_Counter), a
+    ld      (Sparkles_FrameNumber), a
+    ld      (Sparkles_X), a
     ld      a, 192
-    ld      (DiamondDisappearing_Y), a
+    ld      (Sparkles_Y), a
 
 
 

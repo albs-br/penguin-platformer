@@ -30,13 +30,25 @@ NextPage:
 
 DrawBackground_3_Thirds:
     ; set MegaROM initial page
-    ld      e, 1                    
+    ld      e, 1
     ld      a, e
     ld	    (Seg_P8000_SW), a
 
     call    DrawBackground_1st_Third
 
+    IFDEF DEBUG
+        ld 		a, COLOR_LIGHT_BLUE       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
+
     call    DrawBackground_2nd_Third
+
+    IFDEF DEBUG
+        ld 		a, COLOR_BLUE       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
 
     call    DrawBackground_3rd_Third
 
@@ -76,10 +88,10 @@ ScrollRight:
 
 
     ; TODO: 1x or 2x speed here
-    ; Update X position of diamond disappearing sprite
-    ld      a, (DiamondDisappearing_X)
+    ; Update X position of sparkles sprite
+    ld      a, (Sparkles_X)
     dec     a
-    ld      (DiamondDisappearing_X), a
+    ld      (Sparkles_X), a
 
 
 ; TODO: 1x or 2x speed here (it's bugged)

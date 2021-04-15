@@ -57,15 +57,15 @@ UpdateSpriteAttrTableBuffer:
 
     ; Sprite # 3
     inc     hl
-    ld      a, (DiamondDisappearing_Y)
+    ld      a, (Sparkles_Y)
     ld      (hl), a
 
     inc     hl
-    ld      a, (DiamondDisappearing_X)
+    ld      a, (Sparkles_X)
     ld      (hl), a
 
     inc     hl
-    ld      a, (DiamondDisappearing_FrameNumber)
+    ld      a, (Sparkles_FrameNumber)
     ld      (hl), a
 
     inc     hl
