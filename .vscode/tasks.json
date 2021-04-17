@@ -15,6 +15,33 @@
                     }
                 ],
             "problemMatcher": [],
+            "group": "build",
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "command": "C:\\Program Files\\openMSX\\openmsx",
+                "args": [
+                    {
+                        "value": "C:\\Users\\albs_\\source\\repos\\penguim-platformer\\penguin-platformer.rom",
+                        "quoting": "strong"
+                    },
+                    {
+                        "value": "-romtype ASCII16",
+                        "quoting": "escape"
+                    },
+                    {
+                        "value": "-script C:\\Users\\albs_\\source\\repos\\penguim-platformer\\gopenguin_debug.tcl",
+                        "quoting": "escape"
+                    }
+                ],
+            "label": "run openmsx",
+            "type": "shell",
+            "dependsOn": [
+                "assembly"
+            ],
+            "problemMatcher": [],
             "group": {
                 "kind": "build",
                 "isDefault": true

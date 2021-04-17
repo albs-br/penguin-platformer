@@ -1,3 +1,105 @@
+DrawBackground_3_Thirds:
+
+
+; test 
+    ; call    DrawBackground_1st_Third
+    ; call    DrawBackground_2nd_Third
+    ; call    DrawBackground_3rd_Third
+
+    ; call    UpdateBgObjects_SetupVariables
+    ; call    UpdateBgObjects_Execute
+
+    ; ld      hl, (Addr_Screen_FirstVisibleColumn)
+    ; ld      bc, 64                        ; TODO: use 8 bit add, as it is page aligned
+    ; add     hl, bc
+    ; ld      (UpdateBgObjects_CurrentAddr), hl
+    ; call    UpdateBgObjects_Execute
+
+    ; ld      hl, (Addr_Screen_FirstVisibleColumn)
+    ; ld      bc, 64 + 96                   ; TODO: use 8 bit add, as it is page aligned, or even LD L, 64 + 96
+    ; add     hl, bc
+    ; ld      (UpdateBgObjects_CurrentAddr), hl
+    ; call    UpdateBgObjects_Execute
+
+    ; ret
+
+; ------------------------- 1st third -------------------------
+
+    IFDEF DEBUG
+        ld 		a, COLOR_BLUE       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
+
+    call    DrawBackground_1st_Third
+
+    IFDEF DEBUG
+        ld 		a, COLOR_LIGHT_BLUE       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
+
+    call   UpdateBgObjects_SetupVariables
+    call   UpdateBgObjects_Execute
+
+
+; ------------------------- 2nd third -------------------------
+
+    IFDEF DEBUG
+        ld 		a, COLOR_BLUE       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
+
+    call    DrawBackground_2nd_Third
+
+    IFDEF DEBUG
+        ld 		a, COLOR_LIGHT_BLUE       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
+
+    ;call    UpdateBgObjects_SetupVariables
+    ld      hl, (Addr_Screen_FirstVisibleColumn)
+    ld      bc, 64                        ; TODO: use 8 bit add, as it is page aligned, or even LD L, 64
+    add     hl, bc
+    ld      (UpdateBgObjects_CurrentAddr), hl
+    call    UpdateBgObjects_Execute
+
+; ------------------------- 3rd third -------------------------
+
+    IFDEF DEBUG
+        ld 		a, COLOR_BLUE       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
+
+    call    DrawBackground_3rd_Third
+
+    IFDEF DEBUG
+        ld 		a, COLOR_LIGHT_BLUE       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
+
+; ; test
+;     ld hl, 2
+
+;     call ShowBgObject
+
+    ;call    UpdateBgObjects_SetupVariables
+    ld      hl, (Addr_Screen_FirstVisibleColumn)
+    ld      bc, 64 + 96                   ; TODO: use 8 bit add, as it is page aligned, or even LD L, 64 + 96
+    add     hl, bc
+    ld      (UpdateBgObjects_CurrentAddr), hl
+;  ld a, 0
+;  ld (FrameIndex), a
+    call    UpdateBgObjects_Execute
+
+    ret
+
+
+
 DrawStaticBg:
     ld      a, (ScrollDirection)
     or      a
@@ -10,16 +112,21 @@ DrawStaticBg:
     call    ScrollLeft
     ret     ;jp      .continue
 .drawBg:
-    call    DrawBackground_3_Thirds
+    ;call    DrawBackground_3_Thirds
 ;.continue:
     ret
 
 
 
-NextPage:
-    inc     e   ; next page
-    ld      a, e
-	ld	    (Seg_P8000_SW), a
+NextMegaROMPage:
+    ; inc     e   ; next page
+    ; ld      a, e
+	; ld	    (Seg_P8000_SW), a
+
+    ld      a, (CurrentMegaRomPage)
+    inc     a
+    ld	    (Seg_P8000_SW), a
+    ld	    (CurrentMegaRomPage), a
 
     ; hl -= TileMapSizeInColumns * 8 * 4
     ld      bc, - TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8 * 4
@@ -28,33 +135,14 @@ NextPage:
     ret
 
 
-DrawBackground_3_Thirds:
-    ; set MegaROM initial page
-    ld      e, 1
-    ld      a, e
-    ld	    (Seg_P8000_SW), a
 
-    call    DrawBackground_1st_Third
-
-    IFDEF DEBUG
-        ld 		a, COLOR_LIGHT_BLUE       	; Border color
-        ld 		(BIOS_BDRCLR), a    
-        call 	BIOS_CHGCLR        		; Change Screen Color
-    ENDIF    
-
-    call    DrawBackground_2nd_Third
-
-    IFDEF DEBUG
-        ld 		a, COLOR_BLUE       	; Border color
-        ld 		(BIOS_BDRCLR), a    
-        call 	BIOS_CHGCLR        		; Change Screen Color
-    ENDIF    
-
-    call    DrawBackground_3rd_Third
-
-    ret
-
-
+; Inputs:
+;   (BgCurrentIndex)
+;   (BgAddrIndex)
+;   (FrameIndex)
+; Updates:
+;   (BgCurrentIndex)
+;   (BgAddrIndex)
 ScrollRight:
     ; check if scroll is at limit
     ld      hl, (BgCurrentIndex)
@@ -127,6 +215,9 @@ ScrollRight:
     or      a
     ld      a, (de)
     jp      z, .normalSpeed_2
+; 2x speed:
+    ;and     1111 1110 b
+    res     0, a
     inc     a
 .normalSpeed_2:
     inc     a
@@ -138,7 +229,7 @@ ScrollRight:
     ; }
     cp      8
     ;jp      nz, .not8
-    jp      c, .lessThan8                ; if (a < n)
+    jp      c, .lessThan8                ; if (a < n)  ; TODO: is it correct?
 
     ;FrameIndex >= 8:
     ld      hl, (BgAddrIndexFirstFrame)
@@ -146,7 +237,7 @@ ScrollRight:
     ld      (BgAddrIndexFirstFrame), hl
     ld      (BgAddrIndex), hl
 
-    xor     a
+    xor     a           ; reset FrameIndex
 .lessThan8:
     ld      (de), a
     
@@ -229,6 +320,11 @@ ScrollLeft:
 
 
 DrawBackground_1st_Third:
+    ; set MegaROM initial page
+    ld      a, 1
+    ld      (CurrentMegaRomPage), a
+    ld	    (Seg_P8000_SW), a
+    
     ;ld      (BgCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
@@ -236,11 +332,6 @@ DrawBackground_1st_Third:
 	call    BIOS_SETWRT
 
             ld	    hl, (BgAddrIndex)
-
-            ; ; set MegaROM initial page
-            ; ld      e, 1                    
-            ; ld      a, e
-	        ; ld	    (Seg_P8000_SW), a
 
             ; First n lines with unroled OUTI's during Vblank
             ld      d, 8 ; SCROLL_TILE_LINES_DURING_VBLANK
@@ -263,7 +354,7 @@ DrawBackground_1st_Third:
             ld      a, d
             dec     a
             and     0000 0011 b
-            call    z, NextPage
+            call    z, NextMegaROMPage
 
             dec     d
             jp      nz, .loopLines1
@@ -272,6 +363,9 @@ DrawBackground_1st_Third:
     ret
 
 DrawBackground_2nd_Third:
+    ld      a, (CurrentMegaRomPage)
+    ld	    (Seg_P8000_SW), a
+
     ;ld      (BgCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
@@ -279,11 +373,6 @@ DrawBackground_2nd_Third:
 	call    BIOS_SETWRT
 
             ld	    hl, (BgAddrIndex)
-
-            ; set MegaROM initial page
-            ; ld      e, 1                    
-            ; ld      a, e
-	        ; ld	    (Seg_P8000_SW), a
 
             ; mid 8 lines with the slower OUTI inside loop after Vblank
             ld      d, 8 ; SCROLL_TILE_LINES_AFTER_VBLANK
@@ -309,7 +398,7 @@ DrawBackground_2nd_Third:
             ld      a, d
             dec     a
             and     0000 0011 b
-            call    z, NextPage
+            call    z, NextMegaROMPage
 
             dec     d
             jp      nz, .loopLines2
@@ -318,6 +407,9 @@ DrawBackground_2nd_Third:
     ret
 
 DrawBackground_3rd_Third:
+    ld      a, (CurrentMegaRomPage)
+    ld	    (Seg_P8000_SW), a
+
     ;ld      (BgCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
@@ -325,11 +417,6 @@ DrawBackground_3rd_Third:
 	call    BIOS_SETWRT
 
             ld	    hl, (BgAddrIndex)
-
-            ; set MegaROM initial page
-            ; ld      e, 1                    
-            ; ld      a, e
-	        ; ld	    (Seg_P8000_SW), a
 
             ; last 8 lines with the slower OUTI inside loop after Vblank
             ld      d, 8 ; SCROLL_TILE_LINES_AFTER_VBLANK
@@ -355,7 +442,7 @@ DrawBackground_3rd_Third:
             ld      a, d
             dec     a
             and     0000 0011 b
-            call    z, NextPage
+            call    z, NextMegaROMPage
 
             dec     d
             jp      nz, .loopLines2

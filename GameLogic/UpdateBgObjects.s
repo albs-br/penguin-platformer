@@ -1,9 +1,12 @@
-UpdateBgObjects:
+UpdateBgObjects_SetupVariables:
 
 ; ---------------- Setup variables
 
     ; get BgCurrentIndex (0-4095) and divide by 8, to convert index expressed in pixels into 8x8 tiles (first visible column)
     ld      hl, (BgCurrentIndex)                    ; 0-4095
+    
+    ;dec     hl  ; debug
+
     srl     h                 ; shift right HL
     rr      l
     srl     h                 ; shift right HL
@@ -36,17 +39,29 @@ UpdateBgObjects:
     add     hl, bc
     ld      (Addr_Screen_FirstVisibleColumn), hl
     ld      (UpdateBgObjects_CurrentAddr), hl
-    ld      bc, 256 + 256
+    ld      bc, 256 + 256 - 1                           ; last byte of the second page / screen
     add     hl, bc
     ld      (Addr_Screen_LastVisibleColumn), hl
 
+    ret
+
 ; --------------------------------
+; Inputs:
+;   (UpdateBgObjects_CurrentAddr)
+;   (FirstVisibleColumn)
+;   (LastVisibleColumn)
+;   (Addr_Screen_LastVisibleColumn)
+; Updates:
+;   (UpdateBgObjects_StartAddr)
+UpdateBgObjects_Execute:
+    ld      hl, (UpdateBgObjects_CurrentAddr)
+    ld      (UpdateBgObjects_StartAddr), hl
 
 .loop:    
     ld      hl, (UpdateBgObjects_CurrentAddr)
     ld      a, (hl)
     or      a
-    jp      z, .nextPage
+    jp      z, .nextPage                ; if byte read is 0 go to next page
 
     ld      h, 0
     ld      l, a
@@ -57,7 +72,7 @@ UpdateBgObjects:
 
     ; compare with first visible column
     ld      de, (FirstVisibleColumn)
-    ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    ;call    BIOS_DCOMPR                ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     or      a
     sbc     hl, de
     add     hl, de
@@ -103,21 +118,30 @@ UpdateBgObjects:
     jp      .next
 
 .nextPage:
-    inc     h
-    ld      l, 0
+    ld      hl, (UpdateBgObjects_StartAddr)
+    inc     h                                   ; increment only High byte (table aligned)
     ld      (UpdateBgObjects_CurrentAddr), hl
+    ld      (UpdateBgObjects_StartAddr), hl
     jp      .loop
 
 ; .end:
 ;     ret
 
 
-; inputs:
+; Inputs:
 ;   HL: column position of object on the bg (0-511)
+;   (UpdateBgObjects_CurrentAddr)
+;   (FirstVisibleColumn)
+;   (FrameIndex)
+; Updates:
+;   (UpdateBgObjects_PosObjOnBG)
+;   (UpdateBgObjects_Y)
+;   (UpdateBgObjects_X)
+;   (UpdateBgObjects_CurrentAddr)
 ShowBgObject:
     ; --- Put a Bg obj on screen
 
-    ; position of object on bg
+    ; DE = position of object on bg (0-511)
     ld      (UpdateBgObjects_PosObjOnBG), hl
     ex      de, hl
 
@@ -136,7 +160,7 @@ ShowBgObject:
     ld      h, 0
     ld      l, a
     ; add     hl, hl                          ; multiply by 32
-    ; add     hl, hl                          ; this multiplication is now pre calculated on BgObjects.s
+    ; add     hl, hl                          ; this multiplication now is pre calculated on BgObjects.s
     ; add     hl, hl
     ;ld      a, l
     ld      (UpdateBgObjects_Y), a          ; save object pixel Y position
@@ -148,13 +172,32 @@ ShowBgObject:
     ld	    a, (BIOS_VDP_DW)
     ld	    c, a
 
-    ; First row of 16x16 object
+    ; First row of the 16x16 object
     ;ld	    hl, NamesTable + (32 * 16)
     add     hl, de
     ld      de, (FirstVisibleColumn)
     or      a                               ; clear carry flag
     sbc     hl, de
-    dec     hl
+    
+    
+    ; [debug]
+    ; if (FrameIndex != 7) dec HL
+    ld      a, (FrameIndex)
+    sub     7
+    jp      z, .FrameIndex7
+    dec     hl                              ; minus one because each two tiles are in reality 3 tiles (for scrolling)
+.FrameIndex7:
+
+    ; if (FrameIndex != 0) dec HL
+;     ld      a, (FrameIndex)
+;     or      a
+;     jp      z, .FrameIndexEqual0
+;     dec     hl                              ; minus one because each two tiles are in reality 3 tiles (for scrolling)
+;  .FrameIndexEqual0:
+
+    ;original code
+    ; dec     hl                              ; minus one because each two tiles are in reality 3 tiles (for scrolling)
+
     push    hl
 	    call    BIOS_SETWRT
     
@@ -165,6 +208,7 @@ ShowBgObject:
         inc     hl
         ld      b, (hl)
         ld      a, (FrameIndex)
+
         add     b
         out     (c), a
 
@@ -178,7 +222,7 @@ ShowBgObject:
         nop
         out     (c), a
 
-    ; Second row of 16x16 object
+    ; Second row of the 16x16 object
     ;ld	    hl, NamesTable + (32 * 16) + 16
     pop     hl
     ld      de, 32
@@ -226,6 +270,22 @@ ShowBgObject:
     ld      d, a
     ld      (UpdateBgObjects_X), a
 
+
+
+
+
+;------------------------------
+;     ; [debug]
+;     ld a, (FrameIndex)
+;     sub 7
+; .eternalLoop:
+;     jp z, .eternalLoop
+;------------------------------
+
+
+
+
+
     ld      a, (UpdateBgObjects_Y)
     ld      e, a ;16 * 8
     call    CheckCollision_8x8_8x8
@@ -245,6 +305,7 @@ ShowBgObject:
     ld      a, (UpdateBgObjects_Y)
     ld      (Sparkles_Y), a
     ld      a, (UpdateBgObjects_X)
+    ;add 8
     ld      (Sparkles_X), a
     xor     a
     ld      (Sparkles_Counter), a

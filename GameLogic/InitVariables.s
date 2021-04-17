@@ -6,8 +6,10 @@ InitVariables:
     ld      hl, 0
     ld      (BgCurrentIndex), hl
 
-    xor     a
+    ld      a, 0
     ld      (FrameIndex), a
+
+    xor     a
 
     ld      (ScrollDirection), a
     ld      (ScrollSpeed), a

@@ -80,6 +80,8 @@ InitGame:
 
     call    InitVariables
 
+    call    DrawBackground_3_Thirds
+
 ; Main loop
 MainLoop:
 	halt			                    ; (v-blank sync)
@@ -94,11 +96,6 @@ MainLoop:
 
 ; ----------------------------------------------------------------
 
-    IFDEF DEBUG
-        ld 		a, COLOR_BLUE       	; Border color
-        ld 		(BIOS_BDRCLR), a    
-        call 	BIOS_CHGCLR        		; Change Screen Color
-    ENDIF    
 
     call    DrawStaticBg
 
@@ -112,7 +109,8 @@ MainLoop:
     ENDIF
 
 
-    call    UpdateBgObjects
+    ; call    UpdateBgObjects_SetupVariables
+    ; call    UpdateBgObjects_Execute
 
     call    UpdateSparklesAnimation
 
