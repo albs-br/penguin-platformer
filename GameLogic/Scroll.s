@@ -242,11 +242,7 @@ ScrollRight:
     ; get 3 lower bits of BgCurrentIndex and save it to FrameIndex
     ld      a, (BgCurrentIndex)
     and     0000 0111 b
-    jp      .continue1
 .lessThan8:
-    ; ld      a, (BgCurrentIndex)
-    ; and     0000 0111 b
-.continue1:
     ld      (de), a
     
     call    DrawBackground_3_Thirds
