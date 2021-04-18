@@ -156,11 +156,53 @@ BgObjectsInitialState_Start:
 ;     db      76,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
 ; 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0400)), 0                 ; fill with 0s until end of page
 
+; screen / page 4 (columns 64-79)
+    ; 1st third (lines 0-3) - 64 bytes
+	ds     64 - ($ - (BgObjectsInitialState_Start + 0x0400)), 0                 ; fill with 0s until end of block
+    
+    ; 2nd third (lines 4-7) - 96 bytes
+    db      66,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1
+    db      66,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1
+	ds     96 - ($ - (BgObjectsInitialState_Start + 0x0440)), 0                 ; fill with 0s until end of block
+
+    ; 3rd third (lines 8-11) - 96 bytes
+    db      66,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+
+    db      72,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    db      72,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db      72,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+
+    db      74,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    db      74,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db      74,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+
+    db      76,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    db      76,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db      76,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+	ds     96 - ($ - (BgObjectsInitialState_Start + 0x04a0)), 0                 ; fill with 0s until end of block
+
+; -----------------------------------------------------------
+
 ; ; screen / page 5 (80-95)
 ;     db      82,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
 ;     db      84,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
 ;     db      86,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
 ; 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0500)), 0                 ; fill with 0s until end of page
+
+; screen / page 5 (columns 80-95)
+    ; 1st third (lines 0-3) - 64 bytes
+	ds     64 - ($ - (BgObjectsInitialState_Start + 0x0500)), 0                 ; fill with 0s until end of block
+    
+    ; 2nd third (lines 4-7) - 96 bytes
+    db      82,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
+    db      84,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
+    db      86,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
+	ds     96 - ($ - (BgObjectsInitialState_Start + 0x0540)), 0                 ; fill with 0s until end of block
+
+    ; 3rd third (lines 8-11) - 96 bytes
+	ds     96 - ($ - (BgObjectsInitialState_Start + 0x05a0)), 0                 ; fill with 0s until end of block
+
+; -----------------------------------------------------------
 
 ; ; screen / page 6 (96-111)
 ;     db      95,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
@@ -179,6 +221,33 @@ BgObjectsInitialState_Start:
     
 ;     db     110,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
 ; 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0600)), 0                 ; fill with 0s until end of page
+
+; screen / page 6 (columns 96-111)
+    ; 1st third (lines 0-3) - 64 bytes
+	ds     64 - ($ - (BgObjectsInitialState_Start + 0x0600)), 0                 ; fill with 0s until end of block
+    
+    ; 2nd third (lines 4-7) - 96 bytes
+	ds     96 - ($ - (BgObjectsInitialState_Start + 0x0640)), 0                 ; fill with 0s until end of block
+
+    ; 3rd third (lines 8-11) - 96 bytes
+    db      95,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db      96,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db      97,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+
+    db     101,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db     102,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db     103,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db     103,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    db     104,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db     105,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    db     105,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
+    db     106,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+    db     107,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
+    
+    db     110,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
+	ds     96 - ($ - (BgObjectsInitialState_Start + 0x06a0)), 0                 ; fill with 0s until end of block
+
+; -----------------------------------------------------------
 
 ; ; screen / page 7 (112-127)
 ;     db     115,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
