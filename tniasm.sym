@@ -33,7 +33,7 @@ GameLogic.PlayerRight: equ 04A11h ; last def. pass 3
 BIOS_TAPOOF: equ 0F0h ; last def. pass 3
 BIOS_ROMSLT: equ 0FCC0h ; last def. pass 3
 SPARKLES_LAST_FRAME: equ 044h ; last def. pass 3
-BgObjectsInitialState_End: equ 0689Eh ; last def. pass 3
+BgObjectsInitialState_End: equ 06B9Eh ; last def. pass 3
 WaitSomeSeconds: equ 0419Bh ; last def. pass 3
 BIOS_VOICEN: equ 0FB38h ; last def. pass 3
 CheckCollision_16x16_16x16.x1IsLarger: equ 0495Ch ; last def. pass 3
@@ -94,7 +94,7 @@ BIOS_H_CHPH: equ 0FDA4h ; last def. pass 3
 BIOS_NSETRD: equ 016Eh ; last def. pass 3
 BIOS_JIFFY: equ 0FC9Eh ; last def. pass 3
 GameIncludes_Size: equ 061Dh ; last def. pass 3
-MainLoop: equ 068C6h ; last def. pass 3
+MainLoop: equ 06BC6h ; last def. pass 3
 ScrollDirection: equ 0D024h ; last def. pass 3
 TilePatterns_SmallBricks_Start: equ 05226h ; last def. pass 3
 BIOS_H_GONE: equ 0FF43h ; last def. pass 3
@@ -142,7 +142,7 @@ BIOS_DRWFLG: equ 0FCBBh ; last def. pass 3
 BIOS_DOT: equ 0F6B5h ; last def. pass 3
 DrawBackground_1st_Third: equ 04CCBh ; last def. pass 3
 BIOS_VOICCQ: equ 0FA75h ; last def. pass 3
-Execute: equ 0689Eh ; last def. pass 3
+Execute: equ 06B9Eh ; last def. pass 3
 GameLogic.hitGround: equ 04A62h ; last def. pass 3
 BIOS_ESTBLS: equ 0FB1Dh ; last def. pass 3
 BIOS_CYOFF: equ 0F947h ; last def. pass 3
@@ -165,7 +165,7 @@ TileColors_SmallBricks_Top_End: equ 05B56h ; last def. pass 3
 FillColorTable.loop: equ 04161h ; last def. pass 3
 BIOS_SLTTBL: equ 0FCC5h ; last def. pass 3
 BIOS_DSCTMP: equ 0F698h ; last def. pass 3
-End: equ 068F8h ; last def. pass 3
+End: equ 06BF8h ; last def. pass 3
 ScrollRight.normalSpeed_1: equ 04C67h ; last def. pass 3
 BIOS_H_LOC: equ 0FE99h ; last def. pass 3
 Player_IsGrounded: equ 0D00Ah ; last def. pass 3
@@ -176,7 +176,7 @@ BIOS_MIVCNT: equ 0F951h ; last def. pass 3
 PENGUIN_RIGHT_WALKING_LAST_FRAME: equ 01Ch ; last def. pass 3
 BIOS_H_CRUS: equ 0FF25h ; last def. pass 3
 BIOS_H_NOFO: equ 0FE58h ; last def. pass 3
-GameData_Size: equ 018FCh ; last def. pass 3
+GameData_Size: equ 01BFCh ; last def. pass 3
 BIOS_LINWRK: equ 0FC18h ; last def. pass 3
 PatternsTable_3rd_Third: equ 01000h ; last def. pass 3
 BIOS_H_IPL: equ 0FE03h ; last def. pass 3
@@ -334,7 +334,7 @@ BIOS_CHGCLR: equ 062h ; last def. pass 3
 HEIGHT2: equ 010h ; last def. pass 3
 ColorsTable_2nd_Third: equ 02800h ; last def. pass 3
 BIOS_HIGH: equ 0F408h ; last def. pass 3
-Finished: equ 068F6h ; last def. pass 3
+Finished: equ 06BF6h ; last def. pass 3
 BIOS_BDRCLR: equ 0F3EBh ; last def. pass 3
 ScrollLeft.continue: equ 04C9Eh ; last def. pass 3
 TilePatterns_Rocks_Start: equ 056E6h ; last def. pass 3
@@ -745,7 +745,7 @@ BIOS_ACPAGE: equ 0FAF6h ; last def. pass 3
 BIOS_RSFCB: equ 0FB04h ; last def. pass 3
 BIOS_LINTTB: equ 0FBB2h ; last def. pass 3
 BIOS_FRETOP: equ 0F69Bh ; last def. pass 3
-InitGame: equ 068C0h ; last def. pass 3
+InitGame: equ 06BC0h ; last def. pass 3
 BIOS_H_FILO: equ 0FE85h ; last def. pass 3
 BIOS_GRPCOL: equ 0F3C9h ; last def. pass 3
 copy_to_VDP_loop2: equ 0420Bh ; last def. pass 3
