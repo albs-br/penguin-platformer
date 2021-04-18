@@ -96,7 +96,7 @@ UpdateBgObjects_Execute:
     ; ld      de, BG_OBJ_STRUCT_SIZE
     ; add     hl, de
     ld      a, BG_OBJ_STRUCT_SIZE
-    add     l
+    add     l                           ; updating only low byte, as it is table aligned the high byte is always the same
     ld      l, a
 
 
@@ -155,6 +155,7 @@ ShowBgObject:
     ret     z
     
     ; get row number
+    ; HL = VRAM addr of first column of the specified row (NamesTable + (row number * 32))
     dec     hl
     ld      a, (hl)
     ld      h, 0
@@ -165,7 +166,7 @@ ShowBgObject:
     ;ld      a, l
     ld      (UpdateBgObjects_Y), a          ; save object pixel Y position
     add     hl, hl
-    add     hl, hl                          
+    add     hl, hl
     ld      bc, NamesTable
     add     hl, bc
 
@@ -173,29 +174,11 @@ ShowBgObject:
     ld	    c, a
 
     ; First row of the 16x16 object
-    ;ld	    hl, NamesTable + (32 * 16)
     add     hl, de
     ld      de, (FirstVisibleColumn)
     or      a                               ; clear carry flag
     sbc     hl, de
     
-    
-    ; [debug]
-    ; if (FrameIndex != 7) dec HL
-;     ld      a, (FrameIndex)
-;     sub     7
-;     jp      z, .FrameIndex7
-;     dec     hl                              ; minus one because each two tiles are in reality 3 tiles (for scrolling)
-; .FrameIndex7:
-
-    ; if (FrameIndex != 0) dec HL
-;     ld      a, (FrameIndex)
-;     or      a
-;     jp      z, .FrameIndexEqual0
-;     dec     hl                              ; minus one because each two tiles are in reality 3 tiles (for scrolling)
-;  .FrameIndexEqual0:
-
-    ;original code
     dec     hl                              ; minus one because each two tiles are in reality 3 tiles (for scrolling)
 
     push    hl
@@ -203,9 +186,8 @@ ShowBgObject:
     
         ; top left
         ; TODO: check if column is < 0 (bug showing on the other side of screen)
-        ;ld      hl, BgObjectsInitialState_Start + 1     ; TODO get object from second byte of struct
         ld      hl, (UpdateBgObjects_CurrentAddr)
-        inc     hl
+        inc     hl                          ; get object from second byte of struct
         ld      b, (hl)
         ld      a, (FrameIndex)
 
@@ -223,7 +205,6 @@ ShowBgObject:
         out     (c), a
 
     ; Second row of the 16x16 object
-    ;ld	    hl, NamesTable + (32 * 16) + 16
     pop     hl
     ld      de, 32
     add     hl, de
@@ -249,12 +230,21 @@ ShowBgObject:
         nop
         out     (c), a
     
-    ; Check collision between penguin and object
-    ld      a, (Player_X)
-    ld      b, a
+    ; ------- Check collision between penguin and object
+
     ld      a, (Player_Y)
     inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
     ld      c, a
+
+    ld      a, (UpdateBgObjects_Y)
+    ld      e, a ;16 * 8
+
+    ; first check vertical collision, saving the next block (130 cycles), plus 57/62 of the subroutine if no collision
+    call    CheckCollision_16x16_16x16_Vertical
+    ret     nc
+
+    ld      a, (Player_X)
+    ld      b, a
 
     ld      hl, (UpdateBgObjects_PosObjOnBG)    ; x of object = (ObjPositionOnBg - FirstVisibleColumn) * 8
     ld      de, (FirstVisibleColumn)
@@ -270,25 +260,7 @@ ShowBgObject:
     ld      d, a
     ld      (UpdateBgObjects_X), a
 
-
-
-
-
-;------------------------------
-;     ; [debug]
-;     ld a, (FrameIndex)
-;     sub 7
-; .eternalLoop:
-;     jp z, .eternalLoop
-;------------------------------
-
-
-
-
-
-    ld      a, (UpdateBgObjects_Y)
-    ld      e, a ;16 * 8
-    call    CheckCollision_8x8_8x8
+    call    CheckCollision_16x16_16x16_Horizontal
     ret     nc
 
     ; if collided, disable object
@@ -305,7 +277,6 @@ ShowBgObject:
     ld      a, (UpdateBgObjects_Y)
     ld      (Sparkles_Y), a
     ld      a, (UpdateBgObjects_X)
-    ;add 8
     ld      (Sparkles_X), a
     xor     a
     ld      (Sparkles_Counter), a
