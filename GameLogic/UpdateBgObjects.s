@@ -182,11 +182,11 @@ ShowBgObject:
     
     ; [debug]
     ; if (FrameIndex != 7) dec HL
-    ld      a, (FrameIndex)
-    sub     7
-    jp      z, .FrameIndex7
-    dec     hl                              ; minus one because each two tiles are in reality 3 tiles (for scrolling)
-.FrameIndex7:
+;     ld      a, (FrameIndex)
+;     sub     7
+;     jp      z, .FrameIndex7
+;     dec     hl                              ; minus one because each two tiles are in reality 3 tiles (for scrolling)
+; .FrameIndex7:
 
     ; if (FrameIndex != 0) dec HL
 ;     ld      a, (FrameIndex)
@@ -196,7 +196,7 @@ ShowBgObject:
 ;  .FrameIndexEqual0:
 
     ;original code
-    ; dec     hl                              ; minus one because each two tiles are in reality 3 tiles (for scrolling)
+    dec     hl                              ; minus one because each two tiles are in reality 3 tiles (for scrolling)
 
     push    hl
 	    call    BIOS_SETWRT

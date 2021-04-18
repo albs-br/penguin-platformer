@@ -112,7 +112,7 @@ DrawStaticBg:
     call    ScrollLeft
     ret     ;jp      .continue
 .drawBg:
-    ;call    DrawBackground_3_Thirds
+    call    DrawBackground_3_Thirds
 ;.continue:
     ret
 
@@ -191,7 +191,7 @@ ScrollRight:
 .normalSpeed:
     ld      (BgCurrentIndex), hl
     
-    call    DrawBackground_3_Thirds
+    ; call    DrawBackground_3_Thirds
 
 ; TODO: 1x or 2x speed here (it's bugged)
 	ld	    hl, (BgAddrIndex)
@@ -239,8 +239,12 @@ ScrollRight:
 
     xor     a           ; reset FrameIndex
 .lessThan8:
+    ; ld      a, (BgCurrentIndex)
+    ; and     0000 0111 b
     ld      (de), a
     
+    call    DrawBackground_3_Thirds
+
     ret
 
 
