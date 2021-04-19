@@ -118,8 +118,16 @@ UpdateBgObjects_Execute:
     jp      .next
 
 .nextPage:
+    ; check if passed end of last page
+    ld      de, (Addr_Screen_LastVisibleColumn)
+    ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    or      a
+    sbc     hl, de
+    ret     nc ;jp      nc, .end        ; if hl >= de
+
     ld      hl, (UpdateBgObjects_StartAddr)
     inc     h                                   ; increment only High byte (table aligned)
+
     ld      (UpdateBgObjects_CurrentAddr), hl
     ld      (UpdateBgObjects_StartAddr), hl
     jp      .loop
@@ -280,5 +288,7 @@ ShowBgObject:
     ld      (Sparkles_X), a
     xor     a
     ld      (Sparkles_Counter), a
+
+    ; call    SoundGetItem
 
     ret
