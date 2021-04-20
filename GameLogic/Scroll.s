@@ -175,52 +175,41 @@ ScrollRight:
 ; .continue:
 
 
-    ; TODO: 1x or 2x speed here
+    ; BC = ScrollSpeed; Normal: 1, Fast: 2
+    ld      a, (ScrollSpeed)
+    ;inc     a
+    ld      b, 0
+    ld      c, a
+
+
     ; Update X position of sparkles sprite
     ld      a, (Sparkles_X)
-    dec     a
+    sub     c
     ld      (Sparkles_X), a
 
 
-; TODO: 1x or 2x speed here (it's bugged)
-    inc     hl
-    ld      a, (ScrollSpeed)
-    or      a
-    jp      z, .normalSpeed
-    inc     hl
-.normalSpeed:
+    ; Update BgCurrentIndex
+    add     hl, bc
     ld      (BgCurrentIndex), hl
     
-    ; call    DrawBackground_3_Thirds
 
-; TODO: 1x or 2x speed here (it's bugged)
-	ld	    hl, (BgAddrIndex)
-    ; hl = hl + TileMapSizeInColumns
+	; Update BgAddrIndex
+    ld	    hl, (BgAddrIndex)
+    ; hl = hl + (TileMapSizeInColumns * ScrollSpeed)
     ld      de, TILE_MAP_WIDTH_IN_8X8_COLUMNS
+    ld      b, c
+.loop:
     add     hl, de
+    djnz    .loop    
 
-    ld      a, (ScrollSpeed)
-    or      a
-    jp      z, .normalSpeed_1
-    add     hl, de
-.normalSpeed_1:
 
     ld      (BgAddrIndex), hl
 
-; TODO: 1x or 2x speed here (it's bugged)
-    ; inc FrameIndex
+    ; FrameIndex += ScrollSpeed
     ld      de, FrameIndex
-
-    ld      a, (ScrollSpeed)
-    or      a
     ld      a, (de)
-    jp      z, .normalSpeed_2
-; 2x speed:
-    ;and     1111 1110 b
-    res     0, a
-    inc     a
-.normalSpeed_2:
-    inc     a
+    add     c
+
 
     ; if (FrameIndex >= 8) {
     ;   FrameIndex = 0;
@@ -229,7 +218,7 @@ ScrollRight:
     ; }
     cp      8
     ;jp      nz, .not8
-    jp      c, .lessThan8                ; if (a < n)  ; TODO: is it correct?
+    jp      c, .lessThan8                ; if (a < n)
 
     ;FrameIndex >= 8:
     ld      hl, (BgAddrIndexFirstFrame)

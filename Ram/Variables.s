@@ -5,8 +5,6 @@
 
 ; Table aligned to 0xC000
 ; --- Background objects with state (diamonds for example)
-NUMBER_OF_BG_OBJS:          equ 256     ; TODO: should these constants be moved to constants file?
-BG_OBJ_STRUCT_SIZE:         equ 4
 BgObjects_Start:            rb 256 * 16   ; bytes per page * number of pages
 
 ; BgObjects_1st_Third_Start:  rb 64 * 16   ; bytes per page * number of pages
@@ -53,7 +51,7 @@ UpdateBgObjects_Y:                      rb 1
 UpdateBgObjects_StartAddr:              rw 1
 
 ScrollDirection:                        rb 1       ; 0: none, 1: left, 2: right
-ScrollSpeed:                            rb 1       ; 0: normal (1px), 1: fast (2px)
+ScrollSpeed:                            rb 1       ; 1: normal (1px / frame), 2: fast (2px / frame)
 
 
 

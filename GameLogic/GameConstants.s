@@ -34,3 +34,7 @@ SPARKLES_LAST_FRAME:        equ 17 * 4
 ; KEY_JUMP:                               equ 0000 1000 b
 ; KEY_RUN:                                equ 0000 0100 b
 ; KEY_PAUSE:                              equ 0000 0010 b
+
+; Dianmic objects on BG (e.g. Diamonds)
+NUMBER_OF_BG_OBJS:          equ 256     ; TODO: should these constants be moved to constants file?
+BG_OBJ_STRUCT_SIZE:         equ 4

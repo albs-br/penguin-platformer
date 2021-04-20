@@ -9,10 +9,13 @@ InitVariables:
     ld      a, 0
     ld      (FrameIndex), a
 
-    xor     a
-
-    ld      (ScrollDirection), a
+    
+    
+    ld      a, 1
     ld      (ScrollSpeed), a
+
+    xor     a
+    ld      (ScrollDirection), a
     
     ld      (DirectionKeyPressed), a
     ld      (JumpKeyPressed), a

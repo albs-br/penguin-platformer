@@ -23,7 +23,7 @@ GameLogic:
     jp      z, InitGame
 
 
-    xor     a
+    ld      a, 1
     ld      (ScrollSpeed), a
 
 
@@ -31,11 +31,11 @@ GameLogic:
     or      a
     jp      z, .isFalling
 
-    ; if (Player_IsGrounded && RunKeyPressed) ScrollSpeed = 1
+    ; if (Player_IsGrounded && RunKeyPressed) ScrollSpeed = 2
     ld      a, (RunKeyPressed)
     or      a
     jp      z, .notRunning
-    ld      a, 1
+    ld      a, 2
     ld      (ScrollSpeed), a
 .notRunning:    
 

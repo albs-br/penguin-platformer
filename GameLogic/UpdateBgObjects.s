@@ -58,15 +58,15 @@ UpdateBgObjects_Execute:
     ld      (UpdateBgObjects_StartAddr), hl
 
 .loop:    
+    ; Read first byte of the struct (position on bg 1-255)
     ld      hl, (UpdateBgObjects_CurrentAddr)
     ld      a, (hl)
     or      a
     jp      z, .nextPage                ; if byte read is 0 go to next page
 
+    ; multiply it by 2, because the value is (0-510) but stored as (0-255)
     ld      h, 0
     ld      l, a
-
-    ; multiply by 2, because the value is (0-510) but stored as (0-255)
     add     hl, hl
     
 
@@ -178,6 +178,7 @@ ShowBgObject:
     ld      bc, NamesTable
     add     hl, bc
 
+    ; set VDP port for OUT command
     ld	    a, (BIOS_VDP_DW)
     ld	    c, a
 
