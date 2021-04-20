@@ -165,19 +165,9 @@ ScrollRight:
 
     ret     nc                          ; hl >= de
 
-    ; TODO: this is only for automatic scrolling - not for actual game
-;     jp      nc, .setDirectionLeft
-;     jp      .continue
-; .setDirectionLeft:
-;     xor     a ; ld      a, 1                    
-;     ld      (ScrollDirection), a
-;     ret
-; .continue:
-
 
     ; BC = ScrollSpeed; Normal: 1, Fast: 2
     ld      a, (ScrollSpeed)
-    ;inc     a
     ld      b, 0
     ld      c, a
 
@@ -201,9 +191,8 @@ ScrollRight:
 .loop:
     add     hl, de
     djnz    .loop    
-
-
     ld      (BgAddrIndex), hl
+
 
     ; FrameIndex += ScrollSpeed
     ld      de, FrameIndex
@@ -217,22 +206,19 @@ ScrollRight:
     ;   (BgIndex) = (BgIndexFirstFrame);
     ; }
     cp      8
-    ;jp      nz, .not8
     jp      c, .lessThan8                ; if (a < n)
 
-    ;FrameIndex >= 8:
+    ; FrameIndex >= 8:
     ld      hl, (BgAddrIndexFirstFrame)
     inc     hl
     ld      (BgAddrIndexFirstFrame), hl
     ld      (BgAddrIndex), hl
 
-    ;xor     a           ; reset FrameIndex
-
     ; get 3 lower bits of BgCurrentIndex and save it to FrameIndex
     ld      a, (BgCurrentIndex)
     and     0000 0111 b
 .lessThan8:
-    ld      (de), a
+    ld      (de), a                     ; Update FrameIndex
     
     call    DrawBackground_3_Thirds
 
@@ -242,6 +228,7 @@ ScrollRight:
 
 ScrollLeft:
     ; check if scroll is at limit
+    ; TODO: Fix bug: check if is < 0
     ld      hl, (BgCurrentIndex)
     ld      a, l
     or      h
@@ -249,55 +236,68 @@ ScrollLeft:
 
     call    DrawBackground_3_Thirds
     ret
-    ;ld      de, 8 * (TILE_MAP_WIDTH_IN_8X8_COLUMNS - SCREEN_WIDTH_IN_TILES) ; 0
-    ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    ; ret     nc
-;     jp      c, .resetBgCurrentIndex
-;     jp      .continue
-
-; .resetBgCurrentIndex:
-;     ld      hl, 0
-;     ld      (BgCurrentIndex), hl
-
-    ; TODO: this is only for automatic scrolling - not for actual game
-;     jp      nc, .setDirectionRight
-;     jp      .continue
-; .setDirectionRight:
-;     xor     a ; ld      a, 2
-;     ld      (ScrollDirection), a
-;     ret
-;.continue:
 
 .continue:
 
-    dec     hl
+    ; BC = ScrollSpeed; Normal: 1, Fast: 2
+    ld      a, (ScrollSpeed)
+    ld      b, 0
+    ld      c, a
+
+
+    ; Update X position of sparkles sprite
+    ld      a, (Sparkles_X)
+    add     c
+    ld      (Sparkles_X), a
+
+
+    ; Update BgCurrentIndex
+    or      a
+    sbc     hl, bc
     ld      (BgCurrentIndex), hl
+    ; dec     hl
+    ; ld      (BgCurrentIndex), hl
 
-    call    DrawBackground_3_Thirds
 
+	; Update BgAddrIndex
 	ld	    hl, (BgAddrIndex)
-    ; hl = hl - TileMapSizeInColumns
+    ; hl = hl - (TileMapSizeInColumns * ScrollSpeed)
     ld      de, - TILE_MAP_WIDTH_IN_8X8_COLUMNS
-    ;or      a                               ; clear carry flag
-    ; sbc     hl, de
+    ;add     hl, de
+    ld      b, c
+.loop:
     add     hl, de
+    djnz    .loop    
     ld      (BgAddrIndex), hl
 
-    ; dec FrameIndex
+    ; FrameIndex -= ScrollSpeed
     ld      de, FrameIndex
     ld      a, (de)
-    dec     a
+    ;dec     a
+    sub     c
+    
 
-    ; if (FrameIndex) == -1 {
+    ; if (FrameIndex) <= -1 {
     ;   FrameIndex = 7;
     ;   (BgIndexFirstFrame)--;        
     ;   (BgIndex) = (BgIndexFirstFrame) + (TileMapSizeInColumns)*7;
     ; }
-    cp      -1
-    jp      nz, .notMinus1
+    ; cp      -1
+    ; jp      nz, .notMinus1
 
-;  
-    ;FrameIndex == -1:
+    ; Signed
+    ; If A < N, then S and P/V are different.
+    ; A >= N, then S and P/V are the same.
+
+    ; TODO: this is so ugly
+    cp      -1
+    jp      z, .equalOrLessThanMinus1                ; if (a != n)
+    cp      -2
+    jp      z, .equalOrLessThanMinus1                ; if (a != n)
+    jp      .higherThanMinus1
+
+.equalOrLessThanMinus1:
+    ; FrameIndex <= -1:
     ld      hl, (BgAddrIndexFirstFrame)
     dec     hl
     ld      (BgAddrIndexFirstFrame), hl
@@ -306,10 +306,15 @@ ScrollLeft:
     add     hl, bc
     ld      (BgAddrIndex), hl
 
-    ld      a, 7
-.notMinus1:
-    ld      (de), a
+    ; ld      a, 7
+    ; get 3 lower bits of BgCurrentIndex and save it to FrameIndex
+    ld      a, (BgCurrentIndex)
+    and     0000 0111 b
+.higherThanMinus1:
+    ld      (de), a                     ; Update FrameIndex
     
+    call    DrawBackground_3_Thirds
+
     ret
 
 
