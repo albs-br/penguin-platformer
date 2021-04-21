@@ -63,16 +63,15 @@ Sparkles_Counter:            rb 1        ; counter for each animation frame
 
 
 
-
-;test
-; Test_Sprite_Color:          rb 1
-; Test_Sprite_X:              rb 1
-; Test_Sprite_Y:              rb 1
-
-
-
-
 ; [debug]
 D_Above:    rb 1
 D_Right:    rb 1
 D_Below:    rb 1
+D_TileNumber:   rb 1
+
+
+; [debug]
+;test
+Test_Sprite_Color:          rb 1
+Test_Sprite_X:              rb 1
+Test_Sprite_Y:              rb 1

@@ -61,7 +61,7 @@ CheckBackGround:
     add     hl, de
     ld      a, (hl)
     or      a
-    
+
     ret
 
 ; Check if there is a tile under the player
@@ -80,15 +80,17 @@ CheckIfPlayerIsGrounded:
     ld      l, a
     
     push    hl
-        ; call    CheckBackGround
+        call    CheckBackGround
     pop     hl
 
-    ;ret     nz                  ; if grounded return
+    ret     nz                  ; if grounded return
 
 
     ; Check bottom right (x + 12, y + 15)
-    ld      a, h
-    add     PENGUIN_WIDTH - 8
+    ; ld      a, h
+    ; add     PENGUIN_WIDTH - 8
+    ld      a, (Player_X)
+    add     PENGUIN_WIDTH - 1 - 4
     ld      h, a
 
     call    CheckBackGround
@@ -133,7 +135,7 @@ CheckIfPlayerHasTileAbove:
     ld      l, a
 
     ld      a, (Player_X)
-    add     4
+    add     5
     ld      h, a
 
     call    CheckBackGround
@@ -145,7 +147,7 @@ CheckIfPlayerHasTileAbove:
     ld      l, a
 
     ld      a, (Player_X)
-    add     PENGUIN_WIDTH - 1 - 4
+    add     PENGUIN_WIDTH - 1 - 5
     ld      h, a
     call    CheckBackGround
     
