@@ -71,3 +71,8 @@ Sparkles_Counter:            rb 1        ; counter for each animation frame
 
 
 
+
+; [debug]
+D_Above:    rb 1
+D_Right:    rb 1
+D_Below:    rb 1

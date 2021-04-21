@@ -17,6 +17,34 @@ GameLogic:
     ; ld      (Test_Sprite_Color), a
 
 
+    ; ------------------------------------------
+    ; [debug]
+    xor a
+    ld (D_Above), a
+    call CheckIfPlayerHasTileAbove
+    jp z, .D_Above_not_set
+    ld a, 1
+.D_Above_not_set:
+    ld (D_Above), a
+
+    xor a
+    ld (D_Right), a
+    call CheckIfPlayerHasTileOnTheRight
+    jp z, .D_Right_not_set
+    ld a, 1
+.D_Right_not_set:
+    ld (D_Right), a
+
+    xor a
+    ld (D_Below), a
+    call CheckIfPlayerIsGrounded
+    jp z, .D_Below_not_set
+    ld a, 1
+.D_Below_not_set:
+    ld (D_Below), a
+
+    ; ------------------------------------------
+
 
     ld      a, (Player_IsAlive)
     or      a
@@ -25,6 +53,9 @@ GameLogic:
 
     ld      a, 1
     ld      (ScrollSpeed), a
+
+    ; call    CheckIfPlayerIsGrounded
+    ; jp      z, .isFalling
 
 
     ld      a, (Player_IsGrounded)
@@ -45,9 +76,9 @@ GameLogic:
     jp      nz, .jumping
 
     ; skip test jump pressed if already jumping
-    ld      a, (Player_JumpCounter)
-    or      a
-    jp      nz, .skipCheckJumpKeyPressed
+    ; ld      a, (Player_JumpCounter)
+    ; or      a
+    ; jp      nz, .skipCheckJumpKeyPressed
     
     ; Check if jump pressed
     ld      a, (JumpKeyPressed)
@@ -58,10 +89,12 @@ GameLogic:
     ; Get the current direction key pressed
     ld      a, (DirectionKeyPressed)
     or      a
-    jp      z, .setPlayerStandingRight                            ; if (KeyPressed == 0)
+    jp      z, .setPlayerStandingRight                              ; if (KeyPressed == 0)
     dec     a
-    jp      nz, .skip                                   ; if (KeyPressed == 1)
-    jp      .PlayerRight
+    jp      z, .PlayerRight                                         ; if (KeyPressed == 1)
+    ;dec     a
+    ;jp      z, .PlayerLeft                                         ; if (KeyPressed == 2)
+    jp      .skip
 
 
 
@@ -91,21 +124,23 @@ GameLogic:
     jp      nc, .skip               ; if (a >= n)
 
     ; ---------------- Check if there is a tile under the player (bottom left)
-    add     PENGUIN_HEIGHT + 1
-    ld      l, a
-    ld      a, (Player_X)
-    ld      h, a
-    call    CheckBackGround
-    jp      nz, .setIsGrounded
+    ; add     PENGUIN_HEIGHT + 1
+    ; ld      l, a
+    ; ld      a, (Player_X)
+    ; ld      h, a
+    ; call    CheckBackGround
+    ; jp      nz, .setIsGrounded
 
-    ; ---------------- Check if there is a tile under the player (bottom right)
-    ld      a, (Player_Y)
-    add     PENGUIN_HEIGHT + 1
-    ld      l, a
-    ld      a, (Player_X)
-    add     PENGUIN_WIDTH - 1
-    ld      h, a
-    call    CheckBackGround
+    ; ; ---------------- Check if there is a tile under the player (bottom right)
+    ; ld      a, (Player_Y)
+    ; add     PENGUIN_HEIGHT + 1
+    ; ld      l, a
+    ; ld      a, (Player_X)
+    ; add     PENGUIN_WIDTH - 1
+    ; ld      h, a
+    ; call    CheckBackGround
+    ; jp      nz, .setIsGrounded
+    call    CheckIfPlayerIsGrounded
     jp      nz, .setIsGrounded
 
     call    CheckDirectionWhenOffGround
@@ -134,30 +169,35 @@ GameLogic:
 .PlayerRight:
     ; ---------------- Check if there is a tile on the right
 
-    ld      a, (Player_X)
-    add     PENGUIN_WIDTH - 1 - 7      ; PENGUIN_WIDTH - 1: x of last column; -7: compensate for the scrolled tiles
-    ld      h, a
+    ; ld      a, (Player_X)
+    ; add     PENGUIN_WIDTH - 1 - 7      ; PENGUIN_WIDTH - 1: x of last column; -7: compensate for the scrolled tiles
+    ; ld      h, a
     
-    ; Add FrameIndex - 7 to X to compensate for the scrolled tiles
-    ld      a, (FrameIndex)
-    ;sub     7
-    add     h
-    ld      h, a
+    ; ; Add FrameIndex - 7 to X to compensate for the scrolled tiles
+    ; ld      a, (FrameIndex)
+    ; ;sub     7
+    ; add     h
+    ; ld      h, a
 
-    ld      a, (Player_Y)
-    add     8
-    ld      l, a
-    call    CheckBackGround
+    ; ; Check top right
+    ; ld      a, (Player_Y)
+    ; add     8
+    ; ld      l, a
+    ; call    CheckBackGround
+    ; jp      nz, .cancelMovement
+    call    CheckIfPlayerHasTileOnTheRight
     jp      nz, .cancelMovement
 
-    ; ---------------- Check if there is a tile under the player
-    ld      a, (Player_X)
-    ld      h, a
-    ld      a, (Player_Y)
-    add     PENGUIN_HEIGHT + 8
-    ld      l, a
-    call    CheckBackGround
-    jp      z, .hitGround
+    ; ; ---------------- Check if there is a tile under the player
+    ; ld      a, (Player_X)
+    ; ld      h, a
+    ; ld      a, (Player_Y)
+    ; add     PENGUIN_HEIGHT + 8
+    ; ld      l, a
+    ; call    CheckBackGround
+    ; jp      z, .noGroundUnder
+    call    CheckIfPlayerIsGrounded
+    jp      z, .noGroundUnder
 
 .walkingRight:
     ; walking right
@@ -186,17 +226,17 @@ GameLogic:
     ld      (ScrollDirection), a
     jp      .setPlayerStandingRight
 
-.hitGround:
+.noGroundUnder:
     xor     a
     ld      (Player_IsGrounded), a
     ld      (Player_JumpCounter), a
     jp      .cancelMovement
 
 .setIsGrounded:
-    ld      a, 1
-    ld      (Player_IsGrounded), a
     xor     a
     ld      (Player_JumpCounter), a
+    inc     a
+    ld      (Player_IsGrounded), a
     jp      .cancelMovement
 
 
@@ -235,20 +275,29 @@ GameLogic:
 .saveY:
     ld      (Player_Y), a
 
-    ; Check if there is a tile above the player (top left)
-    ld      l, a
-    ld      a, (Player_X)
-    ld      h, a
-    call    CheckBackGround
-    jp      nz, .falling
-    
-    ; Check if there is a tile above the player (top right)
-    ld      a, (Player_Y)
-    ld      l, a
-    ld      a, (Player_X)
-    add     PENGUIN_WIDTH - 1
-    ld      h, a
-    call    CheckBackGround
+    ; ; Check if there is a tile above the player (top left)
+    ;ld      (Player_Y), a
+    ; ld      l, a
+
+    ; ld      a, (Player_X)
+    ; add     8
+    ; ld      h, a
+
+    ; call    CheckBackGround
+    ; jp      nz, .falling
+
+
+    ; ; Check if there is a tile above the player (top right)
+    ; ld      a, (Player_Y)
+    ; ld      l, a
+
+    ; ld      a, (Player_X)
+    ; add     PENGUIN_WIDTH - 1 - 8
+    ; ld      h, a
+    ; call    CheckBackGround
+    ; jp      nz, .falling
+
+    call    CheckIfPlayerHasTileAbove
     jp      nz, .falling
 
     jp      .skip
@@ -273,31 +322,35 @@ CheckDirectionWhenOffGround:
 .checkDirectionRight:
     ; ---------------- Check if there is a tile on the right
 
-    ld      a, (Player_X)
-    add     PENGUIN_WIDTH - 1 - 7      ; PENGUIN_WIDTH - 1: x of last column; -7: compensate for the scrolled tiles
-    ld      h, a
+    ; ld      a, (Player_X)
+    ; add     PENGUIN_WIDTH - 1 - 7      ; PENGUIN_WIDTH - 1: x of last column; -7: compensate for the scrolled tiles
+    ; ld      h, a
     
-    ; Add FrameIndex - 7 to X to compensate for the scrolled tiles
-    ld      a, (FrameIndex)
-    ;sub     7
-    add     h
-    ld      h, a
+    ; ; Add FrameIndex - 7 to X to compensate for the scrolled tiles
+    ; ld      a, (FrameIndex)
+    ; ;sub     7
+    ; add     h
+    ; ld      h, a
 
-    ; Check top right
-    ld      a, (Player_Y)
-    ;add     8
-    ld      l, a
-    push    hl
-    call    CheckBackGround
-    pop     hl
-    jp      nz, .setDirectionNone
+    ; ; Check top right
+    ; ld      a, (Player_Y)
+    ; ;add     8
+    ; ld      l, a
+    ; push    hl
+    ;     call    CheckBackGround
+    ; pop     hl
+    ; jp      nz, .setDirectionNone
     
-    ; Check bottom right
-    ld      a, l
-    add     PENGUIN_HEIGHT - 1
-    ld      l, a
-    call    CheckBackGround
+    ; ; Check bottom right
+    ; ld      a, l
+    ; add     PENGUIN_HEIGHT - 1
+    ; ld      l, a
+    ; call    CheckBackGround
+    ; jp      nz, .setDirectionNone
+
+    call    CheckIfPlayerHasTileOnTheRight
     jp      nz, .setDirectionNone
+
 
     ld      a, DIRECTION_RIGHT
     ld      (ScrollDirection), a

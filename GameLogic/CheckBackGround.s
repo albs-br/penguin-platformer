@@ -63,3 +63,90 @@ CheckBackGround:
     or      a
     
     ret
+
+; Check if there is a tile under the player
+;   Output:
+;       z: is at empty space
+;       nz: is not at empty space
+CheckIfPlayerIsGrounded:
+    
+    ; Check bottom left (x + 4, y + 15)
+    ld      a, (Player_X)
+    add     4
+    ld      h, a
+    
+    ld      a, (Player_Y)
+    add     PENGUIN_HEIGHT + 1
+    ld      l, a
+    
+    push    hl
+        ; call    CheckBackGround
+    pop     hl
+
+    ;ret     nz                  ; if grounded return
+
+
+    ; Check bottom right (x + 12, y + 15)
+    ld      a, h
+    add     PENGUIN_WIDTH - 8
+    ld      h, a
+
+    call    CheckBackGround
+
+    ret
+
+
+
+; Check if there is a tile on the right
+;   Output:
+;       z: is at empty space
+;       nz: is not at empty space
+CheckIfPlayerHasTileOnTheRight:
+    ld      a, (Player_X)
+    add     PENGUIN_WIDTH - 1 - 7      ; PENGUIN_WIDTH - 1: x of last column; -7: compensate for the scrolled tiles
+    ld      h, a
+    
+    ; Add FrameIndex - 7 to X to compensate for the scrolled tiles
+    ld      a, (FrameIndex)
+    ;sub     7
+    add     h
+    ld      h, a
+
+    ; Check middle right
+    ld      a, (Player_Y)
+    add     8
+    ld      l, a
+    
+    call    CheckBackGround
+    
+    ret
+
+
+
+; Check if there is a tile above the player
+;   Output:
+;       z: is at empty space
+;       nz: is not at empty space
+CheckIfPlayerHasTileAbove:
+    ; Check if there is a tile above the player (top left)
+    ld      a, (Player_Y)
+    ld      l, a
+
+    ld      a, (Player_X)
+    add     4
+    ld      h, a
+
+    call    CheckBackGround
+    ret     nz
+
+
+    ; Check if there is a tile above the player (top right)
+    ld      a, (Player_Y)
+    ld      l, a
+
+    ld      a, (Player_X)
+    add     PENGUIN_WIDTH - 1 - 4
+    ld      h, a
+    call    CheckBackGround
+    
+    ret
