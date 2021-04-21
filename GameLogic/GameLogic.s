@@ -11,7 +11,7 @@ GameLogic:
     ld      h, a
     ld      a, (Test_Sprite_Y)
     ld      l, a
-    call    CheckBackGround
+    call    CheckBackGround_Left
     ; [debug] save tile number
     ld (D_TileNumber), a
     call    z, .testSpriteAtEmptySpace
@@ -322,37 +322,8 @@ CheckDirectionWhenOffGround:
     ret
 
 .checkDirectionRight:
-    ; ---------------- Check if there is a tile on the right
-
-    ; ld      a, (Player_X)
-    ; add     PENGUIN_WIDTH - 1 - 7      ; PENGUIN_WIDTH - 1: x of last column; -7: compensate for the scrolled tiles
-    ; ld      h, a
-    
-    ; ; Add FrameIndex - 7 to X to compensate for the scrolled tiles
-    ; ld      a, (FrameIndex)
-    ; ;sub     7
-    ; add     h
-    ; ld      h, a
-
-    ; ; Check top right
-    ; ld      a, (Player_Y)
-    ; ;add     8
-    ; ld      l, a
-    ; push    hl
-    ;     call    CheckBackGround
-    ; pop     hl
-    ; jp      nz, .setDirectionNone
-    
-    ; ; Check bottom right
-    ; ld      a, l
-    ; add     PENGUIN_HEIGHT - 1
-    ; ld      l, a
-    ; call    CheckBackGround
-    ; jp      nz, .setDirectionNone
-
     call    CheckIfPlayerHasTileOnTheRight
     jp      nz, .setDirectionNone
-
 
     ld      a, DIRECTION_RIGHT
     ld      (ScrollDirection), a
@@ -360,7 +331,10 @@ CheckDirectionWhenOffGround:
     ret
 
 .checkDirectionLeft:
-    ; TODO
+    call    CheckIfPlayerHasTileOnTheLeft
+    jp      nz, .setDirectionNone
+
+    ld      a, DIRECTION_LEFT
     ld      (ScrollDirection), a
     ret
 
