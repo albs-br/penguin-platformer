@@ -35,6 +35,9 @@ InitVariables:
     ld      (Player_IsAlive), a
     ld      (Player_IsGrounded), a
 
+    ld      a, DIRECTION_RIGHT
+    ld      (Player_Facing), a
+
 
     ; Load level Bg
     ; ld      hl, TileMap_LevelTest_LastLine_Start

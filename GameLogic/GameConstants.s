@@ -19,11 +19,16 @@ PENGUIN_RIGHT_WALKING_1:                equ 3 * 4
 PENGUIN_RIGHT_WALKING_2:                equ 5 * 4
 PENGUIN_RIGHT_WALKING_3:                equ 7 * 4
 PENGUIN_RIGHT_WALKING_LAST_FRAME:       equ PENGUIN_RIGHT_WALKING_3
+PENGUIN_LEFT_STANDING:                  equ 9 * 4
+PENGUIN_LEFT_WALKING_1:                 equ 11 * 4
+PENGUIN_LEFT_WALKING_2:                 equ 13 * 4
+PENGUIN_LEFT_WALKING_3:                 equ 15 * 4
+PENGUIN_LEFT_WALKING_LAST_FRAME:        equ PENGUIN_LEFT_WALKING_3
 
 
 ; Sprite pattern numbers for sparkles animation frames:
-SPARKLES_FIRST_FRAME:       equ 9 * 4
-SPARKLES_LAST_FRAME:        equ 17 * 4
+SPARKLES_FIRST_FRAME:       equ 17 * 4
+SPARKLES_LAST_FRAME:        equ 25 * 4
 
 
 ; Keyboard constants to current key(s) pressed

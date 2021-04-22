@@ -211,7 +211,7 @@ CheckIfPlayerHasTileOnTheLeft:
     ld      a, (Player_X)
     ld      h, a
     
-    ; Check middle right
+    ; Check middle left
     ld      a, (Player_Y)
     add     8
     ld      l, a

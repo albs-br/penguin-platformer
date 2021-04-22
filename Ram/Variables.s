@@ -29,6 +29,7 @@ Player_Sprite_Number:       rb 1
 Player_Animation_Frame:     rb 1
 Player_IsGrounded:          rb 1
 Player_JumpCounter:         rb 1
+Player_Facing:              rb 1        ; 1: left, 2: right
 
 
 CurrentMegaRomPage:         rb 1
