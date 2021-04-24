@@ -1,6 +1,6 @@
 UpdateSparklesAnimation:
     
-    ; Check if anmiation is active
+    ; Check if animation is active
     ld      a, (Sparkles_FrameNumber)
     or      a
     ret     z

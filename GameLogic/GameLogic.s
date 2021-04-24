@@ -100,19 +100,18 @@ GameLogic:
 
 
 .setPlayerStanding:
+    xor     a
+    ld      (ScrollDirection), a
+
     ld      a, (Player_Facing)
     cp      DIRECTION_RIGHT
     jp      z, .setPlayerStandingRight
 
 ;.setPlayerStandingLeft:
-    xor     a
-    ld      (ScrollDirection), a
     ld      a, PENGUIN_LEFT_STANDING
     jp      .savePlayerFrame
 
 .setPlayerStandingRight:
-    xor     a
-    ld      (ScrollDirection), a
     ld      a, PENGUIN_RIGHT_STANDING
 .savePlayerFrame:
     ld      (Player_Sprite_Number), a
@@ -184,33 +183,59 @@ GameLogic:
     jp      z, .isFacingRight
 
     ; set Penguin facing right
-    ld      a, DIRECTION_RIGHT
-    ld      (Player_Facing), a
-    ld      a, PENGUIN_RIGHT_STANDING
+    ; ld      a, DIRECTION_RIGHT
+    ; ld      (Player_Facing), a
+    ; ld      a, PENGUIN_RIGHT_STANDING
+    ; ld      (Player_Sprite_Number), a
+    ; xor     a
+    ; ld      (Player_Animation_Frame), a
+
+    ; start left to right animation
+    ld      a, PENGUIN_TURNING_LEFT_TO_RIGHT_0
     ld      (Player_Sprite_Number), a
     xor     a
     ld      (Player_Animation_Frame), a
-
+    ld      a, DIRECTION_RIGHT
+    ld      (Player_Facing), a
 
 .isFacingRight:
+    ld      a, DIRECTION_RIGHT
+    ld      (Player_Facing), a
+
+    ; check if movement is possible
     call    CheckIfPlayerHasTileOnTheRight
     jp      nz, .cancelMovement
-
     call    CheckIfPlayerIsGrounded
     jp      z, .noGroundUnder
 
-.walkingRight:
-    ; walking right
+    ; Movement possible
     ld      a, DIRECTION_RIGHT
     ld      (ScrollDirection), a
 
 
     ld      a, (Player_Animation_Frame)
     inc     a
-    and     0000 0111 b                                 ; each 8 frames
     ld      (Player_Animation_Frame), a
+    and     0000 0011 b                                 ; each 4 frames
     jp      nz, .skip
 
+;.doAnimation:
+    ; if (Player_Sprite_Number >= PENGUIN_TURNING_LEFT_TO_RIGHT_0) { doAnimationLeftToRight}
+    ld      a, (Player_Sprite_Number)
+    cp      PENGUIN_TURNING_LEFT_TO_RIGHT_0
+    ;jp      nc, .doAnimationLeftToRight         ; a >= n
+    jp      c, .doWalkingRightAnimation          ; a < n
+
+;.doAnimationLeftToRight:
+    ; if (Player_Sprite_Number == PENGUIN_TURNING_LEFT_TO_RIGHT_LAST_FRAME) { endAnimationLeftToRight}
+    ld      a, (Player_Sprite_Number)
+    cp      PENGUIN_TURNING_LEFT_TO_RIGHT_LAST_FRAME
+    jp      nc, .restartWalkingRight            ; a >= n
+    add     8                   ; next frame
+    jp      .savePlayerFrame
+
+.doWalkingRightAnimation:
+    ; walking right
     ld      a, (Player_Sprite_Number)
     cp      PENGUIN_RIGHT_WALKING_LAST_FRAME
     jp      z, .restartWalkingRight                     ; if (Player_Sprite_Number == PENGUIN_RIGHT_WALKING_LAST_FRAME)
