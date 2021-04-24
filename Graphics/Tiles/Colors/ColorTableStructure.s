@@ -21,8 +21,10 @@ ColorTableStructure_2nd_Third:
     dw  TileColors_BigBricks_Bottom_Start       ,  32
     dw  TileColors_Grass_Top_Start              ,  32
     dw  TileColors_Grass_Bottom_Start           ,  32
-    dw  TileColors_Rocks_Top_Start              ,  32
-    dw  TileColors_Rocks_Bottom_Start           ,  32
+    ; dw  TileColors_Rocks_Top_Start              ,  32
+    ; dw  TileColors_Rocks_Bottom_Start           ,  32
+    dw  TileColors_Diamonds_Top_Start           ,  32
+    dw  TileColors_Diamonds_Bottom_Start        ,  32
 ColorTableStructure_2nd_Third_End:
 
 

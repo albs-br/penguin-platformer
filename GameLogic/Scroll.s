@@ -228,12 +228,31 @@ ScrollRight:
 
 ScrollLeft:
     ; check if scroll is at limit
-    ; TODO: Fix bug: check if is < 0
+    ; TODO: Fix bug: check if is < 0 (still buggy)
     ld      hl, (BgCurrentIndex)
     ld      a, l
     or      h
-    jp      nz, .continue
+    jp      z, .cancel                  ; if (BgCurrentIndex == 0)
 
+    ;ld      de, 0
+    ; ld      a, l
+    ; or      h
+    ; jp      nz, .continue
+    ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    ;or      a                           ; DCOMPR alternative (30 cycles)
+    ;sbc     hl, de
+    ;add     hl, de
+
+    ld      a, h
+    cp      255
+    jp      z, .cancel                  ; if (BgCurrentIndex >= 0xFF00)
+    jp      .continue
+
+.cancel:
+    ld      hl, 0
+    ld      (BgCurrentIndex), hl
+    xor     a
+    ld      (FrameIndex), a
     call    DrawBackground_3_Thirds
     ret
 

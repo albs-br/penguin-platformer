@@ -355,9 +355,9 @@ CheckDirectionWhenOffGround:
     ld      a, (DirectionKeyPressed)
     or      a
     jp      z, .setDirectionNone
-    cp      DIRECTION_RIGHT
+    dec     a ; cp      DIRECTION_RIGHT
     jp      z, .checkDirectionRight
-    cp      DIRECTION_LEFT
+    dec     a ; cp      DIRECTION_LEFT
     jp      z, .checkDirectionLeft
     ret
 
