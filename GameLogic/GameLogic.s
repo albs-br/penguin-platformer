@@ -96,7 +96,7 @@ GameLogic:
     jp      z, .PlayerRight                                         ; if (KeyPressed == 1)
     dec     a
     jp      z, .PlayerLeft                                          ; if (KeyPressed == 2)
-    jp      .skip
+    jp      .return
 
 
 .setPlayerStanding:
@@ -115,7 +115,7 @@ GameLogic:
     ld      a, PENGUIN_RIGHT_STANDING
 .savePlayerFrame:
     ld      (Player_Sprite_Number), a
-.skip:
+.return:
 
 ;--------------------
 
@@ -132,36 +132,19 @@ GameLogic:
 
     ; only test for ground if not currently on last line
     cp      SCREEN_HEIGHT_IN_PIXELS - PENGUIN_HEIGHT - 8
-    jp      nc, .skip               ; if (a >= n)
+    jp      nc, .return               ; if (a >= n)
 
-    ; ---------------- Check if there is a tile under the player (bottom left)
-    ; add     PENGUIN_HEIGHT + 1
-    ; ld      l, a
-    ; ld      a, (Player_X)
-    ; ld      h, a
-    ; call    CheckBackGround
-    ; jp      nz, .setIsGrounded
-
-    ; ; ---------------- Check if there is a tile under the player (bottom right)
-    ; ld      a, (Player_Y)
-    ; add     PENGUIN_HEIGHT + 1
-    ; ld      l, a
-    ; ld      a, (Player_X)
-    ; add     PENGUIN_WIDTH - 1
-    ; ld      h, a
-    ; call    CheckBackGround
-    ; jp      nz, .setIsGrounded
     call    CheckIfPlayerIsGrounded
     jp      nz, .setIsGrounded
 
     call    CheckDirectionWhenOffGround
 
-    jp      .skip
+    jp      .return
 
 .isDead:
     xor     a
     ld      (Player_IsAlive), a
-    jp      .skip
+    jp      .return
 
 
 
@@ -213,34 +196,48 @@ GameLogic:
     ld      (ScrollDirection), a
 
 
-    ld      a, (Player_Animation_Frame)
-    inc     a
-    ld      (Player_Animation_Frame), a
-    and     0000 0011 b                                 ; each 4 frames
-    jp      nz, .skip
-
+; --------------- Animation
 ;.doAnimation:
-    ; if (Player_Sprite_Number >= PENGUIN_TURNING_LEFT_TO_RIGHT_0) { doAnimationLeftToRight}
+
+    ; if (Player_Sprite_Number >= PENGUIN_TURNING_LEFT_TO_RIGHT_0) { 
+    ;   doAnimationLeftToRight 
+    ; }
+    ; else {
+    ;   doWalkingRightAnimation
+    ; }
     ld      a, (Player_Sprite_Number)
     cp      PENGUIN_TURNING_LEFT_TO_RIGHT_0
-    ;jp      nc, .doAnimationLeftToRight         ; a >= n
-    jp      c, .doWalkingRightAnimation          ; a < n
+    ;jp      nc, .doAnimationLeftToRight        ; a >= n
+    jp      c, .doWalkingRightAnimation         ; a < n
 
-;.doAnimationLeftToRight:
-    ; if (Player_Sprite_Number == PENGUIN_TURNING_LEFT_TO_RIGHT_LAST_FRAME) { endAnimationLeftToRight}
-    ld      a, (Player_Sprite_Number)
-    cp      PENGUIN_TURNING_LEFT_TO_RIGHT_LAST_FRAME
-    jp      nc, .restartWalkingRight            ; a >= n
-    add     8                   ; next frame
-    jp      .savePlayerFrame
+    ;.doAnimationLeftToRight:
+        ld      a, (Player_Animation_Frame)
+        inc     a
+        ld      (Player_Animation_Frame), a
+        and     0000 0011 b                         ; each 4 frames
+        jp      nz, .return
+        
+        ; if (Player_Sprite_Number == PENGUIN_TURNING_LEFT_TO_RIGHT_LAST_FRAME) { endAnimationLeftToRight}
+        ld      a, (Player_Sprite_Number)
+        cp      PENGUIN_TURNING_LEFT_TO_RIGHT_LAST_FRAME
+        jp      nc, .restartWalkingRight            ; a >= n
+        add     8                                   ; next frame
+        jp      .savePlayerFrame
 
-.doWalkingRightAnimation:
-    ; walking right
-    ld      a, (Player_Sprite_Number)
-    cp      PENGUIN_RIGHT_WALKING_LAST_FRAME
-    jp      z, .restartWalkingRight                     ; if (Player_Sprite_Number == PENGUIN_RIGHT_WALKING_LAST_FRAME)
-    add     8                                           ; next frame
-    jp      .savePlayerFrame
+    .doWalkingRightAnimation:
+        ; walking right
+        ld      a, (Player_Animation_Frame)
+        inc     a
+        ld      (Player_Animation_Frame), a
+        and     0000 0111 b                                 ; each 8 frames
+        jp      nz, .return
+        
+        ld      a, (Player_Sprite_Number)
+        cp      PENGUIN_RIGHT_WALKING_LAST_FRAME
+        jp      z, .restartWalkingRight                     ; if (Player_Sprite_Number == PENGUIN_RIGHT_WALKING_LAST_FRAME)
+        add     8                                           ; next frame
+        jp      .savePlayerFrame
+
 .restartWalkingRight:
     ld      a, PENGUIN_RIGHT_WALKING_1
     jp      .savePlayerFrame
@@ -296,7 +293,7 @@ GameLogic:
     inc     a
     and     0000 0111 b                                 ; each 8 frames
     ld      (Player_Animation_Frame), a
-    jp      nz, .skip
+    jp      nz, .return
 
     ld      a, (Player_Sprite_Number)
     cp      PENGUIN_LEFT_WALKING_LAST_FRAME
@@ -345,12 +342,12 @@ GameLogic:
     call    CheckIfPlayerHasTileAbove
     jp      nz, .falling
 
-    jp      .skip
+    jp      .return
 
 .falling:
     xor     a
     ld      (Player_IsGrounded), a
-    jp      .skip
+    jp      .return
 
 
 

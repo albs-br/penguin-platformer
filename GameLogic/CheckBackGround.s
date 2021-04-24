@@ -167,7 +167,7 @@ CheckIfPlayerIsGrounded:
         call    CheckBackGround_Left
     pop     hl
 
-    ret     nz                  ; if grounded return
+    jp      nz, .isGrounded                  ; if grounded return
 
 
     ; Check bottom right (x + 12, y + 15)
@@ -179,6 +179,14 @@ CheckIfPlayerIsGrounded:
 
     call    CheckBackGround_Right
 
+    ret     z
+
+.isGrounded:
+    ; push    af
+    ;     ld      a, (Player_Y)
+    ;     dec     a
+    ;     ld      (Player_Y), a
+    ; pop     af
     ret
 
 
@@ -218,6 +226,16 @@ CheckIfPlayerHasTileOnTheLeft:
     
     call    CheckBackGround_Left
     
+    ;ret
+    jp      nz, .hasTileOnTheLeft
+    ret
+    
+.hasTileOnTheLeft:
+    ; push    af
+    ;     ld      a, (Player_X)
+    ;     inc     a
+    ;     ld      (Player_X), a
+    ; pop     af
     ret
     
 
