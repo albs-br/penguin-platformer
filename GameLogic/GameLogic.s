@@ -56,8 +56,10 @@ GameLogic:
     ld      a, 1
     ld      (ScrollSpeed), a
 
-    ; call    CheckIfPlayerIsGrounded
-    ; jp      z, .isFalling
+
+    ld      a, (Player_Y)
+    cp      SCREEN_HEIGHT_IN_PIXELS - 1
+    jp      nc, .isDead             ; if (a >= n)
 
 
     ld      a, (Player_IsGrounded)
@@ -125,8 +127,8 @@ GameLogic:
 
 .isFalling:
     ld      a, (Player_Y)
-    cp      SCREEN_HEIGHT_IN_PIXELS
-    jp      nc, .isDead             ; if (a >= n)
+    ; cp      SCREEN_HEIGHT_IN_PIXELS
+    ; jp      nc, .isDead             ; if (a >= n)
     add     2 ;inc     a
     ld      (Player_Y), a
 

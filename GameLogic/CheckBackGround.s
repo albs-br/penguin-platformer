@@ -53,14 +53,11 @@ CheckBackGround_Right:
 
 
     ; set MegaROM page
-    ; c = MegaROM Page number
     ld      a, c
     and     0001 1100 b         ; mask to get the page number (0-5)
     srl     a                   ; align to right
     srl     a
     inc     a                   ; pages are numbered 1-6, not 0-5
-    ; ld      c, a
-    ; ld      a, c
     ld	    (Seg_P8000_SW), a
 
     ld      hl, (BgAddrIndex)
@@ -128,14 +125,11 @@ CheckBackGround_Left:
 
 
     ; set MegaROM page
-    ; c = MegaROM Page number
     ld      a, c
     and     0001 1100 b         ; mask to get the page number (0-5)
     srl     a                   ; align to right
     srl     a
     inc     a                   ; pages are numbered 1-6, not 0-5
-    ; ld      c, a
-    ; ld      a, c
     ld	    (Seg_P8000_SW), a
 
     ld      hl, (BgAddrIndex)
@@ -170,9 +164,7 @@ CheckIfPlayerIsGrounded:
     jp      nz, .isGrounded                  ; if grounded return
 
 
-    ; Check bottom right (x + 12, y + 15)
-    ; ld      a, h
-    ; add     PENGUIN_WIDTH - 8
+    ; Check bottom right (x + 11, y + 15)
     ld      a, (Player_X)
     add     PENGUIN_WIDTH - 1 - 4
     ld      h, a
@@ -182,11 +174,19 @@ CheckIfPlayerIsGrounded:
     ret     z
 
 .isGrounded:
-    ; push    af
+    ; push    af                ; save flags (remember: the routine output is Z flag!)
     ;     ld      a, (Player_Y)
-    ;     dec     a
+    ;     sub 2;dec     a
     ;     ld      (Player_Y), a
     ; pop     af
+    
+    push    af                ; save flags (remember: the routine output is Z flag!)
+        ld      a, (Player_Y)       ; trick to fix bug (grounded on middle of blocks)
+        inc     a
+        and     1111 0000 b
+        dec     a
+        ld      (Player_Y), a
+    pop     af
     ret
 
 
@@ -226,17 +226,17 @@ CheckIfPlayerHasTileOnTheLeft:
     
     call    CheckBackGround_Left
     
-    ;ret
-    jp      nz, .hasTileOnTheLeft
     ret
+    ; jp      nz, .hasTileOnTheLeft
+    ; ret
     
-.hasTileOnTheLeft:
+; .hasTileOnTheLeft:
     ; push    af
     ;     ld      a, (Player_X)
     ;     inc     a
     ;     ld      (Player_X), a
     ; pop     af
-    ret
+    ; ret
     
 
 
@@ -249,6 +249,7 @@ CheckIfPlayerHasTileAbove:
     ld      a, (Player_Y)
     ld      l, a
 
+    ; Check top left (x + 5, y)
     ld      a, (Player_X)
     add     5
     ld      h, a
@@ -261,6 +262,7 @@ CheckIfPlayerHasTileAbove:
     ld      a, (Player_Y)
     ld      l, a
 
+    ; Check top right (x + 10, y)
     ld      a, (Player_X)
     add     PENGUIN_WIDTH - 1 - 5
     ld      h, a
