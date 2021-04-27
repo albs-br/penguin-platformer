@@ -87,6 +87,19 @@ InitGame:
 MainLoop:
 	halt			                    ; (v-blank sync)
 
+    
+    
+    ; [debug]
+    ; Check if previous frame ended
+    ld      a, (ProcessingFrame)
+    or      a
+    jp      nz, .frameSkip
+
+    inc     a
+    ld      (ProcessingFrame), a
+
+
+
     IFDEF DEBUG
         ld 		a, COLOR_YELLOW       	; Border color
         ld 		(BIOS_BDRCLR), a    
@@ -136,8 +149,20 @@ MainLoop:
     ENDIF    
 
 
+
+    xor     a
+    ld      (ProcessingFrame), a
+
+
 	jp	    MainLoop
 
+
+
+.frameSkip:
+    ld 		a, COLOR_WHITE       	; Border color
+    ld 		(BIOS_BDRCLR), a    
+    call 	BIOS_CHGCLR        		; Change Screen Color
+    jp      .frameSkip              ; eternal loop
 
 Finished:
 	jr	    Finished	    ; Jump to itself endlessly.

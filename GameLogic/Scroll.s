@@ -201,7 +201,7 @@ ScrollRight:
 
 
     ; if (FrameIndex >= 8) {
-    ;   FrameIndex = 0;
+    ;   FrameIndex = 0;  // only for speed normal, speed 2x must get 3 lower bits of BgCurrentIndex
     ;   (BgIndexFirstFrame)++;        
     ;   (BgIndex) = (BgIndexFirstFrame);
     ; }
@@ -281,11 +281,13 @@ ScrollLeft:
 	; Update BgAddrIndex
 	ld	    hl, (BgAddrIndex)
     ; hl = hl - (TileMapSizeInColumns * ScrollSpeed)
-    ld      de, - TILE_MAP_WIDTH_IN_8X8_COLUMNS
+    ld      de, TILE_MAP_WIDTH_IN_8X8_COLUMNS
     ;add     hl, de
     ld      b, c
 .loop:
-    add     hl, de
+    or      a
+    sbc     hl, de
+    ;add     hl, de
     djnz    .loop    
     ld      (BgAddrIndex), hl
 
@@ -297,7 +299,7 @@ ScrollLeft:
     
 
     ; if (FrameIndex) <= -1 {
-    ;   FrameIndex = 7;
+    ;   FrameIndex = 7;  // only for speed normal, speed 2x must get 3 lower bits of BgCurrentIndex
     ;   (BgIndexFirstFrame)--;        
     ;   (BgIndex) = (BgIndexFirstFrame) + (TileMapSizeInColumns)*7;
     ; }
@@ -325,7 +327,9 @@ ScrollLeft:
     add     hl, bc
     ld      (BgAddrIndex), hl
 
-    ; ld      a, 7
+    ; FrameIndex = 7
+    ;ld      a, 7
+    
     ; get 3 lower bits of BgCurrentIndex and save it to FrameIndex
     ld      a, (BgCurrentIndex)
     and     0000 0111 b

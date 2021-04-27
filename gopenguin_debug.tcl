@@ -4,6 +4,7 @@ ram_watch   add     0xD02d      -type byte      -desc D_Below       -format dec
 ram_watch   add     0xD02e      -type byte      -desc D_TileNumber  -format dec
 
 
+ram_watch   add     0xD026      -type byte      -desc ScrollSpeed           -format dec
 ram_watch   add     0xD007      -type byte      -desc Player_Y              -format dec
 ram_watch   add     0xD008      -type byte      -desc Player_Sprite_Number  -format dec
 ram_watch   add     0xD00a      -type byte      -desc Player_IsGrounded     -format dec
