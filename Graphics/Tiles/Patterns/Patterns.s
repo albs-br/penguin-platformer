@@ -28,6 +28,10 @@ TilePatterns_Start:
     TilePatterns_Diamonds_Start:
         INCLUDE "Graphics/Tiles/Patterns/Pattern_Diamonds.s"
     TilePatterns_Diamonds_End:
+
+    TilePatterns_Enemy_Ladybug_Start:
+        INCLUDE "Graphics/Tiles/Patterns/Pattern_EnemyLadybug.s"
+    TilePatterns_Enemy_Ladybug_End:
 TilePatterns_End:
 
 

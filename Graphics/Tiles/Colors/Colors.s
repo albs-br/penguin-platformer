@@ -44,3 +44,10 @@ TileColors_Diamonds_Top_Start:
     INCLUDE "Graphics/Tiles/Colors/Color_Diamonds_top_left.s"
 TileColors_Diamonds_Bottom_Start:
     INCLUDE "Graphics/Tiles/Colors/Color_Diamonds_bottom_left.s"
+
+
+
+TileColors_EnemyLadybug_Top_Start:
+    INCLUDE "Graphics/Tiles/Colors/Color_EnemyLadybug_top_left.s"
+TileColors_EnemyLadybug_Bottom_Start:
+    INCLUDE "Graphics/Tiles/Colors/Color_EnemyLadybug_bottom_left.s"
