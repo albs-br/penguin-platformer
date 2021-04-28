@@ -51,4 +51,4 @@ SPARKLES_LAST_FRAME:        equ 37 * 4
 
 ; Dianmic objects on BG (e.g. Diamonds)
 NUMBER_OF_BG_OBJS:          equ 256     ; TODO: should these constants be moved to constants file?
-BG_OBJ_STRUCT_SIZE:         equ 4
+BG_OBJ_STRUCT_SIZE:         equ 8

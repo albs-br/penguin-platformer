@@ -70,7 +70,7 @@ UpdateBgObjects_Execute:
     add     hl, hl
     
 
-    ; compare with first visible column
+    ; compare it with first visible column
     ld      de, (FirstVisibleColumn)
     ;call    BIOS_DCOMPR                ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     or      a
@@ -80,7 +80,7 @@ UpdateBgObjects_Execute:
     jp      z, .isVisible               ; if hl == de
     jp      c, .next                    ; if hl < de
 
-    ; compare with last visible column
+    ; compare it with last visible column
     ld      de, (LastVisibleColumn)
     ;call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     or      a
@@ -93,8 +93,6 @@ UpdateBgObjects_Execute:
 .next:
     ld      hl, (UpdateBgObjects_CurrentAddr)
 
-    ; ld      de, BG_OBJ_STRUCT_SIZE
-    ; add     hl, de
     ld      a, BG_OBJ_STRUCT_SIZE
     add     l                           ; updating only low byte, as it is table aligned the high byte is always the same
     ld      l, a
@@ -147,7 +145,7 @@ UpdateBgObjects_Execute:
 ;   (UpdateBgObjects_X)
 ;   (UpdateBgObjects_CurrentAddr)
 ShowBgObject:
-    ; --- Put a Bg obj on screen
+    ; --- Put a dynamic bg obj (like diamonds for example) on screen
 
     ; DE = position of object on bg (0-511)
     ld      (UpdateBgObjects_PosObjOnBG), hl
@@ -196,10 +194,14 @@ ShowBgObject:
         ; top left
         ; TODO: check if column is < 0 (bug showing on the other side of screen)
         ld      hl, (UpdateBgObjects_CurrentAddr)
+        
         inc     hl                          ; get object from second byte of struct
-        ld      b, (hl)
-        ld      a, (FrameIndex)
-
+        ld      a, (hl)
+        cp      ENEMY
+        call    z, .isEnemy
+        ld      b, a
+        
+        ld      a, (FrameIndex)             ; add it to frame index and draw on screen
         add     b
         out     (c), a
 
@@ -223,7 +225,11 @@ ShowBgObject:
         ;ld      hl, BgObjectsInitialState_Start + 1     ; TODO get object from second byte of struct
         ld      hl, (UpdateBgObjects_CurrentAddr)
         inc     hl
-        ld      b, (hl)
+        ld      a, (hl)
+        cp      ENEMY
+        call    z, .isEnemy
+        ld      b, a
+
         ld      a, (FrameIndex)
         add     b
         add     a, 32
@@ -292,4 +298,22 @@ ShowBgObject:
 
     ; call    SoundGetItem
 
+    ret
+
+.isEnemy:
+    ; TilePatterns_Enemy_Ladybug_Start
+
+    TILE_POSITION:  equ 217
+    VRAM_PATTERN_TABLE_ADDR:    equ PatternsTable_3rd_Third + (TILE_POSITION * 8)
+
+	; copy pattern data of enemy to VRAM
+    ; ld		bc, TilePatterns_Enemy_Ladybug_End - TilePatterns_Enemy_Ladybug_Start   ; Block length
+	; ld		de, VRAM_PATTERN_TABLE_ADDR						                        ; VRAM address
+	; ld		hl, TilePatterns_Enemy_Ladybug_Start	                                ; RAM address
+    ; call 	BIOS_LDIRVM        							                            ; Block transfer to VRAM from memory
+
+
+    ; ld      a, TILE_POSITION
+
+    ld      a, DIAMOND_FIRST_TILE
     ret
