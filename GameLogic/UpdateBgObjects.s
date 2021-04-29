@@ -188,19 +188,21 @@ ShowBgObject:
     
     dec     hl                              ; minus one because each two tiles are in reality 3 tiles (for scrolling)
 
-    push    hl
+    ;push    hl
+    ld      (UpdateBgObjects_VRAMAddr), hl
+
 	    call    BIOS_SETWRT
     
-        ; top left
         ; TODO: check if column is < 0 (bug showing on the other side of screen)
         ld      hl, (UpdateBgObjects_CurrentAddr)
         
         inc     hl                          ; get object from second byte of struct
         ld      a, (hl)
         cp      ENEMY
-        call    z, .isEnemy
+        jp      z, .isEnemy
         ld      b, a
         
+        ; top left
         ld      a, (FrameIndex)             ; add it to frame index and draw on screen
         add     b
         out     (c), a
@@ -216,7 +218,9 @@ ShowBgObject:
         out     (c), a
 
     ; Second row of the 16x16 object
-    pop     hl
+    ;pop     hl
+    ld      hl, (UpdateBgObjects_VRAMAddr)
+
     ld      de, 32
     add     hl, de
 	call    BIOS_SETWRT
@@ -225,10 +229,7 @@ ShowBgObject:
         ;ld      hl, BgObjectsInitialState_Start + 1     ; TODO get object from second byte of struct
         ld      hl, (UpdateBgObjects_CurrentAddr)
         inc     hl
-        ld      a, (hl)
-        cp      ENEMY
-        call    z, .isEnemy
-        ld      b, a
+        ld      b, (hl)
 
         ld      a, (FrameIndex)
         add     b
@@ -301,19 +302,40 @@ ShowBgObject:
     ret
 
 .isEnemy:
-    ; TilePatterns_Enemy_Ladybug_Start
-
     TILE_POSITION:  equ 217
     VRAM_PATTERN_TABLE_ADDR:    equ PatternsTable_3rd_Third + (TILE_POSITION * 8)
+    VRAM_COLORS_TABLE_ADDR:    equ ColorsTable_3rd_Third + (TILE_POSITION * 8)
 
-	; copy pattern data of enemy to VRAM
-    ; ld		bc, TilePatterns_Enemy_Ladybug_End - TilePatterns_Enemy_Ladybug_Start   ; Block length
-	; ld		de, VRAM_PATTERN_TABLE_ADDR						                        ; VRAM address
-	; ld		hl, TilePatterns_Enemy_Ladybug_Start	                                ; RAM address
-    ; call 	BIOS_LDIRVM        							                            ; Block transfer to VRAM from memory
+	exx ; not sure why, but without it don't run on openmsx, but runs on emulicious
+        ; copy pattern data of enemy to VRAM
+        ld		bc, 8   ; Block length
+        ld		de, VRAM_PATTERN_TABLE_ADDR						                        ; VRAM address
+        ld		hl, TilePatterns_Enemy_Ladybug_Start + (8 * 7)	                                ; RAM address
+        call 	BIOS_LDIRVM        							                            ; Block transfer to VRAM from memory
+        ; copy color data of enemy to VRAM
+        ld		bc, 8   ; Block length
+        ld		de, VRAM_COLORS_TABLE_ADDR						                        ; VRAM address
+        ld		hl, TileColors_EnemyLadybug_Top_Start	                                ; RAM address
+        call 	BIOS_LDIRVM        							                            ; Block transfer to VRAM from memory
+    exx
 
+    ld      b, TILE_POSITION ;DIAMOND_FIRST_TILE
+    
+    ld      hl, (UpdateBgObjects_VRAMAddr)
+	call    BIOS_SETWRT
 
-    ; ld      a, TILE_POSITION
+    ld      a, (FrameIndex)             ; add it to frame index and draw on screen
+    add     b
+    out     (c), a
 
-    ld      a, DIAMOND_FIRST_TILE
+    ; top center
+    add     a, 8
+    nop
+    out     (c), a
+
+    ; top right
+    add     a, 8
+    nop
+    out     (c), a
+    
     ret

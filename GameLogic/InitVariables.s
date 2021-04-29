@@ -7,7 +7,7 @@ InitVariables:
     ld      (BgCurrentIndex), hl
 
     xor     a
-    ld      (ProcessingFrame), a
+    ld      (IsProcessingFrame), a
     ld      (FrameIndex), a
 
     

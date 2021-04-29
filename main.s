@@ -91,12 +91,12 @@ MainLoop:
     
     ; [debug]
     ; Check if previous frame ended
-    ld      a, (ProcessingFrame)
+    ld      a, (IsProcessingFrame)
     or      a
     jp      nz, .frameSkip
 
     inc     a
-    ld      (ProcessingFrame), a
+    ld      (IsProcessingFrame), a
 
 
 
@@ -151,7 +151,7 @@ MainLoop:
 
 
     xor     a
-    ld      (ProcessingFrame), a
+    ld      (IsProcessingFrame), a
 
 
 	jp	    MainLoop

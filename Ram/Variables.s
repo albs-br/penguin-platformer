@@ -50,6 +50,7 @@ UpdateBgObjects_PosObjOnBG:             rw 1
 UpdateBgObjects_X:                      rb 1
 UpdateBgObjects_Y:                      rb 1
 UpdateBgObjects_StartAddr:              rw 1
+UpdateBgObjects_VRAMAddr:               rw 1
 
 ScrollDirection:                        rb 1       ; 0: none, 1: left, 2: right
 ScrollSpeed:                            rb 1       ; 1: normal (1px / frame), 2: fast (2px / frame)
@@ -57,13 +58,13 @@ ScrollSpeed:                            rb 1       ; 1: normal (1px / frame), 2:
 
 
 ; Animation for sparkles
-Sparkles_X:                  rb 1
-Sparkles_Y:                  rb 1
-Sparkles_FrameNumber:        rb 1
-Sparkles_Counter:            rb 1        ; counter for each animation frame
+Sparkles_X:                             rb 1
+Sparkles_Y:                             rb 1
+Sparkles_FrameNumber:                   rb 1
+Sparkles_Counter:                       rb 1        ; counter for each animation frame
 
 
-ProcessingFrame:             rb 1
+IsProcessingFrame:                      rb 1       ; 0: false, 1: true
 
 
 ; [debug]
