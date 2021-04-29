@@ -308,34 +308,66 @@ ShowBgObject:
 
 	exx ; not sure why, but without it don't run on openmsx, but runs on emulicious
         ; copy pattern data of enemy to VRAM
-        ld		bc, 8   ; Block length
+        
+        ; HL = TilePatterns_Enemy_Ladybug_Start + (FrameIndex * 8)
+        ld		hl, TilePatterns_Enemy_Ladybug_Start +(8*7)	                                ; RAM address
+;         ld      a, (FrameIndex)
+;         ld      b, a
+;         ld      de, 8
+; .mult:
+;         add     hl, de
+;         djnz    .mult
         ld		de, VRAM_PATTERN_TABLE_ADDR						                        ; VRAM address
-        ld		hl, TilePatterns_Enemy_Ladybug_Start + (8 * 7)	                                ; RAM address
-        call 	BIOS_LDIRVM        							                            ; Block transfer to VRAM from memory
-        ; copy color data of enemy to VRAM
         ld		bc, 8   ; Block length
+        push    hl
+            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        pop     hl
+        
+        ; ld		de, VRAM_PATTERN_TABLE_ADDR + 8				                            ; VRAM address
+        ; ld      bc, 8 * 8
+        ; add     hl, bc
+        ; ld		bc, 8   ; Block length
+        ; push    hl
+        ;     call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        ; pop     hl
+
+        ; ld		de, VRAM_PATTERN_TABLE_ADDR + 16				                            ; VRAM address
+        ; ld      bc, 8 * 8
+        ; add     hl, bc
+        ; ld		bc, 8   ; Block length
+        ; call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+
+        ; copy color data of enemy to VRAM
+        ld		bc, 8 * 3   ; Block length
         ld		de, VRAM_COLORS_TABLE_ADDR						                        ; VRAM address
         ld		hl, TileColors_EnemyLadybug_Top_Start	                                ; RAM address
-        call 	BIOS_LDIRVM        							                            ; Block transfer to VRAM from memory
+        call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        ; ld		bc, 8   ; Block length
+        ; ld		de, VRAM_COLORS_TABLE_ADDR+8						                        ; VRAM address
+        ; ld		hl, TileColors_EnemyLadybug_Top_Start	                                ; RAM address
+        ; call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        ; ld		bc, 8   ; Block length
+        ; ld		de, VRAM_COLORS_TABLE_ADDR+16						                        ; VRAM address
+        ; ld		hl, TileColors_EnemyLadybug_Top_Start	                                ; RAM address
+        ; call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
     exx
 
-    ld      b, TILE_POSITION ;DIAMOND_FIRST_TILE
-    
     ld      hl, (UpdateBgObjects_VRAMAddr)
 	call    BIOS_SETWRT
 
-    ld      a, (FrameIndex)             ; add it to frame index and draw on screen
-    add     b
+    ld      a, TILE_POSITION ;DIAMOND_FIRST_TILE
     out     (c), a
 
-    ; top center
-    add     a, 8
-    nop
-    out     (c), a
+    ; ; top center
+    ; inc     a
+    ; nop
+    ; nop
+    ; out     (c), a
 
-    ; top right
-    add     a, 8
-    nop
-    out     (c), a
+    ; ; top right
+    ; inc     a
+    ; nop
+    ; nop
+    ; out     (c), a
     
     ret
