@@ -448,7 +448,63 @@ ShowBgObject:
 
 
     ; Check collision - penguin jumped over enemy
+    ; Player (x + 2, y + 12) - (x + 13, y + 15)
+    ; Enemy  (x + 2, y + 6) - (x + 13, y + 7)
+    ld      a, (Player_Y)
+    inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
+    add     12
+    ld      c, a
+    ld      b, 4                                ; height = 4
 
+    ld      a, (Enemy_1_Y)
+    add     6
+    ld      e, a
+    ld      d, 2                                ; height = 2
+
+    ; first check vertical collision, saving the next block (130 cycles), plus 57/62 of the subroutine if no collision
+    call    CheckCollision_W1xH1_W2xH2_Vertical
+    ret     nc
+
+
+    ld      a, (Player_X)
+    add     2
+    ld      b, a
+    ld      c, 14                               ; width = 14
+
+    ld      a, (Enemy_1_X)
+    add     2
+    ld      d, a
+    ld      e, 14                               ; width = 14
+
+    call    CheckCollision_W1xH1_W2xH2_Horizontal
+    ret     nc
+
+    ; if collided, disable enemy
+    ld      hl, (UpdateBgObjects_CurrentAddr)
+    inc     hl
+    inc     hl
+    inc     hl
+    xor     a ; same as ld a, 0
+    ld      (hl), a
+
+    ; hide sprite
+    xor     a
+    ld      (Enemy_1_Pattern), a
+    ld      (Enemy_1_Color), a
+    ld      (Enemy_1_X), a
+    ld      a, 192
+    ld      (Enemy_1_Y), a
+
+    ; start flash animation
+    ; ld      a, SPARKLES_FIRST_FRAME
+    ; ld      (Sparkles_FrameNumber), a
+    ; ld      a, (UpdateBgObjects_Y)
+    ; ld      (Sparkles_Y), a
+    ; ld      a, (UpdateBgObjects_X)
+    ; ld      (Sparkles_X), a
+    ; xor     a
+    ; ld      (Sparkles_Counter), a
+    
     ret
 
 
@@ -462,6 +518,8 @@ ShowBgObject:
 ;   (FirstVisibleColumn)
 ;   (FrameIndex)
 Convert_BgPosition_X_To_X_In_Pixels:
+    ; Formula:
+    ; x of object = (ObjPositionOnBg - FirstVisibleColumn) * 8
     ld      de, (FirstVisibleColumn)
     or      a                                   ; clear carry flag
     sbc     hl, de

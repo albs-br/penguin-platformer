@@ -45,6 +45,7 @@ LastVisibleColumn:                      rw 1            ; column index based on 
 Addr_Screen_FirstVisibleColumn:         rw 1            ; addr of RAM objects of the screen of the first visible column
 Addr_Screen_LastVisibleColumn:          rw 1
 
+
 UpdateBgObjects_CurrentAddr:            rw 1
 UpdateBgObjects_PosObjOnBG:             rw 1
 UpdateBgObjects_X:                      rb 1
@@ -52,9 +53,9 @@ UpdateBgObjects_Y:                      rb 1
 UpdateBgObjects_StartAddr:              rw 1
 UpdateBgObjects_VRAMAddr:               rw 1
 
+
 ScrollDirection:                        rb 1       ; 0: none, 1: left, 2: right
 ScrollSpeed:                            rb 1       ; 1: normal (1px / frame), 2: fast (2px / frame)
-
 
 
 ; Animation for sparkles

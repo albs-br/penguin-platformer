@@ -152,3 +152,53 @@ CheckCollision_16x16_16x16_Horizontal:
     
         sub     WIDTH8                      ; compare with size 2
         ret                                 ; return if no collision
+
+
+
+;  Calculates whether a collision occurs between two objects
+;  of variable size
+; IN: 
+;    C = y1, B = height 1
+;    E = y2, D = height 2
+; OUT: Carry set if collision
+; CHANGES: AF
+CheckCollision_W1xH1_W2xH2_Vertical:
+        ld      a, e                        ; get y2
+        sub     c                           ; calculate y2 - y1
+        jr      c, .y1IsLarger              ; jump if y2 < y1
+        sub     b                           ; compare with size 1
+        ret                                 ; return collision or no collision
+.y1IsLarger:
+        neg                                 ; use negative value (Z80)
+        ; emulate neg instruction (Gameboy)
+        ; ld      c, a
+        ; xor     a                           ; same as ld a, 0
+        ; sub     a, c
+    
+        sub     d                           ; compare with size 2
+        ret                                 ; return collision or no collision
+
+
+
+;  Calculates whether a collision occurs between two objects
+;  of variable size
+; IN: 
+;    B = x1, C = width 1
+;    D = x2, E = width 2
+; OUT: Carry set if collision
+; CHANGES: AF
+CheckCollision_W1xH1_W2xH2_Horizontal:
+        ld      a, d                        ; get x2
+        sub     b                           ; calculate x2 - x1
+        jr      c, .x1IsLarger              ; jump if x2 < x1
+        sub     c                           ; compare with size 1
+        ret                                 ; return if no collision
+.x1IsLarger:
+        neg                                 ; use negative value (Z80)
+        ; emulate neg instruction (Gameboy)
+        ; ld      b, a
+        ; xor     a                           ; same as ld a, 0
+        ; sub     a, b
+    
+        sub     e                           ; compare with size 2
+        ret                                 ; return if no collision
