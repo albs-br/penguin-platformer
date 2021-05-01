@@ -159,9 +159,15 @@ MainLoop:
 
 
 .frameSkip:
+    call    BIOS_BEEP
+    
     ld 		a, COLOR_WHITE       	; Border color
     ld 		(BIOS_BDRCLR), a    
     call 	BIOS_CHGCLR        		; Change Screen Color
+    
+    di
+    halt
+    
     jp      .frameSkip              ; eternal loop
 
 Finished:

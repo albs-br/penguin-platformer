@@ -64,18 +64,25 @@ Sparkles_FrameNumber:                   rb 1
 Sparkles_Counter:                       rb 1        ; counter for each animation frame
 
 
+; Enemies
+Enemy_1_X:                              rb 1
+Enemy_1_Y:                              rb 1
+Enemy_1_Pattern:                        rb 1
+Enemy_1_Color:                          rb 1
+
+
 IsProcessingFrame:                      rb 1       ; 0: false, 1: true
 
 
 ; [debug]
-D_Above:    rb 1
-D_Right:    rb 1
-D_Below:    rb 1
-D_TileNumber:   rb 1
+; D_Above:    rb 1
+; D_Right:    rb 1
+; D_Below:    rb 1
+; D_TileNumber:   rb 1
 
 
 ; [debug]
 ;test
-Test_Sprite_Color:          rb 1
-Test_Sprite_X:              rb 1
-Test_Sprite_Y:              rb 1
+; Test_Sprite_Color:          rb 1
+; Test_Sprite_X:              rb 1
+; Test_Sprite_Y:              rb 1

@@ -70,12 +70,20 @@ InitVariables:
     ld      (Sparkles_Y), a
 
 
+    ; Sprites for enemies
+    xor     a
+    ld      (Enemy_1_X), a
+    ld      (Enemy_1_Pattern), a
+    ld      (Enemy_1_Color), a
+    ld      a, 192
+    ld      (Enemy_1_Y), a
 
-    ; test
-    ld	    a, 192-32-1
-    ld      (Test_Sprite_Y), a
-    ld	    a, 64
-    ld      (Test_Sprite_X), a
+
+    ; test [debug]
+    ; ld	    a, 192-32-1
+    ; ld      (Test_Sprite_Y), a
+    ; ld	    a, 64
+    ; ld      (Test_Sprite_X), a
 
 
 

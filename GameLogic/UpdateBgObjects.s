@@ -262,19 +262,24 @@ ShowBgObject:
     ld      a, (Player_X)
     ld      b, a
 
-    ld      hl, (UpdateBgObjects_PosObjOnBG)    ; x of object = (ObjPositionOnBg - FirstVisibleColumn) * 8
-    ld      de, (FirstVisibleColumn)
-    or      a                                   ; clear carry flag
-    sbc     hl, de
-    add     hl, hl                              ; multiply by 8
-    add     hl, hl
-    add     hl, hl
-    ld      a, (FrameIndex)
-    ld      e, a
-    ld      a, l
-    sub     a, e
-    ld      d, a
+    ; x of object = (ObjPositionOnBg - FirstVisibleColumn) * 8
+    ; ld      hl, (UpdateBgObjects_PosObjOnBG)
+    ; ld      de, (FirstVisibleColumn)
+    ; or      a                                   ; clear carry flag
+    ; sbc     hl, de
+    ; add     hl, hl                              ; multiply by 8
+    ; add     hl, hl
+    ; add     hl, hl
+    ; ld      a, (FrameIndex)
+    ; ld      e, a
+    ; ld      a, l
+    ; sub     a, e
+    ; ld      d, a
+    ; ld      (UpdateBgObjects_X), a
+    ld      hl, (UpdateBgObjects_PosObjOnBG)
+    call    Convert_BgPosition_X_To_X_In_Pixels
     ld      (UpdateBgObjects_X), a
+    ld      d, a
 
     call    CheckCollision_16x16_16x16_Horizontal
     ret     nc
@@ -421,4 +426,50 @@ ShowBgObject:
     nop
     out     (c), a
 
+
+    ; Place enemy sprite
+
+    ; Get x coord in pixels
+    ld      hl, (UpdateBgObjects_PosObjOnBG)
+    call    Convert_BgPosition_X_To_X_In_Pixels    
+    dec     a                                       ; fix x position (not sure why)
+    ld      (Enemy_1_X), a
+
+
+    ; TODO: get correct Y pos
+    ld      a, 20 * 8 - 1
+    ld      (Enemy_1_Y), a
+
+
+    ld      a, LADYBUG_SPRITE_LEFT
+    ld      (Enemy_1_Pattern), a
+    ld      a, COLOR_RED
+    ld      (Enemy_1_Color), a
+
+
+    ; Check collision - penguin jumped over enemy
+
+    ret
+
+
+
+; Convert obj X position expressed in tiles to pixels
+; Input:
+;   HL: object X position in 8x8 tiles on the background (0-511)
+; Output:
+;   A: object X position in pixels of the current screen (0-255)
+; Depends on variables:
+;   (FirstVisibleColumn)
+;   (FrameIndex)
+Convert_BgPosition_X_To_X_In_Pixels:
+    ld      de, (FirstVisibleColumn)
+    or      a                                   ; clear carry flag
+    sbc     hl, de
+    add     hl, hl                              ; multiply by 8
+    add     hl, hl
+    add     hl, hl
+    ld      a, (FrameIndex)
+    ld      e, a
+    ld      a, l
+    sub     a, e
     ret

@@ -45,18 +45,18 @@ ReadInput:
     call    z, .playerRun
     call    nz, .playerNoRun
 
-    ; test sprite
-    ld      a, 0
-    call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
-    ; ld c, a                       ; save keyboard status
-    bit 1, a
-    jp z, .spriteLeft
-    bit 2, a
-    jp z, .spriteRight
-    bit 3, a
-    jp z, .spriteUp
-    bit 4, a
-    jp z, .spriteDown
+    ; ; test sprite
+    ; ld      a, 0
+    ; call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
+    ; ; ld c, a                       ; save keyboard status
+    ; bit 1, a
+    ; jp z, .spriteLeft
+    ; bit 2, a
+    ; jp z, .spriteRight
+    ; bit 3, a
+    ; jp z, .spriteUp
+    ; bit 4, a
+    ; jp z, .spriteDown
 
 
     ret
@@ -98,23 +98,23 @@ ReadInput:
     ld      (RunKeyPressed), a
     ret
 
-; test
-.spriteUp:
-    ld      hl, Test_Sprite_Y
-    dec     (hl)
-    ret
+; test [debug]
+; .spriteUp:
+;     ld      hl, Test_Sprite_Y
+;     dec     (hl)
+;     ret
 
-.spriteDown:
-    ld      hl, Test_Sprite_Y
-    inc     (hl)
-    ret
+; .spriteDown:
+;     ld      hl, Test_Sprite_Y
+;     inc     (hl)
+;     ret
 
-.spriteRight:
-    ld      hl, Test_Sprite_X
-    inc     (hl)
-    ret
+; .spriteRight:
+;     ld      hl, Test_Sprite_X
+;     inc     (hl)
+;     ret
 
-.spriteLeft:
-    ld      hl, Test_Sprite_X
-    dec     (hl)
-    ret
+; .spriteLeft:
+;     ld      hl, Test_Sprite_X
+;     dec     (hl)
+;     ret

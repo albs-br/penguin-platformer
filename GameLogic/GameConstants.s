@@ -40,6 +40,13 @@ SPARKLES_FIRST_FRAME:       equ 29 * 4
 SPARKLES_LAST_FRAME:        equ 37 * 4
 
 
+; Sprite patterns for enemies
+
+; Ladybug
+LADYBUG_SPRITE_LEFT:        equ 38 * 4
+
+
+
 ; Keyboard constants to current key(s) pressed
 ; KEY_LEFT:                               equ 1000 0000 b
 ; KEY_RIGHT:                              equ 0100 0000 b

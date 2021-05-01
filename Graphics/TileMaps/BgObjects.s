@@ -36,6 +36,7 @@ BgObjectsInitialState_Start:
 	ds     96 - ($ - (BgObjectsInitialState_Start + 0x0040)), 0                 ; fill with 0s until end of block
 
     ; 3rd third (lines 8-11) - 96 bytes
+    ;db      10,     ENEMY,                  9 * 2 * 8,      1,  0,  0,  0,  0
     db      13,     ENEMY,                 10 * 2 * 8,      1,  0,  0,  0,  0
     db      15,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0
     db      12,     OTHER_OBJECT,           9 * 2 * 8,      1,  0,  0,  0,  0

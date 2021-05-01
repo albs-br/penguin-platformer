@@ -92,8 +92,6 @@ DrawBackground_3_Thirds:
     ld      bc, 64 + 96                   ; TODO: use 8 bit add, as it is page aligned, or even LD L, 64 + 96
     add     hl, bc
     ld      (UpdateBgObjects_CurrentAddr), hl
-;  ld a, 0
-;  ld (FrameIndex), a
     call    UpdateBgObjects_Execute
 
     ret
@@ -352,8 +350,8 @@ DrawBackground_1st_Third:
 
     ; Sets the VRAM pointer (destiny)
 	ld	    hl, NamesTable
-	call    BIOS_SETWRT
-
+    call    BIOS_SETWRT
+    
             ld	    hl, (BgAddrIndex)
 
             ; First n lines with unroled OUTI's during Vblank

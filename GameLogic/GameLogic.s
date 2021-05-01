@@ -5,45 +5,45 @@ GameLogic:
 
 
     
-    ; [debug]
-    ; test only
-    ld      a, (Test_Sprite_X)
-    ld      h, a
-    ld      a, (Test_Sprite_Y)
-    ld      l, a
-    call    CheckBackGround_Left
-    ; [debug] save tile number
-    ld (D_TileNumber), a
-    call    z, .testSpriteAtEmptySpace
-    call    nz, .testSpriteAtOccupiedSpace
-    ld      (Test_Sprite_Color), a
+    ; ; [debug]
+    ; ; test only
+    ; ld      a, (Test_Sprite_X)
+    ; ld      h, a
+    ; ld      a, (Test_Sprite_Y)
+    ; ld      l, a
+    ; call    CheckBackGround_Left
+    ; ; [debug] save tile number
+    ; ld (D_TileNumber), a
+    ; call    z, .testSpriteAtEmptySpace
+    ; call    nz, .testSpriteAtOccupiedSpace
+    ; ld      (Test_Sprite_Color), a
 
 
     ; ------------------------------------------
-    ; [debug]
-    xor a
-    ld (D_Above), a
-    call CheckIfPlayerHasTileAbove
-    jp z, .D_Above_not_set
-    ld a, 1
-.D_Above_not_set:
-    ld (D_Above), a
+;     ; [debug]
+;     xor a
+;     ld (D_Above), a
+;     call CheckIfPlayerHasTileAbove
+;     jp z, .D_Above_not_set
+;     ld a, 1
+; .D_Above_not_set:
+;     ld (D_Above), a
 
-    xor a
-    ld (D_Right), a
-    call CheckIfPlayerHasTileOnTheRight
-    jp z, .D_Right_not_set
-    ld a, 1
-.D_Right_not_set:
-    ld (D_Right), a
+;     xor a
+;     ld (D_Right), a
+;     call CheckIfPlayerHasTileOnTheRight
+;     jp z, .D_Right_not_set
+;     ld a, 1
+; .D_Right_not_set:
+;     ld (D_Right), a
 
-    xor a
-    ld (D_Below), a
-    call CheckIfPlayerIsGrounded
-    jp z, .D_Below_not_set
-    ld a, 1
-.D_Below_not_set:
-    ld (D_Below), a
+;     xor a
+;     ld (D_Below), a
+;     call CheckIfPlayerIsGrounded
+;     jp z, .D_Below_not_set
+;     ld a, 1
+; .D_Below_not_set:
+;     ld (D_Below), a
 
     ; ------------------------------------------
 
@@ -149,16 +149,15 @@ GameLogic:
     jp      .return
 
 
-
-.testSpriteAtEmptySpace:
-    ld      a, COLOR_RED
-    ld      (Test_Sprite_Color), a
-    ret
-
-.testSpriteAtOccupiedSpace:
-    ld      a, COLOR_GREEN
-    ld      (Test_Sprite_Color), a
-    ret
+; ; test [debug]
+; .testSpriteAtEmptySpace:
+;     ld      a, COLOR_RED
+;     ld      (Test_Sprite_Color), a
+;     ret
+; .testSpriteAtOccupiedSpace:
+;     ld      a, COLOR_GREEN
+;     ld      (Test_Sprite_Color), a
+;     ret
 
 
 
