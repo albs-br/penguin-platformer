@@ -1,7 +1,7 @@
 InitVariables:
     ld      a, (BIOS_JIFFY)                  ; MSX BIOS time variable
     or      0x80                             ; A value different of zero is granted
-    ld      (SEED), a
+    ld      (Seed), a
 
     ld      hl, 0
     ld      (BgCurrentIndex), hl

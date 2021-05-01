@@ -229,22 +229,22 @@ ClearVRAM:
 	ld	    hl, 0x0000 			; VRAM start address
     ld      bc, 16768           ; number of bytes
     ld      a, 0x00             ; value
-    call    BIOS_FILVRM        ; Fill VRAM
+    call    BIOS_FILVRM         ; Fill VRAM
     
     ret
 
 
 ; Fill all RAM with 0x00
 ClearRam:
-    ld      hl, RamStart         ; RAM start address
-    ld      de, RamEnd + 1       ; RAM end address
+    ld      hl, RamStart        ; RAM start address
+    ld      de, RamEnd + 1      ; RAM end address
 
 .loop:
     xor     a                   ; same as ld a, 0, but faster
     ld      (hl), a
 
     inc     hl
-    call    BIOS_DCOMPR        ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
+    call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
     ret     z
     jp      .loop
 
@@ -289,13 +289,13 @@ EnableRomPage2:
 ; choose a random number in the set [0,255] with uniform distribution
 RandomNumber:
     push    hl
-    ld      hl, (SEED)
-    add     hl, hl
-    sbc     a, a
-    and     0x83
-    xor     l
-    ld      l, a
-    ld      (SEED), hl
+        ld      hl, (Seed)
+        add     hl, hl
+        sbc     a, a
+        and     0x83
+        xor     l
+        ld      l, a
+        ld      (Seed), hl
     pop     hl
     ret
 

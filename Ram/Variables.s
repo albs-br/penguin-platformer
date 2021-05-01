@@ -15,7 +15,7 @@ BgObjects_End:
 
 
 
-SEED:                       rw 1            ; Seed for random number generator
+Seed:                       rw 1            ; Seed for random number generator
 
 
 DirectionKeyPressed:        rb 1
