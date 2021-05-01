@@ -62,6 +62,11 @@ GameLogic:
     jp      nc, .isDead             ; if (a >= n)
 
 
+    ld      a, (Player_JumpCounter)
+    or      a
+    jp      nz, .jumping
+
+
     ld      a, (Player_IsGrounded)
     or      a
     jp      z, .isFalling
@@ -348,6 +353,7 @@ GameLogic:
 .falling:
     xor     a
     ld      (Player_IsGrounded), a
+    ld      (Player_JumpCounter), a
     jp      .return
 
 

@@ -169,11 +169,16 @@ ScrollRight:
     ld      b, 0
     ld      c, a
 
+    ld      d, c
+        ; Invert signal of C
+        ld      a, c
+        neg
+        ld      c, a
 
-    ; Update X position of sparkles sprite
-    ld      a, (Sparkles_X)
-    sub     c
-    ld      (Sparkles_X), a
+        call    UpdateSpritesX
+    ld      c, d
+
+
 
 
     ; Update BgCurrentIndex
@@ -262,10 +267,7 @@ ScrollLeft:
     ld      c, a
 
 
-    ; Update X position of sparkles sprite
-    ld      a, (Sparkles_X)
-    add     c
-    ld      (Sparkles_X), a
+    call    UpdateSpritesX
 
 
     ; Update BgCurrentIndex
@@ -469,4 +471,21 @@ DrawBackground_3rd_Third:
             jp      nz, .loopLines2
 
     ld	    (BgAddrIndex), hl
+    ret
+
+
+; Updates the X coord of the sprites, to compensate for scrolling
+; Input:
+;   C: pixels to move, e.g.: 1, 2, -1, or -2
+UpdateSpritesX:
+    ; Update X position of sparkles sprite
+    ld      a, (Sparkles_X)
+    add     c
+    ld      (Sparkles_X), a
+
+    ; Update X position of enemy sprite
+    ld      a, (Enemy_1_X)
+    add     c
+    ld      (Enemy_1_X), a
+
     ret

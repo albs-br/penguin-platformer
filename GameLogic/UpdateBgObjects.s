@@ -156,6 +156,7 @@ ShowBgObject:
     inc     hl
     inc     hl
     inc     hl
+    ld      (UpdateBgObjects_CurrentAddr_State), hl
     ld      a, (hl)
     or      a
     ret     z
@@ -285,10 +286,12 @@ ShowBgObject:
     ret     nc
 
     ; if collided, disable object
-    ld      hl, (UpdateBgObjects_CurrentAddr)
-    inc     hl
-    inc     hl
-    inc     hl
+    ; ld      hl, (UpdateBgObjects_CurrentAddr)
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+    ld      hl, (UpdateBgObjects_CurrentAddr_State)
+    ld      a, (hl)
     xor     a ; same as ld a, 0
     ld      (hl), a
 
@@ -310,6 +313,13 @@ ShowBgObject:
     TILE_POSITION_ON_NAMTBL:  equ 217
     VRAM_PATTERN_TABLE_ADDR:    equ PatternsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL * 8)
     VRAM_COLORS_TABLE_ADDR:    equ ColorsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL * 8)
+
+
+    ld      hl, (UpdateBgObjects_CurrentAddr_State)
+    ld      a, (hl)
+    cp      2
+    jp      nc, .animateEnemyDying        ; a >= n
+
 
 	exx
         ; copy pattern data of enemy to VRAM
@@ -480,20 +490,21 @@ ShowBgObject:
     ret     nc
 
     ; if collided, disable enemy
-    ld      hl, (UpdateBgObjects_CurrentAddr)
-    inc     hl
-    inc     hl
-    inc     hl
-    xor     a ; same as ld a, 0
+    ; ld      hl, (UpdateBgObjects_CurrentAddr)
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+    ld      hl, (UpdateBgObjects_CurrentAddr_State)
+    ld      a, 2            ; start enemy dying animation
     ld      (hl), a
 
-    ; hide sprite
-    xor     a
-    ld      (Enemy_1_Pattern), a
-    ld      (Enemy_1_Color), a
-    ld      (Enemy_1_X), a
-    ld      a, 192
-    ld      (Enemy_1_Y), a
+    ; ; hide sprite
+    ; xor     a
+    ; ld      (Enemy_1_Pattern), a
+    ; ld      (Enemy_1_Color), a
+    ; ld      (Enemy_1_X), a
+    ; ld      a, 192
+    ; ld      (Enemy_1_Y), a
 
     ; start flash animation
     ; ld      a, SPARKLES_FIRST_FRAME
@@ -504,10 +515,50 @@ ShowBgObject:
     ; ld      (Sparkles_X), a
     ; xor     a
     ; ld      (Sparkles_Counter), a
-    
+
+    ; Start jump (bounce on the enemy)
+    ld      a, 1
+    ld      (Player_JumpCounter), a
+
+.animateEnemyDying:
+    ld      hl, (UpdateBgObjects_CurrentAddr_State)
+    ld      a, (hl)
+    inc     a
+    cp      60
+    jp      z, .endAnimationEnemyDying
+
+    ld      (hl), a
+
+    and     0000 0001 b
+    jp      z, .evenFrame
+
+    ; odd frame, hide sprite
+    xor     a
+    ;ld      (Enemy_1_Pattern), a
+    ld      (Enemy_1_Color), a
     ret
 
+.evenFrame:
+    ; show sprite
+    ld      a, COLOR_RED
+    ;ld      (Enemy_1_Pattern), a
+    ld      (Enemy_1_Color), a
 
+    ret
+
+.endAnimationEnemyDying:
+    xor     a
+    ld      (UpdateBgObjects_CurrentAddr_State), a
+    
+    ; hide sprite
+    xor     a
+    ld      (Enemy_1_Pattern), a
+    ld      (Enemy_1_Color), a
+    ld      (Enemy_1_X), a
+    ld      a, 192
+    ld      (Enemy_1_Y), a
+    
+    ret
 
 ; Convert obj X position expressed in tiles to pixels
 ; Input:

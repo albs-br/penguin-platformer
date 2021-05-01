@@ -28,7 +28,7 @@ Player_Y:                   rb 1
 Player_Sprite_Number:       rb 1
 Player_Animation_Frame:     rb 1
 Player_IsGrounded:          rb 1
-Player_JumpCounter:         rb 1
+Player_JumpCounter:         rb 1        ; 0: not jumping; > 0: jumping
 Player_Facing:              rb 1        ; 1: left, 2: right
 
 
@@ -47,6 +47,7 @@ Addr_Screen_LastVisibleColumn:          rw 1
 
 
 UpdateBgObjects_CurrentAddr:            rw 1
+UpdateBgObjects_CurrentAddr_State:      rw 1
 UpdateBgObjects_PosObjOnBG:             rw 1
 UpdateBgObjects_X:                      rb 1
 UpdateBgObjects_Y:                      rb 1
