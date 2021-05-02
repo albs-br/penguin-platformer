@@ -320,7 +320,7 @@ ShowBgObject:
     cp      2
     jp      nc, .animateEnemyDying        ; a >= n
 
-.showEnemy:
+.showEnemyTiles:
 	exx
         ; copy pattern data of enemy to VRAM
         
@@ -446,8 +446,12 @@ ShowBgObject:
     ld      (Enemy_1_X), a
 
 
-    ; TODO: get correct Y pos
-    ld      a, 20 * 8 - 1
+    ; Get Y position (already stored in pixels)
+    ld      hl, (UpdateBgObjects_CurrentAddr)
+    inc     hl
+    inc     hl
+    ld      a, (hl)
+    dec     a               ; adjust for the Y - 1 TMS 9918 bug/feature
     ld      (Enemy_1_Y), a
 
 
@@ -540,19 +544,17 @@ ShowBgObject:
     jp      z, .showEnemySprite
 
     ; odd frame, hide sprite
-    xor     a
-    ;ld      (Enemy_1_Pattern), a
+    xor     a                           ; transparent color
     ld      (Enemy_1_Color), a
     ret
 
 .showEnemySprite:
     ; show sprite
     ld      a, COLOR_RED
-    ;ld      (Enemy_1_Pattern), a
     ld      (Enemy_1_Color), a
 
     ; and show tiles
-    jp      .showEnemy
+    jp      .showEnemyTiles
 
     ret
 
