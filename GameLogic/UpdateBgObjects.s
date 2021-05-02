@@ -320,7 +320,7 @@ ShowBgObject:
     cp      2
     jp      nc, .animateEnemyDying        ; a >= n
 
-
+.showEnemy:
 	exx
         ; copy pattern data of enemy to VRAM
         
@@ -457,6 +457,13 @@ ShowBgObject:
     ld      (Enemy_1_Color), a
 
 
+    ; Check collision only if enemy is alive (it may be on dying animation)
+    ld      hl, (UpdateBgObjects_CurrentAddr_State)
+    ld      a, (hl)
+    cp      2
+    ret     nc              ; if (a >= n)
+
+
     ; Check collision - penguin jumped over enemy
     ; Player (x + 2, y + 12) - (x + 13, y + 15)
     ; Enemy  (x + 2, y + 6) - (x + 13, y + 7)
@@ -529,8 +536,8 @@ ShowBgObject:
 
     ld      (hl), a
 
-    and     0000 0001 b
-    jp      z, .evenFrame
+    and     0000 0011 b
+    jp      z, .showEnemySprite
 
     ; odd frame, hide sprite
     xor     a
@@ -538,11 +545,14 @@ ShowBgObject:
     ld      (Enemy_1_Color), a
     ret
 
-.evenFrame:
+.showEnemySprite:
     ; show sprite
     ld      a, COLOR_RED
     ;ld      (Enemy_1_Pattern), a
     ld      (Enemy_1_Color), a
+
+    ; and show tiles
+    jp      .showEnemy
 
     ret
 
