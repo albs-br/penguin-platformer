@@ -32,6 +32,10 @@ TilePatterns_Start:
     TilePatterns_Enemy_Ladybug_Start:
         INCLUDE "Graphics/Tiles/Patterns/Pattern_EnemyLadybug.s"
     TilePatterns_Enemy_Ladybug_End:
+
+    TilePatterns_Enemy_Snail_Start:
+        INCLUDE "Graphics/Tiles/Patterns/Pattern_EnemySnail.s"
+    TilePatterns_Enemy_Snail_End:
 TilePatterns_End:
 
 

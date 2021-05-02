@@ -50,6 +50,9 @@ HIT_FLASH_LAST_FRAME:       equ 41 * 4
 ; Ladybug
 LADYBUG_SPRITE_LEFT:        equ 42 * 4
 
+; Snail
+SNAIL_SPRITE_LEFT:          equ 43 * 4
+
 
 
 ; Keyboard constants to current key(s) pressed

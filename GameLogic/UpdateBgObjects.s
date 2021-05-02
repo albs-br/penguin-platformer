@@ -322,10 +322,13 @@ ShowBgObject:
 
 .showEnemyTiles:
 	exx
+        ; ------------ Update patterns table  ------------
         ; copy pattern data of enemy to VRAM
         
+; TODO: switch enemy here
+
         ; HL = TilePatterns_Enemy_Ladybug_Start + (FrameIndex * 8)
-        ld		hl, TilePatterns_Enemy_Ladybug_Start	                                ; RAM address
+        ld		hl, TilePatterns_Enemy_Snail_Start ; TilePatterns_Enemy_Ladybug_Start	                                ; RAM address
         ld      a, (FrameIndex)
         or      a
         jp      z, .noMult
@@ -335,6 +338,8 @@ ShowBgObject:
         add     hl, de
         djnz    .multLoop
 .noMult:
+        ; TODO: change the way that enemy sprites are alocated on ROM, to make it possible to coppy all 48 bytes at once (faster)
+
         ld		de, VRAM_PATTERN_TABLE_ADDR						                        ; VRAM address
         ld		bc, 8   ; Block length
         push    hl
@@ -381,10 +386,13 @@ ShowBgObject:
             call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
         pop     hl
 
+; TODO: switch enemy here
+
+        ; ------------ Update colors table  ------------
         ; copy color data of enemy to VRAM
         ld		bc, 8 * 6   ; Block length
         ld		de, VRAM_COLORS_TABLE_ADDR						                        ; VRAM address
-        ld		hl, TileColors_EnemyLadybug_Top_Start	                                ; RAM address
+        ld		hl, TileColors_EnemySnail_Top_Start ; TileColors_EnemyLadybug_Top_Start	                                ; RAM address
         call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
         ; ld		bc, 8 * 3   ; Block length
         ; ld		de, VRAM_COLORS_TABLE_ADDR + (8*3)						                        ; VRAM address
@@ -392,6 +400,7 @@ ShowBgObject:
         ; call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
     exx
 
+    ; ------------ Update names table  ------------
     ld      hl, (UpdateBgObjects_VRAMAddr)
 	call    BIOS_SETWRT
 
@@ -455,9 +464,10 @@ ShowBgObject:
     ld      (Enemy_1_Y), a
 
 
-    ld      a, LADYBUG_SPRITE_LEFT
+; TODO: switch enemy here
+    ld      a, SNAIL_SPRITE_LEFT ; LADYBUG_SPRITE_LEFT
     ld      (Enemy_1_Pattern), a
-    ld      a, COLOR_RED
+    ld      a, COLOR_DARK_YELLOW ; COLOR_RED
     ld      (Enemy_1_Color), a
 
 

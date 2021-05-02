@@ -51,3 +51,10 @@ TileColors_EnemyLadybug_Top_Start:
     INCLUDE "Graphics/Tiles/Colors/Color_EnemyLadybug_top_left.s"
 TileColors_EnemyLadybug_Bottom_Start:
     INCLUDE "Graphics/Tiles/Colors/Color_EnemyLadybug_bottom_left.s"
+
+
+
+TileColors_EnemySnail_Top_Start:
+    INCLUDE "Graphics/Tiles/Colors/Color_EnemySnail_top_left.s"
+TileColors_EnemySnail_Bottom_Start:
+    INCLUDE "Graphics/Tiles/Colors/Color_EnemySnail_bottom_left.s"

@@ -1515,4 +1515,40 @@ StartSpritePatterns:
     DB 00000000b
     DB 00000000b
 
+    ; 
+    ; --- Snail
+    ; color 10
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000011b
+    DB 00000111b
+    DB 00001110b
+    DB 00001110b
+    DB 00001111b
+    DB 00000111b
+    DB 00000011b
+    DB 00000001b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 11111100b
+    DB 00001110b
+    DB 11110110b
+    DB 00011010b
+    DB 11110110b
+    DB 00001110b
+    DB 11111110b
+    DB 11111000b
+
 EndSpritePatterns:
