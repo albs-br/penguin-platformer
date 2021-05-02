@@ -517,15 +517,15 @@ ShowBgObject:
     ; ld      a, 192
     ; ld      (Enemy_1_Y), a
 
-    ; start flash animation
-    ; ld      a, SPARKLES_FIRST_FRAME
-    ; ld      (Sparkles_FrameNumber), a
-    ; ld      a, (UpdateBgObjects_Y)
-    ; ld      (Sparkles_Y), a
-    ; ld      a, (UpdateBgObjects_X)
-    ; ld      (Sparkles_X), a
-    ; xor     a
-    ; ld      (Sparkles_Counter), a
+    ; start hit flash animation
+    ld      a, HIT_FLASH_FIRST_FRAME
+    ld      (HitFlash_FrameNumber), a
+    ld      a, (Player_Y)
+    ld      (HitFlash_Y), a
+    ld      a, (Player_X)
+    ld      (HitFlash_X), a
+    xor     a
+    ld      (HitFlash_Counter), a
 
     ; Start jump (bounce on the enemy)
     ld      a, 1

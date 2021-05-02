@@ -40,10 +40,15 @@ SPARKLES_FIRST_FRAME:       equ 29 * 4
 SPARKLES_LAST_FRAME:        equ 37 * 4
 
 
+; Sprite pattern numbers for sparkles animation frames:
+HIT_FLASH_FIRST_FRAME:      equ 38 * 4
+HIT_FLASH_LAST_FRAME:       equ 41 * 4
+
+
 ; Sprite patterns for enemies
 
 ; Ladybug
-LADYBUG_SPRITE_LEFT:        equ 38 * 4
+LADYBUG_SPRITE_LEFT:        equ 42 * 4
 
 
 

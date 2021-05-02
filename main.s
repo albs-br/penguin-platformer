@@ -39,7 +39,7 @@ GameIncludes_Start:
     INCLUDE "GameLogic/InitVariables.s"
     INCLUDE "GameLogic/GameConstants.s"
     INCLUDE "GameLogic/UpdateBgObjects.s"
-    INCLUDE "GameLogic/UpdateSparklesAnimation.s"
+    INCLUDE "GameLogic/UpdateAnimations.s"
 GameIncludes_Size:      equ $ - GameIncludes_Start
 
 ; Include game data
@@ -126,7 +126,7 @@ MainLoop:
     ; call    UpdateBgObjects_SetupVariables
     ; call    UpdateBgObjects_Execute
 
-    call    UpdateSparklesAnimation
+    call    UpdateAnimations
 
 ; ----------------------------------------------------------------
 

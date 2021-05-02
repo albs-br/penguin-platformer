@@ -70,6 +70,15 @@ InitVariables:
     ld      (Sparkles_Y), a
 
 
+    ; Animation for hit flash
+    xor     a
+    ld      (HitFlash_Counter), a
+    ld      (HitFlash_FrameNumber), a
+    ld      (HitFlash_X), a
+    ld      a, 192
+    ld      (HitFlash_Y), a
+
+
     ; Sprites for enemies
     xor     a
     ld      (Enemy_1_X), a

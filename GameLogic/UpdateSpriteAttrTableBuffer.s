@@ -74,6 +74,23 @@ UpdateSpriteAttrTableBuffer:
 
     ; Sprite # 4
     inc     hl
+    ld      a, (HitFlash_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (HitFlash_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (HitFlash_FrameNumber)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, COLOR_WHITE
+    ld      (hl), a
+
+    ; Sprite # 5
+    inc     hl
     ld      a, (Enemy_1_Y)
     ld      (hl), a
 

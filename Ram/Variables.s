@@ -66,6 +66,13 @@ Sparkles_FrameNumber:                   rb 1
 Sparkles_Counter:                       rb 1        ; counter for each animation frame
 
 
+; Animation for hit flash (when player jumps over enemy)
+HitFlash_X:                             rb 1
+HitFlash_Y:                             rb 1
+HitFlash_FrameNumber:                   rb 1
+HitFlash_Counter:                       rb 1        ; counter for each animation frame
+
+
 ; Enemies
 Enemy_1_X:                              rb 1
 Enemy_1_Y:                              rb 1

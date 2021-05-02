@@ -256,7 +256,8 @@ BgObjectsInitialState_Start:
     db     106,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     db     107,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0
     
-    db     110,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
+    ; TODO: fix bug (verify why this is not showing)
+    db     109,     DIAMOND_FIRST_TILE,    11 * 2 * 8,      1,  0,  0,  0,  0
 	ds     96 - ($ - (BgObjectsInitialState_Start + 0x06a0)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
