@@ -316,19 +316,58 @@ ShowBgObject:
 
 
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
+    inc     hl
+    inc     hl
+    ld      (UpdateBgObjects_CurrentAddr_EnemyType), hl
+
+
+    ld      hl, (UpdateBgObjects_CurrentAddr_State)
     ld      a, (hl)
     cp      2
     jp      nc, .animateEnemyDying        ; a >= n
 
 .showEnemyTiles:
 	exx
+        ; switch enemy type
+        ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
+        ld      a, (hl)
+        cp      ENEMY_TYPE_LADYBUG_LEFT
+        jp      z, .enemyTypeLadybugLeft
+        cp      ENEMY_TYPE_SNAIL_LEFT
+        jp      z, .enemyTypeSnailLeft
+
+.enemyTypeLadybugLeft:
+        ld      a, LADYBUG_SPRITE_LEFT
+        ld      (UpdateBgObjects_Enemy_Sprite_Number), a
+
+        ld      a, COLOR_RED
+        ld      (UpdateBgObjects_Enemy_Sprite_Color), a
+
+        ld      hl, TileColors_EnemyLadybug_Top_Start
+        ld      (UpdateBgObjects_Enemy_Color_Addr), hl
+        
+        ld      hl, TilePatterns_Enemy_Ladybug_Start
+        jp      .continue
+
+.enemyTypeSnailLeft:
+        ld      a, SNAIL_SPRITE_LEFT
+        ld      (UpdateBgObjects_Enemy_Sprite_Number), a
+
+        ld      a, COLOR_DARK_YELLOW
+        ld      (UpdateBgObjects_Enemy_Sprite_Color), a
+
+        ld      hl, TileColors_EnemySnail_Top_Start
+        ld      (UpdateBgObjects_Enemy_Color_Addr), hl
+        
+        ld      hl, TilePatterns_Enemy_Snail_Start
+        jp      .continue
+
+.continue:
         ; ------------ Update patterns table  ------------
         ; copy pattern data of enemy to VRAM
         
-; TODO: switch enemy here
-
         ; HL = TilePatterns_Enemy_Ladybug_Start + (FrameIndex * 8)
-        ld		hl, TilePatterns_Enemy_Snail_Start ; TilePatterns_Enemy_Ladybug_Start	                                ; RAM address
+        ;ld		hl, TilePatterns_Enemy_Snail_Start ; TilePatterns_Enemy_Ladybug_Start	                                ; RAM address
         ld      a, (FrameIndex)
         or      a
         jp      z, .noMult
@@ -386,18 +425,13 @@ ShowBgObject:
             call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
         pop     hl
 
-; TODO: switch enemy here
-
         ; ------------ Update colors table  ------------
         ; copy color data of enemy to VRAM
         ld		bc, 8 * 6   ; Block length
         ld		de, VRAM_COLORS_TABLE_ADDR						                        ; VRAM address
-        ld		hl, TileColors_EnemySnail_Top_Start ; TileColors_EnemyLadybug_Top_Start	                                ; RAM address
+        ;ld		hl, TileColors_EnemySnail_Top_Start ; TileColors_EnemyLadybug_Top_Start	                                ; RAM address
+        ld      hl, (UpdateBgObjects_Enemy_Color_Addr)                                  ; RAM address
         call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        ; ld		bc, 8 * 3   ; Block length
-        ; ld		de, VRAM_COLORS_TABLE_ADDR + (8*3)						                        ; VRAM address
-        ; ld		hl, TileColors_EnemyLadybug_Bottom_Start	                                ; RAM address
-        ; call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
     exx
 
     ; ------------ Update names table  ------------
@@ -464,10 +498,11 @@ ShowBgObject:
     ld      (Enemy_1_Y), a
 
 
-; TODO: switch enemy here
-    ld      a, SNAIL_SPRITE_LEFT ; LADYBUG_SPRITE_LEFT
+    ; ld      a, SNAIL_SPRITE_LEFT ; LADYBUG_SPRITE_LEFT
+    ld      a, (UpdateBgObjects_Enemy_Sprite_Number)
     ld      (Enemy_1_Pattern), a
-    ld      a, COLOR_DARK_YELLOW ; COLOR_RED
+    ; ld      a, COLOR_DARK_YELLOW ; COLOR_RED
+    ld      a, (UpdateBgObjects_Enemy_Sprite_Color)
     ld      (Enemy_1_Color), a
 
 
