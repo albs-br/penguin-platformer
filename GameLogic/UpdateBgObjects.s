@@ -87,7 +87,8 @@ UpdateBgObjects_Execute:
     sbc     hl, de
     add     hl, de
 
-    ret     nc ; jp      nc, .end       ; if hl >= de
+    ; ret     nc ;                      ; if hl >= de
+    jp      nc, .next                   ; if hl >= de           ; if object is out of visible screen, go to next (objects may be out of order)
     jp      .isVisible
 
 .next:

@@ -46,10 +46,10 @@ BgObjectsInitialState_Start:
 
     ; 3rd third (lines 8-11) - 96 bytes
     ;db      10,     ENEMY,                  9 * 2 * 8,      1,  0,  0,  0,  0
+    db      11,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0
+    db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0
     db      13,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
     db      15,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,                          0,  0
-    db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0
-    db      11,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0
 	ds     96 - ($ - (BgObjectsInitialState_Start + 0x00a0)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
@@ -70,13 +70,14 @@ BgObjectsInitialState_Start:
 	ds     96 - ($ - (BgObjectsInitialState_Start + 0x0140)), 0                 ; fill with 0s until end of block
 
     ; 3rd third (lines 8-11) - 96 bytes
+
     db      17,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0
     db      20,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,  0,  0
 
-; TODO: fix bug (objects out of order of columns are causing the following objects to not be displayed)
+    db      27,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0
+
     db      29,     ENEMY,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
 
-    db      27,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0
 	ds     96 - ($ - (BgObjectsInitialState_Start + 0x01a0)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
