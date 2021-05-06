@@ -53,8 +53,6 @@ InitVram:
     call    LoadTilePatterns
     call    LoadTileColors
 
-    ;call    LoadNamesTableBuffer
-
 
 
     ; Create Sprites
@@ -240,3 +238,21 @@ LoadTileColors_OneThird:
 	jp		c, .loop
 
     ret
+
+
+SetNameTable_1:
+; Write to VDP register 2 (determines the base address of the Name Table which constitutes the foreground.)
+; Screen 2: set it to 6144 (1024 x 6)
+	ld	c, 2	               		; VDP Register Number (0..27, 32..46)
+	ld	b, 6	               		; Data To Write
+    call BIOS_WRTVDP        		; Block transfer to VRAM from memory
+	ret
+
+SetNameTable_2:
+; Write to VDP register 2 (determines the base address of the Name Table which constitutes the foreground.)
+; Screen 2: set it to 7168 (1024 x 7)
+	ld	c, 2	               		; VDP Register Number (0..27, 32..46)
+	ld	b, 7	               		; Data To Write
+    call BIOS_WRTVDP        		; Block transfer to VRAM from memory
+	ret
+

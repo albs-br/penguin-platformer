@@ -3,6 +3,9 @@
                                                 ; rb n  = reserve n bytes in RAM
                                                 ; rw n  = reserve n words in RAM
 
+
+CurrentNamesTable:          rw 1
+
 ; Table aligned to 0xC000
 ; --- Background objects with state (diamonds for example)
 BgObjects_Start:            rb 256 * 16   ; bytes per page * number of pages

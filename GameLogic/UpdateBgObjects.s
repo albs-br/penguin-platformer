@@ -169,13 +169,13 @@ ShowBgObject:
     ld      h, 0
     ld      l, a
     ; add     hl, hl                          ; multiply by 32
-    ; add     hl, hl                          ; this multiplication now is pre calculated on BgObjects.s
+    ; add     hl, hl                          ; multiplication by 8 now is pre calculated on BgObjects.s
     ; add     hl, hl
     ;ld      a, l
     ld      (UpdateBgObjects_Y), a          ; save object pixel Y position
     add     hl, hl
     add     hl, hl
-    ld      bc, NamesTable
+    ld      bc, (CurrentNamesTable)
     add     hl, bc
 
     ; set VDP port for OUT command
@@ -378,7 +378,7 @@ ShowBgObject:
         add     hl, de
         djnz    .multLoop
 .noMult:
-        ; TODO: change the way that enemy sprites are alocated on ROM, to make it possible to coppy all 48 bytes at once (faster)
+        ; TODO: change the way that enemy sprites are alocated on ROM, to make it possible to copy all 48 bytes at once (faster)
 
         ld		de, VRAM_PATTERN_TABLE_ADDR						                        ; VRAM address
         ld		bc, 8   ; Block length

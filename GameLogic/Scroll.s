@@ -351,7 +351,7 @@ DrawBackground_1st_Third:
     ;ld      (BgCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
-	ld	    hl, NamesTable
+	ld	    hl, (CurrentNamesTable)
     call    BIOS_SETWRT
     
             ld	    hl, (BgAddrIndex)
@@ -392,7 +392,11 @@ DrawBackground_2nd_Third:
     ;ld      (BgCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
-	ld	    hl, NamesTable + 256
+	; ld	    hl, NamesTable + 256
+	ld	    hl, (CurrentNamesTable)
+    ld      de, 256
+    add     hl, de
+    
 	call    BIOS_SETWRT
 
             ld	    hl, (BgAddrIndex)
@@ -436,7 +440,11 @@ DrawBackground_3rd_Third:
     ;ld      (BgCurrentIndex), hl
 
     ; Sets the VRAM pointer (destiny)
-	ld	    hl, NamesTable + 512
+	; ld	    hl, NamesTable + 512
+	ld	    hl, (CurrentNamesTable)
+    ld      de, 512
+    add     hl, de
+
 	call    BIOS_SETWRT
 
             ld	    hl, (BgAddrIndex)

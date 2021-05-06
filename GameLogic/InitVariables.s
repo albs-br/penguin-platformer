@@ -3,6 +3,13 @@ InitVariables:
     or      0x80                             ; A value different of zero is granted
     ld      (Seed), a
 
+
+    ; Writing to Names Table 2 while showing Names Table 1
+    call    SetNameTable_1
+    ld      hl, NamesTable_2
+    ld      (CurrentNamesTable), hl
+
+
     ld      hl, 0
     ld      (BgCurrentIndex), hl
 

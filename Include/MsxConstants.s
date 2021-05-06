@@ -6,7 +6,8 @@ SCREEN_HEIGHT_IN_PIXELS:        equ     24 * 8
 
 
 ; VRAM memory mapping (Screen 2)
-NamesTable:	                    equ 6144	; 0x1800 - Base address for names table (6144 to 6911); 256 * 3 = 768 bytes
+NamesTable:	                    equ 6144	; 6 * 1024 - 0x1800 - Base address for names table (6144 to 6911); 256 * 3 = 768 bytes
+NamesTable_2:	                equ 7168	; 7 * 1024 - 0x1c00 - Alternative address for names table
 
 PatternsTable_1st_Third:	    equ 0	    ; 0x0000 - Base address for 3 patterns tables (0 to 6143); 256 * 8 * 3 = 6144 bytes
 PatternsTable_2nd_Third:	    equ PatternsTable_1st_Third + (256 * 8)
