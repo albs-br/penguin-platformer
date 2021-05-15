@@ -361,7 +361,7 @@ ShowBgObject:
         ld      (UpdateBgObjects_Enemy_Color_Addr), hl
         
         ld      hl, TilePatterns_Enemy_Snail_Start
-        jp      .continue
+        ; jp      .continue
 
 .continue:
         ; ------------ Update patterns table  ------------
@@ -380,51 +380,57 @@ ShowBgObject:
 .noMult:
         ; TODO: change the way that enemy sprites are alocated on ROM, to make it possible to copy all 48 bytes at once (faster)
 
-        ld		de, VRAM_PATTERN_TABLE_ADDR						                        ; VRAM address
-        ld		bc, 8   ; Block length
-        push    hl
-            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        pop     hl
+        ; save enemy pattern address
+        ld      (UpdateBgObjects_Enemy_1_Pattern_Addr), hl
         
-        ld		de, VRAM_PATTERN_TABLE_ADDR + 8				                            ; VRAM address
-        ld      bc, 8 * 8
-        add     hl, bc
-        ld		bc, 8   ; Block length
-        push    hl
-            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        pop     hl
+        ; code moved to main to fix bug (remove after a few iterations)
 
-        ld		de, VRAM_PATTERN_TABLE_ADDR + 16				                            ; VRAM address
-        ld      bc, 8 * 8
-        add     hl, bc
-        ld		bc, 8   ; Block length
-        push    hl
-            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        pop     hl
+        ; ld		de, VRAM_PATTERN_TABLE_ADDR						                        ; VRAM address
+        ; ld		bc, 8   ; Block length
+        ; push    hl
+        ;     call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        ; pop     hl
+        
+        ; ld		de, VRAM_PATTERN_TABLE_ADDR + 8				                            ; VRAM address
+        ; ld      bc, 8 * 8
+        ; add     hl, bc
+        ; ld		bc, 8   ; Block length
+        ; push    hl
+        ;     call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        ; pop     hl
 
-        ld		de, VRAM_PATTERN_TABLE_ADDR + 24				                            ; VRAM address
-        ld      bc, 8 * 8 * 2
-        add     hl, bc
-        ld		bc, 8   ; Block length
-        push    hl
-            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        pop     hl
+        ; ld		de, VRAM_PATTERN_TABLE_ADDR + 16				                            ; VRAM address
+        ; ld      bc, 8 * 8
+        ; add     hl, bc
+        ; ld		bc, 8   ; Block length
+        ; push    hl
+        ;     call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        ; pop     hl
 
-        ld		de, VRAM_PATTERN_TABLE_ADDR + 32				                            ; VRAM address
-        ld      bc, 8 * 8
-        add     hl, bc
-        ld		bc, 8   ; Block length
-        push    hl
-            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        pop     hl
+        ; ld		de, VRAM_PATTERN_TABLE_ADDR + 24				                            ; VRAM address
+        ; ld      bc, 8 * 8 * 2
+        ; add     hl, bc
+        ; ld		bc, 8   ; Block length
+        ; push    hl
+        ;     call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        ; pop     hl
 
-        ld		de, VRAM_PATTERN_TABLE_ADDR + 40				                            ; VRAM address
-        ld      bc, 8 * 8
-        add     hl, bc
-        ld		bc, 8   ; Block length
-        push    hl
-            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        pop     hl
+        ; ld		de, VRAM_PATTERN_TABLE_ADDR + 32				                            ; VRAM address
+        ; ld      bc, 8 * 8
+        ; add     hl, bc
+        ; ld		bc, 8   ; Block length
+        ; push    hl
+        ;     call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        ; pop     hl
+
+        ; ld		de, VRAM_PATTERN_TABLE_ADDR + 40				                            ; VRAM address
+        ; ld      bc, 8 * 8
+        ; add     hl, bc
+        ; ld		bc, 8   ; Block length
+        ; push    hl
+        ;     call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        ; pop     hl
+
 
         ; ------------ Update colors table  ------------
         ; copy color data of enemy to VRAM
@@ -547,21 +553,9 @@ ShowBgObject:
     ret     nc
 
     ; if collided, disable enemy
-    ; ld      hl, (UpdateBgObjects_CurrentAddr)
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
     ld      a, 2            ; start enemy dying animation
     ld      (hl), a
-
-    ; ; hide sprite
-    ; xor     a
-    ; ld      (Enemy_1_Pattern), a
-    ; ld      (Enemy_1_Color), a
-    ; ld      (Enemy_1_X), a
-    ; ld      a, 192
-    ; ld      (Enemy_1_Y), a
 
     ; start hit flash animation
     ld      a, HIT_FLASH_FIRST_FRAME

@@ -108,6 +108,57 @@ MainLoop:
     call    BIOS_WRTVDP        		    ; Block transfer to VRAM from memory
 
 
+    ; get enemy 1 pattern address and spit it to VRAM
+    ld      hl, (UpdateBgObjects_Enemy_1_Pattern_Addr)
+
+        ld		de, VRAM_PATTERN_TABLE_ADDR						                        ; VRAM address
+        ld		bc, 8   ; Block length
+        push    hl
+            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        pop     hl
+        
+        ld		de, VRAM_PATTERN_TABLE_ADDR + 8				                            ; VRAM address
+        ld      bc, 8 * 8
+        add     hl, bc
+        ld		bc, 8   ; Block length
+        push    hl
+            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        pop     hl
+
+        ld		de, VRAM_PATTERN_TABLE_ADDR + 16				                            ; VRAM address
+        ld      bc, 8 * 8
+        add     hl, bc
+        ld		bc, 8   ; Block length
+        push    hl
+            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        pop     hl
+
+        ld		de, VRAM_PATTERN_TABLE_ADDR + 24				                            ; VRAM address
+        ld      bc, 8 * 8 * 2
+        add     hl, bc
+        ld		bc, 8   ; Block length
+        push    hl
+            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        pop     hl
+
+        ld		de, VRAM_PATTERN_TABLE_ADDR + 32				                            ; VRAM address
+        ld      bc, 8 * 8
+        add     hl, bc
+        ld		bc, 8   ; Block length
+        push    hl
+            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        pop     hl
+
+        ld		de, VRAM_PATTERN_TABLE_ADDR + 40				                            ; VRAM address
+        ld      bc, 8 * 8
+        add     hl, bc
+        ld		bc, 8   ; Block length
+        push    hl
+            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+        pop     hl    
+
+
+
 
     ; [debug]
     ; Check if previous frame ended
