@@ -24,7 +24,7 @@
             "command": "C:\\Program Files\\openMSX\\openmsx",
                 "args": [
                     {
-                        "value": "C:\\Users\\albs_\\source\\repos\\penguim-platformer\\penguin-platformer.rom",
+                        "value": "C:\\Users\\albs_\\source\\repos\\penguim-platformer\\go-penguin.rom",
                         "quoting": "strong"
                     },
                     {

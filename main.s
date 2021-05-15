@@ -1,11 +1,11 @@
 ;
-; Penguin Platformer for MSX 1
+; Go Penguin (former Penguin Platformer) for MSX 1
 ; Andre Baptista (www.andrebaptista.com.br)
 ; 
 ; some code from MSXlib basic example
 ;
 
-FNAME "penguin-platformer.rom"      ; output file
+FNAME "go-penguin.rom"      ; output file
 
 
 PageSize:	    equ	0x4000	        ; 16kB
@@ -85,7 +85,7 @@ InitGame:
 
 ; Main loop
 MainLoop:
-	halt			                    ; (v-blank sync)
+    halt			                    ; (v-blank sync)
 
     ; Switch names table
     ld      hl, (CurrentNamesTable)
