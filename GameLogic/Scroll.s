@@ -1,37 +1,14 @@
 DrawBackground_3_Thirds:
 
-
-; test 
-    ; call    DrawBackground_1st_Third
-    ; call    DrawBackground_2nd_Third
-    ; call    DrawBackground_3rd_Third
-
-    ; call    UpdateBgObjects_SetupVariables
-    ; call    UpdateBgObjects_Execute
-
-    ; ld      hl, (Addr_Screen_FirstVisibleColumn)
-    ; ld      bc, 64                        ; TODO: use 8 bit add, as it is page aligned
-    ; add     hl, bc
-    ; ld      (UpdateBgObjects_CurrentAddr), hl
-    ; call    UpdateBgObjects_Execute
-
-    ; ld      hl, (Addr_Screen_FirstVisibleColumn)
-    ; ld      bc, 64 + 96                   ; TODO: use 8 bit add, as it is page aligned, or even LD L, 64 + 96
-    ; add     hl, bc
-    ; ld      (UpdateBgObjects_CurrentAddr), hl
-    ; call    UpdateBgObjects_Execute
-
-    ; ret
-
-; ------------------------- 1st third -------------------------
-
     IFDEF DEBUG
         ld 		a, COLOR_BLUE       	; Border color
         ld 		(BIOS_BDRCLR), a    
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF    
 
-    call    DrawBackground_1st_Third
+    call    DrawBackground_3_Thirds_New
+
+
 
     IFDEF DEBUG
         ld 		a, COLOR_LIGHT_BLUE       	; Border color
@@ -42,52 +19,12 @@ DrawBackground_3_Thirds:
     call   UpdateBgObjects_SetupVariables
     call   UpdateBgObjects_Execute
 
-
-; ------------------------- 2nd third -------------------------
-
-    IFDEF DEBUG
-        ld 		a, COLOR_BLUE       	; Border color
-        ld 		(BIOS_BDRCLR), a    
-        call 	BIOS_CHGCLR        		; Change Screen Color
-    ENDIF    
-
-    call    DrawBackground_2nd_Third
-
-    IFDEF DEBUG
-        ld 		a, COLOR_LIGHT_BLUE       	; Border color
-        ld 		(BIOS_BDRCLR), a    
-        call 	BIOS_CHGCLR        		; Change Screen Color
-    ENDIF    
-
-    ;call    UpdateBgObjects_SetupVariables
     ld      hl, (Addr_Screen_FirstVisibleColumn)
     ld      bc, 64                        ; TODO: use 8 bit add, as it is page aligned, or even LD L, 64
     add     hl, bc
     ld      (UpdateBgObjects_CurrentAddr), hl
     call    UpdateBgObjects_Execute
 
-; ------------------------- 3rd third -------------------------
-
-    IFDEF DEBUG
-        ld 		a, COLOR_BLUE       	; Border color
-        ld 		(BIOS_BDRCLR), a    
-        call 	BIOS_CHGCLR        		; Change Screen Color
-    ENDIF    
-
-    call    DrawBackground_3rd_Third
-
-    IFDEF DEBUG
-        ld 		a, COLOR_LIGHT_BLUE       	; Border color
-        ld 		(BIOS_BDRCLR), a    
-        call 	BIOS_CHGCLR        		; Change Screen Color
-    ENDIF    
-
-; ; test
-;     ld hl, 2
-
-;     call ShowBgObject
-
-    ;call    UpdateBgObjects_SetupVariables
     ld      hl, (Addr_Screen_FirstVisibleColumn)
     ld      bc, 64 + 96                   ; TODO: use 8 bit add, as it is page aligned, or even LD L, 64 + 96
     add     hl, bc
@@ -341,8 +278,10 @@ ScrollLeft:
     ret
 
 
+SCROLL_TILE_LINES_DURING_VBLANK:        equ 8
+SCROLL_TILE_LINES_AFTER_VBLANK:         equ 24 - SCROLL_TILE_LINES_DURING_VBLANK
 
-DrawBackground_1st_Third:
+DrawBackground_3_Thirds_New:
     ; set MegaROM initial page
     ld      a, 1
     ld      (CurrentMegaRomPage), a
@@ -357,7 +296,7 @@ DrawBackground_1st_Third:
             ld	    hl, (BgAddrIndex)
 
             ; First n lines with unroled OUTI's during Vblank
-            ld      d, 8 ; SCROLL_TILE_LINES_DURING_VBLANK
+            ld      d, SCROLL_TILE_LINES_DURING_VBLANK
         .loopLines1:
             ; Set the source pointer in RAM
             push    hl
@@ -382,104 +321,178 @@ DrawBackground_1st_Third:
             dec     d
             jp      nz, .loopLines1
     
-    ld	    (BgAddrIndex), hl
+
+            ld	    hl, (BgAddrIndex)
+
+            ; last n lines with the slower OUTI inside loop after Vblank
+            ld      d, SCROLL_TILE_LINES_AFTER_VBLANK
+        .loopLines2:
+            ; Set the source pointer in RAM
+            push    hl
+
+            ld	    a, (BIOS_VDP_DW)
+            ld	    c, a
+
+                    ld      b, 32
+                .loopOUTI:
+                    outi
+                    jp	    nz, .loopOUTI
+
+            ; Update bgIndex to next line
+            ; BgIndex += 128 * 8
+            pop     hl
+            ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
+            add     hl, bc
+
+            ; check if line is multiple of 4 (go to next page)
+            ld      a, d
+            dec     a
+            and     0000 0011 b
+            call    z, NextMegaROMPage
+
+            dec     d
+            jp      nz, .loopLines2
+
     ret
 
-DrawBackground_2nd_Third:
-    ld      a, (CurrentMegaRomPage)
-    ld	    (Seg_P8000_SW), a
-
-    ;ld      (BgCurrentIndex), hl
-
-    ; Sets the VRAM pointer (destiny)
-	; ld	    hl, NamesTable + 256
-	ld	    hl, (CurrentNamesTable)
-    ld      de, 256
-    add     hl, de
+; DrawBackground_1st_Third:
+;     ; set MegaROM initial page
+;     ld      a, 1
+;     ld      (CurrentMegaRomPage), a
+;     ld	    (Seg_P8000_SW), a
     
-	call    BIOS_SETWRT
+;     ;ld      (BgCurrentIndex), hl
 
-            ld	    hl, (BgAddrIndex)
+;     ; Sets the VRAM pointer (destiny)
+; 	ld	    hl, (CurrentNamesTable)
+;     call    BIOS_SETWRT
+    
+;             ld	    hl, (BgAddrIndex)
 
-            ; mid 8 lines with the slower OUTI inside loop after Vblank
-            ld      d, 8 ; SCROLL_TILE_LINES_AFTER_VBLANK
-        .loopLines2:
-            ; Set the source pointer in RAM
-            push    hl
+;             ; First n lines with unroled OUTI's during Vblank
+;             ld      d, 8 ; SCROLL_TILE_LINES_DURING_VBLANK
+;         .loopLines1:
+;             ; Set the source pointer in RAM
+;             push    hl
 
-            ld	    a, (BIOS_VDP_DW)
-            ld	    c, a
+;             ld	    a, (BIOS_VDP_DW)
+;             ld	    c, a
+;             ; 32 Unrolled OUTIs (use only during v-blank)
+;             OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
+            
+;             ; Update bgIndex to next line
+;             ; BgIndex += 128 * 8
+;             pop     hl
+;             ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
+;             add     hl, bc
 
-                    ld      b, 32
-                .loopOUTI:
-                    outi
-                    jp	    nz, .loopOUTI
+;             ; check if line is multiple of 4 (go to next page)
+;             ld      a, d
+;             dec     a
+;             and     0000 0011 b
+;             call    z, NextMegaROMPage
 
-            ; Update bgIndex to next line
-            ; BgIndex += 128 * 8
-            pop     hl
-            ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
-            add     hl, bc
+;             dec     d
+;             jp      nz, .loopLines1
+    
+;     ld	    (BgAddrIndex), hl
+;     ret
 
-            ; check if line is multiple of 4 (go to next page)
-            ld      a, d
-            dec     a
-            and     0000 0011 b
-            call    z, NextMegaROMPage
+; DrawBackground_2nd_Third:
+;     ld      a, (CurrentMegaRomPage)
+;     ld	    (Seg_P8000_SW), a
 
-            dec     d
-            jp      nz, .loopLines2
+;     ;ld      (BgCurrentIndex), hl
 
-    ld	    (BgAddrIndex), hl
-    ret
+;     ; Sets the VRAM pointer (destiny)
+; 	; ld	    hl, NamesTable + 256
+; 	ld	    hl, (CurrentNamesTable)
+;     ld      de, 256
+;     add     hl, de
+    
+; 	call    BIOS_SETWRT
 
-DrawBackground_3rd_Third:
-    ld      a, (CurrentMegaRomPage)
-    ld	    (Seg_P8000_SW), a
+;             ld	    hl, (BgAddrIndex)
 
-    ;ld      (BgCurrentIndex), hl
+;             ; mid 8 lines with the slower OUTI inside loop after Vblank
+;             ld      d, 8 ; SCROLL_TILE_LINES_AFTER_VBLANK
+;         .loopLines2:
+;             ; Set the source pointer in RAM
+;             push    hl
 
-    ; Sets the VRAM pointer (destiny)
-	; ld	    hl, NamesTable + 512
-	ld	    hl, (CurrentNamesTable)
-    ld      de, 512
-    add     hl, de
+;             ld	    a, (BIOS_VDP_DW)
+;             ld	    c, a
 
-	call    BIOS_SETWRT
+;                     ld      b, 32
+;                 .loopOUTI:
+;                     outi
+;                     jp	    nz, .loopOUTI
 
-            ld	    hl, (BgAddrIndex)
+;             ; Update bgIndex to next line
+;             ; BgIndex += 128 * 8
+;             pop     hl
+;             ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
+;             add     hl, bc
 
-            ; last 8 lines with the slower OUTI inside loop after Vblank
-            ld      d, 8 ; SCROLL_TILE_LINES_AFTER_VBLANK
-        .loopLines2:
-            ; Set the source pointer in RAM
-            push    hl
+;             ; check if line is multiple of 4 (go to next page)
+;             ld      a, d
+;             dec     a
+;             and     0000 0011 b
+;             call    z, NextMegaROMPage
 
-            ld	    a, (BIOS_VDP_DW)
-            ld	    c, a
+;             dec     d
+;             jp      nz, .loopLines2
 
-                    ld      b, 32
-                .loopOUTI:
-                    outi
-                    jp	    nz, .loopOUTI
+;     ld	    (BgAddrIndex), hl
+;     ret
 
-            ; Update bgIndex to next line
-            ; BgIndex += 128 * 8
-            pop     hl
-            ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
-            add     hl, bc
+; DrawBackground_3rd_Third:
+    ; ld      a, (CurrentMegaRomPage)
+    ; ld	    (Seg_P8000_SW), a
 
-            ; check if line is multiple of 4 (go to next page)
-            ld      a, d
-            dec     a
-            and     0000 0011 b
-            call    z, NextMegaROMPage
+    ; ;ld      (BgCurrentIndex), hl
 
-            dec     d
-            jp      nz, .loopLines2
+    ; ; Sets the VRAM pointer (destiny)
+	; ; ld	    hl, NamesTable + 512
+	; ld	    hl, (CurrentNamesTable)
+    ; ld      de, 512
+    ; add     hl, de
 
-    ld	    (BgAddrIndex), hl
-    ret
+	; call    BIOS_SETWRT
+
+    ;         ld	    hl, (BgAddrIndex)
+
+    ;         ; last 8 lines with the slower OUTI inside loop after Vblank
+    ;         ld      d, 8 ; SCROLL_TILE_LINES_AFTER_VBLANK
+    ;     .loopLines2:
+    ;         ; Set the source pointer in RAM
+    ;         push    hl
+
+    ;         ld	    a, (BIOS_VDP_DW)
+    ;         ld	    c, a
+
+    ;                 ld      b, 32
+    ;             .loopOUTI:
+    ;                 outi
+    ;                 jp	    nz, .loopOUTI
+
+    ;         ; Update bgIndex to next line
+    ;         ; BgIndex += 128 * 8
+    ;         pop     hl
+    ;         ld      bc, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
+    ;         add     hl, bc
+
+    ;         ; check if line is multiple of 4 (go to next page)
+    ;         ld      a, d
+    ;         dec     a
+    ;         and     0000 0011 b
+    ;         call    z, NextMegaROMPage
+
+    ;         dec     d
+    ;         jp      nz, .loopLines2
+
+    ; ld	    (BgAddrIndex), hl
+    ; ret
 
 
 ; Updates the X coord of the sprites, to compensate for scrolling

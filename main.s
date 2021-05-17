@@ -87,6 +87,12 @@ InitGame:
 MainLoop:
     halt			                    ; (v-blank sync)
 
+    IFDEF DEBUG
+        ld 		a, COLOR_RED       	    ; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
+
     ; Switch names table
     ld      hl, (CurrentNamesTable)
     ld      a, h
@@ -105,8 +111,14 @@ MainLoop:
 .continue:
     ld      (CurrentNamesTable), hl
 	ld	    c, 2	               		; VDP Register Number (0..27, 32..46)
-    call    BIOS_WRTVDP        		    ; Block transfer to VRAM from memory
+    call    BIOS_WRTVDP        		    ; 
 
+
+    ; test
+    ; ld      hl, (UpdateBgObjects_Enemy_1_Pattern_Addr)
+    ; ld		de, VRAM_PATTERN_TABLE_ADDR						                        ; VRAM address
+    ; ld		bc, 48   ; Block length
+    ; call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
 
     ; get enemy 1 pattern address and spit it to VRAM
     ld      hl, (UpdateBgObjects_Enemy_1_Pattern_Addr)
@@ -153,9 +165,9 @@ MainLoop:
         ld      bc, 8 * 8
         add     hl, bc
         ld		bc, 8   ; Block length
-        push    hl
+        ;push    hl
             call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        pop     hl    
+        ;pop     hl    
 
 
 

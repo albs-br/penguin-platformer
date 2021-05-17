@@ -327,7 +327,7 @@ fast_LDIRVM:
                 ; For things that require real speed, this function should not be used anyway, and you should use specialized loops
     push de
     push bc
-    call BIOS_SETWRT
+        call BIOS_SETWRT
     pop bc
     pop hl
 copy_to_VDP:
