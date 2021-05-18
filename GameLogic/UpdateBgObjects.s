@@ -365,20 +365,24 @@ ShowBgObject:
 
 .continue:
         ; ------------ Update patterns table  ------------
-        ; copy pattern data of enemy to VRAM
+        ; set pointer to copy pattern data of enemy to VRAM
         
-        ; HL = TilePatterns_Enemy_Ladybug_Start + (FrameIndex * 8)
+        ; HL = TilePatterns_Enemy_Ladybug_Start + (FrameIndex * (6 * 8))
         ;ld		hl, TilePatterns_Enemy_Snail_Start ; TilePatterns_Enemy_Ladybug_Start	                                ; RAM address
         ld      a, (FrameIndex)
         or      a
         jp      z, .noMult
+
+        sla     a           ; multiply by 8
+        sla     a
+        sla     a
+
         ld      b, a
-        ld      de, 8
+        ld      de, 6       ; multiply by 6
 .multLoop:
         add     hl, de
         djnz    .multLoop
 .noMult:
-        ; TODO: change the way that enemy sprites are alocated on ROM, to make it possible to copy all 48 bytes at once (faster)
 
         ; save enemy pattern address
         ld      (UpdateBgObjects_Enemy_1_Pattern_Addr), hl

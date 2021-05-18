@@ -98,7 +98,6 @@ MainLoop:
     ld      a, h
     cp      0x18                        ; Names Table 1 High byte
     jp      z, .setNameTable_2
-.setNameTable_1:
 ; Set names table 1
     ; Writing to Names Table 1 while showing Names Table 2
     ld      hl, NamesTable
@@ -114,61 +113,16 @@ MainLoop:
     call    BIOS_WRTVDP        		    ; 
 
 
-    ; test
-    ; ld      hl, (UpdateBgObjects_Enemy_1_Pattern_Addr)
-    ; ld		de, VRAM_PATTERN_TABLE_ADDR						                        ; VRAM address
-    ; ld		bc, 48   ; Block length
-    ; call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-
-    ; get enemy 1 pattern address and spit it to VRAM
+    ; Get enemy 1 pattern address and spit it to VRAM
+    ld	    hl, VRAM_PATTERN_TABLE_ADDR
+    call	BIOS_SETWRT                                 ; Sets the VRAM pointer
     ld      hl, (UpdateBgObjects_Enemy_1_Pattern_Addr)
-
-        ld		de, VRAM_PATTERN_TABLE_ADDR						                        ; VRAM address
-        ld		bc, 8   ; Block length
-        push    hl
-            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        pop     hl
-        
-        ld		de, VRAM_PATTERN_TABLE_ADDR + 8				                            ; VRAM address
-        ld      bc, 8 * 8
-        add     hl, bc
-        ld		bc, 8   ; Block length
-        push    hl
-            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        pop     hl
-
-        ld		de, VRAM_PATTERN_TABLE_ADDR + 16				                            ; VRAM address
-        ld      bc, 8 * 8
-        add     hl, bc
-        ld		bc, 8   ; Block length
-        push    hl
-            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        pop     hl
-
-        ld		de, VRAM_PATTERN_TABLE_ADDR + 24				                            ; VRAM address
-        ld      bc, 8 * 8 * 2
-        add     hl, bc
-        ld		bc, 8   ; Block length
-        push    hl
-            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        pop     hl
-
-        ld		de, VRAM_PATTERN_TABLE_ADDR + 32				                            ; VRAM address
-        ld      bc, 8 * 8
-        add     hl, bc
-        ld		bc, 8   ; Block length
-        push    hl
-            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        pop     hl
-
-        ld		de, VRAM_PATTERN_TABLE_ADDR + 40				                            ; VRAM address
-        ld      bc, 8 * 8
-        add     hl, bc
-        ld		bc, 8   ; Block length
-        ;push    hl
-            call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
-        ;pop     hl    
-
+    ld	    a, (BIOS_VDP_DW)
+    ld	    c, a
+    ; Uses 6 * 8 = 48 OUTIs to copy the 6 tiles from ROM to VRAM
+    ; Unrolled OUTIs (use only during v-blank)
+    OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
+    OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
 
 
 

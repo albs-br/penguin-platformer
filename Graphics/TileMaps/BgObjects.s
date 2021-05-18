@@ -18,7 +18,10 @@ ENEMY_TYPE_SNAIL_RIGHT:         equ ENEMY_TYPE_SNAIL_LEFT + ENEMY_FACING_RIGHT
 ; Format:
 ;       column position (1-255), based on 16x16 tiles; 0 is forbidden
 ;       object tile first frame number (255 = enemy)
+
+;---> TODO: test rows 0-3 (now with 2 name tables as double buffer, it must work perfectly)
 ;       row number: n * 2 * 8, n is row number (4-11), based on 16x16 tiles, caution with first rows
+
 ;       state: enabled: 1; disabled: 0; > 1 : animation for enemy dying
 ; -- these properties are only for enemies:
 ;       x offset (0-15)
