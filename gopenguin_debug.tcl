@@ -18,4 +18,8 @@
 #ram_watch   add     0xD013      -type word      -desc BgAddrIndexFirstFrame                 -format hex
 
 
+ram_watch   add     0xD031      -type word      -desc UpdateBgObjects_Enemy_1_Pattern_Addr   -format hex
+
+
+
 #ram_watch load gopenguin_debug

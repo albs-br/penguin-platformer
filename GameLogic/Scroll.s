@@ -16,8 +16,11 @@ DrawBackground_3_Thirds:
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF    
 
-    call   UpdateBgObjects_SetupVariables
-    call   UpdateBgObjects_Execute
+    ld      hl, 0
+    ld      (UpdateBgObjects_Enemy_1_Pattern_Addr), hl
+
+    call    UpdateBgObjects_SetupVariables
+    call    UpdateBgObjects_Execute
 
     ld      hl, (Addr_Screen_FirstVisibleColumn)
     ld      bc, 64                        ; TODO: use 8 bit add, as it is page aligned, or even LD L, 64
