@@ -55,6 +55,11 @@ SNAIL_SPRITE_LEFT:          equ 43 * 4
 
 
 
+; Number 0
+TEST_NUMBER_0:              equ 44 * 4
+TEST_NUMBER_1:              equ 45 * 4
+
+
 ; Keyboard constants to current key(s) pressed
 ; KEY_LEFT:                               equ 1000 0000 b
 ; KEY_RIGHT:                              equ 0100 0000 b

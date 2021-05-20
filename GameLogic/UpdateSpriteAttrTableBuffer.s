@@ -106,4 +106,77 @@ UpdateSpriteAttrTableBuffer:
     ld      a, (Enemy_1_Color)
     ld      (hl), a
 
+
+
+; ----------- TEST
+
+    ; Sprite # 6
+    inc     hl
+    ld      a, 8 - 1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 24
+    ld      (hl), a
+
+    inc     hl
+    ld      a, TEST_NUMBER_0
+    ld      (hl), a
+
+    inc     hl
+    ld      a, COLOR_WHITE
+    ld      (hl), a
+
+    ; Sprite # 7
+    inc     hl
+    ld      a, 8 - 1 + 1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 24 + 1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, TEST_NUMBER_0
+    ld      (hl), a
+
+    inc     hl
+    ld      a, COLOR_BLACK
+    ld      (hl), a
+
+    ; Sprite # 8
+    inc     hl
+    ld      a, 24 - 1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 24
+    ld      (hl), a
+
+    inc     hl
+    ld      a, TEST_NUMBER_1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, COLOR_WHITE
+    ld      (hl), a
+
+    ; Sprite # 9
+    inc     hl
+    ld      a, 24 - 1 + 1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 24 + 1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, TEST_NUMBER_1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, COLOR_BLACK
+    ld      (hl), a
+
+
     ret
