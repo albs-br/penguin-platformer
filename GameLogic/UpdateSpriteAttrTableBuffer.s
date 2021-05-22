@@ -15,6 +15,8 @@ UpdateSpriteAttrTableBuffer:
     ;     ld      a, (Test_Sprite_Color)
     ;     ld      (hl), a
     ; ELSE
+        ld      a, 192          ; put sprite out of screen
+        ld      (hl), a
         inc     hl
         inc     hl
         inc     hl
@@ -164,14 +166,18 @@ UpdateSpriteAttrTableBuffer:
 
 ; ----------- Score
 
+SCORE_TOP_LEFT_Y:       equ 8 + 2 - 1
+SCORE_TOP_LEFT_X:       equ 7 + 4
+
+
     ; Penguin face
     ; Sprite # 
     inc     hl
-    ld      a, 8 - 1
+    ld      a, SCORE_TOP_LEFT_Y
     ld      (hl), a
 
     inc     hl
-    ld      a, 7
+    ld      a, SCORE_TOP_LEFT_X
     ld      (hl), a
 
     inc     hl
@@ -184,11 +190,11 @@ UpdateSpriteAttrTableBuffer:
 
     ; Sprite # 
     inc     hl
-    ld      a, 8 - 1
+    ld      a, SCORE_TOP_LEFT_Y
     ld      (hl), a
 
     inc     hl
-    ld      a, 7
+    ld      a, SCORE_TOP_LEFT_X
     ld      (hl), a
 
     inc     hl
@@ -202,11 +208,11 @@ UpdateSpriteAttrTableBuffer:
     ; Number of lifes
     ; Sprite # 
     inc     hl
-    ld      a, 8 - 1
+    ld      a, SCORE_TOP_LEFT_Y
     ld      (hl), a
 
     inc     hl
-    ld      a, 24
+    ld      a, SCORE_TOP_LEFT_X + 17
     ld      (hl), a
 
     inc     hl
@@ -217,13 +223,14 @@ UpdateSpriteAttrTableBuffer:
     ld      a, COLOR_WHITE
     ld      (hl), a
 
+    ; Number of lifes (shadow)
     ; Sprite # 
     inc     hl
-    ld      a, 8 - 1 + 1
+    ld      a, SCORE_TOP_LEFT_Y + 1
     ld      (hl), a
 
     inc     hl
-    ld      a, 24 + 1
+    ld      a, SCORE_TOP_LEFT_X + 17 + 1
     ld      (hl), a
 
     inc     hl
@@ -237,11 +244,11 @@ UpdateSpriteAttrTableBuffer:
     ; Number of diamonds / time bar - LEFT
     ; Sprite # 
     inc     hl
-    ld      a, 28 - 1
+    ld      a, SCORE_TOP_LEFT_Y + 16 + 2
     ld      (hl), a
 
     inc     hl
-    ld      a, 8
+    ld      a, SCORE_TOP_LEFT_X
     ld      (hl), a
 
     inc     hl
@@ -255,11 +262,11 @@ UpdateSpriteAttrTableBuffer:
     ; Number of diamonds / time bar - RIGHT
     ; Sprite # 
     inc     hl
-    ld      a, 28 - 1
+    ld      a, SCORE_TOP_LEFT_Y + 16 + 2
     ld      (hl), a
 
     inc     hl
-    ld      a, 24
+    ld      a, SCORE_TOP_LEFT_X + 16
     ld      (hl), a
 
     inc     hl
@@ -273,11 +280,11 @@ UpdateSpriteAttrTableBuffer:
     ; Number of diamonds / time bar - LEFT - shadow
     ; Sprite # 
     inc     hl
-    ld      a, 28 - 1 + 1
+    ld      a, SCORE_TOP_LEFT_Y + 16 + 2 + 1
     ld      (hl), a
 
     inc     hl
-    ld      a, 8 + 1
+    ld      a, SCORE_TOP_LEFT_X + 1
     ld      (hl), a
 
     inc     hl
@@ -291,11 +298,11 @@ UpdateSpriteAttrTableBuffer:
     ; Number of diamonds / time bar - RIGHT - shadow
     ; Sprite # 
     inc     hl
-    ld      a, 28 - 1 + 1
+    ld      a, SCORE_TOP_LEFT_Y + 16 + 2 + 1
     ld      (hl), a
 
     inc     hl
-    ld      a, 24 + 1
+    ld      a, SCORE_TOP_LEFT_X + 16 + 1
     ld      (hl), a
 
     inc     hl

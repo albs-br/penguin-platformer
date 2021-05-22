@@ -36,6 +36,14 @@ TilePatterns_Start:
     TilePatterns_Enemy_Snail_Start:
         INCLUDE "Graphics/Tiles/Patterns/Pattern_EnemySnail.s"
     TilePatterns_Enemy_Snail_End:
+
+
+
+TILE_PENGUIN_FACE_DETAILS:      equ     255
+
+    TilePatterns_Score_PenguinFace_Start:
+        INCLUDE "Graphics/Tiles/Patterns/Score_PenguinFace.s"
+    TilePatterns_Score_PenguinFace_End:
 TilePatterns_End:
 
 

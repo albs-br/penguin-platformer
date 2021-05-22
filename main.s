@@ -40,6 +40,7 @@ GameIncludes_Start:
     INCLUDE "GameLogic/GameConstants.s"
     INCLUDE "GameLogic/UpdateBgObjects.s"
     INCLUDE "GameLogic/UpdateAnimations.s"
+    INCLUDE "GameLogic/Score.s"
 GameIncludes_Size:      equ $ - GameIncludes_Start
 
 ; Include game data
@@ -156,7 +157,16 @@ MainLoop:
     call    DrawStaticBg
 
 ; ----------------------------------------------------------------
+    
+    IFDEF DEBUG
+        ld 		a, COLOR_DARK_YELLOW       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF    
 
+    call    Score
+
+; ----------------------------------------------------------------
 
     IFDEF DEBUG
         ld 		a, COLOR_GREY           ; Border color

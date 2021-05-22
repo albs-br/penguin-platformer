@@ -117,6 +117,13 @@ LoadTilePatterns:
 	ld	    de, PatternsTable_3rd_Third                                             ; VRAM Address
 	call 	LoadTilePatterns_OneThird
 
+	; Load tile for score (penguin face details)
+	ld	    bc, TilePatterns_Score_PenguinFace_End - TilePatterns_Score_PenguinFace_Start    	; Block length
+	ld	    de, PatternsTable_1st_Third + (TILE_PENGUIN_FACE_DETAILS * 8)                                   			; VRAM Address
+	ld	    hl, TilePatterns_Score_PenguinFace_Start                                         	; RAM Address
+    call    BIOS_LDIRVM                                                             			; Block transfer to VRAM from memory
+
+
 	ret
 
 LoadTilePatterns_OneThird:
@@ -182,6 +189,12 @@ LoadTileColors:
 	ld		iy, ColorTableStructure_3rd_Third_End									; Source on RAM (End)
 	ld	    de, ColorsTable_3rd_Third                                             	; VRAM Address
 	call	LoadTileColors_OneThird
+
+	; Load colors for score (penguin face details)
+	ld	    bc, 8    																			; Block length
+	ld	    de, ColorsTable_1st_Third + (TILE_PENGUIN_FACE_DETAILS * 8)                                  				; VRAM Address
+	ld	    hl, TileColors_Score_PenguinFace_Start                                         		; RAM Address
+    call    BIOS_LDIRVM                                                             			; Block transfer to VRAM from memory
 
 	ret
 
