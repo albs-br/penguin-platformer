@@ -108,9 +108,99 @@ UpdateSpriteAttrTableBuffer:
 
 
 
-; ----------- TEST
+    ; ; Sprite # 6
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
 
-    ; Sprite # 6
+
+
+    ; ; Sprite # 7
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+
+
+
+    ; ; Sprite # 8
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+
+
+
+    ; ; Sprite # 9
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+
+
+
+    ; ; Sprite # 10
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+
+
+
+    ; ; Sprite # 11
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+
+
+
+    ; ; Sprite # 12
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+
+; ----------- Score
+
+    ; Penguin face
+    ; Sprite # 
+    inc     hl
+    ld      a, 8 - 1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 7
+    ld      (hl), a
+
+    inc     hl
+    ld      a, TEST_PENGUIN_FACE_BLUE
+    ld      (hl), a
+
+    inc     hl
+    ld      a, COLOR_DARK_BLUE
+    ld      (hl), a
+
+    ; Sprite # 
+    inc     hl
+    ld      a, 8 - 1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 7
+    ld      (hl), a
+
+    inc     hl
+    ld      a, TEST_PENGUIN_FACE_WHITE
+    ld      (hl), a
+
+    inc     hl
+    ld      a, COLOR_WHITE
+    ld      (hl), a
+
+    ; Number of lifes
+    ; Sprite # 
     inc     hl
     ld      a, 8 - 1
     ld      (hl), a
@@ -120,14 +210,14 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ld      a, TEST_NUMBER_0
+    ld      a, TEST_NUMBER_0_BIG
     ld      (hl), a
 
     inc     hl
     ld      a, COLOR_WHITE
     ld      (hl), a
 
-    ; Sprite # 7
+    ; Sprite # 
     inc     hl
     ld      a, 8 - 1 + 1
     ld      (hl), a
@@ -137,16 +227,35 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ld      a, TEST_NUMBER_0
+    ld      a, TEST_NUMBER_0_BIG
     ld      (hl), a
 
     inc     hl
     ld      a, COLOR_BLACK
     ld      (hl), a
 
-    ; Sprite # 8
+    ; Number of diamonds / time bar - LEFT
+    ; Sprite # 
     inc     hl
-    ld      a, 24 - 1
+    ld      a, 28 - 1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 8
+    ld      (hl), a
+
+    inc     hl
+    ld      a, TEST_SCORE_DOWN_LEFT
+    ld      (hl), a
+
+    inc     hl
+    ld      a, COLOR_WHITE
+    ld      (hl), a
+
+    ; Number of diamonds / time bar - RIGHT
+    ; Sprite # 
+    inc     hl
+    ld      a, 28 - 1
     ld      (hl), a
 
     inc     hl
@@ -154,16 +263,35 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ld      a, TEST_NUMBER_1
+    ld      a, TEST_SCORE_DOWN_RIGHT
     ld      (hl), a
 
     inc     hl
     ld      a, COLOR_WHITE
     ld      (hl), a
-
-    ; Sprite # 9
+    
+    ; Number of diamonds / time bar - LEFT - shadow
+    ; Sprite # 
     inc     hl
-    ld      a, 24 - 1 + 1
+    ld      a, 28 - 1 + 1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 8 + 1
+    ld      (hl), a
+
+    inc     hl
+    ld      a, TEST_SCORE_DOWN_LEFT
+    ld      (hl), a
+
+    inc     hl
+    ld      a, COLOR_BLACK
+    ld      (hl), a
+
+    ; Number of diamonds / time bar - RIGHT - shadow
+    ; Sprite # 
+    inc     hl
+    ld      a, 28 - 1 + 1
     ld      (hl), a
 
     inc     hl
@@ -171,7 +299,7 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ld      a, TEST_NUMBER_1
+    ld      a, TEST_SCORE_DOWN_RIGHT
     ld      (hl), a
 
     inc     hl

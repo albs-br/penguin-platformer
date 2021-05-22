@@ -1551,6 +1551,75 @@ StartSpritePatterns:
     DB 11111110b
     DB 11111000b
 
+    ; Score / Penguin face - blue (test)
+    DB 00000011b
+    DB 00001111b
+    DB 00011111b
+    DB 00011101b
+    DB 00111000b
+    DB 00111000b
+    DB 00111000b
+    DB 00111000b
+    DB 00111000b
+    DB 00111100b
+    DB 00111000b
+    DB 01111111b
+    DB 01111110b
+    DB 11011100b
+    DB 11011000b
+    DB 11011000b
+    DB 11100000b
+    DB 11111000b
+    DB 11111100b
+    DB 11011100b
+    DB 10001110b
+    DB 10001110b
+    DB 10001110b
+    DB 10001110b
+    DB 10001110b
+    DB 00011110b
+    DB 00001110b
+    DB 11111111b
+    DB 00111111b
+    DB 00011101b
+    DB 00001101b
+    DB 00001101b
+
+    ; Score / Penguin face - white (test)
+    ; color 15
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000010b
+    DB 00000111b
+    DB 00000111b
+    DB 00000101b
+    DB 00000101b
+    DB 00000101b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000001b
+    DB 00000011b
+    DB 00000111b
+    DB 00000111b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00100000b
+    DB 01110000b
+    DB 01110000b
+    DB 01010000b
+    DB 01010000b
+    DB 01010000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 11000000b
+    DB 11100000b
+    DB 11110000b
+    DB 11110000b
+
 ; ---
 ; --- Number 0 (test)
 ; color 15
@@ -1587,8 +1656,44 @@ StartSpritePatterns:
     DB 00000000b
     DB 00000000b
 
+
+    ; 
+    ; --- score number of diamods / time left LEFT - TEST
+    DB 00010000b
+    DB 00111000b
+    DB 01111100b
+    DB 11101010b
+    DB 01110100b
+    DB 00101000b
+    DB 00010000b
+    DB 00000000b
+    DB 00111000b
+    DB 01010100b
+    DB 10010010b
+    DB 10011010b
+    DB 10000010b
+    DB 01000100b
+    DB 00111000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00101000b
+    DB 00010000b
+    DB 00101000b
+    DB 00000000b
+    DB 00000000b
+    DB 11111111b
+    DB 10000000b
+    DB 10111111b
+    DB 10111111b
+    DB 10000000b
+    DB 11111111b
+    DB 00000000b
+
 ; 
-; --- score number of diamods / time left TEST
+; --- score number of diamods / time left RIGHT - TEST
 ; color 15
     DB 00111100b
     DB 01100110b

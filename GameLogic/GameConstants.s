@@ -56,8 +56,11 @@ SNAIL_SPRITE_LEFT:          equ 43 * 4
 
 
 ; Number 0
-TEST_NUMBER_0:              equ 44 * 4
-TEST_NUMBER_1:              equ 45 * 4
+TEST_PENGUIN_FACE_BLUE:                 equ 44 * 4
+TEST_PENGUIN_FACE_WHITE:                equ 45 * 4
+TEST_NUMBER_0_BIG:                      equ 46 * 4
+TEST_SCORE_DOWN_LEFT:                    equ 47 * 4
+TEST_SCORE_DOWN_RIGHT:                    equ 48 * 4
 
 
 ; Keyboard constants to current key(s) pressed
