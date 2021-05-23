@@ -32,6 +32,7 @@ CommonIncludes_Size:    equ $ - CommonIncludes_Start
 ; Include game routines
 GameIncludes_Start:
     INCLUDE "GameLogic/GameLogic.s"
+    INCLUDE "GameLogic/EnemyLogic.s"
     INCLUDE "GameLogic/UpdateSpriteAttrTableBuffer.s"
     INCLUDE "GameLogic/ReadInput.s"
     INCLUDE "GameLogic/Scroll.s"

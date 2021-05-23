@@ -52,6 +52,7 @@ Addr_Screen_LastVisibleColumn:          rw 1
 UpdateBgObjects_CurrentAddr:            rw 1
 UpdateBgObjects_CurrentAddr_State:      rw 1
 UpdateBgObjects_CurrentAddr_EnemyType:  rw 1
+UpdateBgObjects_X_Offset_Value:         rb 1
 UpdateBgObjects_PosObjOnBG:             rw 1
 UpdateBgObjects_X:                      rb 1
 UpdateBgObjects_Y:                      rb 1

@@ -18,7 +18,11 @@
 #ram_watch   add     0xD013      -type word      -desc BgAddrIndexFirstFrame                 -format hex
 
 
-ram_watch   add     0xD031      -type word      -desc UpdateBgObjects_Enemy_1_Pattern_Addr   -format hex
+#ram_watch   add     0xD031      -type word      -desc UpdateBgObjects_Enemy_1_Pattern_Addr   -format hex
+ram_watch   add     0xD021      -type word      -desc UpdateBgObjects_CurrentAddr_State   -format hex
+
+ram_watch   add     0xD025      -type byte      -desc UpdateBgObjects_X_Offset_Value   -format hex
+
 
 
 

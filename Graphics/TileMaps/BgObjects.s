@@ -23,11 +23,12 @@ ENEMY_TYPE_SNAIL_RIGHT:         equ ENEMY_TYPE_SNAIL_LEFT + ENEMY_FACING_RIGHT
 ;       row number: n * 2 * 8, n is row number (4-11), based on 16x16 tiles, caution with first rows
 
 ;       state: enabled: 1; disabled: 0; > 1 : animation for enemy dying
+
 ; -- these properties are only for enemies:
 ;       x offset (0-15)
 ;       enemy type (bit 7: 0-facing left; 1-facing right)
-;       animation info
-;       unused
+;       left limit (1-255), based on 16x16 tiles
+;       right limit (1-255), based on 16x16 tiles
 BgObjectsInitialState_Start:
 
 ; screen / page 0 (0-15)
