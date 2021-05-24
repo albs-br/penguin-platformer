@@ -58,9 +58,11 @@ GameLogic:
 
 
     ld      a, (Player_Y)
+    cp      -1                              ; y = 255 is valid
+    jp      z, .isNotDead
     cp      SCREEN_HEIGHT_IN_PIXELS - 1
-    jp      nc, .isDead             ; if (a >= n)
-
+    jp      nc, .isDead                     ; if (a >= n)
+.isNotDead:
 
     ld      a, (Player_JumpCounter)
     or      a
@@ -313,6 +315,11 @@ GameLogic:
 
 
 .startJump:
+    ; Check if is at screen top (Player_Y == 255)
+    ld      a, (Player_Y)
+    inc     a                          ; Player_Y == 255 is valid
+    ret     z
+
     ld      hl, Player_JumpCounter
     inc     (hl)
     ret
