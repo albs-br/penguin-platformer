@@ -315,7 +315,7 @@ GameLogic:
 
 
 .startJump:
-    ; Check if is at screen top (Player_Y == 255)
+    ; Check if is at screen top (Player_Y == 255) ; 255 is the same as -1
     ld      a, (Player_Y)
     inc     a                          ; Player_Y == 255 is valid
     ret     z

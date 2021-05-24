@@ -5,9 +5,9 @@
 
 
 #ram_watch   add     0xD028      -type byte      -desc ScrollSpeed           -format dec
-ram_watch   add     0xD009      -type byte      -desc Player_Y              -format dec
-ram_watch   add     0xD00d      -type byte      -desc Player_JumpCounter  -format dec
-ram_watch   add     0xD00c      -type byte      -desc Player_IsGrounded     -format dec
+#ram_watch   add     0xD009      -type byte      -desc Player_Y              -format dec
+#ram_watch   add     0xD00d      -type byte      -desc Player_JumpCounter  -format dec
+#ram_watch   add     0xD00c      -type byte      -desc Player_IsGrounded     -format dec
 #ram_watch   add     0xD00e      -type word      -desc BgCurrentIndex        -format dec
 #ram_watch   add     0xD010      -type byte      -desc FrameIndex            -format dec
 #ram_watch   add     0xD015      -type word      -desc FirstVisibleColumn    -format dec
@@ -19,9 +19,10 @@ ram_watch   add     0xD00c      -type byte      -desc Player_IsGrounded     -for
 
 
 #ram_watch   add     0xD031      -type word      -desc UpdateBgObjects_Enemy_1_Pattern_Addr   -format hex
-ram_watch   add     0xD021      -type word      -desc UpdateBgObjects_CurrentAddr_State   -format hex
-
+#ram_watch   add     0xD021      -type word      -desc UpdateBgObjects_CurrentAddr_State   -format hex
 ram_watch   add     0xD025      -type byte      -desc UpdateBgObjects_X_Offset_Value   -format hex
+
+#ram_watch   add     0xD025      -type byte      -desc UpdateBgObjects_X_Offset_Value   -format hex
 
 
 

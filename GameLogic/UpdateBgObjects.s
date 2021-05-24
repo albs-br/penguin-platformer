@@ -191,7 +191,7 @@ ShowBgObject:
     dec     hl                              ; minus one because each two tiles are in reality 3 tiles (for scrolling)
 
     ;push    hl
-    ld      (UpdateBgObjects_VRAMAddr), hl
+    ld      (UpdateBgObjects_NameTable_Addr), hl
 
 	    call    BIOS_SETWRT
     
@@ -221,7 +221,7 @@ ShowBgObject:
 
     ; Second row of the 16x16 object
     ;pop     hl
-    ld      hl, (UpdateBgObjects_VRAMAddr)
+    ld      hl, (UpdateBgObjects_NameTable_Addr)
 
     ld      de, 32
     add     hl, de

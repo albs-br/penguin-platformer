@@ -28,16 +28,87 @@ EnemyLogic:
 
 
 
+
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
+
     inc     hl
+    ld      (UpdateBgObjects_CurrentAddr_X_Offset), hl
+    ld      a, (hl)
+    ld      (UpdateBgObjects_X_Offset_Value), a
+
     inc     hl
     ld      (UpdateBgObjects_CurrentAddr_EnemyType), hl
 
 
+
+    ; --------------- To deal with x offset (movement of the enemy)
+
+    ; A = FrameIndex + UpdateBgObjects_X_Offset_Value
+    ld      a, (UpdateBgObjects_X_Offset_Value)
+    ld      b, a
+    ld      a, (FrameIndex)
+    add     b
+
+    ; if (a >= 0 && a <= 7)
+    cp      8
+    jp      c, .between_0_and_7                 ; if (a < n)
+    ; else if (a >= 8 && a <= 15)
+    cp      16
+    jp      c, .between_8_and_15                ; if (a < n)
+    ; else if (a >= 16)
+    cp      16
+    jp      nc, .greaterThan_16                 ; if (a >= n)
+.between_0_and_7:
+    ; do nothing
+    ld      (UpdateBgObjects_FrameIndex_Enemy), a
+    jp      .continue_xoffset
+
+.between_8_and_15:
+    ; FrameIndex -= 8
+    sub     8
+    ld      (UpdateBgObjects_FrameIndex_Enemy), a
+    ; NameTable_Addr--
+    ld      hl, UpdateBgObjects_NameTable_Addr
+    dec     (hl)
+    jp      .continue_xoffset
+
+.greaterThan_16:
+    ; FrameIndex -= 16
+    sub     16
+    ld      (UpdateBgObjects_FrameIndex_Enemy), a
+    ; NameTable_Addr -= 2
+    ld      hl, UpdateBgObjects_NameTable_Addr
+    dec     (hl)
+    dec     (hl)
+
+.continue_xoffset:
+
+    ; Check if enemy is dying (show animation and not move)
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
     ld      a, (hl)
     cp      2
     jp      nc, .animateEnemyDying        ; a >= n
+
+
+
+    ; Change x offset and save it back
+    ld      a, (BIOS_JIFFY)                         ; MSX BIOS time variable
+    and     0000 0011 b                             ; each 4 frames
+    jp      nz, .continue_xoffset_1
+
+    ld      a, (UpdateBgObjects_X_Offset_Value)
+    inc     a
+    and     0000 1111 b                             ; keep only 0-15 values
+    ld      (UpdateBgObjects_X_Offset_Value), a
+    ld      hl, (UpdateBgObjects_CurrentAddr_X_Offset)
+    ld      (hl), a
+
+.continue_xoffset_1:
+    
+    ; ---------------------------------------------
+
+
+
 
 .showEnemyTiles:
 	exx
@@ -81,7 +152,7 @@ EnemyLogic:
         
         ; HL = TilePatterns_Enemy_Ladybug_Start + (FrameIndex * (6 * 8))
         ;ld		hl, TilePatterns_Enemy_Snail_Start ; TilePatterns_Enemy_Ladybug_Start	                                ; RAM address
-        ld      a, (FrameIndex)
+        ld      a, (UpdateBgObjects_FrameIndex_Enemy)
         or      a
         jp      z, .noMult
 
@@ -111,7 +182,7 @@ EnemyLogic:
     exx
 
     ; ------------ Update names table  ------------
-    ld      hl, (UpdateBgObjects_VRAMAddr)
+    ld      hl, (UpdateBgObjects_NameTable_Addr)
 	call    BIOS_SETWRT
 
     ; top left
@@ -132,7 +203,7 @@ EnemyLogic:
     
     ld      b, a
     exx
-        ld      hl, (UpdateBgObjects_VRAMAddr)
+        ld      hl, (UpdateBgObjects_NameTable_Addr)
         ld      bc, 32
         add     hl, bc
         call    BIOS_SETWRT
@@ -162,6 +233,12 @@ EnemyLogic:
     ld      hl, (UpdateBgObjects_PosObjOnBG)
     call    Convert_BgPosition_X_To_X_In_Pixels    
     dec     a                                       ; fix x position (not sure why)
+    ; adjust for x offset
+    ld      c, a
+    ld      a, (UpdateBgObjects_X_Offset_Value)
+    ld      b, a
+    ld      a, c
+    sub     b
     ld      (Enemy_1_X), a
 
 

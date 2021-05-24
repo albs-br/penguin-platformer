@@ -48,20 +48,21 @@ LastVisibleColumn:                      rw 1            ; column index based on 
 Addr_Screen_FirstVisibleColumn:         rw 1            ; addr of RAM objects of the screen of the first visible column
 Addr_Screen_LastVisibleColumn:          rw 1
 
-
 UpdateBgObjects_CurrentAddr:            rw 1
 UpdateBgObjects_CurrentAddr_State:      rw 1
-UpdateBgObjects_CurrentAddr_EnemyType:  rw 1
+UpdateBgObjects_CurrentAddr_X_Offset:   rw 1
 UpdateBgObjects_X_Offset_Value:         rb 1
+UpdateBgObjects_CurrentAddr_EnemyType:  rw 1
 UpdateBgObjects_PosObjOnBG:             rw 1
 UpdateBgObjects_X:                      rb 1
 UpdateBgObjects_Y:                      rb 1
 UpdateBgObjects_StartAddr:              rw 1
-UpdateBgObjects_VRAMAddr:               rw 1
+UpdateBgObjects_NameTable_Addr:               rw 1
 ;UpdateBgObjects_Enemy_Pattern_Addr:     rw 1
 UpdateBgObjects_Enemy_Color_Addr:       rw 1
 UpdateBgObjects_Enemy_Sprite_Number:    rb 1
 UpdateBgObjects_Enemy_Sprite_Color:     rb 1
+UpdateBgObjects_FrameIndex_Enemy:       rb 1
 
 UpdateBgObjects_Enemy_1_Pattern_Addr:   rw 1
 
