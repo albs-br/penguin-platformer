@@ -4,30 +4,6 @@ EnemyLogic:
     VRAM_COLORS_TABLE_ADDR:     equ ColorsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL * 8)
 
 
-;     ; x offset
-;     inc     hl
-;     ld      a, (hl)
-;     or      a   ; if (xOffset == 0) xOffset = 15
-;     jp      nz, .saveXOffset
-;     ld      a, 16
-; .saveXOffset:
-;     dec     a
-;     ld      (hl), a
-;     and     0000 0111 b     ; test (mask to get only 0-7)
-;     ld      (UpdateBgObjects_X_Offset_Value), a
-;     dec     hl
-
-;     ; xOffset:
-;     ;   0-7: add it to frame index
-;     ;   8-15: UpdateBgObjects_VRAMAddr++ ;ccx xxxOffset -= 8 ; add it to frame index
-
-
-        ; ld      b, a
-        ; ld      a, (UpdateBgObjects_X_Offset_Value)         ; add it to xoffset and draw on screen
-        ; add     b
-
-
-
 
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
 
@@ -98,7 +74,15 @@ EnemyLogic:
 
     ld      a, (UpdateBgObjects_X_Offset_Value)
     inc     a
-    and     0000 1111 b                             ; keep only 0-15 values
+    cp      16                                      ; if (X_Offset == 16) { X_Offset = 0; EnemyColumnPosition--; }
+    jp      nz, .xoffsetLessThan16
+    ld      hl, (UpdateBgObjects_CurrentAddr)
+    ld      a, (hl)
+    dec     a
+    ld      (hl), a
+    xor     a
+    ;and     0000 1111 b                             ; keep only 0-15 values
+.xoffsetLessThan16:
     ld      (UpdateBgObjects_X_Offset_Value), a
     ld      hl, (UpdateBgObjects_CurrentAddr_X_Offset)
     ld      (hl), a
