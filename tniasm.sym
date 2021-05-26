@@ -114,7 +114,7 @@ BIOS_PRSCNT: equ 0FB35h ; last def. pass 3
 ENEMY_TYPE_LADYBUG_LEFT: equ 00h ; last def. pass 3
 CheckDirectionWhenOffGround: equ 04559h ; last def. pass 3
 BIOS_H_CVI: equ 0FE3Fh ; last def. pass 3
-VRAM_COLORS_TABLE_ADDR.continue: equ 04628h ; last def. pass 3
+VRAM_COLORS_TABLE_ADDR.continue: equ 04625h ; last def. pass 3
 UpdateBgObjects_X_Offset_Value: equ 0D025h ; last def. pass 3
 BIOS_TEMP9: equ 0F7B8h ; last def. pass 3
 BIOS_SAVEND: equ 0F87Dh ; last def. pass 3
@@ -128,7 +128,7 @@ BIOS_INTFLG: equ 0FC9Bh ; last def. pass 3
 BIOS_H_CVD: equ 0FE49h ; last def. pass 3
 BIOS_SNSMAT: equ 0141h ; last def. pass 3
 BIOS_MCLTAB: equ 0F956h ; last def. pass 3
-VRAM_COLORS_TABLE_ADDR.noMult: equ 0463Ch ; last def. pass 3
+VRAM_COLORS_TABLE_ADDR.noMult: equ 04639h ; last def. pass 3
 BIOS_SCNCNT: equ 0F3F6h ; last def. pass 3
 BIOS_H_NOTR: equ 0FF34h ; last def. pass 3
 BIOS_INIPLT: equ 0141h ; last def. pass 3
@@ -147,7 +147,7 @@ Sparkles_Counter: equ 0D03Ch ; last def. pass 3
 BIOS_BAKCLR: equ 0F3EAh ; last def. pass 3
 BIOS_H_NEWS: equ 0FF3Eh ; last def. pass 3
 BIOS_HIMEM: equ 0FC4Ah ; last def. pass 3
-VRAM_COLORS_TABLE_ADDR.multLoop: equ 04639h ; last def. pass 3
+VRAM_COLORS_TABLE_ADDR.multLoop: equ 04636h ; last def. pass 3
 TilePatterns_Diamonds_End: equ 05C8Ah ; last def. pass 3
 Player_JumpCounter: equ 0D00Dh ; last def. pass 3
 UpdateBgObjects_FrameIndex_Enemy: equ 0D034h ; last def. pass 3
@@ -177,7 +177,7 @@ UpdateBgObjects_Execute.loop: equ 04BDAh ; last def. pass 3
 CheckDirectionWhenOffGround.setDirectionNone: equ 04581h ; last def. pass 3
 BIOS_GRPPAT: equ 0F3CFh ; last def. pass 3
 CheckDirectionWhenOffGround.checkDirectionRight: equ 04569h ; last def. pass 3
-VRAM_COLORS_TABLE_ADDR.enemyTypeSnailLeft: equ 04615h ; last def. pass 3
+VRAM_COLORS_TABLE_ADDR.enemyTypeSnailLeft: equ 04612h ; last def. pass 3
 BIOS_H_ISMI: equ 0FF7Fh ; last def. pass 3
 TileColors_BigBricks_Bottom_Start: equ 06012h ; last def. pass 3
 NextMegaROMPage: equ 048C4h ; last def. pass 3
@@ -275,7 +275,7 @@ BIOS_NMI: equ 066h ; last def. pass 3
 Delay.loop: equ 0414Ah ; last def. pass 3
 BIOS_H_CLEAR: equ 0FED0h ; last def. pass 3
 BIOS_TRAPTBL: equ 0FC4Ch ; last def. pass 3
-VRAM_COLORS_TABLE_ADDR.xoffsetLessThan16: equ 045E9h ; last def. pass 3
+VRAM_COLORS_TABLE_ADDR.xoffsetLessThan16: equ 045E6h ; last def. pass 3
 BIOS_ASPECT: equ 0F931h ; last def. pass 3
 StartSpritePatterns: equ 04D66h ; last def. pass 3
 BIOS_FLBMEM: equ 0FCAEh ; last def. pass 3
@@ -443,7 +443,7 @@ VRAM_PATTERN_TABLE_ADDR: equ 016C8h ; last def. pass 3
 VRAM_COLORS_TABLE_ADDR.animateEnemyDying: equ 046F2h ; last def. pass 3
 BIOS_DPPAGE: equ 0FAF5h ; last def. pass 3
 CheckCollision_16x16_16x16.checkVerticalCollision: equ 0437Bh ; last def. pass 3
-VRAM_COLORS_TABLE_ADDR.continue_xoffset_1: equ 045F0h ; last def. pass 3
+VRAM_COLORS_TABLE_ADDR.continue_xoffset_1: equ 045EDh ; last def. pass 3
 GameLogic.falling: equ 0454Fh ; last def. pass 3
 TileColors_Black_Start: equ 05FF2h ; last def. pass 3
 RunKeyPressed: equ 0D006h ; last def. pass 3
@@ -711,7 +711,7 @@ TilePatterns_Start: equ 053C2h ; last def. pass 3
 COLOR_DARK_BLUE: equ 04h ; last def. pass 3
 BIOS_H_MAIN: equ 0FF0Ch ; last def. pass 3
 BIOS_RDVDP: equ 013Eh ; last def. pass 3
-VRAM_COLORS_TABLE_ADDR.showEnemyTiles: equ 045F0h ; last def. pass 3
+VRAM_COLORS_TABLE_ADDR.showEnemyTiles: equ 045EDh ; last def. pass 3
 CheckCollision_16x16_16x16_Vertical: equ 04387h ; last def. pass 3
 BIOS_RG6SAV: equ 0F3E5h ; last def. pass 3
 UpdateBgObjects_Y: equ 0D02Bh ; last def. pass 3
@@ -795,7 +795,7 @@ BIOS_H_ERAF: equ 0FDB8h ; last def. pass 3
 BIOS_COMMSK: equ 0FB1Eh ; last def. pass 3
 UpdateBgObjects_StartAddr: equ 0D02Ch ; last def. pass 3
 BIOS_H_DEVN: equ 0FEC1h ; last def. pass 3
-VRAM_COLORS_TABLE_ADDR.enemyTypeLadybugLeft: equ 045FFh ; last def. pass 3
+VRAM_COLORS_TABLE_ADDR.enemyTypeLadybugLeft: equ 045FCh ; last def. pass 3
 DIRECTION_LEFT: equ 02h ; last def. pass 3
 RamStart: equ 0C000h ; last def. pass 3
 BIOS_CLIKFL: equ 0FBD9h ; last def. pass 3

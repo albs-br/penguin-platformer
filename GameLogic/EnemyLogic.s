@@ -68,20 +68,22 @@ EnemyLogic:
 
 
     ; Change x offset and save it back
-    ld      a, (BIOS_JIFFY)                         ; MSX BIOS time variable
-    and     0000 0011 b                             ; each 4 frames
-    jp      nz, .continue_xoffset_1
+    
+    ; Move enemy only at each 4 frames (causing bug)
+    ;ld      a, (BIOS_JIFFY)                         ; MSX BIOS time variable
+    ;and     0000 0011 b                             ; each 4 frames
+    ;jp      nz, .continue_xoffset_1
 
     ld      a, (UpdateBgObjects_X_Offset_Value)
     inc     a
     cp      16                                      ; if (X_Offset == 16) { X_Offset = 0; EnemyColumnPosition--; }
     jp      nz, .xoffsetLessThan16
+    
     ld      hl, (UpdateBgObjects_CurrentAddr)
     ld      a, (hl)
     dec     a
     ld      (hl), a
-    xor     a
-    ;and     0000 1111 b                             ; keep only 0-15 values
+    xor     a                                       ; clear UpdateBgObjects_X_Offset_Value
 .xoffsetLessThan16:
     ld      (UpdateBgObjects_X_Offset_Value), a
     ld      hl, (UpdateBgObjects_CurrentAddr_X_Offset)
@@ -217,12 +219,16 @@ EnemyLogic:
     ld      hl, (UpdateBgObjects_PosObjOnBG)
     call    Convert_BgPosition_X_To_X_In_Pixels    
     dec     a                                       ; fix x position (not sure why)
-    ; adjust for x offset
-    ld      c, a
-    ld      a, (UpdateBgObjects_X_Offset_Value)
-    ld      b, a
-    ld      a, c
-    sub     b
+        ; adjust for x offset
+        ld      c, a
+        ld      a, (UpdateBgObjects_X_Offset_Value)
+
+        dec     a               ; correct x position (because of the two 
+        and     0000 1111 b     ; name tables we are seeing previous tiles)
+
+        ld      b, a
+        ld      a, c
+        sub     b
     ld      (Enemy_1_X), a
 
 
