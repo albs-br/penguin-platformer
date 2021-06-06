@@ -4,17 +4,7 @@
                                                 ; rw n  = reserve n words in RAM
 
 
-CurrentNamesTable:          rw 1
-
-; Table aligned to 0xC000
-; --- Background objects with state (diamonds for example)
-BgObjects_Start:            rb 256 * 16   ; bytes per page * number of pages
-
-; BgObjects_1st_Third_Start:  rb 64 * 16   ; bytes per page * number of pages
-; BgObjects_2nd_Third_Start:  rb 96 * 16   ; bytes per page * number of pages
-; BgObjects_3rd_Third_Start:  rb 96 * 16   ; bytes per page * number of pages
-
-BgObjects_End:
+CurrentNamesTable:                  rw 1
 
 
 
@@ -52,6 +42,7 @@ UpdateBgObjects_CurrentAddr:            rw 1
 UpdateBgObjects_CurrentAddr_State:      rw 1
 UpdateBgObjects_CurrentAddr_X_Offset:   rw 1
 UpdateBgObjects_X_Offset_Value:         rb 1
+UpdateBgObjects_X_Offset_Value_Adjusted:    rb 1
 UpdateBgObjects_CurrentAddr_EnemyType:  rw 1
 UpdateBgObjects_PosObjOnBG:             rw 1
 UpdateBgObjects_X:                      rb 1

@@ -74,20 +74,50 @@ EnemyLogic:
     ;and     0000 0011 b                             ; each 4 frames
     ;jp      nz, .continue_xoffset_1
 
+    
+    ; ; Move enemy left
+    ; ld      a, (UpdateBgObjects_X_Offset_Value)
+    ; inc     a
+    ; cp      16                                      ; if (X_Offset == 16) { X_Offset = 0; EnemyColumnPosition--; }
+    ; jp      nz, .saveXoffset_Left
+    
+    ; ld      hl, (UpdateBgObjects_CurrentAddr)
+    ; ld      a, (hl)
+    ; dec     a
+    ; ld      (hl), a
+    ; xor     a                                       ; clear UpdateBgObjects_X_Offset_Value
+    ; jp      .saveXoffset_Left
+
+    ; Move enemy right
     ld      a, (UpdateBgObjects_X_Offset_Value)
-    inc     a
-    cp      16                                      ; if (X_Offset == 16) { X_Offset = 0; EnemyColumnPosition--; }
-    jp      nz, .xoffsetLessThan16
+    dec     a
+    cp      -1                                      ; if (X_Offset == -1) { X_Offset = 15; EnemyColumnPosition++; }
+    jp      nz, .saveXoffset_Right
     
     ld      hl, (UpdateBgObjects_CurrentAddr)
     ld      a, (hl)
-    dec     a
+    inc     a
     ld      (hl), a
-    xor     a                                       ; clear UpdateBgObjects_X_Offset_Value
-.xoffsetLessThan16:
+    ld      a, 15
+
+.saveXoffset_Right:
     ld      (UpdateBgObjects_X_Offset_Value), a
     ld      hl, (UpdateBgObjects_CurrentAddr_X_Offset)
     ld      (hl), a
+
+    inc     a               ; correct x position (because of the two 
+    and     0000 1111 b     ; name tables we are seeing previous tiles)
+    ld      (UpdateBgObjects_X_Offset_Value_Adjusted), a
+    jp      .continue_xoffset_1
+
+.saveXoffset_Left:
+    ld      (UpdateBgObjects_X_Offset_Value), a
+    ld      hl, (UpdateBgObjects_CurrentAddr_X_Offset)
+    ld      (hl), a
+
+    dec     a               ; correct x position (because of the two 
+    and     0000 1111 b     ; name tables we are seeing previous tiles)
+    ld      (UpdateBgObjects_X_Offset_Value_Adjusted), a
 
 .continue_xoffset_1:
     
@@ -221,10 +251,10 @@ EnemyLogic:
     dec     a                                       ; fix x position (not sure why)
         ; adjust for x offset
         ld      c, a
-        ld      a, (UpdateBgObjects_X_Offset_Value)
+        ld      a, (UpdateBgObjects_X_Offset_Value_Adjusted)
 
-        dec     a               ; correct x position (because of the two 
-        and     0000 1111 b     ; name tables we are seeing previous tiles)
+        ; dec     a               ; correct x position (because of the two 
+        ; and     0000 1111 b     ; name tables we are seeing previous tiles)
 
         ld      b, a
         ld      a, c
@@ -326,7 +356,7 @@ EnemyLogic:
 
 .showEnemySprite:
     ; show sprite
-    ld      a, COLOR_RED
+    ld      a, (UpdateBgObjects_Enemy_Sprite_Color)
     ld      (Enemy_1_Color), a
 
     ; and show tiles

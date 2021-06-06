@@ -286,6 +286,7 @@ TileMap_LevelTest_Start:
 
 RamStart:
 
+    INCLUDE "Ram/BgObjects.s"           ; CAUTION: this must be the first one on RAM, as it is table aligned to 0xC000
     INCLUDE "Ram/Variables.s"
     INCLUDE "Ram/VramBuffers.s"
 
