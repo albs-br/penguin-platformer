@@ -52,15 +52,16 @@ LADYBUG_SPRITE_LEFT:        equ 42 * 4
 
 ; Snail
 SNAIL_SPRITE_LEFT:          equ 43 * 4
+SNAIL_SPRITE_RIGHT:         equ 44 * 4
 
 
 
-; Number 0
-TEST_PENGUIN_FACE_BLUE:                 equ 44 * 4
-TEST_PENGUIN_FACE_WHITE:                equ 45 * 4
-TEST_NUMBER_0_BIG:                      equ 46 * 4
-TEST_SCORE_DOWN_LEFT:                    equ 47 * 4
-TEST_SCORE_DOWN_RIGHT:                    equ 48 * 4
+; Test Score
+TEST_PENGUIN_FACE_BLUE:                 equ 45 * 4
+TEST_PENGUIN_FACE_WHITE:                equ 46 * 4
+TEST_NUMBER_0_BIG:                      equ 47 * 4
+TEST_SCORE_DOWN_LEFT:                   equ 48 * 4
+TEST_SCORE_DOWN_RIGHT:                  equ 49 * 4
 
 
 ; Keyboard constants to current key(s) pressed
@@ -72,6 +73,6 @@ TEST_SCORE_DOWN_RIGHT:                    equ 48 * 4
 ; KEY_RUN:                                equ 0000 0100 b
 ; KEY_PAUSE:                              equ 0000 0010 b
 
-; Dianmic objects on BG (e.g. Diamonds)
+; Dynamic objects on BG (e.g. Diamonds)
 NUMBER_OF_BG_OBJS:          equ 256     ; TODO: should these constants be moved to constants file?
 BG_OBJ_STRUCT_SIZE:         equ 8

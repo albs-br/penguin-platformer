@@ -135,6 +135,8 @@ EnemyLogic:
         jp      z, .enemyTypeLadybugLeft
         cp      ENEMY_TYPE_SNAIL_LEFT
         jp      z, .enemyTypeSnailLeft
+        cp      ENEMY_TYPE_SNAIL_RIGHT
+        jp      z, .enemyTypeSnailRight
 
 .enemyTypeLadybugLeft:
         ld      a, LADYBUG_SPRITE_LEFT
@@ -146,7 +148,7 @@ EnemyLogic:
         ld      hl, TileColors_EnemyLadybug_Top_Start
         ld      (UpdateBgObjects_Enemy_Color_Addr), hl
         
-        ld      hl, TilePatterns_Enemy_Ladybug_Start
+        ld      hl, TilePatterns_Enemy_Ladybug_Left_Start
         jp      .continue
 
 .enemyTypeSnailLeft:
@@ -159,8 +161,21 @@ EnemyLogic:
         ld      hl, TileColors_EnemySnail_Top_Start
         ld      (UpdateBgObjects_Enemy_Color_Addr), hl
         
-        ld      hl, TilePatterns_Enemy_Snail_Start
-        ; jp      .continue
+        ld      hl, TilePatterns_Enemy_Snail_Left_Start
+        jp      .continue
+
+.enemyTypeSnailRight:
+        ld      a, SNAIL_SPRITE_RIGHT
+        ld      (UpdateBgObjects_Enemy_Sprite_Number), a
+
+        ld      a, COLOR_DARK_YELLOW
+        ld      (UpdateBgObjects_Enemy_Sprite_Color), a
+
+        ld      hl, TileColors_EnemySnail_Top_Start
+        ld      (UpdateBgObjects_Enemy_Color_Addr), hl
+        
+        ld      hl, TilePatterns_Enemy_Snail_Right_Start
+        jp      .continue
 
 .continue:
         ; ------------ Update patterns table  ------------

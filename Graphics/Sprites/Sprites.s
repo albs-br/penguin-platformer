@@ -1516,7 +1516,7 @@ StartSpritePatterns:
     DB 00000000b
 
     ; 
-    ; --- Snail
+    ; --- Snail Left
     ; color 10
     DB 00000000b
     DB 00000000b
@@ -1550,6 +1550,42 @@ StartSpritePatterns:
     DB 00001110b
     DB 11111110b
     DB 11111000b
+
+    ; 
+    ; --- Snail Right
+    ; color 10
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00111111b
+    DB 01110000b
+    DB 01101111b
+    DB 01011000b
+    DB 01101111b
+    DB 01110000b
+    DB 01111111b
+    DB 00011111b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 11000000b
+    DB 11100000b
+    DB 01110000b
+    DB 01110000b
+    DB 11110000b
+    DB 11100000b
+    DB 11000000b
+    DB 10000000b
 
     ; Score / Penguin face - blue (test)
     DB 00000011b

@@ -54,6 +54,7 @@ TileColors_EnemyLadybug_Bottom_Start:
 
 
 
+; Colors are the same for both left and right positions of the character
 TileColors_EnemySnail_Top_Start:
     INCLUDE "Graphics/Tiles/Colors/Color_EnemySnail_top_left.s"
 TileColors_EnemySnail_Bottom_Start:
