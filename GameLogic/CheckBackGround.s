@@ -7,7 +7,7 @@
 ;       z: is at empty space
 ;       nz: is not at empty space
 CheckBackGround_Right:
-    ; check if player is at empty space
+    ; check if character is at empty space
     ; formula: COL_NUMBER + ((TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8) * LINE_NUMBER)     (only first 4 rows)
 
     push    hl                  ; save h (x coord)
@@ -80,32 +80,32 @@ CheckBackGround_Right:
 ;       z: is at empty space
 ;       nz: is not at empty space
 CheckBackGround_Left:
-    ; check if player is at empty space
+    ; check if character is at empty space
     ; formula: COL_NUMBER + ((TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8) * LINE_NUMBER)     (only first 4 rows)
 
     push    hl                  ; save h (x coord)
 
-    ; b = LINE_NUMBER:
-    ld      a, l
-    srl     a                   ; divide by 8
-    srl     a
-    srl     a
-    ld      c, a
-    and     0000 0011 b         ; mask to get only lower 2 bits of line number and make it a line number 0-3
-    ld      b, a
-    
-    ; hl = (TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8) * LINE_NUMBER
-    ld      hl, 0
-    jp      z, .continue
-    ld      de, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
+        ; b = LINE_NUMBER:
+        ld      a, l
+        srl     a                   ; divide by 8
+        srl     a
+        srl     a
+        ld      c, a
+        and     0000 0011 b         ; mask to get only lower 2 bits of line number and make it a line number 0-3
+        ld      b, a
+        
+        ; hl = (TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8) * LINE_NUMBER
+        ld      hl, 0
+        jp      z, .continue
+        ld      de, TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8
 .loopMulti:
-    add     hl, de
-    djnz    .loopMulti
+        add     hl, de
+        djnz    .loopMulti
 .continue:
 
-    ; Add FrameIndex from X to compensate for the scrolled tiles
-    ld      a, (FrameIndex)
-    ld      d, a
+        ; Add FrameIndex from X to compensate for the scrolled tiles
+        ld      a, (FrameIndex)
+        ld      d, a
 
     ; de = COL_NUMBER:
     pop     af                  ; restore h (x coord)

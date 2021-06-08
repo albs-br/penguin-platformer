@@ -54,12 +54,12 @@ BgObjectsInitialState_Start:
     db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0
     
     ; TEST movement to left 
-    ;db       13,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
+    db       13,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
 
     ; TEST movement to right
-    db      3,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_RIGHT,      0,  0
+    ;db      3,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_RIGHT,      0,  0
 
-    db      15,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,                          0,  0
+    db      15,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0
 	ds     96 - ($ - (BgObjectsInitialState_Start + 0x00a0)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------

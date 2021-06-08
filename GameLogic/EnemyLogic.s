@@ -74,20 +74,26 @@ EnemyLogic:
     ;and     0000 0011 b                             ; each 4 frames
     ;jp      nz, .continue_xoffset_1
 
+    ; Check 7th bit of enemy type (it stores the direction)
+    ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
+    ld      a, (hl)
+    and     ENEMY_FACING_RIGHT                      ; a little faster than bit 7, a
+    jp      nz, .moveEnemyRight
     
-    ; ; Move enemy left
-    ; ld      a, (UpdateBgObjects_X_Offset_Value)
-    ; inc     a
-    ; cp      16                                      ; if (X_Offset == 16) { X_Offset = 0; EnemyColumnPosition--; }
-    ; jp      nz, .saveXoffset_Left
+    ; Move enemy left
+    ld      a, (UpdateBgObjects_X_Offset_Value)
+    inc     a
+    cp      16                                      ; if (X_Offset == 16) { X_Offset = 0; EnemyColumnPosition--; }
+    jp      nz, .saveXoffset_Left
     
-    ; ld      hl, (UpdateBgObjects_CurrentAddr)
-    ; ld      a, (hl)
-    ; dec     a
-    ; ld      (hl), a
-    ; xor     a                                       ; clear UpdateBgObjects_X_Offset_Value
-    ; jp      .saveXoffset_Left
+    ld      hl, (UpdateBgObjects_CurrentAddr)
+    ld      a, (hl)
+    dec     a
+    ld      (hl), a
+    xor     a                                       ; clear UpdateBgObjects_X_Offset_Value
+    jp      .saveXoffset_Left
 
+.moveEnemyRight:
     ; Move enemy right
     ld      a, (UpdateBgObjects_X_Offset_Value)
     dec     a
@@ -317,7 +323,8 @@ EnemyLogic:
 
     ; first check vertical collision, saving the next block (130 cycles), plus 57/62 of the subroutine if no collision
     call    CheckCollision_W1xH1_W2xH2_Vertical
-    ret     nc
+    ;ret     nc
+    jp      nc, .checkBackground
 
 
     ld      a, (Player_X)
@@ -331,7 +338,8 @@ EnemyLogic:
     ld      e, 14                               ; width = 14
 
     call    CheckCollision_W1xH1_W2xH2_Horizontal
-    ret     nc
+    ;ret     nc
+    jp      nc, .checkBackground
 
     ; if collided, disable enemy
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
@@ -391,4 +399,47 @@ EnemyLogic:
     ld      a, 192
     ld      (Enemy_1_Y), a
     
+    ret
+
+.checkBackground:
+    ; Check 7th bit of enemy type (it stores the direction)
+    ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
+    ld      a, (hl)
+    and     ENEMY_FACING_RIGHT                      ; a little faster than bit 7, a
+    jp      nz, .checkBackgroundRight
+
+    ; Check collision with background left
+    ld      a, (Enemy_1_X)
+    sub     8
+    ld      h, a
+    ld      a, (Enemy_1_Y)
+    add     8
+    ld      l, a
+    call    CheckBackGround_Left
+    ret     z                           ; no background, then return
+
+    ; Change direction to right
+    ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
+    ld      a, (hl)
+    or      ENEMY_FACING_RIGHT
+    ld      (hl), a
+
+    ret
+
+.checkBackgroundRight:
+    ; Check collision with background right
+    ld      a, (Enemy_1_X)
+    add     24 + 1
+    ld      h, a
+    ld      a, (Enemy_1_Y)
+    add     8
+    ld      l, a
+    call    CheckBackGround_Right
+    ret     z                           ; no background, then return
+
+    ; Change direction to left
+    ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
+    ld      a, (hl)
+    and     0111 1111 b                 ; reset 7th bit
+    ld      (hl), a
     ret
