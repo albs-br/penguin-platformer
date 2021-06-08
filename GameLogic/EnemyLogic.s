@@ -416,8 +416,19 @@ EnemyLogic:
     add     8
     ld      l, a
     call    CheckBackGround_Left
-    ret     z                           ; no background, then return
+    jp      nz, .changeDirectionToRight             ;
 
+    ; Check if has empty space under at left
+    ld      a, (Enemy_1_X)
+    ;sub     8
+    ld      h, a
+    ld      a, (Enemy_1_Y)
+    add     24
+    ld      l, a
+    call    CheckBackGround_Left
+    ret     nz                                      ; no empty space, then return
+
+.changeDirectionToRight:
     ; Change direction to right
     ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
     ld      a, (hl)
@@ -435,8 +446,19 @@ EnemyLogic:
     add     8
     ld      l, a
     call    CheckBackGround_Right
-    ret     z                           ; no background, then return
+    jp      nz, .changeDirectionToLeft             ;
 
+    ; Check if has empty space under at right
+    ld      a, (Enemy_1_X)
+    add     16 + 1
+    ld      h, a
+    ld      a, (Enemy_1_Y)
+    add     24
+    ld      l, a
+    call    CheckBackGround_Right
+    ret     nz                                      ; no empty space, then return
+
+.changeDirectionToLeft:
     ; Change direction to left
     ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
     ld      a, (hl)
