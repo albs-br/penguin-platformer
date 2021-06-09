@@ -29,14 +29,18 @@ TilePatterns_Start:
         INCLUDE "Graphics/Tiles/Patterns/Pattern_Diamonds.s"
     TilePatterns_Diamonds_End:
 
+    ; Enemy Ladybug
     TilePatterns_Enemy_Ladybug_Left_Start:
         INCLUDE "Graphics/Tiles/Patterns/Pattern_EnemyLadybug_Left.s"
     TilePatterns_Enemy_Ladybug_Left_End:
+    TilePatterns_Enemy_Ladybug_Right_Start:
+        INCLUDE "Graphics/Tiles/Patterns/Pattern_EnemyLadybug_Right.s"
+    TilePatterns_Enemy_Ladybug_Right_End:
 
+    ; Enemy Snail
     TilePatterns_Enemy_Snail_Left_Start:
         INCLUDE "Graphics/Tiles/Patterns/Pattern_EnemySnail_Left.s"
     TilePatterns_Enemy_Snail_Left_End:
-
     TilePatterns_Enemy_Snail_Right_Start:
         INCLUDE "Graphics/Tiles/Patterns/Pattern_EnemySnail_Right.s"
     TilePatterns_Enemy_Snail_Right_End:

@@ -137,8 +137,12 @@ EnemyLogic:
         ; switch enemy type
         ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
         ld      a, (hl)
+        
         cp      ENEMY_TYPE_LADYBUG_LEFT
         jp      z, .enemyTypeLadybugLeft
+        cp      ENEMY_TYPE_LADYBUG_RIGHT
+        jp      z, .enemyTypeLadybugRight
+        
         cp      ENEMY_TYPE_SNAIL_LEFT
         jp      z, .enemyTypeSnailLeft
         cp      ENEMY_TYPE_SNAIL_RIGHT
@@ -155,6 +159,19 @@ EnemyLogic:
         ld      (UpdateBgObjects_Enemy_Color_Addr), hl
         
         ld      hl, TilePatterns_Enemy_Ladybug_Left_Start
+        jp      .continue
+
+.enemyTypeLadybugRight:
+        ld      a, LADYBUG_SPRITE_RIGHT
+        ld      (UpdateBgObjects_Enemy_Sprite_Number), a
+
+        ld      a, COLOR_RED
+        ld      (UpdateBgObjects_Enemy_Sprite_Color), a
+
+        ld      hl, TileColors_EnemyLadybug_Top_Start
+        ld      (UpdateBgObjects_Enemy_Color_Addr), hl
+        
+        ld      hl, TilePatterns_Enemy_Ladybug_Right_Start
         jp      .continue
 
 .enemyTypeSnailLeft:

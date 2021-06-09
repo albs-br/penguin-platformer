@@ -49,19 +49,20 @@ HIT_FLASH_LAST_FRAME:       equ 41 * 4
 
 ; Ladybug
 LADYBUG_SPRITE_LEFT:        equ 42 * 4
+LADYBUG_SPRITE_RIGHT:       equ 43 * 4
 
 ; Snail
-SNAIL_SPRITE_LEFT:          equ 43 * 4
-SNAIL_SPRITE_RIGHT:         equ 44 * 4
+SNAIL_SPRITE_LEFT:          equ 44 * 4
+SNAIL_SPRITE_RIGHT:         equ 45 * 4
 
 
 
 ; Test Score
-TEST_PENGUIN_FACE_BLUE:                 equ 45 * 4
-TEST_PENGUIN_FACE_WHITE:                equ 46 * 4
-TEST_NUMBER_0_BIG:                      equ 47 * 4
-TEST_SCORE_DOWN_LEFT:                   equ 48 * 4
-TEST_SCORE_DOWN_RIGHT:                  equ 49 * 4
+TEST_PENGUIN_FACE_BLUE:                 equ 46 * 4
+TEST_PENGUIN_FACE_WHITE:                equ 47 * 4
+TEST_NUMBER_0_BIG:                      equ 48 * 4
+TEST_SCORE_DOWN_LEFT:                   equ 49 * 4
+TEST_SCORE_DOWN_RIGHT:                  equ 50 * 4
 
 
 ; Keyboard constants to current key(s) pressed

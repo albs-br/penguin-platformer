@@ -1480,7 +1480,7 @@ StartSpritePatterns:
 
     ; -------------------- Enemies ----------------------
     
-    ; --- Ladybug
+    ; --- Ladybug Left
     ; color 8
     DB 00000000b
     DB 00000000b
@@ -1515,6 +1515,40 @@ StartSpritePatterns:
     DB 00000000b
     DB 00000000b
 
+    ; --- Ladybug Right
+    ; color 8
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 01111001b
+    DB 01001111b
+    DB 11001011b
+    DB 11111111b
+    DB 10111110b
+    DB 11110111b
+    DB 11111111b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 11100000b
+    DB 00110000b
+    DB 00100000b
+    DB 11000000b
+    DB 10000000b
+    DB 10000000b
+    DB 10000000b
+    DB 00000000b
+    DB 00000000b
     ; 
     ; --- Snail Left
     ; color 10
