@@ -232,7 +232,7 @@ EnemyLogic:
 .noMult:
 
         ; save enemy pattern address
-        ld      (Enemy_1_Pattern_Addr), hl
+        ld      (UpdateBgObjects_Enemy_n_Pattern_Addr), hl
         
 
 
@@ -307,7 +307,7 @@ EnemyLogic:
         ld      b, a
         ld      a, c
         sub     b
-    ld      (Enemy_1_X), a
+    ld      (UpdateBgObjects_Enemy_n_X), a
 
 
     ; Get Y position (already stored in pixels)
@@ -316,15 +316,15 @@ EnemyLogic:
     inc     hl
     ld      a, (hl)
     dec     a               ; adjust for the Y - 1 TMS 9918 bug/feature
-    ld      (Enemy_1_Y), a
+    ld      (UpdateBgObjects_Enemy_n_Y), a
 
 
     ; ld      a, SNAIL_SPRITE_LEFT ; LADYBUG_SPRITE_LEFT
     ld      a, (UpdateBgObjects_Enemy_Sprite_Number)
-    ld      (Enemy_1_Pattern), a
+    ld      (UpdateBgObjects_Enemy_n_Pattern), a
     ; ld      a, COLOR_DARK_YELLOW ; COLOR_RED
     ld      a, (UpdateBgObjects_Enemy_Sprite_Color)
-    ld      (Enemy_1_Color), a
+    ld      (UpdateBgObjects_Enemy_n_Color), a
 
 
     ; Check collision only if enemy is alive (it may be on dying animation)
@@ -344,7 +344,7 @@ EnemyLogic:
     ld      c, a
     ld      b, 4                                ; height = 4
 
-    ld      a, (Enemy_1_Y)
+    ld      a, (UpdateBgObjects_Enemy_n_Y)
     add     6
     ld      e, a
     ld      d, 2                                ; height = 2
@@ -360,7 +360,7 @@ EnemyLogic:
     ld      b, a
     ld      c, 14                               ; width = 14
 
-    ld      a, (Enemy_1_X)
+    ld      a, (UpdateBgObjects_Enemy_n_X)
     add     2
     ld      d, a
     ld      e, 14                               ; width = 14
@@ -402,14 +402,14 @@ EnemyLogic:
 
     ; odd frame, hide sprite
     xor     a                           ; transparent color
-    ld      (Enemy_1_Color), a
+    ld      (UpdateBgObjects_Enemy_n_Color), a
     ;ret
     jp      .return
 
 .showEnemySprite:
     ; show sprite
     ld      a, (UpdateBgObjects_Enemy_Sprite_Color)
-    ld      (Enemy_1_Color), a
+    ld      (UpdateBgObjects_Enemy_n_Color), a
 
     ; and show tiles
     jp      .showEnemyTiles
@@ -422,11 +422,11 @@ EnemyLogic:
     
     ; hide sprite
     xor     a
-    ld      (Enemy_1_Pattern), a
-    ld      (Enemy_1_Color), a
-    ld      (Enemy_1_X), a
+    ld      (UpdateBgObjects_Enemy_n_Pattern), a
+    ld      (UpdateBgObjects_Enemy_n_Color), a
+    ld      (UpdateBgObjects_Enemy_n_X), a
     ld      a, 192
-    ld      (Enemy_1_Y), a
+    ld      (UpdateBgObjects_Enemy_n_Y), a
     
     ;ret
     jp      .return
@@ -439,20 +439,20 @@ EnemyLogic:
     jp      nz, .checkBackgroundRight
 
     ; Check collision with background left
-    ld      a, (Enemy_1_X)
+    ld      a, (UpdateBgObjects_Enemy_n_X)
     sub     8
     ld      h, a
-    ld      a, (Enemy_1_Y)
+    ld      a, (UpdateBgObjects_Enemy_n_Y)
     add     8
     ld      l, a
     call    CheckBackGround_Left
     jp      nz, .changeDirectionToRight             ;
 
     ; Check if has empty space under at left
-    ld      a, (Enemy_1_X)
+    ld      a, (UpdateBgObjects_Enemy_n_X)
     ;sub     8
     ld      h, a
-    ld      a, (Enemy_1_Y)
+    ld      a, (UpdateBgObjects_Enemy_n_Y)
     add     24
     ld      l, a
     call    CheckBackGround_Left
@@ -471,20 +471,20 @@ EnemyLogic:
 
 .checkBackgroundRight:
     ; Check collision with background right
-    ld      a, (Enemy_1_X)
+    ld      a, (UpdateBgObjects_Enemy_n_X)
     add     24 + 1
     ld      h, a
-    ld      a, (Enemy_1_Y)
+    ld      a, (UpdateBgObjects_Enemy_n_Y)
     add     8
     ld      l, a
     call    CheckBackGround_Right
     jp      nz, .changeDirectionToLeft             ;
 
     ; Check if has empty space under at right
-    ld      a, (Enemy_1_X)
+    ld      a, (UpdateBgObjects_Enemy_n_X)
     add     16 + 1
     ld      h, a
-    ld      a, (Enemy_1_Y)
+    ld      a, (UpdateBgObjects_Enemy_n_Y)
     add     24
     ld      l, a
     call    CheckBackGround_Right
@@ -502,8 +502,8 @@ EnemyLogic:
 
 .return:
     ; Copy temp variables back to enemy properties
-    ; ld      hl, UpdateBgObjects_Enemy_n_BaseAddress     ; source
-    ; ld      de, Enemy_1_BaseAddress                     ; destiny
-    ; ld      bc, ENEMY_STRUCT_SIZE                       ; size
-    ; ldir                                                ; Copy BC bytes from HL to DE
+    ld      hl, UpdateBgObjects_Enemy_n_BaseAddress     ; source
+    ld      de, Enemy_1_BaseAddress                     ; destiny
+    ld      bc, ENEMY_STRUCT_SIZE                       ; size
+    ldir                                                ; Copy BC bytes from HL to DE
     ret
