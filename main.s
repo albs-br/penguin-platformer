@@ -42,6 +42,8 @@ GameIncludes_Start:
     INCLUDE "GameLogic/UpdateBgObjects.s"
     INCLUDE "GameLogic/UpdateAnimations.s"
     INCLUDE "GameLogic/Score.s"
+    INCLUDE "GameLogic/SwitchNamesTable.s"
+    INCLUDE "GameLogic/CopyEnemyPatternsToVRAM.s"
 GameIncludes_Size:      equ $ - GameIncludes_Start
 
 ; Include game data
@@ -95,43 +97,43 @@ MainLoop:
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF    
 
-    ; Switch names table
-    ld      hl, (CurrentNamesTable)
-    ld      a, h
-    cp      0x18                        ; Names Table 1 High byte
-    jp      z, .setNameTable_2
-; Set names table 1
-    ; Writing to Names Table 1 while showing Names Table 2
-    ld      hl, NamesTable
-	ld	    b, 7	               		; Data To Write to VDP register
-    jp      .continue
-.setNameTable_2:
-    ; Writing to Names Table 2 while showing Names Table 1
-    ld      hl, NamesTable_2
-	ld	    b, 6	               		; Data To Write to VDP register
-.continue:
-    ld      (CurrentNamesTable), hl
-	ld	    c, 2	               		; VDP Register Number (0..27, 32..46)
-    call    BIOS_WRTVDP        		    ; 
+;     ; Switch names table
+;     ld      hl, (CurrentNamesTable)
+;     ld      a, h
+;     cp      0x18                        ; Names Table 1 High byte
+;     jp      z, .setNameTable_2
+; ; Set names table 1
+;     ; Writing to Names Table 1 while showing Names Table 2
+;     ld      hl, NamesTable
+; 	ld	    b, 7	               		; Data To Write to VDP register
+;     jp      .continue
+; .setNameTable_2:
+;     ; Writing to Names Table 2 while showing Names Table 1
+;     ld      hl, NamesTable_2
+; 	ld	    b, 6	               		; Data To Write to VDP register
+; .continue:
+;     ld      (CurrentNamesTable), hl
+; 	ld	    c, 2	               		; VDP Register Number (0..27, 32..46)
+;     call    BIOS_WRTVDP        		    ; 
+    call    SwitchNamesTable
 
-
-    ; Get enemy 1 pattern address and spit it to VRAM
-    ld      hl, (UpdateBgObjects_Enemy_1_Pattern_Addr)
-    ld      a, h
-    or      l
-    jp      z, .skipEnemy_1                             ; if no enemy, skip copy patterns
-    ex      de, hl
-        ld	    hl, VRAM_PATTERN_TABLE_ADDR
-        call	BIOS_SETWRT                                 ; Sets the VRAM pointer
-    ex      de, hl
-    ld	    a, (BIOS_VDP_DW)
-    ld	    c, a
-    ; Uses 6 * 8 = 48 OUTIs to copy the 6 tiles from ROM to VRAM
-    ; Unrolled OUTIs (use only during v-blank)
-    OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
-    OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
-.skipEnemy_1:
-
+;     ; Get enemy 1 pattern address and spit it to VRAM
+;     ld      hl, (UpdateBgObjects_Enemy_1_Pattern_Addr)
+;     ld      a, h
+;     or      l
+;     jp      z, .skipEnemy_1                             ; if no enemy, skip copying patterns
+;     ex      de, hl
+;         ld	    hl, VRAM_PATTERN_TABLE_ADDR
+;         call	BIOS_SETWRT                                 ; Sets the VRAM pointer
+;     ex      de, hl
+;     ld	    a, (BIOS_VDP_DW)
+;     ld	    c, a
+;     ; Uses 6 * 8 = 48 OUTIs to copy the 6 tiles from ROM to VRAM
+;     ; Unrolled OUTIs (use only during v-blank)
+;     OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
+;     OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
+; .skipEnemy_1:
+    call    CopyEnemyPatternsToVRAM
 
     ; [debug]
     ; Check if previous frame ended

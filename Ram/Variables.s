@@ -57,6 +57,8 @@ UpdateBgObjects_FrameIndex_Enemy:       rb 1
 
 UpdateBgObjects_Enemy_1_Pattern_Addr:   rw 1
 
+
+
 ScrollDirection:                        rb 1       ; 0: none, 1: left, 2: right
 ScrollSpeed:                            rb 1       ; 1: normal (1px / frame), 2: fast (2px / frame)
 
