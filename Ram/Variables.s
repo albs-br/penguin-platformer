@@ -48,14 +48,20 @@ UpdateBgObjects_PosObjOnBG:             rw 1
 UpdateBgObjects_X:                      rb 1
 UpdateBgObjects_Y:                      rb 1
 UpdateBgObjects_StartAddr:              rw 1
-UpdateBgObjects_NameTable_Addr:               rw 1
-;UpdateBgObjects_Enemy_Pattern_Addr:     rw 1
+UpdateBgObjects_NameTable_Addr:         rw 1
 UpdateBgObjects_Enemy_Color_Addr:       rw 1
 UpdateBgObjects_Enemy_Sprite_Number:    rb 1
 UpdateBgObjects_Enemy_Sprite_Color:     rb 1
 UpdateBgObjects_FrameIndex_Enemy:       rb 1
 
-UpdateBgObjects_Enemy_1_Pattern_Addr:   rw 1
+UpdateBgObjects_Enemy_n_BaseAddress:
+UpdateBgObjects_Enemy_n_X:              rb 1
+UpdateBgObjects_Enemy_n_Y:              rb 1
+UpdateBgObjects_Enemy_n_Pattern:        rb 1
+UpdateBgObjects_Enemy_n_Color:          rb 1
+UpdateBgObjects_Enemy_n_Pattern_Addr:   rw 1
+ENEMY_STRUCT_SIZE:                      equ $ - UpdateBgObjects_Enemy_n_BaseAddress
+
 
 
 
@@ -78,10 +84,12 @@ HitFlash_Counter:                       rb 1        ; counter for each animation
 
 
 ; Enemies
+Enemy_1_BaseAddress:
 Enemy_1_X:                              rb 1
 Enemy_1_Y:                              rb 1
 Enemy_1_Pattern:                        rb 1
 Enemy_1_Color:                          rb 1
+Enemy_1_Pattern_Addr:                   rw 1
 
 
 IsProcessingFrame:                      rb 1       ; 0: false, 1: true

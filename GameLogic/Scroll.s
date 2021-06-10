@@ -17,7 +17,7 @@ DrawBackground_3_Thirds:
     ENDIF    
 
     ld      hl, 0
-    ld      (UpdateBgObjects_Enemy_1_Pattern_Addr), hl
+    ld      (Enemy_1_Pattern_Addr), hl
 
     call    UpdateBgObjects_SetupVariables
     call    UpdateBgObjects_Execute

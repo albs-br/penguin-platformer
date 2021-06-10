@@ -4,6 +4,16 @@ EnemyLogic:
     VRAM_COLORS_TABLE_ADDR:     equ ColorsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL * 8)
 
 
+    ; Copy enemy properties to temp variables
+    ld      hl, Enemy_1_BaseAddress                     ; source
+    ld      de, UpdateBgObjects_Enemy_n_BaseAddress     ; destiny
+    ld      bc, ENEMY_STRUCT_SIZE                       ; size
+    ldir                                                ; Copy BC bytes from HL to DE
+
+    ; set VDP port for OUT command
+    ld	    a, (BIOS_VDP_DW)
+    ld	    c, a
+
 
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
 
@@ -222,7 +232,7 @@ EnemyLogic:
 .noMult:
 
         ; save enemy pattern address
-        ld      (UpdateBgObjects_Enemy_1_Pattern_Addr), hl
+        ld      (Enemy_1_Pattern_Addr), hl
         
 
 
@@ -321,7 +331,8 @@ EnemyLogic:
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
     ld      a, (hl)
     cp      2
-    ret     nc              ; if (a >= n)
+    ;ret     nc              ; if (a >= n)
+    jp      nc, .return     ; if (a >= n)
 
 
     ; Check collision - penguin jumped over enemy
@@ -392,7 +403,8 @@ EnemyLogic:
     ; odd frame, hide sprite
     xor     a                           ; transparent color
     ld      (Enemy_1_Color), a
-    ret
+    ;ret
+    jp      .return
 
 .showEnemySprite:
     ; show sprite
@@ -416,7 +428,8 @@ EnemyLogic:
     ld      a, 192
     ld      (Enemy_1_Y), a
     
-    ret
+    ;ret
+    jp      .return
 
 .checkBackground:
     ; Check 7th bit of enemy type (it stores the direction)
@@ -443,7 +456,8 @@ EnemyLogic:
     add     24
     ld      l, a
     call    CheckBackGround_Left
-    ret     nz                                      ; no empty space, then return
+    ;ret     nz                                      ; no empty space, then return
+    jp      nz, .return                             ; no empty space, then return
 
 .changeDirectionToRight:
     ; Change direction to right
@@ -452,7 +466,8 @@ EnemyLogic:
     or      ENEMY_FACING_RIGHT
     ld      (hl), a
 
-    ret
+    ;ret
+    jp      .return
 
 .checkBackgroundRight:
     ; Check collision with background right
@@ -473,7 +488,8 @@ EnemyLogic:
     add     24
     ld      l, a
     call    CheckBackGround_Right
-    ret     nz                                      ; no empty space, then return
+    ;ret     nz                                      ; no empty space, then return
+    jp      nz, .return                             ; no empty space, then return
 
 .changeDirectionToLeft:
     ; Change direction to left
@@ -481,4 +497,13 @@ EnemyLogic:
     ld      a, (hl)
     and     0111 1111 b                 ; reset 7th bit
     ld      (hl), a
+    ;ret
+    jp      .return
+
+.return:
+    ; Copy temp variables back to enemy properties
+    ; ld      hl, UpdateBgObjects_Enemy_n_BaseAddress     ; source
+    ; ld      de, Enemy_1_BaseAddress                     ; destiny
+    ; ld      bc, ENEMY_STRUCT_SIZE                       ; size
+    ; ldir                                                ; Copy BC bytes from HL to DE
     ret

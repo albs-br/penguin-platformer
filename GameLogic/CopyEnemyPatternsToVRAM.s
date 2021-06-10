@@ -1,6 +1,6 @@
 CopyEnemyPatternsToVRAM:
     ; Get enemy 1 pattern address and spit it to VRAM
-    ld      hl, (UpdateBgObjects_Enemy_1_Pattern_Addr)
+    ld      hl, (Enemy_1_Pattern_Addr)
     ld      a, h
     or      l
     jp      z, .skipEnemy_1                             ; if no enemy, skip copying patterns
