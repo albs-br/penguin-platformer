@@ -1,11 +1,46 @@
 EnemyLogic:
-    TILE_POSITION_ON_NAMTBL:    equ 217
-    VRAM_PATTERN_TABLE_ADDR:    equ PatternsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL * 8)
-    VRAM_COLORS_TABLE_ADDR:     equ ColorsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL * 8)
+    TILE_POSITION_ON_NAMTBL_ENEMY_1:    equ 217
+    VRAM_PATTERN_TABLE_ADDR_ENEMY_1:    equ PatternsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_1 * 8)
+    VRAM_COLORS_TABLE_ADDR_ENEMY_1:     equ ColorsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_1 * 8)
+
+
+    TILE_POSITION_ON_NAMTBL_ENEMY_2:    equ TILE_POSITION_ON_NAMTBL_ENEMY_1 + 6
+    VRAM_PATTERN_TABLE_ADDR_ENEMY_2:    equ PatternsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_2 * 8)
+    VRAM_COLORS_TABLE_ADDR_ENEMY_2:     equ ColorsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_2 * 8)
+
+
+    ;
+    ld      a, (Enemies_Counter)
+    cp      2
+    jp      z, .enemy_3
+    cp      1
+    jp      z, .enemy_2
+; enemy 1
+    ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_1
+    ld      (UpdateBgObjects_VRAM_NamesTable_Position), a
+    ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_1
+    ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
+    ld      hl, Enemy_1_BaseAddress                         ; source
+    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
+    
+    jp      .copyEnemyPropertiesToTempVars
+.enemy_3:
+    
+    jp      .copyEnemyPropertiesToTempVars
+.enemy_2:
+    ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_2
+    ld      (UpdateBgObjects_VRAM_NamesTable_Position), a
+    ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_2
+    ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
+    ld      hl, Enemy_2_BaseAddress                         ; source
+    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
+
+.copyEnemyPropertiesToTempVars:
 
 
     ; Copy enemy properties to temp variables
-    ld      hl, Enemy_1_BaseAddress                     ; source
+    ;ld      hl, Enemy_1_BaseAddress                     ; source
+    ld      hl, (UpdateBgObjects_Enemy_Return_Addr)
     ld      de, UpdateBgObjects_Enemy_n_BaseAddress     ; destiny
     ld      bc, ENEMY_STRUCT_SIZE                       ; size
     ldir                                                ; Copy BC bytes from HL to DE
@@ -239,7 +274,9 @@ EnemyLogic:
         ; ------------ Update colors table  ------------
         ; copy color data of enemy to VRAM
         ld		bc, 8 * 6   ; Block length
-        ld		de, VRAM_COLORS_TABLE_ADDR						                        ; VRAM address
+        ;ld		de, VRAM_COLORS_TABLE_ADDR						                        ; VRAM address
+        ld		de, (UpdateBgObjects_VRAM_ColorsTable_Addr)						    ; VRAM address
+        
         ;ld		hl, TileColors_EnemySnail_Top_Start ; TileColors_EnemyLadybug_Top_Start	                                ; RAM address
         ld      hl, (UpdateBgObjects_Enemy_Color_Addr)                                  ; RAM address
         call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
@@ -250,7 +287,8 @@ EnemyLogic:
 	call    BIOS_SETWRT
 
     ; top left
-    ld      a, TILE_POSITION_ON_NAMTBL ;DIAMOND_FIRST_TILE
+    ;ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_1 ;DIAMOND_FIRST_TILE
+    ld      a, (UpdateBgObjects_VRAM_NamesTable_Position)
     out     (c), a
 
     ; top center
@@ -501,9 +539,22 @@ EnemyLogic:
     jp      .return
 
 .return:
+    ld      de, (UpdateBgObjects_Enemy_Return_Addr)
+
     ; Copy temp variables back to enemy properties
     ld      hl, UpdateBgObjects_Enemy_n_BaseAddress     ; source
-    ld      de, Enemy_1_BaseAddress                     ; destiny
+    ;ld      de, Enemy_1_BaseAddress                     ; destiny
     ld      bc, ENEMY_STRUCT_SIZE                       ; size
     ldir                                                ; Copy BC bytes from HL to DE
+
+    
+    ; Do not increment counter if enemy is dead
+    ld      hl, (UpdateBgObjects_CurrentAddr_State)
+    ld      a, (hl)
+    or      a
+    ret     z
+
+    ld      hl, Enemies_Counter
+    inc     (hl)
+
     ret

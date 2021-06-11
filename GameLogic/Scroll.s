@@ -16,8 +16,11 @@ DrawBackground_3_Thirds:
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF    
 
-    ld      hl, 0
-    ld      (Enemy_1_Pattern_Addr), hl
+    ; reset some variables
+    call    InitEnemiesVariables
+
+
+
 
     call    UpdateBgObjects_SetupVariables
     call    UpdateBgObjects_Execute

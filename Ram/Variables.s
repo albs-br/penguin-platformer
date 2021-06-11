@@ -54,6 +54,10 @@ UpdateBgObjects_Enemy_Sprite_Number:    rb 1
 UpdateBgObjects_Enemy_Sprite_Color:     rb 1
 UpdateBgObjects_FrameIndex_Enemy:       rb 1
 
+UpdateBgObjects_Enemy_Return_Addr:          rw 1
+UpdateBgObjects_VRAM_ColorsTable_Addr:      rw 1
+UpdateBgObjects_VRAM_NamesTable_Position:   rb 1
+
 UpdateBgObjects_Enemy_n_BaseAddress:
 UpdateBgObjects_Enemy_n_X:              rb 1
 UpdateBgObjects_Enemy_n_Y:              rb 1
@@ -61,6 +65,7 @@ UpdateBgObjects_Enemy_n_Pattern:        rb 1
 UpdateBgObjects_Enemy_n_Color:          rb 1
 UpdateBgObjects_Enemy_n_Pattern_Addr:   rw 1
 ENEMY_STRUCT_SIZE:                      equ $ - UpdateBgObjects_Enemy_n_BaseAddress
+
 
 
 
@@ -90,6 +95,22 @@ Enemy_1_Y:                              rb 1
 Enemy_1_Pattern:                        rb 1
 Enemy_1_Color:                          rb 1
 Enemy_1_Pattern_Addr:                   rw 1
+
+Enemy_2_BaseAddress:
+Enemy_2_X:                              rb 1
+Enemy_2_Y:                              rb 1
+Enemy_2_Pattern:                        rb 1
+Enemy_2_Color:                          rb 1
+Enemy_2_Pattern_Addr:                   rw 1
+
+Enemy_3_BaseAddress:
+Enemy_3_X:                              rb 1
+Enemy_3_Y:                              rb 1
+Enemy_3_Pattern:                        rb 1
+Enemy_3_Color:                          rb 1
+Enemy_3_Pattern_Addr:                   rw 1
+
+Enemies_Counter:                        rb 1
 
 
 IsProcessingFrame:                      rb 1       ; 0: false, 1: true

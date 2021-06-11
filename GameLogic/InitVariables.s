@@ -87,12 +87,21 @@ InitVariables:
 
 
     ; Sprites for enemies
-    xor     a
-    ld      (Enemy_1_X), a
-    ld      (Enemy_1_Pattern), a
-    ld      (Enemy_1_Color), a
-    ld      a, 192
-    ld      (Enemy_1_Y), a
+    call    InitEnemiesVariables
+    ; xor     a
+    ; ld      (Enemy_1_X), a
+    ; ld      (Enemy_1_Pattern), a
+    ; ld      (Enemy_1_Color), a
+    ; ld      (Enemy_2_X), a
+    ; ld      (Enemy_2_Pattern), a
+    ; ld      (Enemy_2_Color), a
+    ; ld      (Enemy_3_X), a
+    ; ld      (Enemy_3_Pattern), a
+    ; ld      (Enemy_3_Color), a
+    ; ld      a, 192
+    ; ld      (Enemy_1_Y), a
+    ; ld      (Enemy_2_Y), a
+    ; ld      (Enemy_3_Y), a
 
 
     ; test [debug]
@@ -102,5 +111,29 @@ InitVariables:
     ; ld      (Test_Sprite_X), a
 
 
+
+    ret
+
+
+InitEnemiesVariables:
+    ld      hl, 0
+    ld      (Enemy_1_Pattern_Addr), hl
+    ld      (Enemy_2_Pattern_Addr), hl
+    ld      (Enemy_3_Pattern_Addr), hl
+    xor     a
+    ld      (Enemies_Counter), a
+    ld      (Enemy_1_X), a
+    ld      (Enemy_1_Pattern), a
+    ld      (Enemy_1_Color), a
+    ld      (Enemy_2_X), a
+    ld      (Enemy_2_Pattern), a
+    ld      (Enemy_2_Color), a
+    ld      (Enemy_3_X), a
+    ld      (Enemy_3_Pattern), a
+    ld      (Enemy_3_Color), a
+    ld      a, 192
+    ld      (Enemy_1_Y), a
+    ld      (Enemy_2_Y), a
+    ld      (Enemy_3_Y), a
 
     ret
