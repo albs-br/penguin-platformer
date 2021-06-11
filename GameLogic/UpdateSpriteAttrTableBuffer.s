@@ -125,12 +125,23 @@ UpdateSpriteAttrTableBuffer:
     ld      a, (Enemy_2_Color)
     ld      (hl), a
 
+    ; Sprite # 7
+    inc     hl
+    ld      a, (Enemy_3_Y)
+    ld      (hl), a
 
-    ; ; Sprite # 7
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
+    inc     hl
+    ld      a, (Enemy_3_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_3_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_3_Color)
+    ld      (hl), a
+
 
 
 

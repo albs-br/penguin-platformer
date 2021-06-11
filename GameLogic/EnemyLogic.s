@@ -9,6 +9,12 @@ EnemyLogic:
     VRAM_COLORS_TABLE_ADDR_ENEMY_2:     equ ColorsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_2 * 8)
 
 
+    TILE_POSITION_ON_NAMTBL_ENEMY_3:    equ TILE_POSITION_ON_NAMTBL_ENEMY_2 + 6
+    VRAM_PATTERN_TABLE_ADDR_ENEMY_3:    equ PatternsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_3 * 8)
+    VRAM_COLORS_TABLE_ADDR_ENEMY_3:     equ ColorsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_3 * 8)
+
+
+
     ;
     ld      a, (Enemies_Counter)
     cp      2
@@ -25,7 +31,11 @@ EnemyLogic:
     
     jp      .copyEnemyPropertiesToTempVars
 .enemy_3:
-    
+    ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_3
+    ld      (UpdateBgObjects_VRAM_NamesTable_Position), a
+    ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_3
+    ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
+    ld      hl, Enemy_3_BaseAddress                         ; source
     jp      .copyEnemyPropertiesToTempVars
 .enemy_2:
     ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_2
@@ -438,7 +448,7 @@ EnemyLogic:
     and     0000 0011 b
     jp      z, .showEnemySprite
 
-    ; odd frame, hide sprite
+    ; hide sprite
     xor     a                           ; transparent color
     ld      (UpdateBgObjects_Enemy_n_Color), a
     ;ret

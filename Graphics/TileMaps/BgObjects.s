@@ -6,7 +6,7 @@ ANOTHER_OBJECT:                 equ DIAMOND_FIRST_TILE - 128
 ENEMY:                          equ 255
 
 
-; enemy types (highest bit means direction - facing left or right):
+; enemy types (highest bit means direction - 0: facing left or 1: right):
 ENEMY_FACING_RIGHT:             equ 1000 0000 b
 ENEMY_TYPE_LADYBUG_LEFT:        equ 0
 ENEMY_TYPE_LADYBUG_RIGHT:       equ ENEMY_TYPE_LADYBUG_LEFT + ENEMY_FACING_RIGHT
