@@ -472,8 +472,9 @@ EnemyLogic:
     ;ret
 
 .endAnimationEnemyDying:
-    xor     a
-    ld      (UpdateBgObjects_CurrentAddr_State), a
+    ;xor     a
+    ld      hl, (UpdateBgObjects_CurrentAddr_State)
+    ld      (hl), 0
     
     ; hide sprite
     xor     a
