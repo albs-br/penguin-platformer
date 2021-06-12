@@ -15,6 +15,13 @@ EnemyLogic:
 
 
 
+    ; Return if enemy is dead
+    ld      hl, (UpdateBgObjects_CurrentAddr_State)
+    ld      a, (hl)
+    or      a
+    ret     z
+
+
     ;
     ld      a, (Enemies_Counter)
     cp      2
