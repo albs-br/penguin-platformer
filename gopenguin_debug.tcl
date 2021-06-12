@@ -24,7 +24,7 @@
 
 #ram_watch   add     0xD025      -type byte      -desc UpdateBgObjects_X_Offset_Value   -format hex
 
-ram_watch   add     0xD05d      -type byte      -desc Enemies_Counter             -format dec
+ram_watch   add     0xD05d      -type byte      -desc Enemies_Counter       -format dec
 ram_watch   add     0xD04B      -type byte      -desc Enemy_1_X             -format dec
 ram_watch   add     0xD04D      -type byte      -desc Enemy_1_Pattern       -format dec
 ram_watch   add     0xD04F      -type word      -desc Enemy_1_Pattern_Addr  -format hex
@@ -34,6 +34,9 @@ ram_watch   add     0xD055      -type word      -desc Enemy_2_Pattern_Addr  -for
 ram_watch   add     0xD057      -type byte      -desc Enemy_3_X             -format dec
 ram_watch   add     0xD059      -type byte      -desc Enemy_3_Pattern       -format dec
 ram_watch   add     0xD05b      -type word      -desc Enemy_3_Pattern_Addr  -format hex
+
+ram_watch   add     0xD05e      -type byte      -desc IsProcessingFrame     -format dec
+
 
 
 #ram_watch load gopenguin_debug
