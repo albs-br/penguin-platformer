@@ -43,6 +43,8 @@ EnemyLogic:
     ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_3
     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
     ld      hl, Enemy_3_BaseAddress                         ; source
+    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
+
     jp      .copyEnemyPropertiesToTempVars
 .enemy_2:
     ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_2
@@ -74,7 +76,7 @@ EnemyLogic:
     ld      a, (hl)
     ld      (UpdateBgObjects_X_Offset_Value), a
     ld      (UpdateBgObjects_X_Offset_Value_Adjusted), a
-    
+
     inc     hl
     ld      (UpdateBgObjects_CurrentAddr_EnemyType), hl
 

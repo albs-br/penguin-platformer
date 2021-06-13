@@ -83,7 +83,9 @@ BgObjectsInitialState_Start:
 
     db      27,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1,  0,  0,                          0,  0
 
-    db      29,     ENEMY,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
+    ;db      29,     ENEMY,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
+
+    ;db      36,     ENEMY,                  * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_RIGHT,    0,  0
 
 	ds     96 - ($ - (BgObjectsInitialState_Start + 0x01a0)), 0                 ; fill with 0s until end of block
 
@@ -116,12 +118,13 @@ BgObjectsInitialState_Start:
 	ds     64 - ($ - (BgObjectsInitialState_Start + 0x0200)), 0                 ; fill with 0s until end of block
     
     ; 2nd third (lines 4-7) - 96 bytes
-    db      32,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1,  0,  0,  0,  0
-    db      34,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1,  0,  0,  0,  0
-    db      36,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1,  0,  0,  0,  0
-    db      38,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1,  0,  0,  0,  0
-    db      40,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1,  0,  0,  0,  0
-    db      42,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1,  0,  0,  0,  0
+    ; db      32,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1,  0,  0,  0,  0
+    ; db      34,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1,  0,  0,  0,  0
+    ; db      36,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1,  0,  0,  0,  0
+    ; db      38,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1,  0,  0,  0,  0
+    ; db      40,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1,  0,  0,  0,  0
+    ; db      42,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1,  0,  0,  0,  0
+    
     ;db      44,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1
     ;db      44,     DIAMOND_FIRST_TILE,     5 * 2 * 8,      1
     ; db      44,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1
@@ -135,8 +138,10 @@ BgObjectsInitialState_Start:
     ; db      38,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     ; db      40,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     ; db      42,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
+    db      34,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_RIGHT,    0,  0
+
     db      36,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
-    db      42,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
+    db      42,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0
     ;db      44,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
     ;db      44,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
     ; db      44,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1

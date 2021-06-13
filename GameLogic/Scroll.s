@@ -515,14 +515,4 @@ UpdateSpritesX:
     add     c
     ld      (HitFlash_X), a
 
-    ; TODO: Fix it: this is being updated twice (one based in tile position (on UpdateBgObjects) and this one)
-    ; Update X position of enemy sprite
-    ; ld      a, (Enemy_1_X)
-    ; add     c
-    ; ld      (Enemy_1_X), a
-
-    ; ld      a, (Enemy_2_X)
-    ; add     c
-    ; ld      (Enemy_2_X), a
-
     ret

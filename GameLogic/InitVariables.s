@@ -88,21 +88,6 @@ InitVariables:
 
     ; Sprites for enemies
     call    InitEnemiesVariables
-    ; xor     a
-    ; ld      (Enemy_1_X), a
-    ; ld      (Enemy_1_Pattern), a
-    ; ld      (Enemy_1_Color), a
-    ; ld      (Enemy_2_X), a
-    ; ld      (Enemy_2_Pattern), a
-    ; ld      (Enemy_2_Color), a
-    ; ld      (Enemy_3_X), a
-    ; ld      (Enemy_3_Pattern), a
-    ; ld      (Enemy_3_Color), a
-    ; ld      a, 192
-    ; ld      (Enemy_1_Y), a
-    ; ld      (Enemy_2_Y), a
-    ; ld      (Enemy_3_Y), a
-
 
     ; test [debug]
     ; ld	    a, 192-32-1
