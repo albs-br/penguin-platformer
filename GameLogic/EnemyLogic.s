@@ -73,7 +73,8 @@ EnemyLogic:
     ld      (UpdateBgObjects_CurrentAddr_X_Offset), hl
     ld      a, (hl)
     ld      (UpdateBgObjects_X_Offset_Value), a
-
+    ld      (UpdateBgObjects_X_Offset_Value_Adjusted), a
+    
     inc     hl
     ld      (UpdateBgObjects_CurrentAddr_EnemyType), hl
 
@@ -451,10 +452,8 @@ EnemyLogic:
     jp      z, .endAnimationEnemyDying
 
     ld      (hl), a
-
     and     0000 0011 b
     jp      z, .showEnemySprite
-    ;jp      .showEnemySprite
 
 
     ; hide sprite
