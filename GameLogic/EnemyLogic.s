@@ -454,6 +454,8 @@ EnemyLogic:
 
     and     0000 0011 b
     jp      z, .showEnemySprite
+    ;jp      .showEnemySprite
+
 
     ; hide sprite
     xor     a                           ; transparent color
@@ -557,11 +559,15 @@ EnemyLogic:
     jp      .return
 
 .return:
-    ld      de, (UpdateBgObjects_Enemy_Return_Addr)
+
+
+    ; LD A, 128 ;TEST
+    ; ld      (UpdateBgObjects_Enemy_n_X), a
+
 
     ; Copy temp variables back to enemy properties
     ld      hl, UpdateBgObjects_Enemy_n_BaseAddress     ; source
-    ;ld      de, Enemy_1_BaseAddress                     ; destiny
+    ld      de, (UpdateBgObjects_Enemy_Return_Addr)     ; destiny
     ld      bc, ENEMY_STRUCT_SIZE                       ; size
     ldir                                                ; Copy BC bytes from HL to DE
 

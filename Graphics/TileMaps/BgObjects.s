@@ -27,8 +27,8 @@ ENEMY_TYPE_SNAIL_RIGHT:         equ ENEMY_TYPE_SNAIL_LEFT + ENEMY_FACING_RIGHT
 ; -- these properties are only for enemies:
 ;       x offset (0-15)
 ;       enemy type (bit 7: 0-facing left; 1-facing right)
-;       left limit (1-255), based on 16x16 tiles
-;       right limit (1-255), based on 16x16 tiles
+;       not used
+;       not used
 BgObjectsInitialState_Start:
 
 ; screen / page 0 (0-15)
