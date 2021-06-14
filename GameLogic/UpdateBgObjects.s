@@ -1,4 +1,4 @@
-UpdateBgObjects_SetupVariables:
+UpdateBgObjects:
 
 ; ---------------- Setup variables
 
@@ -29,8 +29,6 @@ UpdateBgObjects_SetupVariables:
     add     hl, de
     ld      (LastVisibleColumn), hl
 
-
-
     ; setup adresses of current page and next
     ld      hl, BgObjects_Start
     add     hl, bc
@@ -40,17 +38,9 @@ UpdateBgObjects_SetupVariables:
     add     hl, bc
     ld      (Addr_Screen_LastVisibleColumn), hl
 
-    ret
+; ---------------------- Execute
 
-; --------------------------------
-; Inputs:
-;   (UpdateBgObjects_CurrentAddr)
-;   (FirstVisibleColumn)
-;   (LastVisibleColumn)
-;   (Addr_Screen_LastVisibleColumn)
-; Updates:
-;   (UpdateBgObjects_StartAddr)
-UpdateBgObjects_Execute:
+
     ld      hl, (UpdateBgObjects_CurrentAddr)
     ld      (UpdateBgObjects_StartAddr), hl
 
@@ -153,6 +143,8 @@ ShowBgObject:
     ld      hl, (UpdateBgObjects_CurrentAddr)
     inc     hl
     inc     hl
+    ld      a, (hl)
+    ld      (UpdateBgObjects_CurrentAddr_RowNumber_Value), a
     inc     hl
     ld      (UpdateBgObjects_CurrentAddr_State), hl
     ld      a, (hl)

@@ -64,6 +64,41 @@ EnemyLogic:
     ld      bc, ENEMY_STRUCT_SIZE                       ; size
     ldir                                                ; Copy BC bytes from HL to DE
 
+
+    ; Adjust VRAM addresses to correct third of the screen
+    ;   logic is the same for color table
+    ;   paternTableAddr = PatternsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_1 * 8)
+    ;   if (row 0-3) {
+    ;       // do nothing
+    ;   }
+    ;   else if (row 4-7) {
+    ;       paternTableAddr += 256 * 8
+    ;   }
+    ;   else if (row 8-11) {
+    ;       paternTableAddr += 512 * 8
+    ;   }
+
+; TODO: correct Pattern Table Address and Names table position
+
+;     ld      a, (UpdateBgObjects_CurrentAddr_RowNumber_Value)
+;     cp      8 * 16                                      ; x16 necessary because row is stored in pixels
+;     jp      nc, .rowBetween_8_and_11                    ; if (a >= n)
+;     cp      4 * 16
+;     jp      nc, .rowBetween_4_and_7                     ; if (a >= n)
+;     jp      .continueRow
+; .rowBetween_8_and_11:
+;     ld      bc, 512 * 8
+;     ld      hl, (UpdateBgObjects_VRAM_ColorsTable_Addr)
+;     add     hl, bc
+;     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
+;     jp      .continueRow
+; .rowBetween_4_and_7:
+;     ld      bc, 256 * 8
+;     ld      hl, (UpdateBgObjects_VRAM_ColorsTable_Addr)
+;     add     hl, bc
+;     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
+; .continueRow:
+
     ; set VDP port for OUT command
     ld	    a, (BIOS_VDP_DW)
     ld	    c, a

@@ -39,10 +39,11 @@ Addr_Screen_FirstVisibleColumn:         rw 1            ; addr of RAM objects of
 Addr_Screen_LastVisibleColumn:          rw 1
 
 UpdateBgObjects_CurrentAddr:            rw 1
+UpdateBgObjects_CurrentAddr_RowNumber_Value:    rb 1
 UpdateBgObjects_CurrentAddr_State:      rw 1
 UpdateBgObjects_CurrentAddr_X_Offset:   rw 1
 UpdateBgObjects_X_Offset_Value:         rb 1
-UpdateBgObjects_X_Offset_Value_Adjusted:    rb 1
+UpdateBgObjects_X_Offset_Value_Adjusted:        rb 1
 UpdateBgObjects_CurrentAddr_EnemyType:  rw 1
 UpdateBgObjects_PosObjOnBG:             rw 1
 UpdateBgObjects_X:                      rb 1
