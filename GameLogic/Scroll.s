@@ -25,17 +25,17 @@ DrawBackground_3_Thirds:
     call    UpdateBgObjects_SetupVariables
     call    UpdateBgObjects_Execute
 
-    ld      hl, (Addr_Screen_FirstVisibleColumn)
-    ld      bc, 64                        ; TODO: use 8 bit add, as it is page aligned, or even LD L, 64
-    add     hl, bc
-    ld      (UpdateBgObjects_CurrentAddr), hl
-    call    UpdateBgObjects_Execute
+    ; ld      hl, (Addr_Screen_FirstVisibleColumn)
+    ; ld      bc, 64                        ; TODO: use 8 bit add, as it is page aligned, or even LD L, 64
+    ; add     hl, bc
+    ; ld      (UpdateBgObjects_CurrentAddr), hl
+    ; call    UpdateBgObjects_Execute
 
-    ld      hl, (Addr_Screen_FirstVisibleColumn)
-    ld      bc, 64 + 96                   ; TODO: use 8 bit add, as it is page aligned, or even LD L, 64 + 96
-    add     hl, bc
-    ld      (UpdateBgObjects_CurrentAddr), hl
-    call    UpdateBgObjects_Execute
+    ; ld      hl, (Addr_Screen_FirstVisibleColumn)
+    ; ld      bc, 64 + 96                   ; TODO: use 8 bit add, as it is page aligned, or even LD L, 64 + 96
+    ; add     hl, bc
+    ; ld      (UpdateBgObjects_CurrentAddr), hl
+    ; call    UpdateBgObjects_Execute
 
     ret
 

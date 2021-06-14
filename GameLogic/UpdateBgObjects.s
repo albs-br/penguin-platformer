@@ -4,9 +4,6 @@ UpdateBgObjects_SetupVariables:
 
     ; get BgCurrentIndex (0-4095) and divide by 8, to convert index expressed in pixels into 8x8 tiles (first visible column)
     ld      hl, (BgCurrentIndex)                    ; 0-4095
-    
-    ;dec     hl  ; debug
-
     srl     h                 ; shift right HL
     rr      l
     srl     h                 ; shift right HL
