@@ -102,9 +102,9 @@ InitVariables:
 
 InitEnemiesVariables:
     ld      hl, 0
-    ld      (Enemy_1_Pattern_Addr), hl
-    ld      (Enemy_2_Pattern_Addr), hl
-    ld      (Enemy_3_Pattern_Addr), hl
+    ld      (Enemy_1_RAM_Pattern_Addr), hl
+    ld      (Enemy_2_RAM_Pattern_Addr), hl
+    ld      (Enemy_3_RAM_Pattern_Addr), hl
     xor     a
     ld      (Enemies_Counter), a
     ld      (Enemy_1_X), a

@@ -1,17 +1,17 @@
 EnemyLogic:
     TILE_POSITION_ON_NAMTBL_ENEMY_1:    equ 217
-    VRAM_PATTERN_TABLE_ADDR_ENEMY_1:    equ PatternsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_1 * 8)
-    VRAM_COLORS_TABLE_ADDR_ENEMY_1:     equ ColorsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_1 * 8)
+    VRAM_PATTERN_TABLE_ADDR_ENEMY_1:    equ PatternsTable_1st_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_1 * 8)
+    VRAM_COLORS_TABLE_ADDR_ENEMY_1:     equ ColorsTable_1st_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_1 * 8)
 
 
     TILE_POSITION_ON_NAMTBL_ENEMY_2:    equ TILE_POSITION_ON_NAMTBL_ENEMY_1 + 6
-    VRAM_PATTERN_TABLE_ADDR_ENEMY_2:    equ PatternsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_2 * 8)
-    VRAM_COLORS_TABLE_ADDR_ENEMY_2:     equ ColorsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_2 * 8)
+    VRAM_PATTERN_TABLE_ADDR_ENEMY_2:    equ PatternsTable_1st_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_2 * 8)
+    VRAM_COLORS_TABLE_ADDR_ENEMY_2:     equ ColorsTable_1st_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_2 * 8)
 
 
     TILE_POSITION_ON_NAMTBL_ENEMY_3:    equ TILE_POSITION_ON_NAMTBL_ENEMY_2 + 6
-    VRAM_PATTERN_TABLE_ADDR_ENEMY_3:    equ PatternsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_3 * 8)
-    VRAM_COLORS_TABLE_ADDR_ENEMY_3:     equ ColorsTable_3rd_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_3 * 8)
+    VRAM_PATTERN_TABLE_ADDR_ENEMY_3:    equ PatternsTable_1st_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_3 * 8)
+    VRAM_COLORS_TABLE_ADDR_ENEMY_3:     equ ColorsTable_1st_Third + (TILE_POSITION_ON_NAMTBL_ENEMY_3 * 8)
 
 
 
@@ -31,28 +31,43 @@ EnemyLogic:
 ; enemy 1
     ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_1
     ld      (UpdateBgObjects_VRAM_NamesTable_Position), a
+    
     ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_1
     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
+    
     ld      hl, Enemy_1_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
-    
+
+    ld      hl, VRAM_PATTERN_TABLE_ADDR_ENEMY_1
+    ld      (Temp_Addr), hl
+
     jp      .copyEnemyPropertiesToTempVars
 .enemy_3:
     ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_3
     ld      (UpdateBgObjects_VRAM_NamesTable_Position), a
+    
     ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_3
     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
+    
     ld      hl, Enemy_3_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
+
+    ld      hl, VRAM_PATTERN_TABLE_ADDR_ENEMY_3
+    ld      (Temp_Addr), hl
 
     jp      .copyEnemyPropertiesToTempVars
 .enemy_2:
     ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_2
     ld      (UpdateBgObjects_VRAM_NamesTable_Position), a
+    
     ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_2
     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
+    
     ld      hl, Enemy_2_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
+
+    ld      hl, VRAM_PATTERN_TABLE_ADDR_ENEMY_2
+    ld      (Temp_Addr), hl
 
 .copyEnemyPropertiesToTempVars:
 
@@ -63,6 +78,11 @@ EnemyLogic:
     ld      de, UpdateBgObjects_Enemy_n_BaseAddress     ; destiny
     ld      bc, ENEMY_STRUCT_SIZE                       ; size
     ldir                                                ; Copy BC bytes from HL to DE
+
+
+    ld      hl, (Temp_Addr)
+    ld      (UpdateBgObjects_Enemy_n_VRAM_Pattern_Addr), hl
+
 
 
     ; Adjust VRAM addresses to correct third of the screen
@@ -80,24 +100,36 @@ EnemyLogic:
 
 ; TODO: correct Pattern Table Address and Names table position
 
-;     ld      a, (UpdateBgObjects_CurrentAddr_RowNumber_Value)
-;     cp      8 * 16                                      ; x16 necessary because row is stored in pixels
-;     jp      nc, .rowBetween_8_and_11                    ; if (a >= n)
-;     cp      4 * 16
-;     jp      nc, .rowBetween_4_and_7                     ; if (a >= n)
-;     jp      .continueRow
-; .rowBetween_8_and_11:
-;     ld      bc, 512 * 8
-;     ld      hl, (UpdateBgObjects_VRAM_ColorsTable_Addr)
-;     add     hl, bc
-;     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
-;     jp      .continueRow
-; .rowBetween_4_and_7:
-;     ld      bc, 256 * 8
-;     ld      hl, (UpdateBgObjects_VRAM_ColorsTable_Addr)
-;     add     hl, bc
-;     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
-; .continueRow:
+    ld      a, (UpdateBgObjects_CurrentAddr_RowNumber_Value)
+    cp      8 * 16                                      ; x16 necessary because row is stored in pixels
+    jp      nc, .rowBetween_8_and_11                    ; if (a >= n)
+    cp      4 * 16
+    jp      nc, .rowBetween_4_and_7                     ; if (a >= n)
+    jp      .continueRow
+.rowBetween_8_and_11:
+    ld      bc, 512 * 8
+
+    ld      hl, (UpdateBgObjects_VRAM_ColorsTable_Addr)
+    add     hl, bc
+    ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
+
+    ld      hl, (UpdateBgObjects_Enemy_n_VRAM_Pattern_Addr)
+    add     hl, bc
+    ld      (UpdateBgObjects_Enemy_n_VRAM_Pattern_Addr), hl
+
+    jp      .continueRow
+.rowBetween_4_and_7:
+    ld      bc, 256 * 8
+
+    ld      hl, (UpdateBgObjects_VRAM_ColorsTable_Addr)
+    add     hl, bc
+    ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
+
+    ld      hl, (UpdateBgObjects_Enemy_n_VRAM_Pattern_Addr)
+    add     hl, bc
+    ld      (UpdateBgObjects_Enemy_n_VRAM_Pattern_Addr), hl
+
+.continueRow:
 
     ; set VDP port for OUT command
     ld	    a, (BIOS_VDP_DW)
@@ -322,8 +354,7 @@ EnemyLogic:
 .noMult:
 
         ; save enemy pattern address
-        ld      (UpdateBgObjects_Enemy_n_Pattern_Addr), hl
-        
+        ld      (UpdateBgObjects_Enemy_n_RAM_Pattern_Addr), hl
 
 
         ; ------------ Update colors table  ------------
