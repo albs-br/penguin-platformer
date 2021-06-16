@@ -566,7 +566,7 @@ EnemyLogic:
     ; Check collision with background left
     ld      a, (UpdateBgObjects_Enemy_n_X)
     cp      8
-    jp      c, .changeDirectionToRight             ; if a < 8
+    jp      c, .changeDirectionToRight             ; if a < 8 (fix bug when enemy is at screen left border)
     sub     8
     ld      h, a
     ld      a, (UpdateBgObjects_Enemy_n_Y)
