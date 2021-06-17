@@ -327,6 +327,42 @@ GameLogic:
 .jumping:
     ld      a, (Player_JumpCounter)
     inc     a
+    ld      (Player_JumpCounter), a
+    ld      b, 0
+    ld      c, a
+    
+
+    ld      hl, PLAYER_DY_TABLE
+    add     hl, bc
+    ld      de, PLAYER_DY_TABLE.end
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    jp      c, .notTerminalSpeed                    ; if hl < de
+
+;terminalSpeed:
+    ld      b, CFG_PLAYER_GRAVITY
+    jp      .saveYafterJumping
+
+.notTerminalSpeed:
+    ld      b, (hl)
+
+.saveYafterJumping:
+    ld      a, (Player_Y)
+    add     a, b
+    ld      (Player_Y), a
+
+    call    CheckDirectionWhenOffGround
+
+    ; if (deltaY >= 0) jp .falling
+    ;ld      a, b
+    ;bit     7, a                    ; bit 7 (most significant) = 0 means positive number (or zero) on two's complement logic
+    ;jp      nz, .falling
+
+    jp      .return
+
+
+.jumping_old:
+    ld      a, (Player_JumpCounter)
+    inc     a
     cp      32
     ld      (Player_JumpCounter), a
     jp      nc, .falling                ; if (a >= n)
@@ -395,3 +431,20 @@ CheckDirectionWhenOffGround:
     xor     a
     ld      (ScrollDirection), a
     ret
+
+; Delta-Y (dY) table for jumping and falling
+PLAYER_DY_TABLE:
+	db	-4, -4, -4, -4			                            ; TODO: fix it (2,-8)
+	db	-2, -2, -2, -2, -2, -2		                        ; (5,-14)
+	db	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1      ; (11,-20)
+	.TOP_OFFSET:	equ $ - PLAYER_DY_TABLE
+	db	 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0		; (17,-20)
+	.FALL_OFFSET:	equ $ - PLAYER_DY_TABLE
+	db	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1	                ; (23,-14) / (6,6)
+	db	2, 2, 2, 2, 2, 2			                        ; (26,-8) / (9,12)
+	db	4
+    .end:
+	;.SIZE:		equ $ - PLAYER_DY_TABLE
+
+; Terminal falling speed (pixels/frame)
+	CFG_PLAYER_GRAVITY:		equ 4
