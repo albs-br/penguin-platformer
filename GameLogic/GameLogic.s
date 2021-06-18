@@ -136,8 +136,8 @@ GameLogic:
     ld      a, (Player_Y)
     ; cp      SCREEN_HEIGHT_IN_PIXELS
     ; jp      nc, .isDead             ; if (a >= n)
-    add     2 ;inc     a
-    ld      (Player_Y), a
+    ;add     2
+    ;ld      (Player_Y), a
 
     ; only test for ground if not currently on last line
     cp      SCREEN_HEIGHT_IN_PIXELS - PENGUIN_HEIGHT - 8
@@ -259,7 +259,7 @@ GameLogic:
 .noGroundUnder:
     xor     a
     ld      (Player_IsGrounded), a
-    ld      (Player_JumpCounter), a
+    ; ld      (Player_JumpCounter), a
     jp      .cancelMovement
 
 .setIsGrounded:
@@ -334,11 +334,13 @@ GameLogic:
 
     ld      hl, PLAYER_DY_TABLE
     add     hl, bc
+    ld      (Temp_Addr), hl
+    
     ld      de, PLAYER_DY_TABLE.end
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    jp      c, .notTerminalSpeed                    ; if hl < de
+    jp      c, .notTerminalSpeed        ; if hl < de
 
-;terminalSpeed:
+.terminalSpeed:
     ld      b, CFG_PLAYER_GRAVITY
     jp      .saveYafterJumping
 
@@ -353,9 +355,12 @@ GameLogic:
     call    CheckDirectionWhenOffGround
 
     ; if (deltaY >= 0) jp .falling
-    ;ld      a, b
-    ;bit     7, a                    ; bit 7 (most significant) = 0 means positive number (or zero) on two's complement logic
-    ;jp      nz, .falling
+    ; ld      a, b
+    ; bit     7, a                    ; bit 7 (most significant) = 0 means positive number (or zero) on two's complement logic
+    ld      hl, (Temp_Addr)
+    ld      de, PLAYER_DY_TABLE.TOP_OFFSET
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    jp      nc, .falling                ; if hl >= de
 
     jp      .return
 
@@ -396,7 +401,7 @@ GameLogic:
 .falling:
     xor     a
     ld      (Player_IsGrounded), a
-    ld      (Player_JumpCounter), a
+    ;ld      (Player_JumpCounter), a
     jp      .return
 
 
