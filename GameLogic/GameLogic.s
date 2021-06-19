@@ -67,7 +67,7 @@ GameLogic:
     ; ld      a, (Player_JumpCounter)
     ld      a, (Player_IsJumping)
     or      a
-    jp      nz, .jumping
+    jp      nz, .isJumping
 
 
     ld      a, (Player_IsGrounded)
@@ -86,7 +86,7 @@ GameLogic:
     ;ld      a, (Player_JumpCounter)
     ld      a, (Player_IsJumping)
     or      a
-    jp      nz, .jumping
+    jp      nz, .isJumping
 
     ; skip test jump pressed if already jumping
     ; ld      a, (Player_JumpCounter)
@@ -135,11 +135,35 @@ GameLogic:
     ret
 
 .isFalling:
-    ld      a, (Player_Y)
+
+    ld      hl, (Player_Jumping_Addr)
+    inc     hl
+    ld      (Player_Jumping_Addr), hl
+
+    ; ld      a, (Player_Y)
     ; cp      SCREEN_HEIGHT_IN_PIXELS
     ; jp      nc, .isDead             ; if (a >= n)
     ;add     2
     ;ld      (Player_Y), a
+
+    push    hl
+        ld      de, PLAYER_DY_TABLE.end
+        call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+        jp      c, .notTerminalSpeed      ; if hl < de
+
+;.terminalSpeed_1:
+        ld      b, CFG_PLAYER_GRAVITY
+        jp      .saveYafterFalling
+
+.notTerminalSpeed:
+        ld      b, (hl)
+
+.saveYafterFalling:
+        ld      a, (Player_Y)
+        add     a, b
+        ld      (Player_Y), a
+    pop     hl
+
 
     ; only test for ground if not currently on last line
     cp      SCREEN_HEIGHT_IN_PIXELS - PENGUIN_HEIGHT - 8
@@ -342,46 +366,25 @@ GameLogic:
 
     ret
 
-.jumping:
-    ; ld      a, (Player_JumpCounter)
-    ; inc     a
-    ; ld      (Player_JumpCounter), a
+.isJumping:
     ld      hl, (Player_Jumping_Addr)
     inc     hl
     ld      (Player_Jumping_Addr), hl
-    ;ld      a, (hl)
 
-    ; ld      b, 0
-    ; ld      c, a
-    
+    ld      b, (hl)
 
-    ; ld      hl, PLAYER_DY_TABLE
-    ; add     hl, bc
-    ; ld      (Temp_Addr), hl
-    
+    ld      a, (Player_Y)
+    add     a, b
+    ld      (Player_Y), a
+
     push    hl
-        ld      de, PLAYER_DY_TABLE.end
-        call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-        jp      c, .notTerminalSpeed        ; if hl < de
-
-.terminalSpeed:
-        ld      b, CFG_PLAYER_GRAVITY
-        jp      .saveYafterJumping
-
-.notTerminalSpeed:
-        ld      b, (hl)
-
-.saveYafterJumping:
-        ld      a, (Player_Y)
-        add     a, b
-        ld      (Player_Y), a
+        call    CheckIfPlayerHasTileAbove
     pop     hl
+    jp      nz, .setIsFalling
 
     ; if (deltaY >= 0) jp .falling
-    ; ld      a, b
-    ; bit     7, a                    ; bit 7 (most significant) = 0 means positive number (or zero) on two's complement logic
-    ;ld      hl, (Temp_Addr)
-    ld      de, PLAYER_DY_TABLE.TOP_OFFSET_Addr
+    ;ld      de, PLAYER_DY_TABLE.TOP_OFFSET_Addr
+    ld      de, PLAYER_DY_TABLE.FALL_OFFSET_Addr
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp      nc, .setIsFalling                ; if hl >= de
 
@@ -409,19 +412,19 @@ GameLogic:
 ;     sub     2
 ;     jp      .saveY
 
-.topOfJump:
-    ld      a, (Player_Y)
-    cp      1                           ; check if is at screen top
-    jp      c, .setIsFalling                 ; if (a < n)
-    dec     a
+; .topOfJump:
+;     ld      a, (Player_Y)
+;     cp      1                           ; check if is at screen top
+;     jp      c, .setIsFalling                 ; if (a < n)
+;     dec     a
 
-.saveY:
-    ld      (Player_Y), a
+; .saveY:
+;     ld      (Player_Y), a
 
-    call    CheckIfPlayerHasTileAbove
-    jp      nz, .setIsFalling
+;     call    CheckIfPlayerHasTileAbove
+;     jp      nz, .setIsFalling
 
-    jp      .return
+;     jp      .return
 
 .setIsFalling:
     ; xor     a
@@ -488,12 +491,12 @@ PLAYER_DY_TABLE:
 .TOP_OFFSET_Addr:
 	db	 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0		; (17,-20)
 ;.FALL_OFFSET:	equ $ - PLAYER_DY_TABLE
-.FALL_OFFSET_Addr:	equ $ - PLAYER_DY_TABLE
+.FALL_OFFSET_Addr:
 	db	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1	                ; (23,-14) / (6,6)
 	db	2, 2, 2, 2, 2, 2			                        ; (26,-8) / (9,12)
 	db	4
-    .end:
+.end:
 	;.SIZE:		equ $ - PLAYER_DY_TABLE
 
 ; Terminal falling speed (pixels/frame)
-	CFG_PLAYER_GRAVITY:		equ 4
+CFG_PLAYER_GRAVITY:		equ 4
