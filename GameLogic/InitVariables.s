@@ -30,7 +30,8 @@ InitVariables:
     ld      (RunKeyPressed), a
     
     ld      (Player_Animation_Frame), a
-    ld      (Player_JumpCounter), a
+    ; ld      (Player_JumpCounter), a
+    ld      (Player_IsJumping), a
 
     ld	    a, 192-48-1
     ld      (Player_Y), a

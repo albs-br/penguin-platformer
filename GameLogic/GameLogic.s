@@ -64,7 +64,8 @@ GameLogic:
     jp      nc, .isDead                     ; if (a >= n)
 .isNotDead:
 
-    ld      a, (Player_JumpCounter)
+    ; ld      a, (Player_JumpCounter)
+    ld      a, (Player_IsJumping)
     or      a
     jp      nz, .jumping
 
@@ -82,7 +83,8 @@ GameLogic:
 .notRunning:    
 
     ; Check if is jumping
-    ld      a, (Player_JumpCounter)
+    ;ld      a, (Player_JumpCounter)
+    ld      a, (Player_IsJumping)
     or      a
     jp      nz, .jumping
 
@@ -257,14 +259,23 @@ GameLogic:
     jp      .setPlayerStanding
 
 .noGroundUnder:
-    xor     a
-    ld      (Player_IsGrounded), a
-    ; ld      (Player_JumpCounter), a
+    ; xor     a
+    ; ld      (Player_IsGrounded), a
+    ; ld      (Player_IsJumping), a
+    ; ; ld      (Player_JumpCounter), a
+
+    ; ; 
+    ; ld      hl, PLAYER_DY_TABLE.FALL_OFFSET_Addr
+    ; ld      (Player_Jumping_Addr), hl
+
+    call    .startFalling
+
     jp      .cancelMovement
 
 .setIsGrounded:
     xor     a
-    ld      (Player_JumpCounter), a
+    ld      (Player_IsJumping), a
+    ; ld      (Player_JumpCounter), a
     inc     a
     ld      (Player_IsGrounded), a
     jp      .cancelMovement
@@ -320,91 +331,119 @@ GameLogic:
     inc     a                          ; Player_Y == 255 is valid
     ret     z
 
-    ld      hl, Player_JumpCounter
-    inc     (hl)
+    ; ld      hl, Player_JumpCounter
+    ; inc     (hl)
+
+    ld      a, 1
+    ld      (Player_IsJumping), a
+
+    ld      hl, PLAYER_DY_TABLE
+    ld      (Player_Jumping_Addr), hl
+
     ret
 
 .jumping:
-    ld      a, (Player_JumpCounter)
-    inc     a
-    ld      (Player_JumpCounter), a
-    ld      b, 0
-    ld      c, a
+    ; ld      a, (Player_JumpCounter)
+    ; inc     a
+    ; ld      (Player_JumpCounter), a
+    ld      hl, (Player_Jumping_Addr)
+    inc     hl
+    ld      (Player_Jumping_Addr), hl
+    ;ld      a, (hl)
+
+    ; ld      b, 0
+    ; ld      c, a
     
 
-    ld      hl, PLAYER_DY_TABLE
-    add     hl, bc
-    ld      (Temp_Addr), hl
+    ; ld      hl, PLAYER_DY_TABLE
+    ; add     hl, bc
+    ; ld      (Temp_Addr), hl
     
-    ld      de, PLAYER_DY_TABLE.end
-    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    jp      c, .notTerminalSpeed        ; if hl < de
+    push    hl
+        ld      de, PLAYER_DY_TABLE.end
+        call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+        jp      c, .notTerminalSpeed        ; if hl < de
 
 .terminalSpeed:
-    ld      b, CFG_PLAYER_GRAVITY
-    jp      .saveYafterJumping
+        ld      b, CFG_PLAYER_GRAVITY
+        jp      .saveYafterJumping
 
 .notTerminalSpeed:
-    ld      b, (hl)
+        ld      b, (hl)
 
 .saveYafterJumping:
-    ld      a, (Player_Y)
-    add     a, b
-    ld      (Player_Y), a
-
-    call    CheckDirectionWhenOffGround
+        ld      a, (Player_Y)
+        add     a, b
+        ld      (Player_Y), a
+    pop     hl
 
     ; if (deltaY >= 0) jp .falling
     ; ld      a, b
     ; bit     7, a                    ; bit 7 (most significant) = 0 means positive number (or zero) on two's complement logic
-    ld      hl, (Temp_Addr)
-    ld      de, PLAYER_DY_TABLE.TOP_OFFSET
+    ;ld      hl, (Temp_Addr)
+    ld      de, PLAYER_DY_TABLE.TOP_OFFSET_Addr
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    jp      nc, .falling                ; if hl >= de
+    jp      nc, .setIsFalling                ; if hl >= de
+
+    call    CheckDirectionWhenOffGround
 
     jp      .return
 
 
-.jumping_old:
-    ld      a, (Player_JumpCounter)
-    inc     a
-    cp      32
-    ld      (Player_JumpCounter), a
-    jp      nc, .falling                ; if (a >= n)
+; .jumping_old:
+;     ld      a, (Player_JumpCounter)
+;     inc     a
+;     cp      32
+;     ld      (Player_JumpCounter), a
+;     jp      nc, .falling                ; if (a >= n)
 
-    call    CheckDirectionWhenOffGround
+;     call    CheckDirectionWhenOffGround
 
-    ld      a, (Player_JumpCounter)
-    cp      24
-    jp      nc, .topOfJump              ; if (a >= n)
+;     ld      a, (Player_JumpCounter)
+;     cp      24
+;     jp      nc, .topOfJump              ; if (a >= n)
 
-    ld      a, (Player_Y)
-    cp      2                           ; check if is at screen top
-    jp      c, .falling                 ; if (a < n)
-    sub     2
-    jp      .saveY
+;     ld      a, (Player_Y)
+;     cp      2                           ; check if is at screen top
+;     jp      c, .falling                 ; if (a < n)
+;     sub     2
+;     jp      .saveY
 
 .topOfJump:
     ld      a, (Player_Y)
     cp      1                           ; check if is at screen top
-    jp      c, .falling                 ; if (a < n)
+    jp      c, .setIsFalling                 ; if (a < n)
     dec     a
 
 .saveY:
     ld      (Player_Y), a
 
     call    CheckIfPlayerHasTileAbove
-    jp      nz, .falling
+    jp      nz, .setIsFalling
 
     jp      .return
 
-.falling:
+.setIsFalling:
+    ; xor     a
+    ; ld      (Player_IsGrounded), a
+    ; ld      (Player_IsJumping), a
+    ; ;ld      (Player_JumpCounter), a
+
+    call    .startFalling
+
+    jp      .return
+
+.startFalling:
     xor     a
     ld      (Player_IsGrounded), a
-    ;ld      (Player_JumpCounter), a
-    jp      .return
+    ld      (Player_IsJumping), a
+    ; ld      (Player_JumpCounter), a
 
+    ; 
+    ld      hl, PLAYER_DY_TABLE.FALL_OFFSET_Addr
+    ld      (Player_Jumping_Addr), hl
 
+    ret
 
 CheckDirectionWhenOffGround:
     ld      a, (DirectionKeyPressed)
@@ -437,14 +476,19 @@ CheckDirectionWhenOffGround:
     ld      (ScrollDirection), a
     ret
 
+
+
+
 ; Delta-Y (dY) table for jumping and falling
 PLAYER_DY_TABLE:
 	db	-4, -4, -4, -4			                            ; TODO: fix it (2,-8)
 	db	-2, -2, -2, -2, -2, -2		                        ; (5,-14)
 	db	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1      ; (11,-20)
-	.TOP_OFFSET:	equ $ - PLAYER_DY_TABLE
+;.TOP_OFFSET:	equ $ - PLAYER_DY_TABLE
+.TOP_OFFSET_Addr:
 	db	 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0		; (17,-20)
-	.FALL_OFFSET:	equ $ - PLAYER_DY_TABLE
+;.FALL_OFFSET:	equ $ - PLAYER_DY_TABLE
+.FALL_OFFSET_Addr:	equ $ - PLAYER_DY_TABLE
 	db	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1	                ; (23,-14) / (6,6)
 	db	2, 2, 2, 2, 2, 2			                        ; (26,-8) / (9,12)
 	db	4
