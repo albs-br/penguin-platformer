@@ -27,7 +27,7 @@ CommonIncludes_Start:
     INCLUDE "Include/CommonRoutines.s"
     INCLUDE "Include/Hook.s"
     INCLUDE "Include/CheckCollision.s"
-CommonIncludes_Size:    equ $ - CommonIncludes_Start
+.size:      equ $ - CommonIncludes_Start
 
 ; Include game routines
 GameIncludes_Start:
@@ -44,7 +44,7 @@ GameIncludes_Start:
     INCLUDE "GameLogic/Score.s"
     INCLUDE "GameLogic/SwitchNamesTable.s"
     INCLUDE "GameLogic/CopyEnemyPatternsToVRAM.s"
-GameIncludes_Size:      equ $ - GameIncludes_Start
+.size:      equ $ - GameIncludes_Start
 
 ; Include game data
 GameData_Start:
@@ -53,7 +53,7 @@ GameData_Start:
     INCLUDE "Graphics/Tiles/Colors/Colors.s"
     INCLUDE "Graphics/TileMaps/BgObjects.s"
     INCLUDE "Sound/Sound.s"
-GameData_Size:          equ $ - GameData_Start
+.size:      equ $ - GameData_Start
 
 ; Program code entry point
 Execute:

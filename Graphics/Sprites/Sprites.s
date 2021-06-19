@@ -1,4 +1,4 @@
-StartSpritePatterns:
+SpritePatterns:
 ; test sprite
     db  11111111 b
     db  10000001 b
@@ -1798,4 +1798,4 @@ StartSpritePatterns:
     DB 11111110b
     DB 00000000b
 
-EndSpritePatterns:
+.size:          equ $ - SpritePatterns

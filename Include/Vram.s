@@ -56,10 +56,10 @@ InitVram:
 
 
     ; Create Sprites
-	ld		bc, EndSpritePatterns - StartSpritePatterns ; Block length
-	ld		de, SpritePatternTable						; VRAM address
-	ld		hl, StartSpritePatterns        				; RAM address
-    call 	BIOS_LDIRVM        							; Block transfer to VRAM from memory
+	ld		hl, SpritePatterns        				; RAM address (source)
+	ld		de, SpritePatternTable					; VRAM address (destiny)
+	ld		bc, SpritePatterns.size					; Block length
+    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
     ; ; Set sprite attributes [debug]
 	; ; Y
@@ -86,22 +86,6 @@ InitVram:
 
 
 LoadTilePatterns:
-	; ld	    bc, TilePatterns_End - TilePatterns_Start                               ; Block length
-	; ld	    de, PatternsTable_1st_Third                                             ; VRAM Address
-	; ld	    hl, TilePatterns_Start                                                  ; RAM Address
-    ; call    BIOS_LDIRVM                                                             ; Block transfer to VRAM from memory
-
-	; ld	    bc, TilePatterns_End - TilePatterns_Start                               ; Block length
-	; ld	    de, PatternsTable_2nd_Third                                             ; VRAM Address
-	; ld	    hl, TilePatterns_Start                                                  ; RAM Address
-    ; call    BIOS_LDIRVM                                                             ; Block transfer to VRAM from memory
-
-	; ld	    bc, TilePatterns_End - TilePatterns_Start                               ; Block length
-	; ld	    de, PatternsTable_3rd_Third                                             ; VRAM Address
-	; ld	    hl, TilePatterns_Start                                                  ; RAM Address
-    ; call    BIOS_LDIRVM                                                             ; Block transfer to VRAM from memory
-
-
     ld		ix, PatternTableStructure_1st_Third										; Source on RAM (Start)
 	ld		iy, PatternTableStructure_1st_Third_End									; Source on RAM (End)
 	ld	    de, PatternsTable_1st_Third                                             ; VRAM Address
@@ -118,9 +102,9 @@ LoadTilePatterns:
 	call 	LoadTilePatterns_OneThird
 
 	; Load tile for score (penguin face details)
-	ld	    bc, TilePatterns_Score_PenguinFace_End - TilePatterns_Score_PenguinFace_Start    	; Block length
-	ld	    de, PatternsTable_1st_Third + (TILE_PENGUIN_FACE_DETAILS * 8)                                   			; VRAM Address
-	ld	    hl, TilePatterns_Score_PenguinFace_Start                                         	; RAM Address
+	ld	    bc, TilePatterns_Score_PenguinFace.size    								; Block length
+	ld	    de, PatternsTable_1st_Third + (TILE_PENGUIN_FACE_DETAILS * 8)           ; VRAM Address
+	ld	    hl, TilePatterns_Score_PenguinFace                                      ; RAM Address
     call    BIOS_LDIRVM                                                             			; Block transfer to VRAM from memory
 
 
