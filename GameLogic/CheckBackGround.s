@@ -79,6 +79,8 @@ CheckBackGround_Right:
 ;   Output:
 ;       z: is at empty space
 ;       nz: is not at empty space
+;   Destroys:
+;       HL, BC, DE, AF
 CheckBackGround_Left:
     ; check if character is at empty space
     ; formula: COL_NUMBER + ((TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8) * LINE_NUMBER)     (only first 4 rows)
@@ -244,6 +246,8 @@ CheckIfPlayerHasTileOnTheLeft:
 ;   Output:
 ;       z: is at empty space
 ;       nz: is not at empty space
+;   Destroys:
+;       HL, BC, DE, AF
 CheckIfPlayerHasTileAbove:
     ; Check if there is a tile above the player (top left)
     ld      a, (Player_Y)

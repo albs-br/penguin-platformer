@@ -147,7 +147,7 @@ GameLogic:
     ;ld      (Player_Y), a
 
     push    hl
-        ld      de, PLAYER_DY_TABLE.end
+        ld      de, JUMP_DELTA_Y_TABLE.end
         call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
         jp      c, .notTerminalSpeed      ; if hl < de
 
@@ -361,7 +361,7 @@ GameLogic:
     ld      a, 1
     ld      (Player_IsJumping), a
 
-    ld      hl, PLAYER_DY_TABLE
+    ld      hl, JUMP_DELTA_Y_TABLE
     ld      (Player_Jumping_Addr), hl
 
     ret
@@ -377,14 +377,16 @@ GameLogic:
     add     a, b
     ld      (Player_Y), a
 
+    cp      2                           ; check if is at screen top
+    jp      c, .setIsFalling            ; if (a < n)
+
     push    hl
         call    CheckIfPlayerHasTileAbove
     pop     hl
     jp      nz, .setIsFalling
 
     ; if (deltaY >= 0) jp .falling
-    ;ld      de, PLAYER_DY_TABLE.TOP_OFFSET_Addr
-    ld      de, PLAYER_DY_TABLE.FALL_OFFSET_Addr
+    ld      de, JUMP_DELTA_Y_TABLE.FALL_OFFSET_ADDR
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp      nc, .setIsFalling                ; if hl >= de
 
@@ -443,7 +445,7 @@ GameLogic:
     ; ld      (Player_JumpCounter), a
 
     ; 
-    ld      hl, PLAYER_DY_TABLE.FALL_OFFSET_Addr
+    ld      hl, JUMP_DELTA_Y_TABLE.FALL_OFFSET_ADDR
     ld      (Player_Jumping_Addr), hl
 
     ret
@@ -483,20 +485,18 @@ CheckDirectionWhenOffGround:
 
 
 ; Delta-Y (dY) table for jumping and falling
-PLAYER_DY_TABLE:
-	db	-4, -4, -4, -4			                            ; TODO: fix it (2,-8)
-	db	-2, -2, -2, -2, -2, -2		                        ; (5,-14)
-	db	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1      ; (11,-20)
-;.TOP_OFFSET:	equ $ - PLAYER_DY_TABLE
-.TOP_OFFSET_Addr:
-	db	 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0		; (17,-20)
-;.FALL_OFFSET:	equ $ - PLAYER_DY_TABLE
-.FALL_OFFSET_Addr:
-	db	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1	                ; (23,-14) / (6,6)
-	db	2, 2, 2, 2, 2, 2			                        ; (26,-8) / (9,12)
-	db	4
+; original code from @TheNestruo (https://www.msx.org/forum/msx-talk/development/first-test-horizontal-scrolling-game-possibly-named-penguim-platformer?page=10)
+JUMP_DELTA_Y_TABLE:        			                                    ; jump height: 40 pixels
+	db	-4, -4, -4, -4, -4, -4                                          ; 24 pixels
+	db	-2, -2, -2, -2, -2, -2, -2, -2                                  ; 16 pixels
+	db	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1  ; 16 pixels
+.TOP_OFFSET_ADDR:
+	db	 0,  0,  0,  0,  0,  0
+.FALL_OFFSET_ADDR:
+	db	 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1
+	db	 2,  2,  2,  2,  2,  2,  2,  2
+	db	 4
 .end:
-	;.SIZE:		equ $ - PLAYER_DY_TABLE
 
 ; Terminal falling speed (pixels/frame)
 CFG_PLAYER_GRAVITY:		equ 4
