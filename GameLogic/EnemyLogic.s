@@ -509,9 +509,6 @@ EnemyLogic:
     ld      (HitFlash_Counter), a
 
     ; Start jump (bounce on the enemy)
-    ; ld      a, 1
-    ; ld      (Player_IsJumping), a
-    ; ;ld      (Player_JumpCounter), a
     call    GameLogic.startJump
 
 .animateEnemyDying:

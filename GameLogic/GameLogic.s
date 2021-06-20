@@ -64,7 +64,6 @@ GameLogic:
     jp      nc, .isDead                     ; if (a >= n)
 .isNotDead:
 
-    ; ld      a, (Player_JumpCounter)
     ld      a, (Player_IsJumping)
     or      a
     jp      nz, .isJumping
@@ -83,7 +82,6 @@ GameLogic:
 .notRunning:    
 
     ; Check if is jumping
-    ;ld      a, (Player_JumpCounter)
     ld      a, (Player_IsJumping)
     or      a
     jp      nz, .isJumping
@@ -283,15 +281,6 @@ GameLogic:
     jp      .setPlayerStanding
 
 .noGroundUnder:
-    ; xor     a
-    ; ld      (Player_IsGrounded), a
-    ; ld      (Player_IsJumping), a
-    ; ; ld      (Player_JumpCounter), a
-
-    ; ; 
-    ; ld      hl, PLAYER_DY_TABLE.FALL_OFFSET_Addr
-    ; ld      (Player_Jumping_Addr), hl
-
     call    .startFalling
 
     jp      .cancelMovement
@@ -299,7 +288,6 @@ GameLogic:
 .setIsGrounded:
     xor     a
     ld      (Player_IsJumping), a
-    ; ld      (Player_JumpCounter), a
     inc     a
     ld      (Player_IsGrounded), a
     jp      .cancelMovement
@@ -355,9 +343,6 @@ GameLogic:
     inc     a                          ; Player_Y == 255 is valid
     ret     z
 
-    ; ld      hl, Player_JumpCounter
-    ; inc     (hl)
-
     ld      a, 1
     ld      (Player_IsJumping), a
 
@@ -377,7 +362,7 @@ GameLogic:
     add     a, b
     ld      (Player_Y), a
 
-    cp      2                           ; check if is at screen top
+    cp      4                           ; check if is at screen top
     jp      c, .setIsFalling            ; if (a < n)
 
     push    hl
@@ -388,52 +373,13 @@ GameLogic:
     ; if (deltaY >= 0) jp .falling
     ld      de, JUMP_DELTA_Y_TABLE.FALL_OFFSET_ADDR
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    jp      nc, .setIsFalling                ; if hl >= de
+    jp      nc, .setIsFalling           ; if hl >= de
 
     call    CheckDirectionWhenOffGround
 
     jp      .return
 
-
-; .jumping_old:
-;     ld      a, (Player_JumpCounter)
-;     inc     a
-;     cp      32
-;     ld      (Player_JumpCounter), a
-;     jp      nc, .falling                ; if (a >= n)
-
-;     call    CheckDirectionWhenOffGround
-
-;     ld      a, (Player_JumpCounter)
-;     cp      24
-;     jp      nc, .topOfJump              ; if (a >= n)
-
-;     ld      a, (Player_Y)
-;     cp      2                           ; check if is at screen top
-;     jp      c, .falling                 ; if (a < n)
-;     sub     2
-;     jp      .saveY
-
-; .topOfJump:
-;     ld      a, (Player_Y)
-;     cp      1                           ; check if is at screen top
-;     jp      c, .setIsFalling                 ; if (a < n)
-;     dec     a
-
-; .saveY:
-;     ld      (Player_Y), a
-
-;     call    CheckIfPlayerHasTileAbove
-;     jp      nz, .setIsFalling
-
-;     jp      .return
-
 .setIsFalling:
-    ; xor     a
-    ; ld      (Player_IsGrounded), a
-    ; ld      (Player_IsJumping), a
-    ; ;ld      (Player_JumpCounter), a
-
     call    .startFalling
 
     jp      .return
@@ -442,7 +388,6 @@ GameLogic:
     xor     a
     ld      (Player_IsGrounded), a
     ld      (Player_IsJumping), a
-    ; ld      (Player_JumpCounter), a
 
     ; 
     ld      hl, JUMP_DELTA_Y_TABLE.FALL_OFFSET_ADDR
