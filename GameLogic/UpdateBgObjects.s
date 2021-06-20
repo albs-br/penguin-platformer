@@ -60,6 +60,7 @@ UpdateBgObjects:
     ; compare it with first visible column
     ld      de, (FirstVisibleColumn)
     inc     de                          ; bug fix (obj on first row was crossing screen and showing on the other side)
+    inc     de
     ;call    BIOS_DCOMPR                ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     or      a
     sbc     hl, de
