@@ -455,7 +455,6 @@ EnemyLogic:
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
     ld      a, (hl)
     cp      2
-    ;ret     nc              ; if (a >= n)
     jp      nc, .return     ; if (a >= n)
 
 
@@ -475,7 +474,6 @@ EnemyLogic:
 
     ; first check vertical collision, saving the next block (130 cycles), plus 57/62 of the subroutine if no collision
     call    CheckCollision_W1xH1_W2xH2_Vertical
-    ;ret     nc
     jp      nc, .checkBackground
 
 
@@ -490,7 +488,6 @@ EnemyLogic:
     ld      e, 14                               ; width = 14
 
     call    CheckCollision_W1xH1_W2xH2_Horizontal
-    ;ret     nc
     jp      nc, .checkBackground
 
     ; if collided, disable enemy
@@ -509,7 +506,7 @@ EnemyLogic:
     ld      (HitFlash_Counter), a
 
     ; Start jump (bounce on the enemy)
-    call    GameLogic.startJump
+    call    GameLogic.startJumping
 
 .animateEnemyDying:
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
@@ -526,7 +523,6 @@ EnemyLogic:
     ; hide sprite
     xor     a                           ; transparent color
     ld      (UpdateBgObjects_Enemy_n_Color), a
-    ;ret
     jp      .return
 
 .showEnemySprite:
@@ -537,10 +533,7 @@ EnemyLogic:
     ; and show tiles
     jp      .showEnemyTiles
 
-    ;ret
-
 .endAnimationEnemyDying:
-    ;xor     a
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
     ld      (hl), 0
     
@@ -552,7 +545,6 @@ EnemyLogic:
     ld      a, 192
     ld      (UpdateBgObjects_Enemy_n_Y), a
     
-    ;ret
     jp      .return
 
 .checkBackground:
@@ -582,7 +574,6 @@ EnemyLogic:
     add     24
     ld      l, a
     call    CheckBackGround_Left
-    ;ret     nz                                      ; no empty space, then return
     jp      nz, .return                             ; no empty space, then return
 
 .changeDirectionToRight:
@@ -592,7 +583,6 @@ EnemyLogic:
     or      ENEMY_FACING_RIGHT
     ld      (hl), a
 
-    ;ret
     jp      .return
 
 .checkBackgroundRight:
@@ -614,7 +604,6 @@ EnemyLogic:
     add     24
     ld      l, a
     call    CheckBackGround_Right
-    ;ret     nz                                      ; no empty space, then return
     jp      nz, .return                             ; no empty space, then return
 
 .changeDirectionToLeft:
@@ -623,15 +612,9 @@ EnemyLogic:
     ld      a, (hl)
     and     0111 1111 b                 ; reset 7th bit
     ld      (hl), a
-    ;ret
     jp      .return
 
 .return:
-
-
-    ; LD A, 128 ;TEST
-    ; ld      (UpdateBgObjects_Enemy_n_X), a
-
 
     ; Copy temp variables back to enemy properties
     ld      hl, UpdateBgObjects_Enemy_n_BaseAddress     ; source

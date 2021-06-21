@@ -94,7 +94,7 @@ GameLogic:
     ; Check if jump pressed
     ld      a, (JumpKeyPressed)
     or      a
-    call    nz, .startJump
+    call    nz, .startJumping
 .skipCheckJumpKeyPressed:
 
     ; Get the current direction key pressed
@@ -132,47 +132,6 @@ GameLogic:
 
     ret
 
-.isFalling:
-
-    ld      hl, (Player_Jumping_Addr)
-    inc     hl
-    ld      (Player_Jumping_Addr), hl
-
-    ; ld      a, (Player_Y)
-    ; cp      SCREEN_HEIGHT_IN_PIXELS
-    ; jp      nc, .isDead             ; if (a >= n)
-    ;add     2
-    ;ld      (Player_Y), a
-
-    push    hl
-        ld      de, JUMP_DELTA_Y_TABLE.end
-        call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-        jp      c, .notTerminalSpeed      ; if hl < de
-
-;.terminalSpeed_1:
-        ld      b, CFG_PLAYER_GRAVITY
-        jp      .saveYafterFalling
-
-.notTerminalSpeed:
-        ld      b, (hl)
-
-.saveYafterFalling:
-        ld      a, (Player_Y)
-        add     a, b
-        ld      (Player_Y), a
-    pop     hl
-
-
-    ; only test for ground if not currently on last line
-    cp      SCREEN_HEIGHT_IN_PIXELS - PENGUIN_HEIGHT - 8
-    jp      nc, .return               ; if (a >= n)
-
-    call    CheckIfPlayerIsGrounded
-    jp      nz, .setIsGrounded
-
-    call    CheckDirectionWhenOffGround
-
-    jp      .return
 
 .isDead:
     xor     a
@@ -337,7 +296,7 @@ GameLogic:
 
 
 
-.startJump:
+.startJumping:
     ; Check if is at screen top (Player_Y == 255) ; 255 is the same as -1
     ld      a, (Player_Y)
     inc     a                          ; Player_Y == 255 is valid
@@ -346,10 +305,13 @@ GameLogic:
     ld      a, 1
     ld      (Player_IsJumping), a
 
+    ; Set jump delta Y addr to start of jumping
     ld      hl, JUMP_DELTA_Y_TABLE
     ld      (Player_Jumping_Addr), hl
 
     ret
+
+
 
 .isJumping:
     ld      hl, (Player_Jumping_Addr)
@@ -384,16 +346,62 @@ GameLogic:
 
     jp      .return
 
+
+
 .startFalling:
     xor     a
     ld      (Player_IsGrounded), a
     ld      (Player_IsJumping), a
 
-    ; 
+    ; Set jump counter addr to start of falling
     ld      hl, JUMP_DELTA_Y_TABLE.FALL_OFFSET_ADDR
     ld      (Player_Jumping_Addr), hl
 
     ret
+
+
+
+.isFalling:
+    ld      hl, (Player_Jumping_Addr)
+    inc     hl
+    ld      (Player_Jumping_Addr), hl
+
+    ; ld      a, (Player_Y)
+    ; cp      SCREEN_HEIGHT_IN_PIXELS
+    ; jp      nc, .isDead             ; if (a >= n)
+    ;add     2
+    ;ld      (Player_Y), a
+
+    push    hl
+        ld      de, JUMP_DELTA_Y_TABLE.end
+        call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+        jp      c, .notTerminalSpeed        ; if hl < de
+
+;.terminalSpeed:
+        ld      b, CFG_PLAYER_GRAVITY
+        jp      .saveYafterFalling
+
+.notTerminalSpeed:
+        ld      b, (hl)
+
+.saveYafterFalling:
+        ld      a, (Player_Y)
+        add     a, b
+        ld      (Player_Y), a
+    pop     hl
+
+    ; only test for ground if not currently on last line
+    cp      SCREEN_HEIGHT_IN_PIXELS - PENGUIN_HEIGHT - 8
+    jp      nc, .return               ; if (a >= n)
+
+    call    CheckIfPlayerIsGrounded
+    jp      nz, .setIsGrounded
+
+    call    CheckDirectionWhenOffGround
+
+    jp      .return
+
+
 
 CheckDirectionWhenOffGround:
     ld      a, (DirectionKeyPressed)

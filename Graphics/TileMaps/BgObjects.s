@@ -1,9 +1,10 @@
 DIAMOND_FIRST_TILE:             equ 184 - 7 - 24
 
-; test objects, just to show it's possible use objects other than diamonds
+; test objects, just to show it's possible to use objects other than diamonds
 OTHER_OBJECT:                   equ DIAMOND_FIRST_TILE - 64
 ANOTHER_OBJECT:                 equ DIAMOND_FIRST_TILE - 128
-ENEMY:                          equ 255
+ENEMY:                          equ 255     ; Enemy formed by 4 8x8 tiles + one sprite; only horiz. movement; possible 2 per line
+;ENEMY_TYPE_B:                   equ 254    ; Enemy formed by 2 or 3 sprites (only 2 on the same horiz.); only horizontal movement; only one per line
 
 
 ; enemy types (highest bit means direction - 0: facing left or 1: right):
@@ -15,8 +16,9 @@ ENEMY_TYPE_SNAIL_RIGHT:         equ ENEMY_TYPE_SNAIL_LEFT + ENEMY_FACING_RIGHT
 
 
 
-; Format:
+; ----------------------- Format:
 ;       column position (1-255), based on 16x16 tiles; 0 is forbidden
+
 ;       object tile first frame number (255 = enemy)
 
 ;       row number: n * 2 * 8, n is row number (0-11), based on 16x16 tiles
@@ -40,7 +42,7 @@ BgObjectsInitialState_Start:
     db      11,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0
     ;db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0
     
-    db      11,     ENEMY,                 0 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
+    db      11,     ENEMY,                  0 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
 
     db      15,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0
     db      11,     ENEMY,                  3 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
