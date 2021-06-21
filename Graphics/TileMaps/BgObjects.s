@@ -81,7 +81,7 @@ BgObjectsInitialState_Start:
     ;db      44,     DIAMOND_FIRST_TILE,     5 * 2 * 8,      1
     ; db      44,     DIAMOND_FIRST_TILE,     6 * 2 * 8,      1
 
-    db      32,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,  0,  0
+    ;db      32,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,  0,  0
     ; db      32,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     ; db      34,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     ; db      36,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
@@ -180,6 +180,12 @@ BgObjectsInitialState_Start:
 ; screen / page 8 (columns 128-143)
     
     db     130,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1,  0,  0,  0,  0
+    db     132,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1,  0,  0,  0,  0
+    db     134,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1,  0,  0,  0,  0
+    db     136,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1,  0,  0,  0,  0
+    db     138,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1,  0,  0,  0,  0
+    db     140,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1,  0,  0,  0,  0
+    db     142,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1,  0,  0,  0,  0
 
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0800)), 0                 ; fill with 0s until end of block
 
@@ -187,7 +193,11 @@ BgObjectsInitialState_Start:
 
 ; screen / page 9 (columns 144-159)
     
-    db     149,     DIAMOND_FIRST_TILE,    7 * 2 * 8,       1,  0,  0,  0,  0
+    db     144,     DIAMOND_FIRST_TILE,    7 * 2 * 8,       1,  0,  0,  0,  0
+    db     146,     DIAMOND_FIRST_TILE,    7 * 2 * 8,       1,  0,  0,  0,  0
+    db     148,     DIAMOND_FIRST_TILE,    7 * 2 * 8,       1,  0,  0,  0,  0
+    db     150,     DIAMOND_FIRST_TILE,    7 * 2 * 8,       1,  0,  0,  0,  0
+    db     152,     DIAMOND_FIRST_TILE,    7 * 2 * 8,       1,  0,  0,  0,  0
     db     160,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0900)), 0                 ; fill with 0s until end of block
 
