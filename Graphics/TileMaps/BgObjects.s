@@ -3,8 +3,8 @@ DIAMOND_FIRST_TILE:             equ 184 - 7 - 24
 ; test objects, just to show it's possible to use objects other than diamonds
 OTHER_OBJECT:                   equ DIAMOND_FIRST_TILE - 64
 ANOTHER_OBJECT:                 equ DIAMOND_FIRST_TILE - 128
-ENEMY:                          equ 255     ; Enemy formed by 4 8x8 tiles + one sprite; only horiz. movement; possible 2 per line
-;ENEMY_TYPE_B:                   equ 254    ; Enemy formed by 2 or 3 sprites (only 2 on the same horiz.); only horizontal movement; only one per line
+ENEMY_TYPE_A:                   equ 255 ; Enemy formed by 4 8x8 tiles + one sprite; only horiz. movement; possible 2 per line
+ENEMY_TYPE_B:                   equ 254 ; Enemy formed by 2 or 3 sprites (only 2 on the same horiz.); only horizontal movement; only one per line
 
 
 ; enemy types (highest bit means direction - 0: facing left or 1: right):
@@ -17,19 +17,21 @@ ENEMY_TYPE_SNAIL_RIGHT:         equ ENEMY_TYPE_SNAIL_LEFT + ENEMY_FACING_RIGHT
 
 
 ; ----------------------- Format:
+
 ;       column position (1-255), based on 16x16 tiles; 0 is forbidden
 
-;       object tile first frame number (255 = enemy)
+;       object tile first frame number (254 or 255 = enemy)
 
 ;       row number: n * 2 * 8, n is row number (0-11), based on 16x16 tiles
 
 ;       state: enabled: 1; disabled: 0; > 1 : animation for enemy dying
 
-; -- these properties are only for enemies:
+; -- these properties are only for enemies type A/B:
 ;       x offset (0-15)
 ;       enemy type (bit 7: 0-facing left; 1-facing right)
 ;       not used
 ;       not used
+
 BgObjectsInitialState_Start:
 
 ; screen / page 0 (columns 0-15)
@@ -38,14 +40,14 @@ BgObjectsInitialState_Start:
     
     db      1,      DIAMOND_FIRST_TILE,     4 * 2 * 8,      1,  0,  0,  0,  0
 
-    ;db      10,     ENEMY,                  9 * 2 * 8,      1,  0,  0,  0,  0
+    ; db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  0,  0,  0
     db      11,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0
     ;db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0
     
-    db      11,     ENEMY,                  0 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
+    db      11,     ENEMY_TYPE_A,                  0 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
 
     db      15,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0
-    db      11,     ENEMY,                  3 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
+    db      11,     ENEMY_TYPE_A,                  3 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0000)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
@@ -88,10 +90,10 @@ BgObjectsInitialState_Start:
     ; db      38,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     ; db      40,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     ; db      42,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
-    db      34,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_RIGHT,    0,  0
+    db      34,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_RIGHT,    0,  0
 
-    db      36,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
-    db      42,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0
+    db      36,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
+    db      42,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0
     ;db      44,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1
     ;db      44,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1
     ; db      44,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1
@@ -106,7 +108,7 @@ BgObjectsInitialState_Start:
     ;db      48,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0
     ; db      49,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     ; db      50,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,  0,  0
-    db      63,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0
+    db      63,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0300)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
@@ -169,7 +171,7 @@ BgObjectsInitialState_Start:
     
     db     127,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1,  0,  0,  0,  0
 
-    db     111,     ENEMY,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0
+    db     111,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0
     db     115,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     db     119,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     db     123,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0

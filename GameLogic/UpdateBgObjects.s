@@ -191,8 +191,8 @@ ShowBgObject:
         
         inc     hl                          ; get object from second byte of struct
         ld      a, (hl)
-        cp      ENEMY
-        jp      z, EnemyLogic
+        cp      ENEMY_TYPE_A
+        jp      z, Enemy_TypeA_Logic
         ld      b, a
         
         ; top left

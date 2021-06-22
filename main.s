@@ -32,7 +32,9 @@ CommonIncludes_Start:
 ; Include game routines
 GameIncludes_Start:
     INCLUDE "GameLogic/GameLogic.s"
-    INCLUDE "GameLogic/Enemies/EnemyLogic.s"
+    INCLUDE "GameLogic/Enemies/Enemies_Common.s"
+    INCLUDE "GameLogic/Enemies/Enemy_TypeA_Logic.s"
+    INCLUDE "GameLogic/Enemies/Enemy_TypeB_Logic.s"
     INCLUDE "GameLogic/UpdateSpriteAttrTableBuffer.s"
     INCLUDE "GameLogic/ReadInput.s"
     INCLUDE "GameLogic/Scroll.s"
