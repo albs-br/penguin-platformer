@@ -57,6 +57,8 @@ UpdateSpriteAttrTableBuffer:
     ld      a, COLOR_WHITE
     ld      (hl), a
 
+; ---------------------------------------------
+
     ; Sprite # 3
     inc     hl
     ld      a, (Sparkles_Y)
@@ -90,6 +92,8 @@ UpdateSpriteAttrTableBuffer:
     inc     hl
     ld      a, COLOR_WHITE
     ld      (hl), a
+
+; ----------------------------------------
 
     ; Sprite # 5
     inc     hl
@@ -142,46 +146,25 @@ UpdateSpriteAttrTableBuffer:
     ld      a, (Enemy_3_Color)
     ld      (hl), a
 
+; ---------------------------------------
 
+    ; Sprite # 8
+    inc     hl
+    ld      a, (Enemy_TypeB_1_Y)
+    ld      (hl), a
 
+    inc     hl
+    ld      a, (Enemy_TypeB_1_X)
+    ld      (hl), a
 
-    ; ; Sprite # 8
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
+    inc     hl
+    ld      a, (Enemy_TypeB_1_Pattern)
+    ld      (hl), a
 
+    inc     hl
+    ld      a, (Enemy_TypeB_1_Color)
+    ld      (hl), a
 
-
-    ; ; Sprite # 9
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
-
-
-
-    ; ; Sprite # 10
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
-
-
-
-    ; ; Sprite # 11
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
-
-
-
-    ; ; Sprite # 12
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
 
 ; ----------- Score
 

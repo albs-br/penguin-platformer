@@ -119,6 +119,12 @@ Enemy_3_VRAM_Pattern_Addr:              rw 1
 Enemies_Counter:                        rb 1
 
 
+Enemy_TypeB_1_X:                       rb 1
+Enemy_TypeB_1_Y:                       rb 1
+Enemy_TypeB_1_Pattern:                 rb 1
+Enemy_TypeB_1_Color:                   rb 1
+
+
 IsProcessingFrame:                      rb 1       ; 0: false, 1: true
 
 
