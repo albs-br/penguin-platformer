@@ -15,6 +15,7 @@ InitVariables:
 
     xor     a
     ld      (IsProcessingFrame), a
+    ld      (HasFrameSkiped), a
     ld      (FrameIndex), a
 
     

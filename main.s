@@ -187,6 +187,10 @@ MainLoop:
 .frameSkip:
     call    BIOS_BEEP
     
+    ld      a, 1
+    ld      (HasFrameSkiped), a
+
+
     ld 		a, COLOR_WHITE       	; Border color
     ld 		(BIOS_BDRCLR), a    
     call 	BIOS_CHGCLR        		; Change Screen Color

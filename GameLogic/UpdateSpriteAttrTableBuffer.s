@@ -94,6 +94,7 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
 ; ----------------------------------------
+; Enemies Type A
 
     ; Sprite # 5
     inc     hl
@@ -147,6 +148,7 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
 ; ---------------------------------------
+; Enemies Type B
 
     ; Sprite # 8
     inc     hl
@@ -166,7 +168,8 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
 
-; ----------- Score
+; ---------------------------------------
+; Score
 
 SCORE_TOP_LEFT_Y:       equ 8 + 2 - 1
 SCORE_TOP_LEFT_X:       equ 7 + 4

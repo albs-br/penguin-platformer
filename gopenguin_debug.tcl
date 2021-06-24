@@ -7,6 +7,9 @@ ram_watch   add     0xD00c      -type byte      -desc Player_IsGrounded     -for
 ram_watch   add     0xD00d      -type byte      -desc Player_IsJumping     -format dec
 ram_watch   add     0xD00e      -type word      -desc Player_Jumping_Addr     -format hex
 
+ram_watch   add     0xD06d      -type byte      -desc IsProcessingFrame     -format dec
+ram_watch   add     0xD06e      -type byte      -desc HasFrameSkiped     -format dec
+
 
 #ram_watch   add     0xD028      -type byte      -desc ScrollSpeed           -format dec
 #ram_watch   add     0xD009      -type byte      -desc Player_Y              -format dec

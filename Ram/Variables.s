@@ -126,6 +126,7 @@ Enemy_TypeB_1_Color:                   rb 1
 
 
 IsProcessingFrame:                      rb 1       ; 0: false, 1: true
+HasFrameSkiped:                         rb 1       ; 0: false, 1: true
 
 
 ; [debug]

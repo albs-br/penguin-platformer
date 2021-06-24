@@ -28,6 +28,11 @@
                         "quoting": "strong"
                     },
                     {
+                        //"value": "-machine Panasonic_FS-A1GT",
+                        "value": "-machine Gradiente_Expert_GPC-1",
+                        "quoting": "escape"
+                    },
+                    {
                         "value": "-romtype ASCII16",
                         "quoting": "escape"
                     },
