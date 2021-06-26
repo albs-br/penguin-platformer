@@ -13,18 +13,14 @@ Enemy_TypeB_Logic:
 
 
     ; Copy enemy properties to temp variables
-    ;ld      hl, Enemy_1_BaseAddress                     ; source
     ld      hl, (UpdateBgObjects_Enemy_Return_Addr)
     ld      de, UpdateBgObjects_Enemy_n_BaseAddress     ; destiny
     ld      bc, ENEMY_STRUCT_SIZE                       ; size
     ldir                                                ; Copy BC bytes from HL to DE
 
 
-    ; set VDP port for OUT command
-    ; ld	    a, (BIOS_VDP_DW)
-    ; ld	    c, a
 
-
+    ; Setup local variables/pointers
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
 
     inc     hl
@@ -38,51 +34,11 @@ Enemy_TypeB_Logic:
 
 
 
-    ; --------------- To deal with x offset (movement of the enemy)
-
-;     ; A = FrameIndex + UpdateBgObjects_X_Offset_Value
-;     ld      a, (UpdateBgObjects_X_Offset_Value)
-;     ld      b, a
-;     ld      a, (FrameIndex)
-;     add     b
-
-;     ; if (a >= 0 && a <= 7)
-;     cp      8
-;     jp      c, .between_0_and_7                 ; if (a < n)
-;     ; else if (a >= 8 && a <= 15)
-;     cp      16
-;     jp      c, .between_8_and_15                ; if (a < n)
-;     ; else if (a >= 16)
-;     cp      16
-;     jp      nc, .greaterThan_16                 ; if (a >= n)
-; .between_0_and_7:
-;     ; do nothing
-;     ld      (UpdateBgObjects_FrameIndex_Enemy), a
-;     jp      .continue_xoffset
-
-; .between_8_and_15:
-;     ; FrameIndex -= 8
-;     sub     8
-;     ld      (UpdateBgObjects_FrameIndex_Enemy), a
-;     jp      .continue_xoffset
-
-; .greaterThan_16:
-;     ; FrameIndex -= 16
-;     sub     16
-;     ld      (UpdateBgObjects_FrameIndex_Enemy), a
-
-.continue_xoffset:
-
     ; Check if enemy is dying (show animation and not move)
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
     ld      a, (hl)
     cp      2
     jp      nc, .animateEnemyDying        ; a >= n
-
-
-
-    ; Change x offset and save it back
-    ; old code here
 
 
 
@@ -104,7 +60,8 @@ Enemy_TypeB_Logic:
         jp      z, .enemyTypeSnailRight
 
 .enemyTypeLadybugLeft:
-        ld      a, LADYBUG_SPRITE_LEFT
+        ; ld      a, LADYBUG_SPRITE_LEFT
+        ld      a, 3 ; test sprite
         ld      (UpdateBgObjects_Enemy_Sprite_Number), a
 
         ld      a, COLOR_RED
@@ -112,7 +69,8 @@ Enemy_TypeB_Logic:
         jp      .continue
 
 .enemyTypeLadybugRight:
-        ld      a, LADYBUG_SPRITE_RIGHT
+        ;ld      a, LADYBUG_SPRITE_RIGHT
+        ld      a, 3 ; test sprite
         ld      (UpdateBgObjects_Enemy_Sprite_Number), a
 
         ld      a, COLOR_RED
@@ -145,26 +103,47 @@ Enemy_TypeB_Logic:
     call    Convert_BgPosition_X_To_X_In_Pixels    
     dec     a                                       ; fix x position (not sure why)
         ; adjust for x offset
+        ; EnemyX = EnemyX - xOffset
         ld      c, a
         ld      a, (UpdateBgObjects_X_Offset_Value)
-
-        ; dec     a               ; correct x position (because of the two 
-        ; and     0000 1111 b     ; name tables we are seeing previous tiles)
-
         ld      b, a
         ld      a, c
         sub     b
     ld      (UpdateBgObjects_Enemy_n_X), a
 
 
+    ; Get Y position (already stored in pixels)
+    ld      hl, (UpdateBgObjects_CurrentAddr)
+    inc     hl
+    inc     hl
+    ld      a, (hl)
+    dec     a               ; adjust for the Y - 1 TMS 9918 bug/feature
+    ld      (UpdateBgObjects_Enemy_n_Y), a
 
-; --------------------
+
+    ; ld      a, SNAIL_SPRITE_LEFT ; LADYBUG_SPRITE_LEFT
+    ld      a, (UpdateBgObjects_Enemy_Sprite_Number)
+    ld      (UpdateBgObjects_Enemy_n_Pattern), a
+    ; ld      a, COLOR_DARK_YELLOW ; COLOR_RED
+    ld      a, (UpdateBgObjects_Enemy_Sprite_Color)
+    ld      (UpdateBgObjects_Enemy_n_Color), a
+
+
+    ; Move enemy / check collision only if enemy is alive (it may be on dying animation)
+    ld      hl, (UpdateBgObjects_CurrentAddr_State)
+    ld      a, (hl)
+    cp      2
+    jp      nc, .return     ; if (a >= n)
+
+
+
+; -------------------- Enemy movement
     ; Change x offset and save it back
     
-    ; Move enemy only at each 4 frames (causing bug)
-    ld      a, (BIOS_JIFFY)                         ; MSX BIOS time variable
-    and     0000 0011 b                             ; each 4 frames
-    jp      nz, .continue_xoffset_1
+    ; Move enemy only at each 4 frames
+    ; ld      a, (BIOS_JIFFY)                         ; MSX BIOS time variable
+    ; and     0000 0011 b                             ; each 4 frames
+    ; jp      nz, .continue_xoffset_1
 
     ; Check 7th bit of enemy type (it stores the direction)
     ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
@@ -202,10 +181,6 @@ Enemy_TypeB_Logic:
     ld      (UpdateBgObjects_X_Offset_Value), a
     ld      hl, (UpdateBgObjects_CurrentAddr_X_Offset)
     ld      (hl), a
-
-    ;inc     a               ; correct x position (because of the two 
-    ;and     0000 1111 b     ; name tables we are seeing previous tiles)
-    ;ld      (UpdateBgObjects_X_Offset_Value_Adjusted), a
     jp      .continue_xoffset_1
 
 .saveXoffset_Left:
@@ -213,38 +188,9 @@ Enemy_TypeB_Logic:
     ld      hl, (UpdateBgObjects_CurrentAddr_X_Offset)
     ld      (hl), a
 
-    ;dec     a               ; correct x position (because of the two 
-    ;and     0000 1111 b     ; name tables we are seeing previous tiles)
-    ;ld      (UpdateBgObjects_X_Offset_Value_Adjusted), a
-
 .continue_xoffset_1:
     
     ; ---------------------------------------------
-
-
-    ; Get Y position (already stored in pixels)
-    ld      hl, (UpdateBgObjects_CurrentAddr)
-    inc     hl
-    inc     hl
-    ld      a, (hl)
-    dec     a               ; adjust for the Y - 1 TMS 9918 bug/feature
-    ld      (UpdateBgObjects_Enemy_n_Y), a
-
-
-    ; ld      a, SNAIL_SPRITE_LEFT ; LADYBUG_SPRITE_LEFT
-    ld      a, (UpdateBgObjects_Enemy_Sprite_Number)
-    ld      (UpdateBgObjects_Enemy_n_Pattern), a
-    ; ld      a, COLOR_DARK_YELLOW ; COLOR_RED
-    ld      a, (UpdateBgObjects_Enemy_Sprite_Color)
-    ld      (UpdateBgObjects_Enemy_n_Color), a
-
-
-    ; Check collision only if enemy is alive (it may be on dying animation)
-    ld      hl, (UpdateBgObjects_CurrentAddr_State)
-    ld      a, (hl)
-    cp      2
-    jp      nc, .return     ; if (a >= n)
-
 
     ; Check collision - penguin jumped over enemy
     ; Player (x + 2, y + 12) - (x + 13, y + 15)
@@ -335,6 +281,7 @@ Enemy_TypeB_Logic:
     
     jp      .return
 
+;TODO: put this routine in EnemiesCommon
 .checkBackground:
     ; Check 7th bit of enemy type (it stores the direction)
     ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
@@ -342,11 +289,13 @@ Enemy_TypeB_Logic:
     and     ENEMY_FACING_RIGHT                      ; a little faster than bit 7, a
     jp      nz, .checkBackgroundRight
 
+.DISTANCE_TO_WALL_LEFT:      equ 2
+
     ; Check collision with background left
     ld      a, (UpdateBgObjects_Enemy_n_X)
     cp      8
     jp      c, .changeDirectionToRight             ; if a < 8 (fix bug when enemy is at screen left border)
-    sub     8
+    sub     .DISTANCE_TO_WALL_LEFT
     ld      h, a
     ld      a, (UpdateBgObjects_Enemy_n_Y)
     add     8
@@ -374,9 +323,11 @@ Enemy_TypeB_Logic:
     jp      .return
 
 .checkBackgroundRight:
+
+.DISTANCE_TO_WALL_RIGHT:      equ 16 + 1
     ; Check collision with background right
     ld      a, (UpdateBgObjects_Enemy_n_X)
-    add     24 + 1
+    add     .DISTANCE_TO_WALL_RIGHT
     ld      h, a
     ld      a, (UpdateBgObjects_Enemy_n_Y)
     add     8

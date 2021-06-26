@@ -23,53 +23,6 @@ Enemy_TypeA_Logic:
 
 
     call    EnemiesCounterRoutine
-;     ld      a, (Enemies_Counter)
-;     cp      2
-;     jp      z, .enemy_3
-;     cp      1
-;     jp      z, .enemy_2
-; ; enemy 1
-;     ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_1
-;     ld      (UpdateBgObjects_VRAM_NamesTable_Position), a
-    
-;     ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_1
-;     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
-    
-;     ld      hl, Enemy_1_BaseAddress                         ; source
-;     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
-
-;     ld      hl, VRAM_PATTERN_TABLE_ADDR_ENEMY_1
-;     ld      (Temp_Addr), hl
-
-;     jp      .copyEnemyPropertiesToTempVars
-; .enemy_3:
-;     ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_3
-;     ld      (UpdateBgObjects_VRAM_NamesTable_Position), a
-    
-;     ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_3
-;     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
-    
-;     ld      hl, Enemy_3_BaseAddress                         ; source
-;     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
-
-;     ld      hl, VRAM_PATTERN_TABLE_ADDR_ENEMY_3
-;     ld      (Temp_Addr), hl
-
-;     jp      .copyEnemyPropertiesToTempVars
-; .enemy_2:
-;     ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_2
-;     ld      (UpdateBgObjects_VRAM_NamesTable_Position), a
-    
-;     ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_2
-;     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
-    
-;     ld      hl, Enemy_2_BaseAddress                         ; source
-;     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
-
-;     ld      hl, VRAM_PATTERN_TABLE_ADDR_ENEMY_2
-;     ld      (Temp_Addr), hl
-
-; .copyEnemyPropertiesToTempVars:
 
 
     ; Copy enemy properties to temp variables
@@ -136,6 +89,7 @@ Enemy_TypeA_Logic:
     ld	    c, a
 
 
+    ; Setup local variables/pointers
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
 
     inc     hl
@@ -551,6 +505,7 @@ Enemy_TypeA_Logic:
     
     jp      .return
 
+;TODO: put this routine in EnemiesCommon
 .checkBackground:
     ; Check 7th bit of enemy type (it stores the direction)
     ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
@@ -558,11 +513,13 @@ Enemy_TypeA_Logic:
     and     ENEMY_FACING_RIGHT                      ; a little faster than bit 7, a
     jp      nz, .checkBackgroundRight
 
+.DISTANCE_TO_WALL_LEFT:      equ 8
+
     ; Check collision with background left
     ld      a, (UpdateBgObjects_Enemy_n_X)
     cp      8
     jp      c, .changeDirectionToRight             ; if a < 8 (fix bug when enemy is at screen left border)
-    sub     8
+    sub     .DISTANCE_TO_WALL_LEFT
     ld      h, a
     ld      a, (UpdateBgObjects_Enemy_n_Y)
     add     8
@@ -590,9 +547,12 @@ Enemy_TypeA_Logic:
     jp      .return
 
 .checkBackgroundRight:
+
+.DISTANCE_TO_WALL_RIGHT:      equ 24 + 1
+
     ; Check collision with background right
     ld      a, (UpdateBgObjects_Enemy_n_X)
-    add     24 + 1
+    add     .DISTANCE_TO_WALL_RIGHT
     ld      h, a
     ld      a, (UpdateBgObjects_Enemy_n_Y)
     add     8
