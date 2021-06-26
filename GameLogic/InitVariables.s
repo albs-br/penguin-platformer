@@ -102,6 +102,8 @@ InitVariables:
 
 
 InitEnemiesVariables:
+    
+    ; Enemies type A
     ld      hl, 0
     ld      (Enemy_1_RAM_Pattern_Addr), hl
     ld      (Enemy_2_RAM_Pattern_Addr), hl
@@ -122,4 +124,5 @@ InitEnemiesVariables:
     ld      (Enemy_2_Y), a
     ld      (Enemy_3_Y), a
 
+    ; Enemies type B
     ret

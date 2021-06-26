@@ -61,7 +61,7 @@ Enemy_TypeB_Logic:
 
 .enemyTypeLadybugLeft:
         ; ld      a, LADYBUG_SPRITE_LEFT
-        ld      a, 3 ; test sprite
+        ld      a, TEST_SPRITE ; test sprite
         ld      (UpdateBgObjects_Enemy_Sprite_Number), a
 
         ld      a, COLOR_RED
@@ -70,7 +70,7 @@ Enemy_TypeB_Logic:
 
 .enemyTypeLadybugRight:
         ;ld      a, LADYBUG_SPRITE_RIGHT
-        ld      a, 3 ; test sprite
+        ld      a, TEST_SPRITE ; test sprite
         ld      (UpdateBgObjects_Enemy_Sprite_Number), a
 
         ld      a, COLOR_RED
