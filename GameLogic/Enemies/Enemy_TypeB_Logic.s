@@ -40,36 +40,36 @@ Enemy_TypeB_Logic:
 
     ; --------------- To deal with x offset (movement of the enemy)
 
-    ; A = FrameIndex + UpdateBgObjects_X_Offset_Value
-    ld      a, (UpdateBgObjects_X_Offset_Value)
-    ld      b, a
-    ld      a, (FrameIndex)
-    add     b
+;     ; A = FrameIndex + UpdateBgObjects_X_Offset_Value
+;     ld      a, (UpdateBgObjects_X_Offset_Value)
+;     ld      b, a
+;     ld      a, (FrameIndex)
+;     add     b
 
-    ; if (a >= 0 && a <= 7)
-    cp      8
-    jp      c, .between_0_and_7                 ; if (a < n)
-    ; else if (a >= 8 && a <= 15)
-    cp      16
-    jp      c, .between_8_and_15                ; if (a < n)
-    ; else if (a >= 16)
-    cp      16
-    jp      nc, .greaterThan_16                 ; if (a >= n)
-.between_0_and_7:
-    ; do nothing
-    ld      (UpdateBgObjects_FrameIndex_Enemy), a
-    jp      .continue_xoffset
+;     ; if (a >= 0 && a <= 7)
+;     cp      8
+;     jp      c, .between_0_and_7                 ; if (a < n)
+;     ; else if (a >= 8 && a <= 15)
+;     cp      16
+;     jp      c, .between_8_and_15                ; if (a < n)
+;     ; else if (a >= 16)
+;     cp      16
+;     jp      nc, .greaterThan_16                 ; if (a >= n)
+; .between_0_and_7:
+;     ; do nothing
+;     ld      (UpdateBgObjects_FrameIndex_Enemy), a
+;     jp      .continue_xoffset
 
-.between_8_and_15:
-    ; FrameIndex -= 8
-    sub     8
-    ld      (UpdateBgObjects_FrameIndex_Enemy), a
-    jp      .continue_xoffset
+; .between_8_and_15:
+;     ; FrameIndex -= 8
+;     sub     8
+;     ld      (UpdateBgObjects_FrameIndex_Enemy), a
+;     jp      .continue_xoffset
 
-.greaterThan_16:
-    ; FrameIndex -= 16
-    sub     16
-    ld      (UpdateBgObjects_FrameIndex_Enemy), a
+; .greaterThan_16:
+;     ; FrameIndex -= 16
+;     sub     16
+;     ld      (UpdateBgObjects_FrameIndex_Enemy), a
 
 .continue_xoffset:
 
@@ -82,11 +82,89 @@ Enemy_TypeB_Logic:
 
 
     ; Change x offset and save it back
+    ; old code here
+
+
+
+; TODO:
+.showEnemySprites:
+	exx
+        ; switch enemy type
+        ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
+        ld      a, (hl)
+        
+        cp      ENEMY_TYPE_LADYBUG_LEFT
+        jp      z, .enemyTypeLadybugLeft
+        cp      ENEMY_TYPE_LADYBUG_RIGHT
+        jp      z, .enemyTypeLadybugRight
+        
+        cp      ENEMY_TYPE_SNAIL_LEFT
+        jp      z, .enemyTypeSnailLeft
+        cp      ENEMY_TYPE_SNAIL_RIGHT
+        jp      z, .enemyTypeSnailRight
+
+.enemyTypeLadybugLeft:
+        ld      a, LADYBUG_SPRITE_LEFT
+        ld      (UpdateBgObjects_Enemy_Sprite_Number), a
+
+        ld      a, COLOR_RED
+        ld      (UpdateBgObjects_Enemy_Sprite_Color), a
+        jp      .continue
+
+.enemyTypeLadybugRight:
+        ld      a, LADYBUG_SPRITE_RIGHT
+        ld      (UpdateBgObjects_Enemy_Sprite_Number), a
+
+        ld      a, COLOR_RED
+        ld      (UpdateBgObjects_Enemy_Sprite_Color), a
+        jp      .continue
+
+.enemyTypeSnailLeft:
+        ld      a, SNAIL_SPRITE_LEFT
+        ld      (UpdateBgObjects_Enemy_Sprite_Number), a
+
+        ld      a, COLOR_DARK_YELLOW
+        ld      (UpdateBgObjects_Enemy_Sprite_Color), a
+        jp      .continue
+
+.enemyTypeSnailRight:
+        ld      a, SNAIL_SPRITE_RIGHT
+        ld      (UpdateBgObjects_Enemy_Sprite_Number), a
+
+        ld      a, COLOR_DARK_YELLOW
+        ld      (UpdateBgObjects_Enemy_Sprite_Color), a
+        jp      .continue
+
+.continue:
+    exx
+    
+    ; Place enemy sprite
+
+    ; Get x coord in pixels
+    ld      hl, (UpdateBgObjects_PosObjOnBG)
+    call    Convert_BgPosition_X_To_X_In_Pixels    
+    dec     a                                       ; fix x position (not sure why)
+        ; adjust for x offset
+        ld      c, a
+        ld      a, (UpdateBgObjects_X_Offset_Value)
+
+        ; dec     a               ; correct x position (because of the two 
+        ; and     0000 1111 b     ; name tables we are seeing previous tiles)
+
+        ld      b, a
+        ld      a, c
+        sub     b
+    ld      (UpdateBgObjects_Enemy_n_X), a
+
+
+
+; --------------------
+    ; Change x offset and save it back
     
     ; Move enemy only at each 4 frames (causing bug)
-    ;ld      a, (BIOS_JIFFY)                         ; MSX BIOS time variable
-    ;and     0000 0011 b                             ; each 4 frames
-    ;jp      nz, .continue_xoffset_1
+    ld      a, (BIOS_JIFFY)                         ; MSX BIOS time variable
+    and     0000 0011 b                             ; each 4 frames
+    jp      nz, .continue_xoffset_1
 
     ; Check 7th bit of enemy type (it stores the direction)
     ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
@@ -125,9 +203,9 @@ Enemy_TypeB_Logic:
     ld      hl, (UpdateBgObjects_CurrentAddr_X_Offset)
     ld      (hl), a
 
-    ; inc     a               ; correct x position (because of the two 
-    ; and     0000 1111 b     ; name tables we are seeing previous tiles)
-    ; ld      (UpdateBgObjects_X_Offset_Value_Adjusted), a
+    ;inc     a               ; correct x position (because of the two 
+    ;and     0000 1111 b     ; name tables we are seeing previous tiles)
+    ;ld      (UpdateBgObjects_X_Offset_Value_Adjusted), a
     jp      .continue_xoffset_1
 
 .saveXoffset_Left:
@@ -135,105 +213,13 @@ Enemy_TypeB_Logic:
     ld      hl, (UpdateBgObjects_CurrentAddr_X_Offset)
     ld      (hl), a
 
-    ; dec     a               ; correct x position (because of the two 
-    ; and     0000 1111 b     ; name tables we are seeing previous tiles)
-    ; ld      (UpdateBgObjects_X_Offset_Value_Adjusted), a
+    ;dec     a               ; correct x position (because of the two 
+    ;and     0000 1111 b     ; name tables we are seeing previous tiles)
+    ;ld      (UpdateBgObjects_X_Offset_Value_Adjusted), a
 
 .continue_xoffset_1:
     
     ; ---------------------------------------------
-
-
-
-; TODO:
-.showEnemySprites:
-	exx
-        ; switch enemy type
-        ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
-        ld      a, (hl)
-        
-        cp      ENEMY_TYPE_LADYBUG_LEFT
-        jp      z, .enemyTypeLadybugLeft
-        cp      ENEMY_TYPE_LADYBUG_RIGHT
-        jp      z, .enemyTypeLadybugRight
-        
-        cp      ENEMY_TYPE_SNAIL_LEFT
-        jp      z, .enemyTypeSnailLeft
-        cp      ENEMY_TYPE_SNAIL_RIGHT
-        jp      z, .enemyTypeSnailRight
-
-.enemyTypeLadybugLeft:
-        ld      a, LADYBUG_SPRITE_LEFT
-        ld      (UpdateBgObjects_Enemy_Sprite_Number), a
-
-        ld      a, COLOR_RED
-        ld      (UpdateBgObjects_Enemy_Sprite_Color), a
-
-        ld      hl, TileColors_EnemyLadybug_Top_Start
-        ld      (UpdateBgObjects_Enemy_Color_Addr), hl
-        
-        ld      hl, TilePatterns_Enemy_Ladybug_Left_Start
-        jp      .continue
-
-.enemyTypeLadybugRight:
-        ld      a, LADYBUG_SPRITE_RIGHT
-        ld      (UpdateBgObjects_Enemy_Sprite_Number), a
-
-        ld      a, COLOR_RED
-        ld      (UpdateBgObjects_Enemy_Sprite_Color), a
-
-        ld      hl, TileColors_EnemyLadybug_Top_Start
-        ld      (UpdateBgObjects_Enemy_Color_Addr), hl
-        
-        ld      hl, TilePatterns_Enemy_Ladybug_Right_Start
-        jp      .continue
-
-.enemyTypeSnailLeft:
-        ld      a, SNAIL_SPRITE_LEFT
-        ld      (UpdateBgObjects_Enemy_Sprite_Number), a
-
-        ld      a, COLOR_DARK_YELLOW
-        ld      (UpdateBgObjects_Enemy_Sprite_Color), a
-
-        ld      hl, TileColors_EnemySnail_Top_Start
-        ld      (UpdateBgObjects_Enemy_Color_Addr), hl
-        
-        ld      hl, TilePatterns_Enemy_Snail_Left_Start
-        jp      .continue
-
-.enemyTypeSnailRight:
-        ld      a, SNAIL_SPRITE_RIGHT
-        ld      (UpdateBgObjects_Enemy_Sprite_Number), a
-
-        ld      a, COLOR_DARK_YELLOW
-        ld      (UpdateBgObjects_Enemy_Sprite_Color), a
-
-        ld      hl, TileColors_EnemySnail_Top_Start
-        ld      (UpdateBgObjects_Enemy_Color_Addr), hl
-        
-        ld      hl, TilePatterns_Enemy_Snail_Right_Start
-        jp      .continue
-
-.continue:
-    exx
-    
-    ; Place enemy sprite
-
-    ; Get x coord in pixels
-    ld      hl, (UpdateBgObjects_PosObjOnBG)
-    call    Convert_BgPosition_X_To_X_In_Pixels    
-    dec     a                                       ; fix x position (not sure why)
-        ; adjust for x offset
-        ld      c, a
-        ld      a, (UpdateBgObjects_X_Offset_Value_Adjusted)
-
-        ; dec     a               ; correct x position (because of the two 
-        ; and     0000 1111 b     ; name tables we are seeing previous tiles)
-
-        ld      b, a
-        ld      a, c
-        sub     b
-    ld      (UpdateBgObjects_Enemy_n_X), a
 
 
     ; Get Y position (already stored in pixels)

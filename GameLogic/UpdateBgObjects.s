@@ -186,13 +186,16 @@ ShowBgObject:
 
 	    call    BIOS_SETWRT
     
-        ; TODO: check if column is < 0 (bug showing on the other side of screen)
         ld      hl, (UpdateBgObjects_CurrentAddr)
         
         inc     hl                          ; get object from second byte of struct
         ld      a, (hl)
-        cp      ENEMY_TYPE_A
+        
+        cp      ENEMY_TYPE_A                ; if (object == Enemy type A)
         jp      z, Enemy_TypeA_Logic
+        cp      ENEMY_TYPE_B                ; if (object == Enemy type A)
+        jp      z, Enemy_TypeB_Logic
+                                            ; else
         ld      b, a
         
         ; top left

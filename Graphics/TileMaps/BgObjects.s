@@ -40,11 +40,11 @@ BgObjectsInitialState_Start:
     
     db      1,      DIAMOND_FIRST_TILE,     4 * 2 * 8,      1,  0,  0,  0,  0
 
-    ; db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  0,  0,  0
+    db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
     db      11,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0
     ;db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0
     
-    db      11,     ENEMY_TYPE_A,                  0 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
+    ;db      11,     ENEMY_TYPE_A,                  0 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
 
     db      15,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0
     db      11,     ENEMY_TYPE_A,                  3 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0

@@ -69,7 +69,8 @@ UpdateBgObjects_Enemy_n_RAM_Pattern_Addr:       rw 1
 UpdateBgObjects_Enemy_n_VRAM_Pattern_Addr:      rw 1
 ENEMY_STRUCT_SIZE:                      equ $ - UpdateBgObjects_Enemy_n_BaseAddress
 
-
+; TODO
+;ENEMY_TYPE_B_STRUCT_SIZE:               equ 4
 
 
 
@@ -91,7 +92,7 @@ HitFlash_FrameNumber:                   rb 1
 HitFlash_Counter:                       rb 1        ; counter for each animation frame
 
 
-; Enemies
+; Enemies type A
 Enemy_1_BaseAddress:
 Enemy_1_X:                              rb 1
 Enemy_1_Y:                              rb 1
@@ -119,6 +120,7 @@ Enemy_3_VRAM_Pattern_Addr:              rw 1
 Enemies_Counter:                        rb 1
 
 
+; Enemies type B
 Enemy_TypeB_1_X:                       rb 1
 Enemy_TypeB_1_Y:                       rb 1
 Enemy_TypeB_1_Pattern:                 rb 1

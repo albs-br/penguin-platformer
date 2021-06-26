@@ -357,6 +357,10 @@ Enemy_TypeA_Logic:
         ld      (UpdateBgObjects_Enemy_n_RAM_Pattern_Addr), hl
 
 
+        ; TODO: optimization oportunity here, this is being copied at each frame
+        ; and is needed only once (when the enemy enter the screen)
+        ; (wasting 8 bytes x 6 tiles = 48 bytes; 26 cycles per byte = 1248 cycles = 5 scanlines)
+
         ; ------------ Update colors table  ------------
         ; copy color data of enemy to VRAM
         ld		bc, 8 * 6   ; Block length
