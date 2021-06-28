@@ -60,6 +60,7 @@ UpdateBgObjects_Enemy_Return_Addr:          rw 1
 UpdateBgObjects_VRAM_ColorsTable_Addr:      rw 1
 UpdateBgObjects_VRAM_NamesTable_Position:   rb 1
 
+; Local properties for subroutine (enemy type A)
 UpdateBgObjects_Enemy_n_BaseAddress:
 UpdateBgObjects_Enemy_n_X:                      rb 1
 UpdateBgObjects_Enemy_n_Y:                      rb 1
@@ -93,7 +94,7 @@ HitFlash_Counter:                       rb 1        ; counter for each animation
 
 
 ; --------------------- Enemies type A
-Enemies_Counter:                        rb 1
+Enemies_TypeA_Counter:                  rb 1
 
 Enemy_1_BaseAddress:
 Enemy_1_X:                              rb 1
@@ -122,12 +123,20 @@ Enemy_3_VRAM_Pattern_Addr:              rw 1
 
 
 ; --------------------- Enemies type B
+Enemies_TypeB_Counter:                  rb 1
+
 Enemy_TypeB_1_X:                       rb 1
 Enemy_TypeB_1_Y:                       rb 1
-Enemy_TypeB_1_Pattern:                 rb 1
-Enemy_TypeB_1_Color:                   rb 1
+Enemy_TypeB_1_1st_Sprite_Pattern:      rb 1
+Enemy_TypeB_1_1st_Sprite_Color:        rb 1
+Enemy_TypeB_1_2nd_Sprite_Pattern:      rb 1
+Enemy_TypeB_1_2nd_Sprite_Color:        rb 1
+Enemy_TypeB_1_3rd_Sprite_Pattern:      rb 1
+Enemy_TypeB_1_3rd_Sprite_Color:        rb 1
 
 
+
+; ---------------------
 IsProcessingFrame:                      rb 1       ; 0: false, 1: true
 HasFrameSkiped:                         rb 1       ; 0: false, 1: true
 

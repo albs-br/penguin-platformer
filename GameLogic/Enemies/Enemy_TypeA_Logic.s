@@ -593,7 +593,7 @@ Enemy_TypeA_Logic:
     or      a
     ret     z
 
-    ld      hl, Enemies_Counter
+    ld      hl, Enemies_TypeA_Counter
     inc     (hl)
 
     ret

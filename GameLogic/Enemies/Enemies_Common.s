@@ -1,5 +1,5 @@
 EnemiesCounterRoutine:
-    ld      a, (Enemies_Counter)
+    ld      a, (Enemies_TypeA_Counter)
     cp      2
     jp      z, .enemy_3
     cp      1
