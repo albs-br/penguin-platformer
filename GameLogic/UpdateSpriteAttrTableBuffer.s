@@ -93,6 +93,8 @@ UpdateSpriteAttrTableBuffer:
     ld      a, COLOR_WHITE
     ld      (hl), a
 
+
+
 ; ----------------------------------------
 ; Enemies Type A
 
@@ -150,6 +152,8 @@ UpdateSpriteAttrTableBuffer:
 ; ---------------------------------------
 ; Enemies Type B
 
+    ; Enemy type B #1
+
     ; Sprite # 8
     inc     hl
     ld      a, (Enemy_TypeB_1_Y)
@@ -200,6 +204,117 @@ UpdateSpriteAttrTableBuffer:
     inc     hl
     ld      a, (Enemy_TypeB_1_3rd_Sprite_Color)
     ld      (hl), a
+
+
+    ; Enemy type B #2
+
+    ; Sprite # 11
+    inc     hl
+    ld      a, (Enemy_TypeB_2_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_2_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_2_1st_Sprite_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_2_1st_Sprite_Color)
+    ld      (hl), a
+
+    ; Sprite # 12
+    inc     hl
+    ld      a, (Enemy_TypeB_2_2nd_Sprite_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_2_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_2_2nd_Sprite_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_2_2nd_Sprite_Color)
+    ld      (hl), a
+
+    ; Sprite # 13
+    inc     hl
+    ld      a, (Enemy_TypeB_2_3rd_Sprite_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_2_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_2_3rd_Sprite_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_2_3rd_Sprite_Color)
+    ld      (hl), a
+
+
+    ; Enemy type B #3
+
+    ; Sprite # 14
+    inc     hl
+    ld      a, (Enemy_TypeB_3_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_3_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_3_1st_Sprite_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_3_1st_Sprite_Color)
+    ld      (hl), a
+
+    ; Sprite # 15
+    inc     hl
+    ld      a, (Enemy_TypeB_3_2nd_Sprite_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_3_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_3_2nd_Sprite_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_3_2nd_Sprite_Color)
+    ld      (hl), a
+
+    ; Sprite # 16
+    inc     hl
+    ld      a, (Enemy_TypeB_3_3rd_Sprite_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_3_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_3_3rd_Sprite_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_3_3rd_Sprite_Color)
+    ld      (hl), a
+
+    ; add enemies here
+
 
 
 ; ---------------------------------------
@@ -351,6 +466,7 @@ SCORE_TOP_LEFT_X:       equ 7 + 4
     inc     hl
     ld      a, COLOR_BLACK
     ld      (hl), a
+
 
 
     ret

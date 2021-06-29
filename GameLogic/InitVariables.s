@@ -134,9 +134,31 @@ InitEnemiesVariables:
     ld      (Enemy_TypeB_1_1st_Sprite_Color), a
     ld      (Enemy_TypeB_1_2nd_Sprite_Color), a
     ld      (Enemy_TypeB_1_3rd_Sprite_Color), a
+    ld      (Enemy_TypeB_2_X), a
+    ld      (Enemy_TypeB_2_1st_Sprite_Pattern), a
+    ld      (Enemy_TypeB_2_2nd_Sprite_Pattern), a
+    ld      (Enemy_TypeB_2_3rd_Sprite_Pattern), a
+    ld      (Enemy_TypeB_2_1st_Sprite_Color), a
+    ld      (Enemy_TypeB_2_2nd_Sprite_Color), a
+    ld      (Enemy_TypeB_2_3rd_Sprite_Color), a
+    ld      (Enemy_TypeB_3_X), a
+    ld      (Enemy_TypeB_3_1st_Sprite_Pattern), a
+    ld      (Enemy_TypeB_3_2nd_Sprite_Pattern), a
+    ld      (Enemy_TypeB_3_3rd_Sprite_Pattern), a
+    ld      (Enemy_TypeB_3_1st_Sprite_Color), a
+    ld      (Enemy_TypeB_3_2nd_Sprite_Color), a
+    ld      (Enemy_TypeB_3_3rd_Sprite_Color), a
+    ; add enemies here
     ld      a, 192
     ld      (Enemy_TypeB_1_Y), a
     ld      (Enemy_TypeB_1_2nd_Sprite_Y), a
     ld      (Enemy_TypeB_1_3rd_Sprite_Y), a
+    ld      (Enemy_TypeB_2_Y), a
+    ld      (Enemy_TypeB_2_2nd_Sprite_Y), a
+    ld      (Enemy_TypeB_2_3rd_Sprite_Y), a
+    ld      (Enemy_TypeB_3_Y), a
+    ld      (Enemy_TypeB_3_2nd_Sprite_Y), a
+    ld      (Enemy_TypeB_3_3rd_Sprite_Y), a
+    ; add enemies here
 
     ret

@@ -62,23 +62,31 @@ Enemy_TypeB_Logic:
 .enemyTypeLadybugLeft:
         ; ld      a, LADYBUG_SPRITE_LEFT
         ld      a, TEST_SPRITE ; test sprite
-        ;ld      (UpdateBgObjects_Enemy_Sprite_Number), a
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
+        ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
+        ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
-        ld      a, COLOR_RED
-        ;ld      (UpdateBgObjects_Enemy_Sprite_Color), a
+        ld      a, COLOR_RED ; test colors
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
+        ld      a, COLOR_GREEN
+        ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
+        ld      a, COLOR_BLUE
+        ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
         jp      .continue
 
 .enemyTypeLadybugRight:
         ;ld      a, LADYBUG_SPRITE_RIGHT
         ld      a, TEST_SPRITE ; test sprite
-        ;ld      (UpdateBgObjects_Enemy_Sprite_Number), a
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
+        ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
+        ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
-        ld      a, COLOR_RED
-        ;ld      (UpdateBgObjects_Enemy_Sprite_Color), a
+        ld      a, COLOR_RED ; test colors
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
+        ld      a, COLOR_GREEN
+        ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
+        ld      a, COLOR_BLUE
+        ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
         jp      .continue
 
 .enemyTypeSnailLeft:
@@ -123,6 +131,18 @@ Enemy_TypeB_Logic:
     ld      a, (hl)
     dec     a               ; adjust for the Y - 1 TMS 9918 bug/feature
     ld      (UpdateBgObjects_Enemy_TypeB_n_Y), a
+    inc     hl
+    inc     hl
+    inc     hl
+    inc     hl
+    ld      a, (hl)
+    dec     a               ; adjust for the Y - 1 TMS 9918 bug/feature
+    ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Y), a
+    inc     hl
+    ld      a, (hl)
+    dec     a               ; adjust for the Y - 1 TMS 9918 bug/feature
+    ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Y), a
+
 
 
     ; ; ld      a, SNAIL_SPRITE_LEFT ; LADYBUG_SPRITE_LEFT
@@ -395,23 +415,17 @@ Enemy_TypeB_Logic:
     cp      1
     jp      z, .enemy_2
 ; enemy 1
-    ; ld      a, TILE_POSITION_ON_NAMTBL_ENEMY_1
-    ; ld      (UpdateBgObjects_VRAM_NamesTable_Position), a
-    
-    ; ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_1
-    ; ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
-    
     ld      hl, Enemy_TypeB_1_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
 
-    ; ld      hl, VRAM_PATTERN_TABLE_ADDR_ENEMY_1
-    ; ld      (Temp_Addr), hl
-
     ret
 .enemy_3:
+    ld      hl, Enemy_TypeB_3_BaseAddress                         ; source
+    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
 
     ret
 .enemy_2:
+    ld      hl, Enemy_TypeB_2_BaseAddress                         ; source
+    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
 
     ret
-

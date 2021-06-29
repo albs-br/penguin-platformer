@@ -149,6 +149,33 @@ Enemy_TypeB_1_3rd_Sprite_Color:         rb 1
 Enemy_TypeB_1_3rd_Sprite_Y:             rb 1
 
 
+Enemy_TypeB_2_BaseAddress:
+Enemy_TypeB_2_X:                        rb 1
+Enemy_TypeB_2_Y:                        rb 1
+Enemy_TypeB_2_1st_Sprite_Pattern:       rb 1
+Enemy_TypeB_2_1st_Sprite_Color:         rb 1
+Enemy_TypeB_2_2nd_Sprite_Pattern:       rb 1
+Enemy_TypeB_2_2nd_Sprite_Color:         rb 1
+Enemy_TypeB_2_2nd_Sprite_Y:             rb 1
+Enemy_TypeB_2_3rd_Sprite_Pattern:       rb 1
+Enemy_TypeB_2_3rd_Sprite_Color:         rb 1
+Enemy_TypeB_2_3rd_Sprite_Y:             rb 1
+
+
+Enemy_TypeB_3_BaseAddress:
+Enemy_TypeB_3_X:                        rb 1
+Enemy_TypeB_3_Y:                        rb 1
+Enemy_TypeB_3_1st_Sprite_Pattern:       rb 1
+Enemy_TypeB_3_1st_Sprite_Color:         rb 1
+Enemy_TypeB_3_2nd_Sprite_Pattern:       rb 1
+Enemy_TypeB_3_2nd_Sprite_Color:         rb 1
+Enemy_TypeB_3_2nd_Sprite_Y:             rb 1
+Enemy_TypeB_3_3rd_Sprite_Pattern:       rb 1
+Enemy_TypeB_3_3rd_Sprite_Color:         rb 1
+Enemy_TypeB_3_3rd_Sprite_Y:             rb 1
+
+    ; add enemies here
+
 
 ; ---------------------
 IsProcessingFrame:                      rb 1       ; 0: false, 1: true
