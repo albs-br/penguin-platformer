@@ -105,24 +105,24 @@ InitEnemiesVariables:
     
     ; Enemies type A
     ld      hl, 0
-    ld      (Enemy_1_RAM_Pattern_Addr), hl
-    ld      (Enemy_2_RAM_Pattern_Addr), hl
-    ld      (Enemy_3_RAM_Pattern_Addr), hl
+    ld      (Enemy_TypeA_1_RAM_Pattern_Addr), hl
+    ld      (Enemy_TypeA_2_RAM_Pattern_Addr), hl
+    ld      (Enemy_TypeA_3_RAM_Pattern_Addr), hl
     xor     a
     ld      (Enemies_TypeA_Counter), a
-    ld      (Enemy_1_X), a
-    ld      (Enemy_1_Pattern), a
-    ld      (Enemy_1_Color), a
-    ld      (Enemy_2_X), a
-    ld      (Enemy_2_Pattern), a
-    ld      (Enemy_2_Color), a
-    ld      (Enemy_3_X), a
-    ld      (Enemy_3_Pattern), a
-    ld      (Enemy_3_Color), a
+    ld      (Enemy_TypeA_1_X), a
+    ld      (Enemy_TypeA_1_Pattern), a
+    ld      (Enemy_TypeA_1_Color), a
+    ld      (Enemy_TypeA_2_X), a
+    ld      (Enemy_TypeA_2_Pattern), a
+    ld      (Enemy_TypeA_2_Color), a
+    ld      (Enemy_TypeA_3_X), a
+    ld      (Enemy_TypeA_3_Pattern), a
+    ld      (Enemy_TypeA_3_Color), a
     ld      a, 192
-    ld      (Enemy_1_Y), a
-    ld      (Enemy_2_Y), a
-    ld      (Enemy_3_Y), a
+    ld      (Enemy_TypeA_1_Y), a
+    ld      (Enemy_TypeA_2_Y), a
+    ld      (Enemy_TypeA_3_Y), a
 
     ; Enemies type B
     xor     a

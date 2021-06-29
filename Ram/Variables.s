@@ -105,31 +105,31 @@ HitFlash_Counter:                       rb 1        ; counter for each animation
 
 
 ; --------------------- Enemies type A
-Enemies_TypeA_Counter:                  rb 1
+Enemies_TypeA_Counter:                        rb 1
 
-Enemy_1_BaseAddress:
-Enemy_1_X:                              rb 1
-Enemy_1_Y:                              rb 1
-Enemy_1_Pattern:                        rb 1
-Enemy_1_Color:                          rb 1
-Enemy_1_RAM_Pattern_Addr:               rw 1
-Enemy_1_VRAM_Pattern_Addr:              rw 1
+Enemy_TypeA_1_BaseAddress:
+Enemy_TypeA_1_X:                              rb 1
+Enemy_TypeA_1_Y:                              rb 1
+Enemy_TypeA_1_Pattern:                        rb 1
+Enemy_TypeA_1_Color:                          rb 1
+Enemy_TypeA_1_RAM_Pattern_Addr:               rw 1
+Enemy_TypeA_1_VRAM_Pattern_Addr:              rw 1
 
-Enemy_2_BaseAddress:
-Enemy_2_X:                              rb 1
-Enemy_2_Y:                              rb 1
-Enemy_2_Pattern:                        rb 1
-Enemy_2_Color:                          rb 1
-Enemy_2_RAM_Pattern_Addr:               rw 1
-Enemy_2_VRAM_Pattern_Addr:              rw 1
+Enemy_TypeA_2_BaseAddress:
+Enemy_TypeA_2_X:                              rb 1
+Enemy_TypeA_2_Y:                              rb 1
+Enemy_TypeA_2_Pattern:                        rb 1
+Enemy_TypeA_2_Color:                          rb 1
+Enemy_TypeA_2_RAM_Pattern_Addr:               rw 1
+Enemy_TypeA_2_VRAM_Pattern_Addr:              rw 1
 
-Enemy_3_BaseAddress:
-Enemy_3_X:                              rb 1
-Enemy_3_Y:                              rb 1
-Enemy_3_Pattern:                        rb 1
-Enemy_3_Color:                          rb 1
-Enemy_3_RAM_Pattern_Addr:               rw 1
-Enemy_3_VRAM_Pattern_Addr:              rw 1
+Enemy_TypeA_3_BaseAddress:
+Enemy_TypeA_3_X:                              rb 1
+Enemy_TypeA_3_Y:                              rb 1
+Enemy_TypeA_3_Pattern:                        rb 1
+Enemy_TypeA_3_Color:                          rb 1
+Enemy_TypeA_3_RAM_Pattern_Addr:               rw 1
+Enemy_TypeA_3_VRAM_Pattern_Addr:              rw 1
 
 
 

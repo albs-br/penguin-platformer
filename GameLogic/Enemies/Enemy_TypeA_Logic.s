@@ -614,7 +614,7 @@ Enemy_TypeA_Logic:
     ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_1
     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
     
-    ld      hl, Enemy_1_BaseAddress                         ; source
+    ld      hl, Enemy_TypeA_1_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
 
     ld      hl, VRAM_PATTERN_TABLE_ADDR_ENEMY_1
@@ -629,7 +629,7 @@ Enemy_TypeA_Logic:
     ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_3
     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
     
-    ld      hl, Enemy_3_BaseAddress                         ; source
+    ld      hl, Enemy_TypeA_3_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
 
     ld      hl, VRAM_PATTERN_TABLE_ADDR_ENEMY_3
@@ -644,7 +644,7 @@ Enemy_TypeA_Logic:
     ld      hl, VRAM_COLORS_TABLE_ADDR_ENEMY_2
     ld      (UpdateBgObjects_VRAM_ColorsTable_Addr), hl
     
-    ld      hl, Enemy_2_BaseAddress                         ; source
+    ld      hl, Enemy_TypeA_2_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
 
     ld      hl, VRAM_PATTERN_TABLE_ADDR_ENEMY_2
