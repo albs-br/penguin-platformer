@@ -125,4 +125,18 @@ InitEnemiesVariables:
     ld      (Enemy_3_Y), a
 
     ; Enemies type B
+    xor     a
+    ld      (Enemies_TypeB_Counter), a
+    ld      (Enemy_TypeB_1_X), a
+    ld      (Enemy_TypeB_1_1st_Sprite_Pattern), a
+    ld      (Enemy_TypeB_1_2nd_Sprite_Pattern), a
+    ld      (Enemy_TypeB_1_3rd_Sprite_Pattern), a
+    ld      (Enemy_TypeB_1_1st_Sprite_Color), a
+    ld      (Enemy_TypeB_1_2nd_Sprite_Color), a
+    ld      (Enemy_TypeB_1_3rd_Sprite_Color), a
+    ld      a, 192
+    ld      (Enemy_TypeB_1_Y), a
+    ld      (Enemy_TypeB_1_2nd_Sprite_Y), a
+    ld      (Enemy_TypeB_1_3rd_Sprite_Y), a
+
     ret

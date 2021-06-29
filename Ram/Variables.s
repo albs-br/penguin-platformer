@@ -61,17 +61,28 @@ UpdateBgObjects_VRAM_ColorsTable_Addr:      rw 1
 UpdateBgObjects_VRAM_NamesTable_Position:   rb 1
 
 ; Local properties for subroutine (enemy type A)
-UpdateBgObjects_Enemy_n_BaseAddress:
-UpdateBgObjects_Enemy_n_X:                      rb 1
-UpdateBgObjects_Enemy_n_Y:                      rb 1
-UpdateBgObjects_Enemy_n_Pattern:                rb 1
-UpdateBgObjects_Enemy_n_Color:                  rb 1
-UpdateBgObjects_Enemy_n_RAM_Pattern_Addr:       rw 1
-UpdateBgObjects_Enemy_n_VRAM_Pattern_Addr:      rw 1
-ENEMY_STRUCT_SIZE:                      equ $ - UpdateBgObjects_Enemy_n_BaseAddress
+UpdateBgObjects_Enemy_TypeA_n_BaseAddress:
+UpdateBgObjects_Enemy_TypeA_n_X:                      rb 1
+UpdateBgObjects_Enemy_TypeA_n_Y:                      rb 1
+UpdateBgObjects_Enemy_TypeA_n_Pattern:                rb 1
+UpdateBgObjects_Enemy_TypeA_n_Color:                  rb 1
+UpdateBgObjects_Enemy_TypeA_n_RAM_Pattern_Addr:       rw 1
+UpdateBgObjects_Enemy_TypeA_n_VRAM_Pattern_Addr:      rw 1
+ENEMY_TYPE_A_STRUCT_SIZE:                      equ $ - UpdateBgObjects_Enemy_TypeA_n_BaseAddress
 
-; TODO
-;ENEMY_TYPE_B_STRUCT_SIZE:               equ 4
+; Local properties for subroutine (enemy type B)
+UpdateBgObjects_Enemy_TypeB_n_BaseAddress:
+UpdateBgObjects_Enemy_TypeB_n_X:                      rb 1
+UpdateBgObjects_Enemy_TypeB_n_Y:                      rb 1
+UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern:     rb 1
+UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color:       rb 1
+UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern:     rb 1
+UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color:       rb 1
+UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Y:           rb 1
+UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern:     rb 1
+UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color:       rb 1
+UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Y:           rb 1
+ENEMY_TYPE_B_STRUCT_SIZE:                      equ $ - UpdateBgObjects_Enemy_TypeB_n_BaseAddress
 
 
 
@@ -125,14 +136,17 @@ Enemy_3_VRAM_Pattern_Addr:              rw 1
 ; --------------------- Enemies type B
 Enemies_TypeB_Counter:                  rb 1
 
-Enemy_TypeB_1_X:                       rb 1
-Enemy_TypeB_1_Y:                       rb 1
-Enemy_TypeB_1_1st_Sprite_Pattern:      rb 1
-Enemy_TypeB_1_1st_Sprite_Color:        rb 1
-Enemy_TypeB_1_2nd_Sprite_Pattern:      rb 1
-Enemy_TypeB_1_2nd_Sprite_Color:        rb 1
-Enemy_TypeB_1_3rd_Sprite_Pattern:      rb 1
-Enemy_TypeB_1_3rd_Sprite_Color:        rb 1
+Enemy_TypeB_1_BaseAddress:
+Enemy_TypeB_1_X:                        rb 1
+Enemy_TypeB_1_Y:                        rb 1
+Enemy_TypeB_1_1st_Sprite_Pattern:       rb 1
+Enemy_TypeB_1_1st_Sprite_Color:         rb 1
+Enemy_TypeB_1_2nd_Sprite_Pattern:       rb 1
+Enemy_TypeB_1_2nd_Sprite_Color:         rb 1
+Enemy_TypeB_1_2nd_Sprite_Y:             rb 1
+Enemy_TypeB_1_3rd_Sprite_Pattern:       rb 1
+Enemy_TypeB_1_3rd_Sprite_Color:         rb 1
+Enemy_TypeB_1_3rd_Sprite_Y:             rb 1
 
 
 

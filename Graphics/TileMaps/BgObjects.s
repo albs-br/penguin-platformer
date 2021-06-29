@@ -29,8 +29,8 @@ ENEMY_TYPE_SNAIL_RIGHT:         equ ENEMY_TYPE_SNAIL_LEFT + ENEMY_FACING_RIGHT
 ; -- these properties are only for enemies type A/B:
 ;       x offset (0-15)
 ;       enemy type (bit 7: 0-facing left; 1-facing right)
-;       not used
-;       not used
+;       y offset 2nd sprite
+;       y offset 3rd sprite
 
 BgObjectsInitialState_Start:
 
@@ -49,7 +49,7 @@ BgObjectsInitialState_Start:
 
     db      15,     DIAMOND_FIRST_TILE,    8 * 2 * 8,      1,  0,  0,                          0,  0
     db      11,     ENEMY_TYPE_A,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
-    db      15,     ENEMY_TYPE_B,          9 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
+    ;db      15,     ENEMY_TYPE_B,          9 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0000)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
