@@ -58,7 +58,9 @@ BgObjectsInitialState_Start:
     ;db      11,     ENEMY_TYPE_A,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
     ;db      11,     ENEMY_TYPE_A,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
     db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (3 * 2 * 8) + 9,  (3 * 2 * 8) - 7
-    
+
+    db      14,     ENEMY_TYPE_B,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (6 * 2 * 8) + 9,  (6 * 2 * 8) - 7
+
     ;db      15,     ENEMY_TYPE_B,          9 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    (9 * 2 * 8) - 2,  (9 * 2 * 8) + 2
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0000)), 0                 ; fill with 0s until end of block
 

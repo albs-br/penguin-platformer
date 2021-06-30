@@ -412,6 +412,9 @@ Enemy_TypeB_Logic:
 
 .enemiesCounterRoutine:
     ld      a, (Enemies_TypeB_Counter)
+    ; TODO: this can be improved by using DEC A instead of CP
+    cp      3
+    jp      z, .enemy_4
     cp      2
     jp      z, .enemy_3
     cp      1
@@ -419,15 +422,17 @@ Enemy_TypeB_Logic:
 ; enemy 1
     ld      hl, Enemy_TypeB_1_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
-
-    ret
-.enemy_3:
-    ld      hl, Enemy_TypeB_3_BaseAddress                         ; source
-    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
-
     ret
 .enemy_2:
     ld      hl, Enemy_TypeB_2_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
-
     ret
+.enemy_3:
+    ld      hl, Enemy_TypeB_3_BaseAddress                         ; source
+    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
+    ret
+.enemy_4:
+    ld      hl, Enemy_TypeB_4_BaseAddress                         ; source
+    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
+    ret
+    ; add enemies here

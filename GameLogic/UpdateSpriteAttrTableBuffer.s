@@ -313,6 +313,61 @@ UpdateSpriteAttrTableBuffer:
     ld      a, (Enemy_TypeB_3_3rd_Sprite_Color)
     ld      (hl), a
 
+
+
+    ; Enemy type B #4
+
+    ; Sprite # 17
+    inc     hl
+    ld      a, (Enemy_TypeB_4_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_4_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_4_1st_Sprite_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_4_1st_Sprite_Color)
+    ld      (hl), a
+
+    ; Sprite # 18
+    inc     hl
+    ld      a, (Enemy_TypeB_4_2nd_Sprite_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_4_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_4_2nd_Sprite_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_4_2nd_Sprite_Color)
+    ld      (hl), a
+
+    ; Sprite # 19
+    inc     hl
+    ld      a, (Enemy_TypeB_4_3rd_Sprite_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_4_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_4_3rd_Sprite_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_TypeB_4_3rd_Sprite_Color)
+    ld      (hl), a
+
     ; add enemies here
 
 

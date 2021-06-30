@@ -174,6 +174,19 @@ Enemy_TypeB_3_3rd_Sprite_Pattern:       rb 1
 Enemy_TypeB_3_3rd_Sprite_Color:         rb 1
 Enemy_TypeB_3_3rd_Sprite_Y:             rb 1
 
+
+Enemy_TypeB_4_BaseAddress:
+Enemy_TypeB_4_X:                        rb 1
+Enemy_TypeB_4_Y:                        rb 1
+Enemy_TypeB_4_1st_Sprite_Pattern:       rb 1
+Enemy_TypeB_4_1st_Sprite_Color:         rb 1
+Enemy_TypeB_4_2nd_Sprite_Pattern:       rb 1
+Enemy_TypeB_4_2nd_Sprite_Color:         rb 1
+Enemy_TypeB_4_2nd_Sprite_Y:             rb 1
+Enemy_TypeB_4_3rd_Sprite_Pattern:       rb 1
+Enemy_TypeB_4_3rd_Sprite_Color:         rb 1
+Enemy_TypeB_4_3rd_Sprite_Y:             rb 1
+
     ; add enemies here
 
 
