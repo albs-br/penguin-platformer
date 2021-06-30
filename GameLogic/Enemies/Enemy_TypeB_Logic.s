@@ -49,43 +49,45 @@ Enemy_TypeB_Logic:
         ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
         ld      a, (hl)
         
-        cp      ENEMY_TYPE_LADYBUG_LEFT
-        jp      z, .enemyTypeLadybugLeft
-        cp      ENEMY_TYPE_LADYBUG_RIGHT
-        jp      z, .enemyTypeLadybugRight
+        cp      ENEMY_TYPE_ARMADILLO_LEFT
+        jp      z, .enemyTypeArmadilloLeft
+        cp      ENEMY_TYPE_ARMADILLO_RIGHT
+        jp      z, .enemyTypeArmadilloRight
         
         cp      ENEMY_TYPE_SNAIL_LEFT
         jp      z, .enemyTypeSnailLeft
         cp      ENEMY_TYPE_SNAIL_RIGHT
         jp      z, .enemyTypeSnailRight
 
-.enemyTypeLadybugLeft:
-        ; ld      a, LADYBUG_SPRITE_LEFT
-        ld      a, TEST_SPRITE ; test sprite
+.enemyTypeArmadilloLeft:
+        ld      a, ARMADILLO_1ST_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
+        ld      a, ARMADILLO_2ND_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
+        ld      a, ARMADILLO_3RD_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
-        ld      a, COLOR_RED ; test colors
+        ld      a, COLOR_DARK_RED
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
-        ld      a, COLOR_GREEN
+        ld      a, COLOR_LIGHT_RED
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
-        ld      a, COLOR_BLUE
+        ld      a, COLOR_YELLOW
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
         jp      .continue
 
-.enemyTypeLadybugRight:
-        ;ld      a, LADYBUG_SPRITE_RIGHT
-        ld      a, TEST_SPRITE ; test sprite
+.enemyTypeArmadilloRight:
+        ld      a, ARMADILLO_1ST_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
+        ld      a, ARMADILLO_2ND_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
+        ld      a, ARMADILLO_3RD_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
-        ld      a, COLOR_RED ; test colors
+        ld      a, COLOR_DARK_RED
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
-        ld      a, COLOR_GREEN
+        ld      a, COLOR_LIGHT_RED
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
-        ld      a, COLOR_BLUE
+        ld      a, COLOR_YELLOW
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
         jp      .continue
 

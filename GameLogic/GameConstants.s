@@ -66,6 +66,18 @@ TEST_SCORE_DOWN_LEFT:                   equ 49 * 4
 TEST_SCORE_DOWN_RIGHT:                  equ 50 * 4
 
 
+; ------------ Enemies type B
+; Armadillo
+ARMADILLO_1ST_SPRITE_LEFT:              equ 51 * 4
+ARMADILLO_2ND_SPRITE_LEFT:              equ 52 * 4
+ARMADILLO_3RD_SPRITE_LEFT:              equ 53 * 4
+ARMADILLO_1ST_SPRITE_RIGHT:             equ 54 * 4
+ARMADILLO_2ND_SPRITE_RIGHT:             equ 55 * 4
+ARMADILLO_3RD_SPRITE_RIGHT:             equ 56 * 4
+
+
+
+
 ; Keyboard constants to current key(s) pressed
 ; KEY_LEFT:                               equ 1000 0000 b
 ; KEY_RIGHT:                              equ 0100 0000 b

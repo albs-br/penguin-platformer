@@ -7,12 +7,19 @@ ENEMY_TYPE_A:                   equ 255 ; Enemy formed by 4 8x8 tiles + one spri
 ENEMY_TYPE_B:                   equ 254 ; Enemy formed by 2 or 3 sprites (only 2 on the same horiz.); only horizontal movement; only one per line
 
 
-; enemy types (highest bit means direction - 0: facing left or 1: right):
+; ---- Enemy types (highest bit means direction - 0: facing left or 1: right):
+
+; Type A
 ENEMY_FACING_RIGHT:             equ 1000 0000 b
 ENEMY_TYPE_LADYBUG_LEFT:        equ 0
 ENEMY_TYPE_LADYBUG_RIGHT:       equ ENEMY_TYPE_LADYBUG_LEFT + ENEMY_FACING_RIGHT
 ENEMY_TYPE_SNAIL_LEFT:          equ 1
 ENEMY_TYPE_SNAIL_RIGHT:         equ ENEMY_TYPE_SNAIL_LEFT + ENEMY_FACING_RIGHT
+
+
+; Type B
+ENEMY_TYPE_ARMADILLO_LEFT:      equ 0
+ENEMY_TYPE_ARMADILLO_RIGHT:     equ ENEMY_TYPE_ARMADILLO_LEFT + ENEMY_FACING_RIGHT
 
 
 
@@ -40,17 +47,17 @@ BgObjectsInitialState_Start:
     
     db      1,      DIAMOND_FIRST_TILE,     4 * 2 * 8,      1,  0,  0,  0,  0
 
-    db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    (10 * 2 * 8) - 9,  (10 * 2 * 8) + 8
+    db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (10 * 2 * 8) + 9,  (10 * 2 * 8) - 7
     db      11,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0
     ;db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0
     
     ;db      11,     ENEMY_TYPE_A,                  0 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
-    db      11,     ENEMY_TYPE_B,          0 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    (0 * 2 * 8) - 8,  (0 * 2 * 8) + 16
+    db      11,     ENEMY_TYPE_B,          0 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (0 * 2 * 8) + 9,  (0 * 2 * 8) - 7
 
     db      15,     DIAMOND_FIRST_TILE,    8 * 2 * 8,      1,  0,  0,                          0,  0
     ;db      11,     ENEMY_TYPE_A,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
     ;db      11,     ENEMY_TYPE_A,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
-    db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,      (3 * 2 * 8) - 2,  (3 * 2 * 8) + 2
+    db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (3 * 2 * 8) + 9,  (3 * 2 * 8) - 7
     
     ;db      15,     ENEMY_TYPE_B,          9 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    (9 * 2 * 8) - 2,  (9 * 2 * 8) + 2
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0000)), 0                 ; fill with 0s until end of block
