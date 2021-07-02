@@ -20,6 +20,8 @@ ENEMY_TYPE_SNAIL_RIGHT:         equ ENEMY_TYPE_SNAIL_LEFT + ENEMY_FACING_RIGHT
 ; Type B
 ENEMY_TYPE_ARMADILLO_LEFT:      equ 0
 ENEMY_TYPE_ARMADILLO_RIGHT:     equ ENEMY_TYPE_ARMADILLO_LEFT + ENEMY_FACING_RIGHT
+ENEMY_TYPE_CENTIPEDE_LEFT:      equ 1
+ENEMY_TYPE_CENTIPEDE_RIGHT:     equ ENEMY_TYPE_CENTIPEDE_LEFT + ENEMY_FACING_RIGHT
 
 
 
@@ -39,6 +41,12 @@ ENEMY_TYPE_ARMADILLO_RIGHT:     equ ENEMY_TYPE_ARMADILLO_LEFT + ENEMY_FACING_RIG
 ;       y coord 2nd sprite (usually the same as Y coord MINUS a few pixels)
 ;       y coord 3rd sprite (usually the same as Y coord PLUS a few pixels)
 
+        ;                   Y Offset (used to make it possible 3-color sprites with only 2 at any given line)
+        ; First sprite:     0 px (main sprite)
+        ; Second sprite:   +m px
+        ; Third sprite:    -n px
+
+
 BgObjectsInitialState_Start:
 
 ; screen / page 0 (columns 0-15)
@@ -47,21 +55,25 @@ BgObjectsInitialState_Start:
     
     db      1,      DIAMOND_FIRST_TILE,     4 * 2 * 8,      1,  0,  0,  0,  0
 
-    db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (10 * 2 * 8) + 9,  (10 * 2 * 8) - 7
+    ; db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (10 * 2 * 8) + 9,  (10 * 2 * 8) - 7
+    db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 4
     db      11,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0
     ;db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0
     
     ;db      11,     ENEMY_TYPE_A,                  0 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
     db      11,     ENEMY_TYPE_B,          0 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (0 * 2 * 8) + 9,  (0 * 2 * 8) - 7
+    ;db      11,     ENEMY_TYPE_B,          0 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (0 * 2 * 8) + 15,  (0 * 2 * 8) - 4
 
     db      15,     DIAMOND_FIRST_TILE,    8 * 2 * 8,      1,  0,  0,                          0,  0
     ;db      11,     ENEMY_TYPE_A,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
     ;db      11,     ENEMY_TYPE_A,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
     db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (3 * 2 * 8) + 9,  (3 * 2 * 8) - 7
 
-    db      14,     ENEMY_TYPE_B,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (6 * 2 * 8) + 9,  (6 * 2 * 8) - 7
+    ; db      14,     ENEMY_TYPE_B,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (6 * 2 * 8) + 9,  (6 * 2 * 8) - 7
+    db      14,     ENEMY_TYPE_B,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,      (6 * 2 * 8) + 15,  (6 * 2 * 8) - 4
 
-    ;db      15,     ENEMY_TYPE_B,          9 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    (9 * 2 * 8) - 2,  (9 * 2 * 8) + 2
+    ;db      15,     ENEMY_TYPE_B,          9 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (9 * 2 * 8) + 15,  (9 * 2 * 8) - 4
+    ;db      15,     ENEMY_TYPE_B,          9 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (9 * 2 * 8) + 9,  (9 * 2 * 8) - 7
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0000)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------

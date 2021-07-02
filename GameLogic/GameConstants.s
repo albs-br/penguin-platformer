@@ -75,6 +75,13 @@ ARMADILLO_1ST_SPRITE_RIGHT:             equ 54 * 4
 ARMADILLO_2ND_SPRITE_RIGHT:             equ 55 * 4
 ARMADILLO_3RD_SPRITE_RIGHT:             equ 56 * 4
 
+; Centipede
+CENTIPEDE_1ST_SPRITE_LEFT:              equ 57 * 4
+CENTIPEDE_2ND_SPRITE_LEFT:              equ 58 * 4
+CENTIPEDE_3RD_SPRITE_LEFT:              equ 59 * 4
+CENTIPEDE_1ST_SPRITE_RIGHT:             equ 60 * 4
+CENTIPEDE_2ND_SPRITE_RIGHT:             equ 61 * 4
+CENTIPEDE_3RD_SPRITE_RIGHT:             equ 62 * 4
 
 
 
