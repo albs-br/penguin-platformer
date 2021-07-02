@@ -104,6 +104,9 @@ HitFlash_FrameNumber:                   rb 1
 HitFlash_Counter:                       rb 1        ; counter for each animation frame
 
 
+; Score
+ScoreBottom_Color:                      rb 1
+
 ; --------------------- Enemies type A
 Enemies_TypeA_Counter:                        rb 1
 

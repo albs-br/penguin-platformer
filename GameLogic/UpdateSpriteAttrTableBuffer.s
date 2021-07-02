@@ -465,7 +465,7 @@ SCORE_TOP_LEFT_X:       equ 7 + 4
     ld      (hl), a
 
     inc     hl
-    ld      a, COLOR_WHITE
+    ld      a, (ScoreBottom_Color) ;COLOR_WHITE
     ld      (hl), a
 
     ; Number of diamonds / time bar - RIGHT
@@ -483,7 +483,7 @@ SCORE_TOP_LEFT_X:       equ 7 + 4
     ld      (hl), a
 
     inc     hl
-    ld      a, COLOR_WHITE
+    ld      a, (ScoreBottom_Color) ;COLOR_WHITE
     ld      (hl), a
     
     ; Number of diamonds / time bar - LEFT - shadow

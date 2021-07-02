@@ -12,8 +12,8 @@
 #
 #ram_watch   add     0xD028      -type byte      -desc UpdateBgObjects_X_Offset_Value     -format dec
 
-ram_watch   add     0xD05a      -type byte      -desc Enemies_TypeA_Counter     -format dec
-ram_watch   add     0xD073      -type byte      -desc Enemies_TypeB_Counter     -format dec
+#ram_watch   add     0xD05a      -type byte      -desc Enemies_TypeA_Counter     -format dec
+#ram_watch   add     0xD073      -type byte      -desc Enemies_TypeB_Counter     -format dec
 
 
 
