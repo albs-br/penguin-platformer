@@ -55,6 +55,7 @@ GameData_Start:
     INCLUDE "Graphics/Tiles/Colors/Colors.s"
     INCLUDE "Graphics/TileMaps/BgObjects.s"
     INCLUDE "Sound/Sound.s"
+    ; INCLUDE "Sound/disFF.asm"
 .size:      equ $ - GameData_Start
 
 ; Program code entry point
@@ -63,6 +64,8 @@ Execute:
 	di                          ; disable interrupts
 	im      1                   ; interrupt mode 1
     ld      sp, (BIOS_HIMEM)    ; init SP
+
+    ;call    EnableTurboMode ; test
 
     call    ClearRam
 
@@ -82,6 +85,8 @@ Execute:
 	ld	    (HTIMI + 1), hl
 	ei
  
+    ;call    EnableTurboMode ; test
+
 InitGame:
     ;call    NewGame
 

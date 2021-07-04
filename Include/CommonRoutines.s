@@ -441,3 +441,53 @@ SNSMAT_NO_DI_EI:
 	out	    (PPI.C), a
 	in	    a, (PPI.B)
 	ret
+
+
+; TODO: NOT WORKING YET
+; Enable turbo mode if available (Panasonic MSX 2+)
+EnableTurboMode_old:
+    ; &H2D = BIOS_HWVER
+    ; IF PEEK(&H2D)=2 THEN OUT 64,8:IF INP(64)=247 THEN OUT 65,0
+    ; source: https://www.msx.org/wiki/Panasonic_FS-A1FX
+
+    ; IF PEEK(&H2D)=2
+    ld      a, (BIOS_HWVER)
+    cp      2
+    ret     nz
+
+    ; OUT 64,8
+    ld      a, 8
+    out     (64), a
+
+    ; IF INP(64)=247
+    in      a, (64)
+    cp      247
+    ret     nz
+
+    ; OUT 65,0
+    xor     a
+    out     (65), a
+
+.eternalLoop: ; debug
+    jp .eternalLoop
+
+    ret
+
+; TODO: NOT WORKING YET
+EnableTurboMode:
+    ; Activate Turbo mode in Panasonic MSX2+ WX/WSX/FX models:
+    ; Code sent to me by Pitpan, taken from here: http://map.grauw.nl/resources/msx_io_ports.php
+    ld a,8
+    out (0x40),a     ;out the manufacturer code 8 (Panasonic) to I/O port 40h
+    in a,(0x40)      ;read the value you have just written
+    cpl             ;complement all bits of the value
+    cp 8            ;if it does not match the value you originally wrote,
+    ret nz ;jr nz,Not_WX    ;it is not a WX/WSX/FX.
+    xor a           ;write 0 to I/O port 41h
+    out (0x41),a     ;and the mode changes to high-speed clock    
+    ret
+
+; Disable turbo mode
+; DisableTurboMode:
+;     ;IF PEEK(&H2D)=2 THEN OUT 64,8:IF INP(64)=247 THEN OUT 65,1
+;     ret

@@ -79,7 +79,7 @@ BgObjectsInitialState_Start:
 ; -----------------------------------------------------------
 
 ; screen / page 1 (columns 16-31)
-    db      17,     DIAMOND_FIRST_TILE,    0 * 2 * 8,      1,  0,  0,  0,  0
+    ;db      17,     DIAMOND_FIRST_TILE,    0 * 2 * 8,      1,  0,  0,  0,  0
     
     db      18,     DIAMOND_FIRST_TILE,    4 * 2 * 8,      1,  0,  0,  0,  0
 
@@ -116,7 +116,8 @@ BgObjectsInitialState_Start:
     ; db      38,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     ; db      40,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     ; db      42,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
-    db      34,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_RIGHT,    0,  0
+    ;db      34,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_RIGHT,    0,  0
+    db      34,     ENEMY_TYPE_B,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (8 * 2 * 8) + 9,  (8 * 2 * 8) - 7
 
     db      36,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
     db      42,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0
@@ -134,7 +135,12 @@ BgObjectsInitialState_Start:
     ;db      48,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0
     ; db      49,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0
     ; db      50,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,  0,  0
-    db      63,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0
+
+    db      56,     ENEMY_TYPE_B,           6 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,      (6 * 2 * 8) + 15,  (6 * 2 * 8) - 4
+    db      58,     ENEMY_TYPE_B,           8 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (8 * 2 * 8) + 9,   (8 * 2 * 8) - 7
+    db      60,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,     (10 * 2 * 8) + 15, (10 * 2 * 8) - 4
+
+    ;db      63,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0300)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
@@ -232,6 +238,8 @@ BgObjectsInitialState_Start:
 ; -----------------------------------------------------------
 
 ; screen / page 10 (columns 160-175)
+    db     166,     ENEMY_TYPE_A,          2 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
+    db     169,     ENEMY_TYPE_A,          2 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
     
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0a00)), 0                 ; fill with 0s until end of block
 
@@ -247,6 +255,7 @@ BgObjectsInitialState_Start:
 ; screen / page 12 (columns 192-207)
     
     db     206,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0
+    db     204,     ENEMY_TYPE_A,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0c00)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
@@ -254,18 +263,22 @@ BgObjectsInitialState_Start:
 ; screen / page 13 (columns 208-223)
     
     db     224,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0
+    db     220,     ENEMY_TYPE_A,          1 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,      0,  0
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0d00)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
 ; screen / page 14 (columns 224-239)
     
+    db     229,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,     (10 * 2 * 8) + 15, (10 * 2 * 8) - 4
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0e00)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
 ; screen / page 15 (columns 240-255)
     
+    db     242,     ENEMY_TYPE_B,           5 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,     (5 * 2 * 8) + 15,  (5 * 2 * 8) - 4
+    db     240,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (10 * 2 * 8) + 9,  (10 * 2 * 8) - 7
     db     248,     DIAMOND_FIRST_TILE,    5 * 2 * 8,      1,  0,  0,  0,  0
 	ds     256 - ($ - (BgObjectsInitialState_Start + 0x0f00)), 0                 ; fill with 0s until end of block
 

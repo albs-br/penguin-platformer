@@ -440,9 +440,9 @@ CheckDirectionWhenOffGround:
 ; Delta-Y (dY) table for jumping and falling
 ; original code from @TheNestruo (https://www.msx.org/forum/msx-talk/development/first-test-horizontal-scrolling-game-possibly-named-penguim-platformer?page=10)
 JUMP_DELTA_Y_TABLE:        			                                    ; jump height: 40 pixels
-	db	-4, -4, -4, -4, -4, -4                                          ; 24 pixels
-	db	-2, -2, -2, -2, -2, -2, -2, -2                                  ; 16 pixels
-	db	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1  ; 16 pixels
+	db	-4, -4, -4, -4, -4, -4                                          ; 6 steps / 24 pixels
+	db	-2, -2, -2, -2, -2, -2, -2, -2                                  ; 8 steps / 16 pixels
+	db	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1  ; 16 steps / 16 pixels
 .TOP_OFFSET_ADDR:
 	db	 0,  0,  0,  0,  0,  0
 .FALL_OFFSET_ADDR:
