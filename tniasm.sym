@@ -104,7 +104,7 @@ BIOS_RDVRM: equ 04Ah ; last def. pass 3
 VRAM_COLORS_TABLE_ADDR_ENEMY_3.greaterThan_16: equ 0468Bh ; last def. pass 3
 BIOS_MINDEL: equ 0F92Dh ; last def. pass 3
 BIOS_STREND: equ 0F6C6h ; last def. pass 3
-JUMP_DELTA_Y_TABLE.TOP_OFFSET_ADDR: equ 045DEh ; last def. pass 3
+JUMP_DELTA_Y_TABLE.TOP_OFFSET_ADDR: equ 045DDh ; last def. pass 3
 PENGUIN_RIGHT_STANDING: equ 04h ; last def. pass 3
 BIOS_ENASLT: equ 024h ; last def. pass 3
 BIOS_H_BAKU: equ 0FEADh ; last def. pass 3
@@ -854,7 +854,7 @@ UpdateSpritesX: equ 04F97h ; last def. pass 3
 BIOS_H_SCRE: equ 0FFC0h ; last def. pass 3
 BIOS_GRPHED: equ 0FCA6h ; last def. pass 3
 PPI.R: equ 0ABh ; last def. pass 3
-JUMP_DELTA_Y_TABLE.FALL_OFFSET_ADDR: equ 045E4h ; last def. pass 3
+JUMP_DELTA_Y_TABLE.FALL_OFFSET_ADDR: equ 045E3h ; last def. pass 3
 DrawStaticBg.drawBg: equ 04E4Ah ; last def. pass 3
 BIOS_RG3SAV: equ 0F3E2h ; last def. pass 3
 BIOS_NSTWRT: equ 0171h ; last def. pass 3
