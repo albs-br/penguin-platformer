@@ -19,7 +19,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
  
     INCLUDE "Include/RomHeader.s"
 
-; Include common routines
+; Include common routines (~ 1 Kb)
 CommonIncludes_Start:
     INCLUDE "Include/MsxBios.s"
     INCLUDE "Include/MsxConstants.s"
@@ -27,9 +27,9 @@ CommonIncludes_Start:
     INCLUDE "Include/CommonRoutines.s"
     INCLUDE "Include/Hook.s"
     INCLUDE "Include/CheckCollision.s"
-.size:      equ $ - CommonIncludes_Start
+CommonIncludes_Start.size:      equ $ - CommonIncludes_Start
 
-; Include game routines
+; Include game routines (~ 4.5 Kb)
 GameIncludes_Start:
     INCLUDE "GameLogic/GameLogic.s"
     INCLUDE "GameLogic/Enemies/Enemies_Common.s"
@@ -46,17 +46,16 @@ GameIncludes_Start:
     INCLUDE "GameLogic/Score.s"
     INCLUDE "GameLogic/SwitchNamesTable.s"
     INCLUDE "GameLogic/CopyEnemyPatternsToVRAM.s"
-.size:      equ $ - GameIncludes_Start
+GameIncludes_Start.size:      equ $ - GameIncludes_Start
 
-; Include game data
+; Include game data (~ 10.3 Kb)
 GameData_Start:
     INCLUDE "Graphics/Sprites/Sprites.s"
     INCLUDE "Graphics/Tiles/Patterns/Patterns.s"
     INCLUDE "Graphics/Tiles/Colors/Colors.s"
     INCLUDE "Graphics/TileMaps/BgObjects.s"
     INCLUDE "Sound/Sound.s"
-    ; INCLUDE "Sound/disFF.asm"
-.size:      equ $ - GameData_Start
+GameData_Start.size:      equ $ - GameData_Start
 
 ; Program code entry point
 Execute:
@@ -93,6 +92,8 @@ InitGame:
     call    InitVariables
 
     call    DrawBackground_3_Thirds
+
+    ;call    AkgPlayer_InitPlayer
 
 ; Main loop
 MainLoop:
@@ -172,12 +173,22 @@ MainLoop:
 
 ; ----------------------------------------------------------------
 
+    IFDEF DEBUG
+        ld 		a, COLOR_GREY       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF
+
+    ;call    AkgPlayer_PlayMusic
+
+; ----------------------------------------------------------------
 
     IFDEF DEBUG
         ld 		a, COLOR_PURPLE       	; Border color
         ld 		(BIOS_BDRCLR), a    
         call 	BIOS_CHGCLR        		; Change Screen Color
-    ENDIF    
+    ENDIF
+
 
 
 
@@ -217,6 +228,8 @@ End:
 
 
 
+; ------------------------------ Mega ROM pages for level tilemap ------------------------------------------
+
 ; ------- Page 1 --------------------------------------
 	org	8000h, 0BFFFh
 
@@ -252,6 +265,16 @@ TileMap_LevelTest_Start:
 	org	8000h, 0BFFFh
 
     INCLUDE "Graphics/TileMaps/TileMap_Page_6.s"
+	ds PageSize - ($ - 8000h), 255
+
+
+
+; ------------------------------ Mega ROM page for music ------------------------------------------
+
+; ------- Page 7 --------------------------------------
+	org	8000h, 0BFFFh
+
+    INCLUDE "Sound/disFF.asm"
 	ds PageSize - ($ - 8000h), 255
 
 

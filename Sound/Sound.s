@@ -46,3 +46,40 @@ SoundGetItem:
     call BIOS_WRTPSG
 
     ret
+
+
+
+
+MUSIC_MEGAROM_PAGE:     equ 7
+
+AkgPlayer_InitPlayer:
+
+    ; Switch to MegaROM page where the sound routine is located
+    ld      a, MUSIC_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ld      hl, JUSTADDCREAM_START                      ;The address of the music.
+    ld      a, 0                                        ;What subsong to play (starts at 0)?
+    call    PLY_AKG_Init                                ;Call the init method of the player. 
+
+    ret
+
+
+AkgPlayer_PlayMusic:
+
+    ; Switch to MegaROM page where the sound routine is located
+    ld      a, MUSIC_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    call    PLY_AKG_Play
+    ret
+
+
+AkgPlayer_StopMusic:
+
+    ; Switch to MegaROM page where the sound routine is located
+    ld      a, MUSIC_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    call    PLY_AKG_Stop
+    ret
