@@ -50,12 +50,11 @@ SoundGetItem:
 
 
 
-MUSIC_MEGAROM_PAGE:     equ 7
-
+; ---------------------------------------------------
 AkgPlayer_InitPlayer:
 
     ; Switch to MegaROM page where the sound routine is located
-    ld      a, MUSIC_MEGAROM_PAGE
+    ld      a, AKG_MUSIC_MEGAROM_PAGE
     ld	    (Seg_P8000_SW), a
 
     ld      hl, JUSTADDCREAM_START                      ;The address of the music.
@@ -68,7 +67,7 @@ AkgPlayer_InitPlayer:
 AkgPlayer_PlayMusic:
 
     ; Switch to MegaROM page where the sound routine is located
-    ld      a, MUSIC_MEGAROM_PAGE
+    ld      a, AKG_MUSIC_MEGAROM_PAGE
     ld	    (Seg_P8000_SW), a
 
     call    PLY_AKG_Play
@@ -78,8 +77,43 @@ AkgPlayer_PlayMusic:
 AkgPlayer_StopMusic:
 
     ; Switch to MegaROM page where the sound routine is located
-    ld      a, MUSIC_MEGAROM_PAGE
+    ld      a, AKG_MUSIC_MEGAROM_PAGE
     ld	    (Seg_P8000_SW), a
 
     call    PLY_AKG_Stop
     ret
+
+
+
+; ---------------------------------------------------
+AkyPlayer_InitPlayer:
+
+    ; Switch to MegaROM page where the sound routine is located
+    ld      a, AKY_MUSIC_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ld      hl, MAIN_SUBSONG0                           ;The address of the music.
+    ld      a, 0                                        ;What subsong to play (starts at 0)?
+    call    PLY_AKY_Init                                ;Call the init method of the player. 
+
+    ret
+
+
+AkyPlayer_PlayMusic:
+
+    ; Switch to MegaROM page where the sound routine is located
+    ld      a, AKY_MUSIC_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    call    PLY_AKY_Play
+    ret
+
+
+; AkyPlayer_StopMusic:
+
+;     ; Switch to MegaROM page where the sound routine is located
+;     ld      a, AKY_MUSIC_MEGAROM_PAGE
+;     ld	    (Seg_P8000_SW), a
+
+;     call    PLY_AKY_Stop
+;     ret

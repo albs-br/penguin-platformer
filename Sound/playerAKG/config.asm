@@ -7,7 +7,8 @@
         ;If you have several songs, include all their configuration here, their flags will stack up!
         ;Warning, this must be included BEFORE the player is compiled.
 
-	include "MusicExample.asm"
+	;include "MusicExample.asm"
+	include "MusicExample_AKG.asm"
 	; include "C:\Emulatori\Tools\phaze101\FFL1_playerconfig.asm.asm"
 	; include "C:\Emulatori\Tools\phaze101\FFL2_playerconfig.asm.asm"
 	; include "C:\Emulatori\Tools\phaze101\FFL3_playerconfig.asm.asm"
@@ -17,7 +18,8 @@
 	; include "C:\Emulatori\Tools\phaze101\SFX_playerconfig.asm"
 
 
-	include "MusicExample_playerconfig.asm"
+	;include "MusicExample_playerconfig.asm"
+	include "MusicExample_AKG_playerconfig.asm"
 	; include "C:\Emulatori\Tools\phaze101\FFL1.asm"
 	; include "C:\Emulatori\Tools\phaze101\FFL2.asm"
 	; include "C:\Emulatori\Tools\phaze101\FFL3.asm"

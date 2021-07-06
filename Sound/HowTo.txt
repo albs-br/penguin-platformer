@@ -1,0 +1,27 @@
+- first of all create a folder for your project's sounds
+    then put inside this folder:
+        your song/s	                        ;exported as asm files from arkos tracker
+        your song's configuration files     ;exported as asm files from arkos tracker. if you don't put them then the full version of the player will be used
+
+        playerAkg.asm	                    ;one of the Aarkos players you can find in the folder "players"
+        rasm.exe	                        ;assembler thant can compile arkos sources
+        disark.exe	                        :disassembler that will give you a plain z80 asm file
+        config.asm	                        ;well, you can name it as you like, actually it means Freedom Fighter Physical asm and this is the configutation file needed to assemble using rasm. here you can set options like hardwarew used, rom or ram player and more
+        this file	                        ;so you can do copy/paste to prompt shell of subsequent commands
+
+
+- cd pathofyourproject		                ;move to your project folder
+
+
+- rasm config.asm -o intermediate -s -sl -sq		; 'config.asm' should be your project config file name; 'intermediate' should be the base name of a files group: bin(ary) and sym(bol). this will assemble your songs (included in config file, wacth inside it the way to do it, it is full commented) using Rasm
+
+
+- Disark intermediate.bin disassembled.asm --symbolFile intermediate.sym	                ;this will disassemble on plain z80 asm (we haven't used parameters here) your bin file ('intermediate.bin' here) to a disassembled one ('disassembled' here, but you'll chose for a good name) using the symbolfile we created before (when assembling) to put labels in the source. Label will help you if you want to split player and songs (to put them in other source zones)
+
+So you have only to modify your asm config file ('config.asm', here) in the way that is explained in comments (really easy, few parameters and basically are already set by me, you have only to set the address of 256bytes ram buffer)
+
+
+
+OBS:
+Convert plain Z80 assembly to tniAsm syntax (put ":" after labels):
+    VS Code / CTRL-H / Just fix it with a regex search/replace? Search ^(\w+)(\s|$) replace $1:$2.

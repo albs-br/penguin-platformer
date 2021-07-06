@@ -1,0 +1,8 @@
+cd "C:\Users\albs_\source\repos\penguim-platformer\Sound\playerAKY"
+..\rasm config.asm -o intermediate -s -sl -sq
+..\Disark intermediate.bin disassembled.asm --symbolFile intermediate.sym
+
+
+OBS:
+Convert plain Z80 assembly (disassembled.asm) to tniAsm syntax (put ":" after labels):
+    VS Code / CTRL-H / Just fix it with a regex search/replace? Search ^(\w+)(\s|$) replace $1:$2.

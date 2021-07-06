@@ -94,6 +94,7 @@ InitGame:
     call    DrawBackground_3_Thirds
 
     ;call    AkgPlayer_InitPlayer
+    ;call    AkyPlayer_InitPlayer
 
 ; Main loop
 MainLoop:
@@ -154,10 +155,6 @@ MainLoop:
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF
 
-
-    ; call    UpdateBgObjects_SetupVariables
-    ; call    UpdateBgObjects_Execute
-
     call    UpdateAnimations
 
 ; ----------------------------------------------------------------
@@ -180,6 +177,7 @@ MainLoop:
     ENDIF
 
     ;call    AkgPlayer_PlayMusic
+    ;call    AkyPlayer_PlayMusic
 
 ; ----------------------------------------------------------------
 
@@ -269,20 +267,33 @@ TileMap_LevelTest_Start:
 
 
 
-; ------------------------------ Mega ROM page for music ------------------------------------------
+; ------------------------------ Mega ROM pages for music ------------------------------------------
 
+AKG_MUSIC_MEGAROM_PAGE:     equ 7
 ; ------- Page 7 --------------------------------------
 	org	8000h, 0BFFFh
 
-    INCLUDE "Sound/disFF.asm"
+MusicAKG_Start:
+    INCLUDE "Sound/playerAKG/disassembled.asm"
+MusicAKG_Start.size:      equ $ - MusicAKG_Start
+
+	ds PageSize - ($ - 8000h), 255
+
+
+AKY_MUSIC_MEGAROM_PAGE:     equ 8
+; ------- Page 8 --------------------------------------
+	org	8000h, 0BFFFh
+
+MusicAKY_Start:
+    INCLUDE "Sound/playerAKY/disassembled.asm"
+MusicAKY_Start.size:      equ $ - MusicAKY_Start
+
 	ds PageSize - ($ - 8000h), 255
 
 
 
-
-
 ; Variables (mapped to RAM memory)
-	org     0xc000, 0xefff                   ; for machines with 16kb of RAM (use it if you need 16kb RAM, will crash on 8kb machines, such as the Casio PV-7)
+	org     0xc000, 0xe5ff                   ; for machines with 16kb of RAM (use it if you need 16kb RAM, will crash on 8kb machines, such as the Casio PV-7)
 	; CAUTION: do not use 0xe000, it causes the game to crash on real machines with some SD mappers
     ;org 0xe000                          ; for machines with 8kb of RAM (use it if you need 8kb RAM or less, will work on any machine)
 
