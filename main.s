@@ -76,6 +76,12 @@ Execute:
     ld	    a, 1
 	ld	    (Seg_P8000_SW), a
 
+
+    call    AkgPlayer_InitPlayer
+    ;call    AkyPlayer_InitPlayer
+
+
+
 ; Install the interrupt routine
 	di
 	ld	    a, 0xc3 ; opcode for "JP nn"
@@ -93,8 +99,6 @@ InitGame:
 
     call    DrawBackground_3_Thirds
 
-    ;call    AkgPlayer_InitPlayer
-    ;call    AkyPlayer_InitPlayer
 
 ; Main loop
 MainLoop:
@@ -166,18 +170,6 @@ MainLoop:
     ENDIF
 
 	call	GameLogic
-
-
-; ----------------------------------------------------------------
-
-    IFDEF DEBUG
-        ld 		a, COLOR_GREY       	; Border color
-        ld 		(BIOS_BDRCLR), a    
-        call 	BIOS_CHGCLR        		; Change Screen Color
-    ENDIF
-
-    ;call    AkgPlayer_PlayMusic
-    ;call    AkyPlayer_PlayMusic
 
 ; ----------------------------------------------------------------
 

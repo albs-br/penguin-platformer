@@ -294,7 +294,11 @@ DrawBackground_3_Thirds_New:
             ld	    a, (BIOS_VDP_DW)
             ld	    c, a
             ; 32 Unrolled OUTIs (use only during v-blank)
-            OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
+                ;OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
+                ld      b, 32
+            .loopOUTI_1:
+                outi
+                jp	    nz, .loopOUTI_1
             
             ; Update bgIndex to next line
             ; BgIndex += 128 * 8

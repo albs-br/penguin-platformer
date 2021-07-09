@@ -61,7 +61,7 @@ BgObjectsInitialState_Start:
     ;db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0
     
     ;db      11,     ENEMY_TYPE_A,                  0 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0
-    db      11,     ENEMY_TYPE_B,          0 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (0 * 2 * 8) + 9,  (0 * 2 * 8) - 7
+    ;db      11,     ENEMY_TYPE_B,          0 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (0 * 2 * 8) + 9,  (0 * 2 * 8) - 7
     ;db      11,     ENEMY_TYPE_B,          0 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (0 * 2 * 8) + 15,  (0 * 2 * 8) - 4
 
     db      15,     DIAMOND_FIRST_TILE,    8 * 2 * 8,      1,  0,  0,                          0,  0
@@ -70,7 +70,7 @@ BgObjectsInitialState_Start:
     db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (3 * 2 * 8) + 9,  (3 * 2 * 8) - 7
 
     ; db      14,     ENEMY_TYPE_B,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (6 * 2 * 8) + 9,  (6 * 2 * 8) - 7
-    db      14,     ENEMY_TYPE_B,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,      (6 * 2 * 8) + 15,  (6 * 2 * 8) - 4
+    ;db      14,     ENEMY_TYPE_B,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,      (6 * 2 * 8) + 15,  (6 * 2 * 8) - 4
 
     ;db      15,     ENEMY_TYPE_B,          9 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (9 * 2 * 8) + 15,  (9 * 2 * 8) - 4
     ;db      15,     ENEMY_TYPE_B,          9 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (9 * 2 * 8) + 9,  (9 * 2 * 8) - 7
