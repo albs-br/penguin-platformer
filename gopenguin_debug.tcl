@@ -56,8 +56,10 @@
 
 
 
-#ram_watch   add     0xD05e      -type byte      -desc IsProcessingFrame     -format dec
+ram_watch   add     0xD09d      -type byte      -desc FramesSkipped     -format dec
 
 
 
 #ram_watch load gopenguin_debug
+
+

@@ -14,8 +14,7 @@ InitVariables:
     ld      (BgCurrentIndex), hl
 
     xor     a
-    ld      (IsProcessingFrame), a
-    ld      (HasFrameSkiped), a
+    ld      (FramesSkipped), a
     ld      (FrameIndex), a
 
     

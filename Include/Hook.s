@@ -13,24 +13,25 @@
 ; 3. Tricks BIOS' KEYINT to skip keyboard scan, TRGFLG, OLDKEY/NEWKEY, ON STRIG...
 ; 4. Invokes the previously existing hook
 HOOK:
+
 	push	af ; Preserves VDP status register S#0 (a)
-		push	bc
-			push	de
-				push	hl
+		; push	bc
+		; 	push	de
+		; 		push	hl
 					; ----------------------------------------------------------------
 
-					IFDEF DEBUG
-						ld 		a, COLOR_GREY       	; Border color
-						ld 		(BIOS_BDRCLR), a    
-						call 	BIOS_CHGCLR        		; Change Screen Color
-					ENDIF
+					; IFDEF DEBUG
+					; 	ld 		a, COLOR_GREY       	; Border color
+					; 	ld 		(BIOS_BDRCLR), a    
+					; 	call 	BIOS_CHGCLR        		; Change Screen Color
+					; ENDIF
 
-					call    AkgPlayer_PlayMusic
-					;call    AkyPlayer_PlayMusic
+					; call    AkgPlayer_PlayMusic
+					; ;call    AkyPlayer_PlayMusic
 
-					; ----------------------------------------------------------------
+					; ; ----------------------------------------------------------------
 
-					call    ReadInput
+					; call    ReadInput
 
 					; Reads the inputs
 					; call	READ_KEYBOARD
@@ -41,9 +42,9 @@ HOOK:
 					ld		(BIOS_SCNCNT), a
 					ld		(BIOS_INTCNT), a
 
-				pop		hl
-			pop		de
-		pop		bc
+		; 		pop		hl
+		; 	pop		de
+		; pop		bc
 	pop		af ; Restores VDP status register S#0 (a)
 
 

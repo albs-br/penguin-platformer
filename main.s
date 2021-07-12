@@ -77,8 +77,7 @@ Execute:
 	ld	    (Seg_P8000_SW), a
 
 
-    call    AkgPlayer_InitPlayer
-    ;call    AkyPlayer_InitPlayer
+
 
 
 
@@ -97,12 +96,31 @@ InitGame:
 
     call    InitVariables
 
+    call    AkgPlayer_InitPlayer
+    ;call    AkyPlayer_InitPlayer
+
     call    DrawBackground_3_Thirds
 
 
 ; Main loop
 MainLoop:
-    halt			                    ; (v-blank sync)
+    ;halt			                    ; (v-blank sync)
+
+    ld      hl, BIOS_JIFFY              ; (v-blank sync)
+    ld      a, (hl)
+.waitVBlank:
+    cp      (hl)
+    jr      z, .waitVBlank
+
+    ; ----------------------------------------------------------------
+
+    ; [debug]
+    ; Check if previous frame ended
+    ld      a, (hl)
+    ld      (CurrentJiffy), a
+
+    ; ----------------------------------------------------------------
+
 
     IFDEF DEBUG
         ld 		a, COLOR_RED       	    ; Border color
@@ -117,14 +135,7 @@ MainLoop:
     call    CopyEnemyPatternsToVRAM
 
 
-    ; [debug]
-    ; Check if previous frame ended
-    ld      a, (IsProcessingFrame)
-    or      a
-    jp      nz, .frameSkip
 
-    inc     a
-    ld      (IsProcessingFrame), a
 
 
 
@@ -141,7 +152,25 @@ MainLoop:
 
     call    DrawStaticBg
 
+
 ; ----------------------------------------------------------------
+
+    IFDEF DEBUG
+        ld 		a, COLOR_GREY       	; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF
+
+    call    AkgPlayer_PlayMusic
+    ;call    AkyPlayer_PlayMusic
+
+
+; ----------------------------------------------------------------
+
+    call    ReadInput
+
+; ----------------------------------------------------------------
+
     
     IFDEF DEBUG
         ld 		a, COLOR_DARK_YELLOW       	; Border color
@@ -179,11 +208,11 @@ MainLoop:
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF
 
-
-
-
-    xor     a
-    ld      (IsProcessingFrame), a
+    ld      a, (BIOS_JIFFY)
+    ld      b, a
+    ld      a, (CurrentJiffy)
+    cp      b
+    call    nz, .frameSkip
 
 
 	jp	    MainLoop
@@ -191,20 +220,11 @@ MainLoop:
 
 
 .frameSkip:
-    call    BIOS_BEEP
-    
-    ld      a, 1
-    ld      (HasFrameSkiped), a
+   
+    ld      hl, FramesSkipped
+    inc     (hl)
 
-
-    ld 		a, COLOR_WHITE       	; Border color
-    ld 		(BIOS_BDRCLR), a    
-    call 	BIOS_CHGCLR        		; Change Screen Color
-    
-    di
-    halt
-    
-    jp      .frameSkip              ; eternal loop
+    ret
 
 Finished:
 	jr	    Finished	    ; Jump to itself endlessly.

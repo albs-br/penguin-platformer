@@ -194,8 +194,8 @@ Enemy_TypeB_4_3rd_Sprite_Y:             rb 1
 
 
 ; ---------------------
-IsProcessingFrame:                      rb 1       ; 0: false, 1: true
-HasFrameSkiped:                         rb 1       ; 0: false, 1: true
+FramesSkipped:                          rb 1
+CurrentJiffy:                           rb 1
 
 
 ; [debug]
