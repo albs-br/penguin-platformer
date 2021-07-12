@@ -631,7 +631,7 @@ VRAM_COLORS_TABLE_ADDR_ENEMY_3.enemy_2: equ 04919h ; last def. pass 3
 VRAM_PATTERN_TABLE_ADDR_ENEMY_2: equ 06F8h ; last def. pass 3
 BIOS_ASPCT2: equ 0F40Dh ; last def. pass 3
 BIOS_INTVAL: equ 0FCA0h ; last def. pass 3
-BG_OBJ_STRUCT_SIZE: equ 08h ; last def. pass 3
+BG_OBJ_STRUCT_SIZE: equ 010h ; last def. pass 3
 FAST_LDIRVM_SpriteAttrTable: equ 0423Dh ; last def. pass 3
 PLY_AKG_CHANNEL2_PITCHTRACKINTEGERADDORSUB: equ 0E6AAh ; last def. pass 3
 BIOS_CALBAS: equ 0159h ; last def. pass 3
@@ -718,7 +718,7 @@ GameLogic.skipCheckJumpKeyPressed: equ 04415h ; last def. pass 3
 BIOS_TAPOON: equ 0EAh ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_736: equ 09430h ; last def. pass 3
 SetNameTable_2: equ 0413Ch ; last def. pass 3
-NUMBER_OF_BG_OBJS_PER_SCREEN: equ 020h ; last def. pass 3
+NUMBER_OF_BG_OBJS_PER_SCREEN: equ 010h ; last def. pass 3
 Enemy_TypeB_2_Y: equ 0D080h ; last def. pass 3
 PLY_AKG_CHANNEL3_GLIDE_END: equ 092A0h ; last def. pass 3
 PLY_AKG_S_OR_H_AFTERARPEGGIO: equ 09520h ; last def. pass 3
