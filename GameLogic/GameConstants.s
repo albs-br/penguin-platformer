@@ -66,6 +66,12 @@ TEST_SCORE_DOWN_LEFT:                   equ 49 * 4
 TEST_SCORE_DOWN_RIGHT:                  equ 50 * 4
 
 
+
+ENEMY_TYPE_B_1_PATTERN:                 equ 51 * 4
+ENEMY_TYPE_B_2_PATTERN:                 equ 57 * 4
+
+
+
 ; ------------ Enemies type B
 ; Armadillo
 ARMADILLO_1ST_SPRITE_LEFT:              equ 51 * 4

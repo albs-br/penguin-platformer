@@ -42,12 +42,15 @@ ENEMY_TYPE_CENTIPEDE_RIGHT:     equ ENEMY_TYPE_CENTIPEDE_LEFT + ENEMY_FACING_RIG
 ;       y coord 2nd sprite (usually the same as Y coord MINUS a few pixels)
 ;       y coord 3rd sprite (usually the same as Y coord PLUS a few pixels)
 
-        ;                   Y Offset (used to make it possible 3-color sprites with only 2 at any given line)
+        ;                   Y position (used to make it possible 3-color sprites with only 2 at any given line)
         ; First sprite:     0 px (main sprite)
         ; Second sprite:   +m px
         ; Third sprite:    -n px
 
-
+        ; Patterns loaded flag (zero until enemy shows on screen, after 1); only used on Type B enemy
+        ; not used
+        ; not used
+        ; not used
 BgObjectsInitialState_Start:
 
 ; screen / page 0 (columns 0-15)

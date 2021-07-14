@@ -42,10 +42,9 @@ Enemy_TypeB_Logic:
 
 
 
-; TODO:
 .showEnemySprites:
 	exx
-        ; switch enemy type
+        ; Switch enemy type
         ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
         ld      a, (hl)
         
@@ -161,8 +160,22 @@ Enemy_TypeB_Logic:
     dec     a               ; adjust for the Y - 1 TMS 9918 bug/feature
     ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Y), a
 
+    ; ; Check if it's first time the enemy is on screen
+    ; inc     hl
+    ; ld      a, (hl)
+    ; or      a
+    ; jp      nz, .skipCopyPattern
+
+    ; ; If so, set flag and copy sprite patterns to corresponding position on sprite table
+    ; ld      a, 1            ; set flag
+    ; ld      (hl), a
+
+    ; if (Enemies_TypeB_Counter == 0) { copy to ENEMY_TYPE_B_1_PATTERN } 
+    ; else { copy to ENEMY_TYPE_B_2_PATTERN } 
 
 
+
+.skipCopyPattern:
     ; ; ld      a, SNAIL_SPRITE_LEFT ; LADYBUG_SPRITE_LEFT
     ; ld      a, (UpdateBgObjects_Enemy_Sprite_Number)
     ; ld      (UpdateBgObjects_Enemy_TypeA_n_Pattern), a
@@ -428,14 +441,30 @@ Enemy_TypeB_Logic:
 
 .enemiesCounterRoutine:
     ld      a, (Enemies_TypeB_Counter)
-    ; TODO: this can be improved by using DEC A instead of CP
-    cp      3
-    jp      z, .enemy_4
-    cp      2
-    jp      z, .enemy_3
-    cp      1
+  
+    ; cp      3
+    ; jp      z, .enemy_4
+    
+    ; cp      2
+    ; jp      z, .enemy_3
+    
+    ; cp      1
+    ; jp      z, .enemy_2
+    
+    or      a               ; if (Enemies_TypeB_Counter == 0) jp .enemy_1
+    jp      z, .enemy_1
+    
+    dec     a               ; if (Enemies_TypeB_Counter == 1) jp .enemy_2
     jp      z, .enemy_2
-; enemy 1
+    
+    dec     a               ; if (Enemies_TypeB_Counter == 2) jp .enemy_3
+    jp      z, .enemy_3
+                            ; else jp .enemy_4
+.enemy_4:
+    ld      hl, Enemy_TypeB_4_BaseAddress                         ; source
+    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
+    ret
+.enemy_1:
     ld      hl, Enemy_TypeB_1_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
     ret
@@ -445,10 +474,6 @@ Enemy_TypeB_Logic:
     ret
 .enemy_3:
     ld      hl, Enemy_TypeB_3_BaseAddress                         ; source
-    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
-    ret
-.enemy_4:
-    ld      hl, Enemy_TypeB_4_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
     ret
     ; add enemies here
