@@ -58,6 +58,11 @@ Enemy_TypeB_Logic:
         cp      ENEMY_TYPE_CENTIPEDE_RIGHT
         jp      z, .enemyTypeCentipedeRight
 
+        cp      ENEMY_TYPE_DINO_LEFT
+        jp      z, .enemyTypeDinoLeft
+        cp      ENEMY_TYPE_DINO_RIGHT
+        jp      z, .enemyTypeDinoRight
+
 .enemyTypeArmadilloLeft:
         ld      a, ARMADILLO_1ST_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
@@ -66,12 +71,8 @@ Enemy_TypeB_Logic:
         ld      a, ARMADILLO_3RD_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
-        ld      a, COLOR_DARK_RED
-        ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
-        ld      a, COLOR_LIGHT_RED
-        ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
-        ld      a, COLOR_YELLOW
-        ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
+        call    .loadArmadilloSprite
+
         jp      .continue
 
 .enemyTypeArmadilloRight:
@@ -82,12 +83,8 @@ Enemy_TypeB_Logic:
         ld      a, ARMADILLO_3RD_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
-        ld      a, COLOR_DARK_RED
-        ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
-        ld      a, COLOR_LIGHT_RED
-        ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
-        ld      a, COLOR_YELLOW
-        ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
+        call    .loadArmadilloSprite
+
         jp      .continue
 
 .enemyTypeCentipedeLeft:
@@ -98,12 +95,8 @@ Enemy_TypeB_Logic:
         ld      a, CENTIPEDE_3RD_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
-        ld      a, COLOR_YELLOW
-        ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
-        ld      a, COLOR_DARK_BLUE
-        ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
-        ld      a, COLOR_DARK_RED
-        ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
+        call    .loadCentipedeSprite
+
         jp      .continue
 
 .enemyTypeCentipedeRight:
@@ -114,12 +107,33 @@ Enemy_TypeB_Logic:
         ld      a, CENTIPEDE_3RD_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
-        ld      a, COLOR_YELLOW
-        ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
-        ld      a, COLOR_DARK_BLUE
-        ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
-        ld      a, COLOR_DARK_RED
-        ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
+        call    .loadCentipedeSprite
+
+        jp      .continue
+
+.enemyTypeDinoLeft:
+    ; TODO: using the same sprite numbers of other enemy!
+        ld      a, ARMADILLO_1ST_SPRITE_LEFT
+        ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
+        ld      a, ARMADILLO_2ND_SPRITE_LEFT
+        ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
+        ld      a, ARMADILLO_3RD_SPRITE_LEFT
+        ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
+
+        call    .loadDinoSprite
+
+        jp      .continue
+
+.enemyTypeDinoRight:
+        ld      a, ARMADILLO_1ST_SPRITE_RIGHT
+        ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
+        ld      a, ARMADILLO_2ND_SPRITE_RIGHT
+        ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
+        ld      a, ARMADILLO_3RD_SPRITE_RIGHT
+        ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
+
+        call    .loadDinoSprite
+
         jp      .continue
 
 .continue:
@@ -477,3 +491,82 @@ Enemy_TypeB_Logic:
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
     ret
     ; add enemies here
+
+
+.loadArmadilloSprite:
+    ; Load colors (are the same for both lef and right sprites)
+    ld      a, COLOR_DARK_RED
+    ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
+    ld      a, COLOR_LIGHT_RED
+    ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
+    ld      a, COLOR_YELLOW
+    ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
+
+    ; Check if sprite patterns are already loaded
+    ld      a, (EnemyTypeB_1_CurrentSpriteLoaded)
+    cp      ENEMY_TYPE_ARMADILLO
+    ret     z
+
+    ; If not, then load ARMADILLO sprite pattern at enemy type B FIRST position
+    ld      hl, Armadillo_SpritePatterns                                            ; Source on RAM
+    ld      de, ENEMY_TYPE_B_1_SPRITE_ADDR_VRAM                                     ; Destiny on VRAM
+    ld      bc, 32 * 6                                                              ; Size
+    call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+
+    ; Save flag indicating sprite loaded
+    ld      a, ENEMY_TYPE_ARMADILLO
+    ld      (EnemyTypeB_1_CurrentSpriteLoaded), a
+
+    ret
+
+.loadCentipedeSprite:
+    ; Load colors (are the same for both lef and right sprites)
+    ld      a, COLOR_YELLOW
+    ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
+    ld      a, COLOR_DARK_BLUE
+    ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
+    ld      a, COLOR_DARK_RED
+    ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
+
+    ; Check if sprite patterns are already loaded
+    ld      a, (EnemyTypeB_2_CurrentSpriteLoaded)
+    cp      ENEMY_TYPE_CENTIPEDE
+    ret     z
+
+    ; If not, then load ARMADILLO sprite pattern at enemy type B FIRST position
+    ld      hl, Centipede_SpritePatterns                                            ; Source on RAM
+    ld      de, ENEMY_TYPE_B_2_SPRITE_ADDR_VRAM                                     ; Destiny on VRAM
+    ld      bc, 32 * 6                                                              ; Size
+    call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+
+    ; Save flag indicating sprite loaded
+    ld      a, ENEMY_TYPE_CENTIPEDE
+    ld      (EnemyTypeB_2_CurrentSpriteLoaded), a
+
+    ret
+
+.loadDinoSprite:
+    ; Load colors (are the same for both lef and right sprites)
+    ld      a, COLOR_GREEN
+    ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
+    ld      a, COLOR_WHITE
+    ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
+    ld      a, COLOR_LIGHT_GREEN
+    ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
+
+    ; Check if sprite patterns are already loaded
+    ld      a, (EnemyTypeB_1_CurrentSpriteLoaded)
+    cp      ENEMY_TYPE_DINO
+    ret     z
+
+    ; If not, then load DINO sprite pattern at enemy type B FIRST position
+    ld      hl, Dino_SpritePatterns                                                 ; Source on RAM
+    ld      de, ENEMY_TYPE_B_1_SPRITE_ADDR_VRAM                                     ; Destiny on VRAM
+    ld      bc, 32 * 6                                                              ; Size
+    call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+
+    ; Save flag indicating sprite loaded
+    ld      a, ENEMY_TYPE_DINO
+    ld      (EnemyTypeB_1_CurrentSpriteLoaded), a
+    
+    ret

@@ -74,12 +74,15 @@ ENEMY_TYPE_B_2_PATTERN:                 equ 57 * 4
 
 ; ------------ Enemies type B
 ; Armadillo
+; TODO: change by generic names
 ARMADILLO_1ST_SPRITE_LEFT:              equ 51 * 4
 ARMADILLO_2ND_SPRITE_LEFT:              equ 52 * 4
 ARMADILLO_3RD_SPRITE_LEFT:              equ 53 * 4
 ARMADILLO_1ST_SPRITE_RIGHT:             equ 54 * 4
 ARMADILLO_2ND_SPRITE_RIGHT:             equ 55 * 4
 ARMADILLO_3RD_SPRITE_RIGHT:             equ 56 * 4
+
+ENEMY_TYPE_B_1_SPRITE_ADDR_VRAM:        equ SpritePatternTable + (ARMADILLO_1ST_SPRITE_LEFT * 8)
 
 ; Centipede
 CENTIPEDE_1ST_SPRITE_LEFT:              equ 57 * 4
@@ -89,6 +92,7 @@ CENTIPEDE_1ST_SPRITE_RIGHT:             equ 60 * 4
 CENTIPEDE_2ND_SPRITE_RIGHT:             equ 61 * 4
 CENTIPEDE_3RD_SPRITE_RIGHT:             equ 62 * 4
 
+ENEMY_TYPE_B_2_SPRITE_ADDR_VRAM:        equ SpritePatternTable + (CENTIPEDE_1ST_SPRITE_LEFT * 8)
 
 
 ; Keyboard constants to current key(s) pressed

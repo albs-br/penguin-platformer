@@ -104,8 +104,6 @@ InitGame:
 
 ; Main loop
 MainLoop:
-    ;halt			                    ; (v-blank sync)
-
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
     ld      a, (hl)
 .waitVBlank:

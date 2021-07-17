@@ -10,19 +10,29 @@ ENEMY_TYPE_B:                   equ 254 ; Enemy formed by 2 or 3 sprites (only 2
 
 ; ---- Enemy types (highest bit means direction - 0: facing left or 1: right):
 
-; Type A
 ENEMY_FACING_RIGHT:             equ 1000 0000 b
+
+; Type A
 ENEMY_TYPE_LADYBUG_LEFT:        equ 0
 ENEMY_TYPE_LADYBUG_RIGHT:       equ ENEMY_TYPE_LADYBUG_LEFT + ENEMY_FACING_RIGHT
+
 ENEMY_TYPE_SNAIL_LEFT:          equ 1
 ENEMY_TYPE_SNAIL_RIGHT:         equ ENEMY_TYPE_SNAIL_LEFT + ENEMY_FACING_RIGHT
 
 
+
 ; Type B
-ENEMY_TYPE_ARMADILLO_LEFT:      equ 0
+ENEMY_TYPE_ARMADILLO:           equ 0
+ENEMY_TYPE_ARMADILLO_LEFT:      equ ENEMY_TYPE_ARMADILLO
 ENEMY_TYPE_ARMADILLO_RIGHT:     equ ENEMY_TYPE_ARMADILLO_LEFT + ENEMY_FACING_RIGHT
-ENEMY_TYPE_CENTIPEDE_LEFT:      equ 1
+
+ENEMY_TYPE_CENTIPEDE:           equ 1
+ENEMY_TYPE_CENTIPEDE_LEFT:      equ ENEMY_TYPE_CENTIPEDE
 ENEMY_TYPE_CENTIPEDE_RIGHT:     equ ENEMY_TYPE_CENTIPEDE_LEFT + ENEMY_FACING_RIGHT
+
+ENEMY_TYPE_DINO:                equ 2
+ENEMY_TYPE_DINO_LEFT:           equ ENEMY_TYPE_DINO
+ENEMY_TYPE_DINO_RIGHT:          equ ENEMY_TYPE_DINO_LEFT + ENEMY_FACING_RIGHT
 
 
 
@@ -121,7 +131,9 @@ BgObjectsInitialState_Start:
     ; db      40,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ; db      42,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      34,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_RIGHT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-    db      34,     ENEMY_TYPE_B,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (8 * 2 * 8) + 9,  (8 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
+    ;db      34,     ENEMY_TYPE_B,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (8 * 2 * 8) + 9,  (8 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
+    db      34,     ENEMY_TYPE_B,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_DINO_LEFT,      (8 * 2 * 8) + 9,  (8 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
+
 
     db      36,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db      42,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0

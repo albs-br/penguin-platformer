@@ -85,6 +85,11 @@ UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Y:           rb 1
 ENEMY_TYPE_B_STRUCT_SIZE:                      equ $ - UpdateBgObjects_Enemy_TypeB_n_BaseAddress
 
 
+; Type of enemeis that are currently on the VRAM Sprite Pattern Table (only two enemies allowed at same time)
+EnemyTypeB_1_CurrentSpriteLoaded:                     rb 1
+EnemyTypeB_2_CurrentSpriteLoaded:                     rb 1
+
+
 
 ScrollDirection:                        rb 1       ; 0: none, 1: left, 2: right
 ScrollSpeed:                            rb 1       ; 1: normal (1px / frame), 2: fast (2px / frame)

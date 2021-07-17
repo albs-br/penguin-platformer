@@ -6,11 +6,11 @@ ReadInput:
 
     ; test
     ; ld a, c
-    bit     3, a                    ; DEL
-    jp      z, .scrollLeft
-    ; ld a, c
-    bit     2, a                    ; INS
-    jp      z, .scrollRight
+    ; bit     3, a                    ; DEL
+    ; jp      z, .scrollLeft
+    ; ; ld a, c
+    ; bit     2, a                    ; INS
+    ; jp      z, .scrollRight
 
 
     ; Reset player direction inputs

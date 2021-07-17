@@ -47,6 +47,10 @@ InitVariables:
     ld      (Player_Facing), a
 
 
+    ld      a, 255
+    ld      (EnemyTypeB_1_CurrentSpriteLoaded), a
+    ld      (EnemyTypeB_2_CurrentSpriteLoaded), a
+
 ; ----------------------------------------------------------------------------
 ; ------------ Background ------------
 
