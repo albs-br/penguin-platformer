@@ -549,9 +549,9 @@ Enemy_TypeB_Logic:
     ; Load colors (are the same for both lef and right sprites)
     ld      a, COLOR_GREEN
     ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
-    ld      a, COLOR_WHITE
-    ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
     ld      a, COLOR_LIGHT_GREEN
+    ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
+    ld      a, COLOR_WHITE
     ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
 
     ; Check if sprite patterns are already loaded

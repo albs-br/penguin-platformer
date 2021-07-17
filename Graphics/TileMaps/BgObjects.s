@@ -81,7 +81,8 @@ BgObjectsInitialState_Start:
     db      15,     DIAMOND_FIRST_TILE,    8 * 2 * 8,      1,  0,  0,                          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      11,     ENEMY_TYPE_A,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      11,     ENEMY_TYPE_A,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-    db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (3 * 2 * 8) + 9,  (3 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
+    ;db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (3 * 2 * 8) + 9,  (3 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
+    db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_DINO_LEFT,      (3 * 2 * 8) + 14,  (3 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
 
     ; db      14,     ENEMY_TYPE_B,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (6 * 2 * 8) + 9,  (6 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      14,     ENEMY_TYPE_B,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,      (6 * 2 * 8) + 15,  (6 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
@@ -132,7 +133,7 @@ BgObjectsInitialState_Start:
     ; db      42,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      34,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_RIGHT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      34,     ENEMY_TYPE_B,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (8 * 2 * 8) + 9,  (8 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
-    db      34,     ENEMY_TYPE_B,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_DINO_LEFT,      (8 * 2 * 8) + 9,  (8 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
+    db      34,     ENEMY_TYPE_B,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_DINO_LEFT,      (8 * 2 * 8) + 14,  (8 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
 
 
     db      36,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
