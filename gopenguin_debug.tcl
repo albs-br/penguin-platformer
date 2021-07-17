@@ -56,7 +56,10 @@
 
 
 
-ram_watch   add     0xD09d      -type byte      -desc FramesSkipped     -format dec
+ram_watch   add     0xD09f      -type byte      -desc FramesSkipped     -format dec
+
+ram_watch   add     0xD050      -type byte      -desc EnemyTypeB_1_CurrentSpriteLoaded     -format dec
+ram_watch   add     0xD051      -type byte      -desc EnemyTypeB_2_CurrentSpriteLoaded     -format dec
 
 
 
