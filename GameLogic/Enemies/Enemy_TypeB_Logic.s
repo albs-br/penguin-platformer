@@ -537,6 +537,10 @@ Enemy_TypeB_Logic:
     cp      ENEMY_TYPE_ARMADILLO
     ret     z
 
+    ; Switch to MegaROM page where the sprites are located
+    ld      a, SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
     ; If not, then load ARMADILLO sprite pattern at enemy type B FIRST position
     ld      hl, Armadillo_SpritePatterns                                            ; Source on RAM
     ld      de, ENEMY_TYPE_B_1_SPRITE_ADDR_VRAM                                     ; Destiny on VRAM
@@ -562,6 +566,10 @@ Enemy_TypeB_Logic:
     ld      a, (EnemyTypeB_2_CurrentSpriteLoaded)
     cp      ENEMY_TYPE_CENTIPEDE
     ret     z
+
+    ; Switch to MegaROM page where the sprites are located
+    ld      a, SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
 
     ; If not, then load CENTIPEDE sprite pattern at enemy type B SECOND position
     ld      hl, Centipede_SpritePatterns                                            ; Source on RAM
@@ -589,6 +597,10 @@ Enemy_TypeB_Logic:
     cp      ENEMY_TYPE_DINO
     ret     z
 
+    ; Switch to MegaROM page where the sprites are located
+    ld      a, SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
     ; If not, then load DINO sprite pattern at enemy type B FIRST position
     ld      hl, Dino_SpritePatterns                                                 ; Source on RAM
     ld      de, ENEMY_TYPE_B_1_SPRITE_ADDR_VRAM                                     ; Destiny on VRAM
@@ -614,6 +626,10 @@ Enemy_TypeB_Logic:
     ld      a, (EnemyTypeB_2_CurrentSpriteLoaded)
     cp      ENEMY_TYPE_ELEPHANT
     ret     z
+
+    ; Switch to MegaROM page where the sprites are located
+    ld      a, SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
 
     ; If not, then load ELEPHANT sprite pattern at enemy type B SECOND position
     ld      hl, Elephant_SpritePatterns                                                 ; Source on RAM

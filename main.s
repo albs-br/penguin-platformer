@@ -301,6 +301,23 @@ MusicAKY_Start.size:      equ $ - MusicAKY_Start
 	ds PageSize - ($ - 8000h), 255
 
 
+; -------------------------------------------- Mega ROM page for some sprites ----------------
+SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE:     equ 9
+; ------- Page 9 --------------------------------------
+	org	8000h, 0BFFFh
+
+; --------- Type B enemies
+    INCLUDE "Graphics/Sprites/Armadillo.s"
+    INCLUDE "Graphics/Sprites/Centipede.s"
+    INCLUDE "Graphics/Sprites/Dino.s"
+    INCLUDE "Graphics/Sprites/Elephant.s"
+
+	ds PageSize - ($ - 8000h), 255
+
+
+
+
+
 
 ; Variables (mapped to RAM memory)
 	org     0xc000, 0xe5ff                   ; for machines with 16kb of RAM (use it if you need 16kb RAM, will crash on 8kb machines, such as the Casio PV-7)

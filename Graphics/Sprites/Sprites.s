@@ -1802,9 +1802,3 @@ SpritePatterns:
 
 .size:          equ $ - SpritePatterns
 
-
-; --------- Type B enemies
-    INCLUDE "Graphics/Sprites/Armadillo.s"
-    INCLUDE "Graphics/Sprites/Centipede.s"
-    INCLUDE "Graphics/Sprites/Dino.s"
-    INCLUDE "Graphics/Sprites/Elephant.s"

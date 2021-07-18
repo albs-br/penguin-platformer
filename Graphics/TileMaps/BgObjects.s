@@ -75,7 +75,7 @@ BgObjectsInitialState_Start:
 
     ; db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (10 * 2 * 8) + 9,  (10 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
-    db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ELEPHANT_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 6,  0,  0,  0,  0,  0,  0,  0,  0
+    db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ELEPHANT_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
     db      11,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     
