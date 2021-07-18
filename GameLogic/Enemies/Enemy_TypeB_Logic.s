@@ -63,6 +63,11 @@ Enemy_TypeB_Logic:
         cp      ENEMY_TYPE_DINO_RIGHT
         jp      z, .enemyTypeDinoRight
 
+        cp      ENEMY_TYPE_ELEPHANT_LEFT
+        jp      z, .enemyTypeElephantLeft
+        cp      ENEMY_TYPE_ELEPHANT_RIGHT
+        jp      z, .enemyTypeElephantRight
+
 .enemyTypeArmadilloLeft:
         ld      a, ARMADILLO_1ST_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
@@ -133,6 +138,31 @@ Enemy_TypeB_Logic:
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
         call    .loadDinoSprite
+
+        jp      .continue
+
+.enemyTypeElephantLeft:
+    ; TODO: using the same sprite numbers of other enemy!
+        ld      a, CENTIPEDE_1ST_SPRITE_LEFT
+        ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
+        ld      a, CENTIPEDE_2ND_SPRITE_LEFT
+        ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
+        ld      a, CENTIPEDE_3RD_SPRITE_LEFT
+        ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
+
+        call    .loadElephantSprite
+
+        jp      .continue
+
+.enemyTypeElephantRight:
+        ld      a, CENTIPEDE_1ST_SPRITE_RIGHT
+        ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
+        ld      a, CENTIPEDE_2ND_SPRITE_RIGHT
+        ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
+        ld      a, CENTIPEDE_3RD_SPRITE_RIGHT
+        ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
+
+        call    .loadElephantSprite
 
         jp      .continue
 
@@ -494,7 +524,7 @@ Enemy_TypeB_Logic:
 
 
 .loadArmadilloSprite:
-    ; Load colors (are the same for both lef and right sprites)
+    ; Load colors (are the same for both left and right sprites)
     ld      a, COLOR_DARK_RED
     ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
     ld      a, COLOR_LIGHT_RED
@@ -520,7 +550,7 @@ Enemy_TypeB_Logic:
     ret
 
 .loadCentipedeSprite:
-    ; Load colors (are the same for both lef and right sprites)
+    ; Load colors (are the same for both left and right sprites)
     ld      a, COLOR_YELLOW
     ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
     ld      a, COLOR_DARK_BLUE
@@ -533,7 +563,7 @@ Enemy_TypeB_Logic:
     cp      ENEMY_TYPE_CENTIPEDE
     ret     z
 
-    ; If not, then load ARMADILLO sprite pattern at enemy type B FIRST position
+    ; If not, then load CENTIPEDE sprite pattern at enemy type B SECOND position
     ld      hl, Centipede_SpritePatterns                                            ; Source on RAM
     ld      de, ENEMY_TYPE_B_2_SPRITE_ADDR_VRAM                                     ; Destiny on VRAM
     ld      bc, 32 * 6                                                              ; Size
@@ -546,7 +576,7 @@ Enemy_TypeB_Logic:
     ret
 
 .loadDinoSprite:
-    ; Load colors (are the same for both lef and right sprites)
+    ; Load colors (are the same for both left and right sprites)
     ld      a, COLOR_GREEN
     ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
     ld      a, COLOR_LIGHT_GREEN
@@ -568,5 +598,31 @@ Enemy_TypeB_Logic:
     ; Save flag indicating sprite loaded
     ld      a, ENEMY_TYPE_DINO
     ld      (EnemyTypeB_1_CurrentSpriteLoaded), a
+    
+    ret
+
+.loadElephantSprite:
+    ; Load colors (are the same for both left and right sprites)
+    ld      a, COLOR_LIGHT_BLUE
+    ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Color), a
+    ld      a, COLOR_DARK_RED
+    ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
+    ld      a, COLOR_LIGHT_RED
+    ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
+
+    ; Check if sprite patterns are already loaded
+    ld      a, (EnemyTypeB_2_CurrentSpriteLoaded)
+    cp      ENEMY_TYPE_ELEPHANT
+    ret     z
+
+    ; If not, then load ELEPHANT sprite pattern at enemy type B SECOND position
+    ld      hl, Elephant_SpritePatterns                                                 ; Source on RAM
+    ld      de, ENEMY_TYPE_B_2_SPRITE_ADDR_VRAM                                     ; Destiny on VRAM
+    ld      bc, 32 * 6                                                              ; Size
+    call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+
+    ; Save flag indicating sprite loaded
+    ld      a, ENEMY_TYPE_ELEPHANT
+    ld      (EnemyTypeB_2_CurrentSpriteLoaded), a
     
     ret
