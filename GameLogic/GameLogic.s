@@ -50,7 +50,7 @@ GameLogic:
 
     ld      a, (Player_IsAlive)
     or      a
-    jp      z, InitGame
+    jp      z, .isDead
 
 
     ld      a, 1
@@ -134,8 +134,27 @@ GameLogic:
 
 
 .isDead:
+    ld      a, (Player_DeathAnimation)
+    or      a
+    jp      z, InitGame             ; TODO: need to reset SP
+
+    inc     a
+    ld      (Player_DeathAnimation), a
+    cp      50
+    jp      nc, InitGame            ; if a >= n
+
+    ; animation player dying
+    ld      hl, Player_Y
+    inc     (hl)
+    
     xor     a
+    ld      (ScrollDirection), a
+    ld      (DirectionKeyPressed), a
+    ld      (JumpKeyPressed), a
+    ld      (RunKeyPressed), a
+    
     ld      (Player_IsAlive), a
+
     jp      .return
 
 

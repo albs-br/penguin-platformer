@@ -24,7 +24,7 @@ Player_IsGrounded:          rb 1        ; 0: not grounded (falling); 1: grounded
 Player_IsJumping:           rb 1        ; 0: not jumping; 1: jumping
 Player_Jumping_Addr:        rw 1        ; Jumping/falling current address on the Delta Y table
 Player_Facing:              rb 1        ; 1: left, 2: right
-
+Player_DeathAnimation:      rb 1
 
 CurrentMegaRomPage:         rb 1
 

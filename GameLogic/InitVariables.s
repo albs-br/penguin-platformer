@@ -31,6 +31,7 @@ InitVariables:
     
     ld      (Player_Animation_Frame), a
     ld      (Player_IsJumping), a
+    ld      (Player_DeathAnimation), a
 
     ld	    a, 192-48-1
     ld      (Player_Y), a

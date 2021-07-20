@@ -56,10 +56,22 @@
 
 
 
-ram_watch   add     0xD09f      -type byte      -desc FramesSkipped     -format dec
+#ram_watch   add     0xD09f      -type byte      -desc FramesSkipped     -format dec
 
-ram_watch   add     0xD050      -type byte      -desc EnemyTypeB_1_CurrentSpriteLoaded     -format dec
-ram_watch   add     0xD051      -type byte      -desc EnemyTypeB_2_CurrentSpriteLoaded     -format dec
+#ram_watch   add     0xD050      -type byte      -desc EnemyTypeB_1_CurrentSpriteLoaded     -format dec
+#ram_watch   add     0xD051      -type byte      -desc EnemyTypeB_2_CurrentSpriteLoaded     -format dec
+
+
+
+ram_watch   add     0xD011      -type byte      -desc Player_DeathAnimation     -format dec
+ram_watch   add     0xD008      -type byte      -desc Player_X     -format dec
+ram_watch   add     0xD009      -type byte      -desc Player_Y     -format dec
+ram_watch   add     0xD047      -type byte      -desc Enemy_n_X     -format dec
+ram_watch   add     0xD048      -type byte      -desc Enemy_n_Y     -format dec
+
+
+
+
 
 
 

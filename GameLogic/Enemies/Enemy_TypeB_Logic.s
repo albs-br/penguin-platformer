@@ -239,6 +239,11 @@ Enemy_TypeB_Logic:
 ; -------------------- Enemy movement
     ; Change x offset and save it back
     
+    ; Don't move if player is in death animation state
+    ld      a, (Player_DeathAnimation)
+    or      a
+    jp      nz, .continue_xoffset_1
+
     ; Move enemy only at each 4 frames
     ; ld      a, (BIOS_JIFFY)                         ; MSX BIOS time variable
     ; and     0000 0011 b                             ; each 4 frames
@@ -289,13 +294,71 @@ Enemy_TypeB_Logic:
 
 .continue_xoffset_1:
     
+    ld      a, (Player_IsAlive)
+    or      a
+    jp      z, .return
+
+    ; --------------------------------------------
+    ;  Check collision (enemy hit penguin)
+    ; Player (x + 3, y + 2) - (x + 12, y + 15) ; width = 10 ; height = 14
+    ; Enemy  (x + 2, y + 8) - (x + 13, y + 15) ; width = 12 ; height = 8
+    ld      a, (Player_Y)
+    ;inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
+    add     2
+    ld      c, a
+    ld      b, 14                               ; height = 14
+
+    ld      a, (UpdateBgObjects_Enemy_TypeB_n_Y)
+    add     8
+    ld      e, a
+    ld      d, 8                                ; height = 8
+
+    ; first check vertical collision, saving the next block (130 cycles), plus 57/62 of the subroutine if no collision
+    call    CheckCollision_W1xH1_W2xH2_Vertical
+    jp      nc, .enemyDidNotHitPenguin
+
+
+    ld      a, (Player_X)
+    add     3
+    ld      b, a
+    ld      c, 10                               ; width = 10
+
+    ld      a, (UpdateBgObjects_Enemy_TypeB_n_X)
+    add     2
+    ld      d, a
+    ld      e, 12                               ; width = 12
+
+    call    CheckCollision_W1xH1_W2xH2_Horizontal
+    jp      nc, .enemyDidNotHitPenguin
+
+    ; enemy hit penguin
+    xor     a
+    ld      (Player_IsAlive), a
+
+    inc     a
+    ld      (Player_DeathAnimation), a
+
+    ; TODO: put it in a subroutine, as it is repeated in many places
+    ; start hit flash animation
+    ld      a, HIT_FLASH_FIRST_FRAME
+    ld      (HitFlash_FrameNumber), a
+    ld      a, (Player_Y)
+    ld      (HitFlash_Y), a
+    ld      a, (Player_X)
+    ld      (HitFlash_X), a
+    xor     a
+    ld      (HitFlash_Counter), a
+
+    jp      .return
+
+.enemyDidNotHitPenguin:
     ; ---------------------------------------------
 
     ; Check collision - penguin jumped over enemy
-    ; Player (x + 2, y + 12) - (x + 13, y + 15)
-    ; Enemy  (x + 2, y + 6) - (x + 13, y + 7)
+    ; Player (x + 2, y + 12) - (x + 13, y + 15) ; width = 12 ; height = 4
+    ; Enemy  (x + 2, y + 6) - (x + 13, y + 7)   ; width = 12 ; height = 2
     ld      a, (Player_Y)
-    inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
+    ; inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
     add     12
     ld      c, a
     ld      b, 4                                ; height = 4
@@ -313,12 +376,12 @@ Enemy_TypeB_Logic:
     ld      a, (Player_X)
     add     2
     ld      b, a
-    ld      c, 14                               ; width = 14
+    ld      c, 12                               ; width = 12
 
     ld      a, (UpdateBgObjects_Enemy_TypeB_n_X)
     add     2
     ld      d, a
-    ld      e, 14                               ; width = 14
+    ld      e, 12                               ; width = 12
 
     call    CheckCollision_W1xH1_W2xH2_Horizontal
     jp      nc, .checkBackground
