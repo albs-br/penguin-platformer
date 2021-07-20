@@ -145,12 +145,20 @@ Enemy_TypeA_Logic:
 
 .continue_xoffset:
 
+; -------------------- Enemy movement
+
     ; Check if enemy is dying (show animation and not move)
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
     ld      a, (hl)
     cp      2
     jp      nc, .animateEnemyDying        ; a >= n
 
+
+
+    ; Don't move if player is in death animation state
+    ld      a, (Player_DeathAnimation)
+    or      a
+    jp      nz, .continue_xoffset_1
 
 
     ; Change x offset and save it back
@@ -414,6 +422,23 @@ Enemy_TypeA_Logic:
     ld      a, (hl)
     cp      2
     jp      nc, .return     ; if (a >= n)
+
+
+
+    ld      a, (Player_IsAlive)
+    or      a
+    jp      z, .return
+
+
+    ;  Check collision (enemy hit penguin)
+    ld      a, (UpdateBgObjects_Enemy_TypeA_n_Y)
+    ld      e, a
+    ld      a, (UpdateBgObjects_Enemy_TypeA_n_X)
+    ld      d, a
+    call    CheckIfEnemyHitPenguin
+    or      a
+    jp      nz, .return
+
 
 
     ; Check collision - penguin jumped over enemy

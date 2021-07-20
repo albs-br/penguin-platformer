@@ -156,7 +156,7 @@ CheckCollision_16x16_16x16_Horizontal:
 
 
 ;  Calculates whether a collision occurs between two objects
-;  of variable size
+;  of variable size (ONLY VERTICAL)
 ; IN: 
 ;    C = y1, B = height 1
 ;    E = y2, D = height 2
@@ -181,7 +181,7 @@ CheckCollision_W1xH1_W2xH2_Vertical:
 
 
 ;  Calculates whether a collision occurs between two objects
-;  of variable size
+;  of variable size (ONLY HORIZONTAL)
 ; IN: 
 ;    B = x1, C = width 1
 ;    D = x2, E = width 2
