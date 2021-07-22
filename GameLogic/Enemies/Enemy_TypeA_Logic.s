@@ -442,10 +442,10 @@ Enemy_TypeA_Logic:
 
 
     ; Check collision - penguin jumped over enemy
-    ; Player (x + 2, y + 12) - (x + 13, y + 15)
-    ; Enemy  (x + 2, y + 6) - (x + 13, y + 7)
+    ; Player (x + 2, y + 12) - (x + 13, y + 15) ; width = 12 ; height = 4
+    ; Enemy  (x + 2, y + 6) - (x + 13, y + 7)   ; width = 12 ; height = 2
     ld      a, (Player_Y)
-    inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
+    ;inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
     add     12
     ld      c, a
     ld      b, 4                                ; height = 4
@@ -463,12 +463,12 @@ Enemy_TypeA_Logic:
     ld      a, (Player_X)
     add     2
     ld      b, a
-    ld      c, 14                               ; width = 14
+    ld      c, 12                               ; width = 12
 
     ld      a, (UpdateBgObjects_Enemy_TypeA_n_X)
     add     2
     ld      d, a
-    ld      e, 14                               ; width = 14
+    ld      e, 12                               ; width = 12
 
     call    CheckCollision_W1xH1_W2xH2_Horizontal
     jp      nc, .checkBackground

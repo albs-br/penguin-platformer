@@ -424,7 +424,7 @@ Enemy_TypeB_Logic:
 
     ld      (hl), a
     and     0000 0011 b
-    jp      z, .showEnemySprite
+    jp      z, .showEnemySprites
 
 
     ; hide sprites
@@ -434,13 +434,13 @@ Enemy_TypeB_Logic:
     ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
     jp      .return
 
-.showEnemySprite:
+;.showEnemySprite:
     ; show sprite
     ; ld      a, (UpdateBgObjects_Enemy_Sprite_Color)
     ; ld      (UpdateBgObjects_Enemy_TypeA_n_Color), a
 
     ; and show tiles
-    jp      .showEnemySprites
+    ;jp      .showEnemySprites
 
 .endAnimationEnemyDying:
     ld      hl, (UpdateBgObjects_CurrentAddr_State)
