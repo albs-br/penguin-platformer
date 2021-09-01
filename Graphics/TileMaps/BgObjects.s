@@ -138,7 +138,7 @@ BgObjectsInitialState_Start:
     ; db      42,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      34,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_RIGHT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      34,     ENEMY_TYPE_B,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (8 * 2 * 8) + 9,  (8 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
-    db      34,     ENEMY_TYPE_B,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_DINO_LEFT,      (8 * 2 * 8) + 14,  (8 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
+    db      34,     ENEMY_TYPE_B,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_DINO_LEFT,      (10 * 2 * 8) + 14,  (10 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
 
 
     db      36,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
