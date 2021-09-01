@@ -12,7 +12,7 @@ CheckIfEnemyHitPenguin:
     ; --------------------------------------------
     ;  Check collision (enemy hit penguin)
     ; Player (x + 3, y + 2) - (x + 12, y + 15) ; width = 10 ; height = 14
-    ; Enemy  (x + 2, y + 8) - (x + 13, y + 15) ; width = 12 ; height = 8
+    ; Enemy  (x + 2, y + 12) - (x + 13, y + 15) ; width = 12 ; height = 4
     ld      a, (Player_Y)
     ;inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
     add     2
@@ -21,9 +21,9 @@ CheckIfEnemyHitPenguin:
 
     ; ld      a, (UpdateBgObjects_Enemy_TypeB_n_Y)
     ld      a, e
-    add     8
+    add     12
     ld      e, a
-    ld      d, 8                                ; height = 8
+    ld      d, 8                                ; height = 4
 
     ; first check vertical collision, saving the next block (130 cycles), plus 57/62 of the subroutine if no collision
     call    CheckCollision_W1xH1_W2xH2_Vertical
