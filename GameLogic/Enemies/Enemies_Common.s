@@ -4,7 +4,7 @@
 ; OUT: 
 ;    A = 0 not hit
 ;    A = 1 hit
-; CHANGES: AF
+; CHANGES: All
 CheckIfEnemyHitPenguin:
 
     ld      h, d        ; saves Enemy X
@@ -65,6 +65,77 @@ CheckIfEnemyHitPenguin:
     ;jp      .return
     ld      a, 1            ; return 0 (hit)
     ret
+
+.enemyDidNotHitPenguin:
+    xor     a               ; return 0 (not hit)
+    ret
+
+
+
+; Check if penguin jumped over enemy
+; IN: 
+;    E = Enemy Y, D = Enemy X
+; OUT: 
+;    A = 0 not hit
+;    A = 1 hit
+; CHANGES: All
+CheckIfPenguinJumpedOverEnemy:
+
+    ld      h, d        ; saves Enemy X
+
+    ; ----------------------------------------
+    ; Check collision - penguin jumped over enemy
+    ; Player (x + 2, y + 12) - (x + 13, y + 15) ; width = 12 ; height = 4
+    ; Enemy  (x + 2, y + 6) - (x + 13, y + 7)   ; width = 12 ; height = 2
+    ld      a, (Player_Y)
+    ; inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
+    add     12
+    ld      c, a
+    ld      b, 4                                ; height = 4
+
+    ld      a, e
+    add     6
+    ld      e, a
+    ld      d, 2                                ; height = 2
+
+    ; first check vertical collision, saving the next block (130 cycles), plus 57/62 of the subroutine if no collision
+    call    CheckCollision_W1xH1_W2xH2_Vertical
+    jp      nc, .enemyDidNotHitPenguin
+
+
+    ld      a, (Player_X)
+    add     2
+    ld      b, a
+    ld      c, 12                               ; width = 12
+
+    ;ld      a, (UpdateBgObjects_Enemy_TypeB_n_X)
+    ld      a, h        ; restores Enemy X
+    add     2
+    ld      d, a
+    ld      e, 12                               ; width = 12
+
+    call    CheckCollision_W1xH1_W2xH2_Horizontal
+    jp      nc, .enemyDidNotHitPenguin
+
+
+    ; if collided, disable enemy
+    ld      hl, (UpdateBgObjects_CurrentAddr_State)
+    ld      a, 2            ; start enemy dying animation
+    ld      (hl), a
+
+    ; start hit flash animation
+    ld      a, HIT_FLASH_FIRST_FRAME
+    ld      (HitFlash_FrameNumber), a
+    ld      a, (Player_Y)
+    ld      (HitFlash_Y), a
+    ld      a, (Player_X)
+    ld      (HitFlash_X), a
+    xor     a
+    ld      (HitFlash_Counter), a
+
+    ld      a, 1            ; return 0 (hit)
+    ret
+
 
 .enemyDidNotHitPenguin:
     xor     a               ; return 0 (not hit)

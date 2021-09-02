@@ -365,52 +365,62 @@ Enemy_TypeB_Logic:
 
     ; TODO: code common with enemy type A
 
-    ; Check collision - penguin jumped over enemy
-    ; Player (x + 2, y + 12) - (x + 13, y + 15) ; width = 12 ; height = 4
-    ; Enemy  (x + 2, y + 6) - (x + 13, y + 7)   ; width = 12 ; height = 2
-    ld      a, (Player_Y)
-    ; inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
-    add     12
-    ld      c, a
-    ld      b, 4                                ; height = 4
+    ; ; Check collision - penguin jumped over enemy
+    ; ; Player (x + 2, y + 12) - (x + 13, y + 15) ; width = 12 ; height = 4
+    ; ; Enemy  (x + 2, y + 6) - (x + 13, y + 7)   ; width = 12 ; height = 2
+    ; ld      a, (Player_Y)
+    ; ; inc     a                                   ; small adjust needed (is it because of the y+1 issue of TMS9918?)
+    ; add     12
+    ; ld      c, a
+    ; ld      b, 4                                ; height = 4
 
+    ; ld      a, (UpdateBgObjects_Enemy_TypeB_n_Y)
+    ; add     6
+    ; ld      e, a
+    ; ld      d, 2                                ; height = 2
+
+    ; ; first check vertical collision, saving the next block (130 cycles), plus 57/62 of the subroutine if no collision
+    ; call    CheckCollision_W1xH1_W2xH2_Vertical
+    ; jp      nc, .checkBackground
+
+
+    ; ld      a, (Player_X)
+    ; add     2
+    ; ld      b, a
+    ; ld      c, 12                               ; width = 12
+
+    ; ld      a, (UpdateBgObjects_Enemy_TypeB_n_X)
+    ; add     2
+    ; ld      d, a
+    ; ld      e, 12                               ; width = 12
+
+    ; call    CheckCollision_W1xH1_W2xH2_Horizontal
+    ; jp      nc, .checkBackground
+
+    ; ; if collided, disable enemy
+    ; ld      hl, (UpdateBgObjects_CurrentAddr_State)
+    ; ld      a, 2            ; start enemy dying animation
+    ; ld      (hl), a
+
+    ; ; start hit flash animation
+    ; ld      a, HIT_FLASH_FIRST_FRAME
+    ; ld      (HitFlash_FrameNumber), a
+    ; ld      a, (Player_Y)
+    ; ld      (HitFlash_Y), a
+    ; ld      a, (Player_X)
+    ; ld      (HitFlash_X), a
+    ; xor     a
+    ; ld      (HitFlash_Counter), a
+
+    ;  Check collision - penguin jumped over enemy
     ld      a, (UpdateBgObjects_Enemy_TypeB_n_Y)
-    add     6
     ld      e, a
-    ld      d, 2                                ; height = 2
-
-    ; first check vertical collision, saving the next block (130 cycles), plus 57/62 of the subroutine if no collision
-    call    CheckCollision_W1xH1_W2xH2_Vertical
-    jp      nc, .checkBackground
-
-
-    ld      a, (Player_X)
-    add     2
-    ld      b, a
-    ld      c, 12                               ; width = 12
-
     ld      a, (UpdateBgObjects_Enemy_TypeB_n_X)
-    add     2
     ld      d, a
-    ld      e, 12                               ; width = 12
+    call    CheckIfPenguinJumpedOverEnemy
+    or      a
+    jp      z, .checkBackground
 
-    call    CheckCollision_W1xH1_W2xH2_Horizontal
-    jp      nc, .checkBackground
-
-    ; if collided, disable enemy
-    ld      hl, (UpdateBgObjects_CurrentAddr_State)
-    ld      a, 2            ; start enemy dying animation
-    ld      (hl), a
-
-    ; start hit flash animation
-    ld      a, HIT_FLASH_FIRST_FRAME
-    ld      (HitFlash_FrameNumber), a
-    ld      a, (Player_Y)
-    ld      (HitFlash_Y), a
-    ld      a, (Player_X)
-    ld      (HitFlash_X), a
-    xor     a
-    ld      (HitFlash_Counter), a
 
     ; Start jump (bounce on the enemy)
     call    GameLogic.startJumping
