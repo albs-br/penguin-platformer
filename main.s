@@ -312,6 +312,9 @@ SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE:     equ 9
     INCLUDE "Graphics/Sprites/Dino.s"
     INCLUDE "Graphics/Sprites/Elephant.s"
 
+; --------- Scenery
+    INCLUDE "Graphics/Sprites/Bush.s"
+
 	ds PageSize - ($ - 8000h), 255
 
 

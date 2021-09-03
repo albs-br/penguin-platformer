@@ -1645,6 +1645,7 @@ PLY_AKG_START: equ 08B5Eh ; last def. pass 3
 BIOS_CODSAV: equ 0FBCCh ; last def. pass 3
 PLY_AKG_CHANNEL2_SETINSTRUMENTSTEP: equ 09315h ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_733: equ 093BAh ; last def. pass 3
+Bush_SpritePatterns: equ 08300h ; last def. pass 3
 JUSTADDCREAM_EFFECTBLOCK_P14P112P0: equ 081A5h ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_673: equ 096C3h ; last def. pass 3
 CheckCollision_W1xH1_W2xH2_Horizontal: equ 043CAh ; last def. pass 3
