@@ -195,6 +195,8 @@ ShowBgObject:
         jp      z, Enemy_TypeA_Logic
         cp      ENEMY_TYPE_B                ; if (object == Enemy type A)
         jp      z, Enemy_TypeB_Logic
+        ; cp      SCENERY                     ; if (object == scenery)
+        ; jp      z, Scenery_Logic
                                             ; else
         ld      b, a
         

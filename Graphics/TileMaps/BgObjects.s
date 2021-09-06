@@ -6,6 +6,7 @@ ANOTHER_OBJECT:                 equ DIAMOND_FIRST_TILE - 128
 
 ENEMY_TYPE_A:                   equ 255 ; Enemy formed by 4 8x8 tiles + one sprite; only horiz. movement; possible 2 per line
 ENEMY_TYPE_B:                   equ 254 ; Enemy formed by 2 or 3 sprites (only 2 on the same horiz.); only horizontal movement; only one per line
+SCENERY:                        equ 250 ; 
 
 
 ; ---- Enemy types (highest bit means direction - 0: facing left or 1: right):
@@ -38,6 +39,9 @@ ENEMY_TYPE_ELEPHANT:            equ 3
 ENEMY_TYPE_ELEPHANT_LEFT:       equ ENEMY_TYPE_ELEPHANT
 ENEMY_TYPE_ELEPHANT_RIGHT:      equ ENEMY_TYPE_ELEPHANT_LEFT + ENEMY_FACING_RIGHT
 
+
+
+SCENERY_TYPE_BUSH:              equ 32
 
 
 ; ----------------------- Format:
@@ -76,6 +80,7 @@ BgObjectsInitialState_Start:
     ; db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (10 * 2 * 8) + 9,  (10 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
     db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ELEPHANT_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
+    ;db      12,     SCENERY,          10 * 2 * 8,      1,  0,  SCENERY_TYPE_BUSH,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
     db      11,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     
@@ -87,6 +92,7 @@ BgObjectsInitialState_Start:
     ;db      11,     ENEMY_TYPE_A,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      11,     ENEMY_TYPE_A,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (3 * 2 * 8) + 9,  (3 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
+    
     db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_DINO_LEFT,      (3 * 2 * 8) + 14,  (3 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
 
     ; db      14,     ENEMY_TYPE_B,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (6 * 2 * 8) + 9,  (6 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0

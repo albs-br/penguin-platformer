@@ -84,6 +84,13 @@ UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color:       rb 1
 UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Y:           rb 1
 ENEMY_TYPE_B_STRUCT_SIZE:                      equ $ - UpdateBgObjects_Enemy_TypeB_n_BaseAddress
 
+; Local properties for subroutine (scenery)
+UpdateBgObjects_Scenery_n_BaseAddress:
+UpdateBgObjects_Scenery_n_X_InPixels:                 rb 1
+;UpdateBgObjects_Scenery_n_Y:                      rb 1
+UpdateBgObjects_Scenery_n_1st_Sprite_Pattern:         rb 1
+UpdateBgObjects_Scenery_n_1st_Sprite_Color:           rb 1
+SCENERY_STRUCT_SIZE:                      equ $ - UpdateBgObjects_Scenery_n_BaseAddress
 
 ; Type of enemeis that are currently on the VRAM Sprite Pattern Table (only two enemies allowed at same time)
 EnemyTypeB_1_CurrentSpriteLoaded:                     rb 1

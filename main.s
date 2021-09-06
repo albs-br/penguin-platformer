@@ -32,9 +32,10 @@ CommonIncludes_Start.size:      equ $ - CommonIncludes_Start
 ; Include game routines (~ 4.5 Kb)
 GameIncludes_Start:
     INCLUDE "GameLogic/GameLogic.s"
-    INCLUDE "GameLogic/Enemies/Enemies_Common.s"
-    INCLUDE "GameLogic/Enemies/Enemy_TypeA_Logic.s"
-    INCLUDE "GameLogic/Enemies/Enemy_TypeB_Logic.s"
+    INCLUDE "GameLogic/Objects/Enemies/Enemies_Common.s"
+    INCLUDE "GameLogic/Objects/Enemies/Enemy_TypeA_Logic.s"
+    INCLUDE "GameLogic/Objects/Enemies/Enemy_TypeB_Logic.s"
+    INCLUDE "GameLogic/Objects/SceneryLogic.s"
     INCLUDE "GameLogic/UpdateSpriteAttrTableBuffer.s"
     INCLUDE "GameLogic/ReadInput.s"
     INCLUDE "GameLogic/Scroll.s"
