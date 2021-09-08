@@ -14,7 +14,7 @@ Scenery_Logic:
 
     ; Copy scenery properties to temp variables
     ld      hl, (UpdateBgObjects_Enemy_Return_Addr)             ; source
-    ld      de, SCENERY_STRUCT_SIZE                             ; destiny
+    ld      de, UpdateBgObjects_Scenery_n_BaseAddress           ; destiny
     ld      bc, SCENERY_STRUCT_SIZE                             ; size
     ldir                                                        ; Copy BC bytes from HL to DE
 
@@ -42,7 +42,7 @@ Scenery_Logic:
 
 
 
-.showEnemySprites:
+.showScenerySprites:
 	exx
         ; Switch scenery type
         ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
@@ -55,11 +55,11 @@ Scenery_Logic:
         ; jp      z, .scenery????
 
 .sceneryBush:
-        ld      a, ARMADILLO_1ST_SPRITE_LEFT ; TODO
+        ld      a, ENEMY_TYPE_B_1_1ST_SPRITE_LEFT ; TODO
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
-        ld      a, ARMADILLO_2ND_SPRITE_LEFT ; TODO
+        ld      a, ENEMY_TYPE_B_1_2ND_SPRITE_LEFT ; TODO
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
-        ld      a, ARMADILLO_3RD_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_1_3RD_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
         call    .loadSceneryBushSprite
@@ -317,10 +317,10 @@ ld a, 128; //[debug]
 
 .return:
 
-    ; Copy temp variables back to enemy properties
-    ld      hl, UpdateBgObjects_Enemy_TypeB_n_BaseAddress   ; source
+    ; Copy temp variables back to object properties
+    ld      hl, UpdateBgObjects_Scenery_n_BaseAddress       ; source
     ld      de, (UpdateBgObjects_Enemy_Return_Addr)         ; destiny
-    ld      bc, ENEMY_TYPE_B_STRUCT_SIZE                    ; size
+    ld      bc, SCENERY_STRUCT_SIZE                         ; size
     ldir                                                    ; Copy BC bytes from HL to DE
 
     

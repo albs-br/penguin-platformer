@@ -69,11 +69,11 @@ Enemy_TypeB_Logic:
         jp      z, .enemyTypeElephantRight
 
 .enemyTypeArmadilloLeft:
-        ld      a, ARMADILLO_1ST_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_1_1ST_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
-        ld      a, ARMADILLO_2ND_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_1_2ND_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
-        ld      a, ARMADILLO_3RD_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_1_3RD_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
         call    .loadArmadilloSprite
@@ -81,11 +81,11 @@ Enemy_TypeB_Logic:
         jp      .continue
 
 .enemyTypeArmadilloRight:
-        ld      a, ARMADILLO_1ST_SPRITE_RIGHT
+        ld      a, ENEMY_TYPE_B_1_1ST_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
-        ld      a, ARMADILLO_2ND_SPRITE_RIGHT
+        ld      a, ENEMY_TYPE_B_1_2ND_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
-        ld      a, ARMADILLO_3RD_SPRITE_RIGHT
+        ld      a, ENEMY_TYPE_B_1_3RD_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
         call    .loadArmadilloSprite
@@ -93,11 +93,11 @@ Enemy_TypeB_Logic:
         jp      .continue
 
 .enemyTypeCentipedeLeft:
-        ld      a, CENTIPEDE_1ST_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_2_1ST_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
-        ld      a, CENTIPEDE_2ND_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_2_2ND_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
-        ld      a, CENTIPEDE_3RD_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_2_3RD_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
         call    .loadCentipedeSprite
@@ -105,11 +105,11 @@ Enemy_TypeB_Logic:
         jp      .continue
 
 .enemyTypeCentipedeRight:
-        ld      a, CENTIPEDE_1ST_SPRITE_RIGHT
+        ld      a, ENEMY_TYPE_B_2_1ST_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
-        ld      a, CENTIPEDE_2ND_SPRITE_RIGHT
+        ld      a, ENEMY_TYPE_B_2_2ND_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
-        ld      a, CENTIPEDE_3RD_SPRITE_RIGHT
+        ld      a, ENEMY_TYPE_B_2_3RD_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
         call    .loadCentipedeSprite
@@ -118,11 +118,11 @@ Enemy_TypeB_Logic:
 
 .enemyTypeDinoLeft:
     ; TODO: using the same sprite numbers of other enemy!
-        ld      a, ARMADILLO_1ST_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_1_1ST_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
-        ld      a, ARMADILLO_2ND_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_1_2ND_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
-        ld      a, ARMADILLO_3RD_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_1_3RD_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
         call    .loadDinoSprite
@@ -130,11 +130,11 @@ Enemy_TypeB_Logic:
         jp      .continue
 
 .enemyTypeDinoRight:
-        ld      a, ARMADILLO_1ST_SPRITE_RIGHT
+        ld      a, ENEMY_TYPE_B_1_1ST_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
-        ld      a, ARMADILLO_2ND_SPRITE_RIGHT
+        ld      a, ENEMY_TYPE_B_1_2ND_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
-        ld      a, ARMADILLO_3RD_SPRITE_RIGHT
+        ld      a, ENEMY_TYPE_B_1_3RD_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
         call    .loadDinoSprite
@@ -143,11 +143,11 @@ Enemy_TypeB_Logic:
 
 .enemyTypeElephantLeft:
     ; TODO: using the same sprite numbers of other enemy!
-        ld      a, CENTIPEDE_1ST_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_2_1ST_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
-        ld      a, CENTIPEDE_2ND_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_2_2ND_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
-        ld      a, CENTIPEDE_3RD_SPRITE_LEFT
+        ld      a, ENEMY_TYPE_B_2_3RD_SPRITE_LEFT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
         call    .loadElephantSprite
@@ -155,11 +155,11 @@ Enemy_TypeB_Logic:
         jp      .continue
 
 .enemyTypeElephantRight:
-        ld      a, CENTIPEDE_1ST_SPRITE_RIGHT
+        ld      a, ENEMY_TYPE_B_2_1ST_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_1st_Sprite_Pattern), a
-        ld      a, CENTIPEDE_2ND_SPRITE_RIGHT
+        ld      a, ENEMY_TYPE_B_2_2ND_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
-        ld      a, CENTIPEDE_3RD_SPRITE_RIGHT
+        ld      a, ENEMY_TYPE_B_2_3RD_SPRITE_RIGHT
         ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
         call    .loadElephantSprite
