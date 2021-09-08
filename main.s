@@ -303,6 +303,8 @@ MusicAKY_Start.size:      equ $ - MusicAKY_Start
 
 
 ; -------------------------------------------- Mega ROM page for some sprites ----------------
+
+; TODO: change this name, as it now has enemies and scenery
 SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE:     equ 9
 ; ------- Page 9 --------------------------------------
 	org	8000h, 0BFFFh

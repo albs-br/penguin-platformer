@@ -51,6 +51,7 @@ InitVariables:
     ld      a, 255
     ld      (EnemyTypeB_1_CurrentSpriteLoaded), a
     ld      (EnemyTypeB_2_CurrentSpriteLoaded), a
+    ld      (Scenery_1_CurrentSpriteLoaded), a
 
 ; ----------------------------------------------------------------------------
 ; ------------ Background ------------
@@ -92,7 +93,7 @@ InitVariables:
 
 
     ; Sprites for enemies
-    call    InitEnemiesVariables
+    call    InitObjectsVariables
 
     ; test [debug]
     ; ld	    a, 192-32-1
@@ -105,7 +106,7 @@ InitVariables:
     ret
 
 
-InitEnemiesVariables:
+InitObjectsVariables:
     
     ; Enemies type A
     ld      hl, 0
@@ -174,5 +175,14 @@ InitEnemiesVariables:
     ld      (Enemy_TypeB_4_2nd_Sprite_Y), a
     ld      (Enemy_TypeB_4_3rd_Sprite_Y), a
     ; add enemies here
+
+    ; scenery
+    xor     a
+    ld      (Scenery_1_X), a
+    ld      (Scenery_1_Y), a
+    ld      (Scenery_1_1st_Sprite_Pattern), a
+    ld      (Scenery_1_1st_Sprite_Color), a
+
+
 
     ret

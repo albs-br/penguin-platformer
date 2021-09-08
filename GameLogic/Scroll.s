@@ -16,8 +16,8 @@ DrawBackground_3_Thirds:
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF    
 
-    ; reset some variables
-    call    InitEnemiesVariables
+    ; reset some variables of objects (enemies and scenery)
+    call    InitObjectsVariables
 
     call    UpdateBgObjects
 

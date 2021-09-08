@@ -93,6 +93,9 @@ ENEMY_TYPE_B_2_3RD_SPRITE_RIGHT:             equ 62 * 4
 
 ENEMY_TYPE_B_2_SPRITE_ADDR_VRAM:        equ SpritePatternTable + (ENEMY_TYPE_B_2_1ST_SPRITE_LEFT * 8)
 
+SCENERY_SPRITE:                              equ 63 * 4
+
+SCENERY_SPRITE_ADDR_VRAM:               equ SpritePatternTable + (SCENERY_SPRITE * 8)
 
 ; Keyboard constants to current key(s) pressed
 ; KEY_LEFT:                               equ 1000 0000 b

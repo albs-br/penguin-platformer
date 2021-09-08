@@ -370,6 +370,27 @@ UpdateSpriteAttrTableBuffer:
 
     ; add enemies here
 
+; ---------------------------------------
+; Scenery
+
+    ; Sprite # 20
+    inc     hl
+    ld      a, (Scenery_1_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Scenery_1_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Scenery_1_1st_Sprite_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Scenery_1_1st_Sprite_Color)
+    ld      (hl), a
+
+
 
 
 ; ---------------------------------------

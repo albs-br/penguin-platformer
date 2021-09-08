@@ -86,15 +86,17 @@ ENEMY_TYPE_B_STRUCT_SIZE:                      equ $ - UpdateBgObjects_Enemy_Typ
 
 ; Local properties for subroutine (scenery)
 UpdateBgObjects_Scenery_n_BaseAddress:
-UpdateBgObjects_Scenery_n_X_InPixels:                 rb 1
-;UpdateBgObjects_Scenery_n_Y:                      rb 1
+UpdateBgObjects_Scenery_n_X:                          rb 1
+UpdateBgObjects_Scenery_n_Y:                          rb 1
 UpdateBgObjects_Scenery_n_1st_Sprite_Pattern:         rb 1
 UpdateBgObjects_Scenery_n_1st_Sprite_Color:           rb 1
 SCENERY_STRUCT_SIZE:                      equ $ - UpdateBgObjects_Scenery_n_BaseAddress
 
-; Type of enemeis that are currently on the VRAM Sprite Pattern Table (only two enemies allowed at same time)
+; Type of enemies that are currently on the VRAM Sprite Pattern Table (only two enemies allowed at same time)
 EnemyTypeB_1_CurrentSpriteLoaded:                     rb 1
 EnemyTypeB_2_CurrentSpriteLoaded:                     rb 1
+
+Scenery_1_CurrentSpriteLoaded:                          rb 1
 
 
 
@@ -204,8 +206,18 @@ Enemy_TypeB_4_3rd_Sprite_Y:             rb 1
 
     ; add enemies here
 
+; --------------------------------
+
+; Local properties for subroutine (scenery)
+Scenery_1_BaseAddress:
+Scenery_1_X:                          rb 1
+Scenery_1_Y:                          rb 1
+Scenery_1_1st_Sprite_Pattern:         rb 1
+Scenery_1_1st_Sprite_Color:           rb 1
 
 ; ---------------------
+
+; Some debug variables
 FramesSkipped:                          rb 1
 CurrentJiffy:                           rb 1
 
