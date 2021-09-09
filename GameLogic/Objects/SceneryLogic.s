@@ -7,7 +7,6 @@ Scenery_Logic:
     ld      hl, Scenery_1_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
 
-.copySceneryPropertiesToTempVars:
 
 
     ; Copy scenery properties to temp variables
@@ -32,7 +31,6 @@ Scenery_Logic:
 
 
 
-.showScenerySprites:
 	exx
         ; Switch scenery type
         ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
@@ -41,8 +39,8 @@ Scenery_Logic:
         cp      SCENERY_TYPE_BUSH
         jp      z, .sceneryBush
 
-        ; cp      SCENERY_OTHER
-        ; jp      z, .scenery????
+        cp      SCENERY_TYPE_FENCE
+        jp      z, .sceneryFence
 
 .sceneryBush:
         ld      a, SCENERY_SPRITE
@@ -53,6 +51,18 @@ Scenery_Logic:
         ; ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
 
         call    .loadSceneryBushSprite
+
+        jp      .continue
+
+.sceneryFence:
+        ld      a, SCENERY_SPRITE
+        ld      (UpdateBgObjects_Scenery_n_1st_Sprite_Pattern), a
+        ; ld      a, ENEMY_TYPE_B_1_2ND_SPRITE_LEFT ; TODO
+        ; ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Pattern), a
+        ; ld      a, ENEMY_TYPE_B_1_3RD_SPRITE_LEFT
+        ; ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Pattern), a
+
+        call    .loadSceneryFenceSprite
 
         jp      .continue
 
@@ -173,7 +183,7 @@ Scenery_Logic:
 
 
 .loadSceneryBushSprite:
-    ; Load colors (are the same for both left and right sprites)
+    ; Load colors
     ld      a, COLOR_LIGHT_GREEN
     ld      (UpdateBgObjects_Scenery_n_1st_Sprite_Color), a
     ; ld      a, COLOR_LIGHT_RED ; TODO
@@ -192,12 +202,42 @@ Scenery_Logic:
 
     ; If not, then load ARMADILLO sprite pattern at enemy type B FIRST position
     ld      hl, Bush_SpritePatterns                                                 ; Source on RAM
-    ld      de, SCENERY_SPRITE_ADDR_VRAM                                                      ; Destiny on VRAM
+    ld      de, SCENERY_SPRITE_ADDR_VRAM                                            ; Destiny on VRAM
     ld      bc, 32 * 1                                                              ; Size
     call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
 
     ; Save flag indicating sprite loaded
     ld      a, SCENERY_TYPE_BUSH
+    ld      (Scenery_1_CurrentSpriteLoaded), a
+
+    ret
+
+.loadSceneryFenceSprite:
+    ; Load colors
+    ld      a, COLOR_DARK_RED
+    ld      (UpdateBgObjects_Scenery_n_1st_Sprite_Color), a
+    ; ld      a, COLOR_LIGHT_RED ; TODO
+    ; ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
+    ; ld      a, COLOR_YELLOW; TODO
+    ; ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
+
+    ; Check if sprite patterns are already loaded
+    ld      a, (Scenery_1_CurrentSpriteLoaded)
+    cp      SCENERY_TYPE_FENCE
+    ret     z
+
+    ; Switch to MegaROM page where the sprites are located
+    ld      a, SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ; If not, then load ARMADILLO sprite pattern at enemy type B FIRST position
+    ld      hl, Fence_SpritePatterns                                                ; Source on RAM
+    ld      de, SCENERY_SPRITE_ADDR_VRAM                                            ; Destiny on VRAM
+    ld      bc, 32 * 1                                                              ; Size
+    call 	fast_LDIRVM        							                            ; Block transfer to VRAM from memory
+
+    ; Save flag indicating sprite loaded
+    ld      a, SCENERY_TYPE_FENCE
     ld      (Scenery_1_CurrentSpriteLoaded), a
 
     ret

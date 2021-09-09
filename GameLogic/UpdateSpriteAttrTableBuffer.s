@@ -1,26 +1,48 @@
 UpdateSpriteAttrTableBuffer:
     ld      hl, SpriteAttrTableBuffer
 
+    ; ; Sprite # 0
+    ; ; IFDEF DEBUG
+    ; ;     ld      a, (Test_Sprite_Y)
+    ; ;     ld      (hl), a
+
+    ; ;     inc     hl
+    ; ;     ld      a, (Test_Sprite_X)
+    ; ;     ld      (hl), a
+
+    ; ;     inc     hl
+    ; ;     inc     hl
+    ; ;     ld      a, (Test_Sprite_Color)
+    ; ;     ld      (hl), a
+    ; ; ELSE
+    ;     ld      a, 192          ; put sprite out of screen
+    ;     ld      (hl), a
+    ;     inc     hl
+    ;     inc     hl
+    ;     inc     hl
+    ; ; ENDIF    
+
+; ---------------------------------------
+; Scenery
+
     ; Sprite # 0
-    ; IFDEF DEBUG
-    ;     ld      a, (Test_Sprite_Y)
-    ;     ld      (hl), a
+    ld      a, (Scenery_1_Y)
+    ld      (hl), a
 
-    ;     inc     hl
-    ;     ld      a, (Test_Sprite_X)
-    ;     ld      (hl), a
+    inc     hl
+    ld      a, (Scenery_1_X)
+    ld      (hl), a
 
-    ;     inc     hl
-    ;     inc     hl
-    ;     ld      a, (Test_Sprite_Color)
-    ;     ld      (hl), a
-    ; ELSE
-        ld      a, 192          ; put sprite out of screen
-        ld      (hl), a
-        inc     hl
-        inc     hl
-        inc     hl
-    ; ENDIF    
+    inc     hl
+    ld      a, (Scenery_1_1st_Sprite_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Scenery_1_1st_Sprite_Color)
+    ld      (hl), a
+
+; ---------------------------------------
+; Player
 
     ; Sprite # 1
     inc     hl
@@ -369,28 +391,6 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     ; add enemies here
-
-; ---------------------------------------
-; Scenery
-
-    ; Sprite # 20
-    inc     hl
-    ld      a, (Scenery_1_Y)
-    ld      (hl), a
-
-    inc     hl
-    ld      a, (Scenery_1_X)
-    ld      (hl), a
-
-    inc     hl
-    ld      a, (Scenery_1_1st_Sprite_Pattern)
-    ld      (hl), a
-
-    inc     hl
-    ld      a, (Scenery_1_1st_Sprite_Color)
-    ld      (hl), a
-
-
 
 
 ; ---------------------------------------
