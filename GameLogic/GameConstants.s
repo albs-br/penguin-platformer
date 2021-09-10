@@ -14,7 +14,7 @@ PENGUIN_HEIGHT:                         equ 16
 
 
 ; Sprite pattern numbers for penguin animation frames:
-TEST_SPRITE:                            equ 0 * 4   ; TODO: remove in prod version
+; TEST_SPRITE:                            equ 0 * 4   ; TODO: remove in prod version
 PENGUIN_RIGHT_STANDING:                 equ 1 * 4
 PENGUIN_RIGHT_WALKING_1:                equ 3 * 4
 PENGUIN_RIGHT_WALKING_2:                equ 5 * 4

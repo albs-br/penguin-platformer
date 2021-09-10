@@ -220,7 +220,6 @@ PLY_AKG_PSGREG10: equ 0E621h ; last def. pass 3
 copy_to_VDP_lsb_0: equ 0422Dh ; last def. pass 3
 PLY_AKG_TEMPPLAYINSTRUMENTJUMPINSTRANDADDRESS: equ 0E629h ; last def. pass 3
 BIOS_EXTROM: equ 015Fh ; last def. pass 3
-TEST_SPRITE: equ 00h ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_437: equ 09614h ; last def. pass 3
 Enemy_TypeB_Logic.enemyTypeElephantLeft: equ 04AA1h ; last def. pass 3
 BIOS_BREAKX: equ 0B7h ; last def. pass 3

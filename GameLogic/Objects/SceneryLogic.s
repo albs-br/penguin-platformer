@@ -184,7 +184,7 @@ Scenery_Logic:
 
 .loadSceneryBushSprite:
     ; Load colors
-    ld      a, COLOR_LIGHT_GREEN
+    ld      a, COLOR_DARK_GREEN
     ld      (UpdateBgObjects_Scenery_n_1st_Sprite_Color), a
     ; ld      a, COLOR_LIGHT_RED ; TODO
     ; ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a

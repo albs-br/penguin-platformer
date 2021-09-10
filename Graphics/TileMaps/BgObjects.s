@@ -80,9 +80,9 @@ BgObjectsInitialState_Start:
 
     ; db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (10 * 2 * 8) + 9,  (10 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
-    ; db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ELEPHANT_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
+    db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ELEPHANT_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      12,     SCENERY,                9 * 2 * 8,      1,  0,  SCENERY_TYPE_FENCE,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-    db      12,     SCENERY,               10 * 2 * 8,      1,  0,  SCENERY_TYPE_FENCE,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+    db       9,     SCENERY,                9 * 2 * 8,      1,  0,  SCENERY_TYPE_FENCE,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db      11,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     
@@ -152,6 +152,9 @@ BgObjectsInitialState_Start:
 
     db      36,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db      42,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+
+    ;db      42,     SCENERY,                6 * 2 * 8,      1,  0,  SCENERY_TYPE_BUSH,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+
     ;db      44,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      44,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0
     ; db      44,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0
