@@ -146,20 +146,20 @@ InitObjectsVariables:
     ld      (Enemy_TypeB_2_1st_Sprite_Color), a
     ld      (Enemy_TypeB_2_2nd_Sprite_Color), a
     ld      (Enemy_TypeB_2_3rd_Sprite_Color), a
-    ld      (Enemy_TypeB_3_X), a
-    ld      (Enemy_TypeB_3_1st_Sprite_Pattern), a
-    ld      (Enemy_TypeB_3_2nd_Sprite_Pattern), a
-    ld      (Enemy_TypeB_3_3rd_Sprite_Pattern), a
-    ld      (Enemy_TypeB_3_1st_Sprite_Color), a
-    ld      (Enemy_TypeB_3_2nd_Sprite_Color), a
-    ld      (Enemy_TypeB_3_3rd_Sprite_Color), a
-    ld      (Enemy_TypeB_4_X), a
-    ld      (Enemy_TypeB_4_1st_Sprite_Pattern), a
-    ld      (Enemy_TypeB_4_2nd_Sprite_Pattern), a
-    ld      (Enemy_TypeB_4_3rd_Sprite_Pattern), a
-    ld      (Enemy_TypeB_4_1st_Sprite_Color), a
-    ld      (Enemy_TypeB_4_2nd_Sprite_Color), a
-    ld      (Enemy_TypeB_4_3rd_Sprite_Color), a
+    ; ld      (Enemy_TypeB_3_X), a
+    ; ld      (Enemy_TypeB_3_1st_Sprite_Pattern), a
+    ; ld      (Enemy_TypeB_3_2nd_Sprite_Pattern), a
+    ; ld      (Enemy_TypeB_3_3rd_Sprite_Pattern), a
+    ; ld      (Enemy_TypeB_3_1st_Sprite_Color), a
+    ; ld      (Enemy_TypeB_3_2nd_Sprite_Color), a
+    ; ld      (Enemy_TypeB_3_3rd_Sprite_Color), a
+    ; ld      (Enemy_TypeB_4_X), a
+    ; ld      (Enemy_TypeB_4_1st_Sprite_Pattern), a
+    ; ld      (Enemy_TypeB_4_2nd_Sprite_Pattern), a
+    ; ld      (Enemy_TypeB_4_3rd_Sprite_Pattern), a
+    ; ld      (Enemy_TypeB_4_1st_Sprite_Color), a
+    ; ld      (Enemy_TypeB_4_2nd_Sprite_Color), a
+    ; ld      (Enemy_TypeB_4_3rd_Sprite_Color), a
     ; add enemies here
     ld      a, 192
     ld      (Enemy_TypeB_1_Y), a
@@ -168,21 +168,26 @@ InitObjectsVariables:
     ld      (Enemy_TypeB_2_Y), a
     ld      (Enemy_TypeB_2_2nd_Sprite_Y), a
     ld      (Enemy_TypeB_2_3rd_Sprite_Y), a
-    ld      (Enemy_TypeB_3_Y), a
-    ld      (Enemy_TypeB_3_2nd_Sprite_Y), a
-    ld      (Enemy_TypeB_3_3rd_Sprite_Y), a
-    ld      (Enemy_TypeB_4_Y), a
-    ld      (Enemy_TypeB_4_2nd_Sprite_Y), a
-    ld      (Enemy_TypeB_4_3rd_Sprite_Y), a
+    ; ld      (Enemy_TypeB_3_Y), a
+    ; ld      (Enemy_TypeB_3_2nd_Sprite_Y), a
+    ; ld      (Enemy_TypeB_3_3rd_Sprite_Y), a
+    ; ld      (Enemy_TypeB_4_Y), a
+    ; ld      (Enemy_TypeB_4_2nd_Sprite_Y), a
+    ; ld      (Enemy_TypeB_4_3rd_Sprite_Y), a
     ; add enemies here
 
-    ; scenery
+    ; sceneries
     xor     a
+    ld      (Scenery_Counter), a
     ld      (Scenery_1_X), a
-    ld      (Scenery_1_Y), a
     ld      (Scenery_1_1st_Sprite_Pattern), a
     ld      (Scenery_1_1st_Sprite_Color), a
-
+    ld      (Scenery_2_X), a
+    ld      (Scenery_2_1st_Sprite_Pattern), a
+    ld      (Scenery_2_1st_Sprite_Color), a
+    ld      a, 192
+    ld      (Scenery_1_Y), a
+    ld      (Scenery_2_Y), a
 
 
     ret

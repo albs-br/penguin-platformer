@@ -585,13 +585,13 @@ Enemy_TypeB_Logic:
     dec     a               ; if (Enemies_TypeB_Counter == 1) jp .enemy_2
     jp      z, .enemy_2
     
-    dec     a               ; if (Enemies_TypeB_Counter == 2) jp .enemy_3
-    jp      z, .enemy_3
+    ; dec     a               ; if (Enemies_TypeB_Counter == 2) jp .enemy_3
+    ; jp      z, .enemy_3
                             ; else jp .enemy_4
-.enemy_4:
-    ld      hl, Enemy_TypeB_4_BaseAddress                         ; source
-    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
-    ret
+; .enemy_4:
+;     ld      hl, Enemy_TypeB_4_BaseAddress                         ; source
+;     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
+;     ret
 .enemy_1:
     ld      hl, Enemy_TypeB_1_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
@@ -600,10 +600,10 @@ Enemy_TypeB_Logic:
     ld      hl, Enemy_TypeB_2_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
     ret
-.enemy_3:
-    ld      hl, Enemy_TypeB_3_BaseAddress                         ; source
-    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
-    ret
+; .enemy_3:
+;     ld      hl, Enemy_TypeB_3_BaseAddress                         ; source
+;     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
+;     ret
     ; add enemies here
 
 

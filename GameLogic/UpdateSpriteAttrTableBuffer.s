@@ -23,7 +23,7 @@ UpdateSpriteAttrTableBuffer:
     ; ; ENDIF    
 
 ; ---------------------------------------
-; Scenery
+; Sceneries
 
     ; Sprite # 0
     ld      a, (Scenery_1_Y)
@@ -41,10 +41,28 @@ UpdateSpriteAttrTableBuffer:
     ld      a, (Scenery_1_1st_Sprite_Color)
     ld      (hl), a
 
+
+    ; Sprite # 1
+    inc     hl
+    ld      a, (Scenery_2_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Scenery_2_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Scenery_2_1st_Sprite_Pattern)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Scenery_2_1st_Sprite_Color)
+    ld      (hl), a
+
 ; ---------------------------------------
 ; Player
 
-    ; Sprite # 1
+    ; Sprite # 2
     inc     hl
     ld      a, (Player_Y)
     ld      (hl), a
@@ -61,7 +79,7 @@ UpdateSpriteAttrTableBuffer:
     ld      a, COLOR_DARK_BLUE
     ld      (hl), a
 
-    ; Sprite # 2
+    ; Sprite # 3
     inc     hl
     ld      a, (Player_Y)
     ld      (hl), a
@@ -81,7 +99,7 @@ UpdateSpriteAttrTableBuffer:
 
 ; ---------------------------------------------
 
-    ; Sprite # 3
+    ; Sprite # 4
     inc     hl
     ld      a, (Sparkles_Y)
     ld      (hl), a
@@ -98,7 +116,7 @@ UpdateSpriteAttrTableBuffer:
     ld      a, COLOR_WHITE
     ld      (hl), a
 
-    ; Sprite # 4
+    ; Sprite # 5
     inc     hl
     ld      a, (HitFlash_Y)
     ld      (hl), a
@@ -120,7 +138,7 @@ UpdateSpriteAttrTableBuffer:
 ; ----------------------------------------
 ; Enemies Type A
 
-    ; Sprite # 5
+    ; Sprite # 6
     inc     hl
     ld      a, (Enemy_TypeA_1_Y)
     ld      (hl), a
@@ -137,7 +155,7 @@ UpdateSpriteAttrTableBuffer:
     ld      a, (Enemy_TypeA_1_Color)
     ld      (hl), a
 
-    ; Sprite # 6
+    ; Sprite # 7
     inc     hl
     ld      a, (Enemy_TypeA_2_Y)
     ld      (hl), a
@@ -154,7 +172,7 @@ UpdateSpriteAttrTableBuffer:
     ld      a, (Enemy_TypeA_2_Color)
     ld      (hl), a
 
-    ; Sprite # 7
+    ; Sprite # 8
     inc     hl
     ld      a, (Enemy_TypeA_3_Y)
     ld      (hl), a
@@ -176,7 +194,7 @@ UpdateSpriteAttrTableBuffer:
 
     ; Enemy type B #1
 
-    ; Sprite # 8
+    ; Sprite # 9
     inc     hl
     ld      a, (Enemy_TypeB_1_Y)
     ld      (hl), a
@@ -193,7 +211,7 @@ UpdateSpriteAttrTableBuffer:
     ld      a, (Enemy_TypeB_1_1st_Sprite_Color)
     ld      (hl), a
 
-    ; Sprite # 9
+    ; Sprite # 10
     inc     hl
     ld      a, (Enemy_TypeB_1_2nd_Sprite_Y)
     ld      (hl), a
@@ -210,7 +228,7 @@ UpdateSpriteAttrTableBuffer:
     ld      a, (Enemy_TypeB_1_2nd_Sprite_Color)
     ld      (hl), a
 
-    ; Sprite # 10
+    ; Sprite # 11
     inc     hl
     ld      a, (Enemy_TypeB_1_3rd_Sprite_Y)
     ld      (hl), a
@@ -230,7 +248,7 @@ UpdateSpriteAttrTableBuffer:
 
     ; Enemy type B #2
 
-    ; Sprite # 11
+    ; Sprite # 12
     inc     hl
     ld      a, (Enemy_TypeB_2_Y)
     ld      (hl), a
@@ -247,7 +265,7 @@ UpdateSpriteAttrTableBuffer:
     ld      a, (Enemy_TypeB_2_1st_Sprite_Color)
     ld      (hl), a
 
-    ; Sprite # 12
+    ; Sprite # 13
     inc     hl
     ld      a, (Enemy_TypeB_2_2nd_Sprite_Y)
     ld      (hl), a
@@ -264,7 +282,7 @@ UpdateSpriteAttrTableBuffer:
     ld      a, (Enemy_TypeB_2_2nd_Sprite_Color)
     ld      (hl), a
 
-    ; Sprite # 13
+    ; Sprite # 14
     inc     hl
     ld      a, (Enemy_TypeB_2_3rd_Sprite_Y)
     ld      (hl), a
@@ -282,113 +300,113 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
 
-    ; Enemy type B #3
+    ; ; Enemy type B #3
 
-    ; Sprite # 14
-    inc     hl
-    ld      a, (Enemy_TypeB_3_Y)
-    ld      (hl), a
+    ; ; Sprite # 15
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_3_Y)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_3_X)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_3_X)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_3_1st_Sprite_Pattern)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_3_1st_Sprite_Pattern)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_3_1st_Sprite_Color)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_3_1st_Sprite_Color)
+    ; ld      (hl), a
 
-    ; Sprite # 15
-    inc     hl
-    ld      a, (Enemy_TypeB_3_2nd_Sprite_Y)
-    ld      (hl), a
+    ; ; Sprite # 16
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_3_2nd_Sprite_Y)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_3_X)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_3_X)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_3_2nd_Sprite_Pattern)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_3_2nd_Sprite_Pattern)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_3_2nd_Sprite_Color)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_3_2nd_Sprite_Color)
+    ; ld      (hl), a
 
-    ; Sprite # 16
-    inc     hl
-    ld      a, (Enemy_TypeB_3_3rd_Sprite_Y)
-    ld      (hl), a
+    ; ; Sprite # 17
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_3_3rd_Sprite_Y)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_3_X)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_3_X)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_3_3rd_Sprite_Pattern)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_3_3rd_Sprite_Pattern)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_3_3rd_Sprite_Color)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_3_3rd_Sprite_Color)
+    ; ld      (hl), a
 
 
 
-    ; Enemy type B #4
+    ; ; Enemy type B #4
 
-    ; Sprite # 17
-    inc     hl
-    ld      a, (Enemy_TypeB_4_Y)
-    ld      (hl), a
+    ; ; Sprite # 18
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_4_Y)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_4_X)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_4_X)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_4_1st_Sprite_Pattern)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_4_1st_Sprite_Pattern)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_4_1st_Sprite_Color)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_4_1st_Sprite_Color)
+    ; ld      (hl), a
 
-    ; Sprite # 18
-    inc     hl
-    ld      a, (Enemy_TypeB_4_2nd_Sprite_Y)
-    ld      (hl), a
+    ; ; Sprite # 19
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_4_2nd_Sprite_Y)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_4_X)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_4_X)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_4_2nd_Sprite_Pattern)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_4_2nd_Sprite_Pattern)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_4_2nd_Sprite_Color)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_4_2nd_Sprite_Color)
+    ; ld      (hl), a
 
-    ; Sprite # 19
-    inc     hl
-    ld      a, (Enemy_TypeB_4_3rd_Sprite_Y)
-    ld      (hl), a
+    ; ; Sprite # 20
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_4_3rd_Sprite_Y)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_4_X)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_4_X)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_4_3rd_Sprite_Pattern)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_4_3rd_Sprite_Pattern)
+    ; ld      (hl), a
 
-    inc     hl
-    ld      a, (Enemy_TypeB_4_3rd_Sprite_Color)
-    ld      (hl), a
+    ; inc     hl
+    ; ld      a, (Enemy_TypeB_4_3rd_Sprite_Color)
+    ; ld      (hl), a
 
     ; add enemies here
 

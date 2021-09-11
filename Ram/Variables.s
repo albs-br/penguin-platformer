@@ -179,42 +179,49 @@ Enemy_TypeB_2_3rd_Sprite_Color:         rb 1
 Enemy_TypeB_2_3rd_Sprite_Y:             rb 1
 
 
-Enemy_TypeB_3_BaseAddress:
-Enemy_TypeB_3_X:                        rb 1
-Enemy_TypeB_3_Y:                        rb 1
-Enemy_TypeB_3_1st_Sprite_Pattern:       rb 1
-Enemy_TypeB_3_1st_Sprite_Color:         rb 1
-Enemy_TypeB_3_2nd_Sprite_Pattern:       rb 1
-Enemy_TypeB_3_2nd_Sprite_Color:         rb 1
-Enemy_TypeB_3_2nd_Sprite_Y:             rb 1
-Enemy_TypeB_3_3rd_Sprite_Pattern:       rb 1
-Enemy_TypeB_3_3rd_Sprite_Color:         rb 1
-Enemy_TypeB_3_3rd_Sprite_Y:             rb 1
+; Enemy_TypeB_3_BaseAddress:
+; Enemy_TypeB_3_X:                        rb 1
+; Enemy_TypeB_3_Y:                        rb 1
+; Enemy_TypeB_3_1st_Sprite_Pattern:       rb 1
+; Enemy_TypeB_3_1st_Sprite_Color:         rb 1
+; Enemy_TypeB_3_2nd_Sprite_Pattern:       rb 1
+; Enemy_TypeB_3_2nd_Sprite_Color:         rb 1
+; Enemy_TypeB_3_2nd_Sprite_Y:             rb 1
+; Enemy_TypeB_3_3rd_Sprite_Pattern:       rb 1
+; Enemy_TypeB_3_3rd_Sprite_Color:         rb 1
+; Enemy_TypeB_3_3rd_Sprite_Y:             rb 1
 
 
-Enemy_TypeB_4_BaseAddress:
-Enemy_TypeB_4_X:                        rb 1
-Enemy_TypeB_4_Y:                        rb 1
-Enemy_TypeB_4_1st_Sprite_Pattern:       rb 1
-Enemy_TypeB_4_1st_Sprite_Color:         rb 1
-Enemy_TypeB_4_2nd_Sprite_Pattern:       rb 1
-Enemy_TypeB_4_2nd_Sprite_Color:         rb 1
-Enemy_TypeB_4_2nd_Sprite_Y:             rb 1
-Enemy_TypeB_4_3rd_Sprite_Pattern:       rb 1
-Enemy_TypeB_4_3rd_Sprite_Color:         rb 1
-Enemy_TypeB_4_3rd_Sprite_Y:             rb 1
+; Enemy_TypeB_4_BaseAddress:
+; Enemy_TypeB_4_X:                        rb 1
+; Enemy_TypeB_4_Y:                        rb 1
+; Enemy_TypeB_4_1st_Sprite_Pattern:       rb 1
+; Enemy_TypeB_4_1st_Sprite_Color:         rb 1
+; Enemy_TypeB_4_2nd_Sprite_Pattern:       rb 1
+; Enemy_TypeB_4_2nd_Sprite_Color:         rb 1
+; Enemy_TypeB_4_2nd_Sprite_Y:             rb 1
+; Enemy_TypeB_4_3rd_Sprite_Pattern:       rb 1
+; Enemy_TypeB_4_3rd_Sprite_Color:         rb 1
+; Enemy_TypeB_4_3rd_Sprite_Y:             rb 1
 
     ; add enemies here
 
 ; --------------------------------
 
 ; Local properties for subroutine (scenery)
+Scenery_Counter:                      rb 1
+
 Scenery_1_BaseAddress:
 Scenery_1_X:                          rb 1
 Scenery_1_Y:                          rb 1
 Scenery_1_1st_Sprite_Pattern:         rb 1
 Scenery_1_1st_Sprite_Color:           rb 1
 
+Scenery_2_BaseAddress:
+Scenery_2_X:                          rb 1
+Scenery_2_Y:                          rb 1
+Scenery_2_1st_Sprite_Pattern:         rb 1
+Scenery_2_1st_Sprite_Color:           rb 1
 ; ---------------------
 
 ; Some debug variables

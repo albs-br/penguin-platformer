@@ -1,11 +1,11 @@
 Scenery_Logic:
 
-    ; call    .enemiesCounterRoutine
+    call    .sceneryCounterRoutine
 
 ; TEST (this should be changed by a logic like "enemiesCounterRoutine"
 ; if more than one scenery per screen will be used)
-    ld      hl, Scenery_1_BaseAddress                         ; source
-    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
+    ;ld      hl, Scenery_1_BaseAddress                         ; source
+    ;ld      (UpdateBgObjects_Enemy_Return_Addr), hl
 
 
 
@@ -127,59 +127,30 @@ Scenery_Logic:
     ld      bc, SCENERY_STRUCT_SIZE                         ; size
     ldir                                                    ; Copy BC bytes from HL to DE
 
-    
-    ; ; Do not increment counter if enemy is dead
-    ; ld      hl, (UpdateBgObjects_CurrentAddr_State)
-    ; ld      a, (hl)
-    ; or      a
-    ; ret     z
-
-    ; ld      hl, Enemies_TypeB_Counter
-    ; inc     (hl)
+    ld      hl, Scenery_Counter
+    inc     (hl)
 
     ret
 
 
 ; -------------------------------------------------------------------------
 
-.enemiesCounterRoutine:
-    ld      a, (Enemies_TypeB_Counter)
+.sceneryCounterRoutine:
+    ld      a, (Scenery_Counter)
   
-    ; cp      3
-    ; jp      z, .enemy_4
-    
-    ; cp      2
-    ; jp      z, .enemy_3
-    
-    ; cp      1
-    ; jp      z, .enemy_2
-    
-    or      a               ; if (Enemies_TypeB_Counter == 0) jp .enemy_1
-    jp      z, .enemy_1
-    
-    dec     a               ; if (Enemies_TypeB_Counter == 1) jp .enemy_2
-    jp      z, .enemy_2
-    
-    dec     a               ; if (Enemies_TypeB_Counter == 2) jp .enemy_3
-    jp      z, .enemy_3
-                            ; else jp .enemy_4
-.enemy_4:
-    ld      hl, Enemy_TypeB_4_BaseAddress                         ; source
+    or      a               ; if (Scenery_Counter == 0) jp .scenery_1
+    jp      z, .scenery_1
+
+                            ; else jp .scenery_2
+.scenery_2:
+    ld      hl, Scenery_2_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
     ret
-.enemy_1:
-    ld      hl, Enemy_TypeB_1_BaseAddress                         ; source
+.scenery_1:
+    ld      hl, Scenery_1_BaseAddress                         ; source
     ld      (UpdateBgObjects_Enemy_Return_Addr), hl
     ret
-.enemy_2:
-    ld      hl, Enemy_TypeB_2_BaseAddress                         ; source
-    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
-    ret
-.enemy_3:
-    ld      hl, Enemy_TypeB_3_BaseAddress                         ; source
-    ld      (UpdateBgObjects_Enemy_Return_Addr), hl
-    ret
-    ; add enemies here
+    ; add sceneries here
 
 
 .loadSceneryBushSprite:
