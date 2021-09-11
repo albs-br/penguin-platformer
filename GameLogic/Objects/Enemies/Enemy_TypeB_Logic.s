@@ -244,10 +244,10 @@ Enemy_TypeB_Logic:
     or      a
     jp      nz, .continue_xoffset_1
 
-    ; Move enemy only at each 4 frames
-    ; ld      a, (BIOS_JIFFY)                         ; MSX BIOS time variable
-    ; and     0000 0011 b                             ; each 4 frames
-    ; jp      nz, .continue_xoffset_1
+    ; Move enemy only at each 2 frames
+    ld      a, (BIOS_JIFFY)                         ; MSX BIOS time variable
+    and     0000 0001 b                             ; each 2 frames
+    jp      nz, .continue_xoffset_1
 
     ; Check 7th bit of enemy type (it stores the direction)
     ld      hl, (UpdateBgObjects_CurrentAddr_EnemyType)
