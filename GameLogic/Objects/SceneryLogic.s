@@ -157,10 +157,6 @@ Scenery_Logic:
     ; Load colors
     ld      a, COLOR_DARK_GREEN
     ld      (UpdateBgObjects_Scenery_n_1st_Sprite_Color), a
-    ; ld      a, COLOR_LIGHT_RED ; TODO
-    ; ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
-    ; ld      a, COLOR_YELLOW; TODO
-    ; ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
 
     ; Check if sprite patterns are already loaded
     ld      a, (Scenery_1_CurrentSpriteLoaded)
@@ -171,7 +167,7 @@ Scenery_Logic:
     ld      a, SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE
     ld	    (Seg_P8000_SW), a
 
-    ; If not, then load ARMADILLO sprite pattern at enemy type B FIRST position
+    ; If not, then load sprite pattern at scenery first (second?) position
     ld      hl, Bush_SpritePatterns                                                 ; Source on RAM
     ld      de, SCENERY_SPRITE_ADDR_VRAM                                            ; Destiny on VRAM
     ld      bc, 32 * 1                                                              ; Size
@@ -187,10 +183,6 @@ Scenery_Logic:
     ; Load colors
     ld      a, COLOR_DARK_RED
     ld      (UpdateBgObjects_Scenery_n_1st_Sprite_Color), a
-    ; ld      a, COLOR_LIGHT_RED ; TODO
-    ; ld      (UpdateBgObjects_Enemy_TypeB_n_2nd_Sprite_Color), a
-    ; ld      a, COLOR_YELLOW; TODO
-    ; ld      (UpdateBgObjects_Enemy_TypeB_n_3rd_Sprite_Color), a
 
     ; Check if sprite patterns are already loaded
     ld      a, (Scenery_1_CurrentSpriteLoaded)
@@ -201,7 +193,7 @@ Scenery_Logic:
     ld      a, SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE
     ld	    (Seg_P8000_SW), a
 
-    ; If not, then load ARMADILLO sprite pattern at enemy type B FIRST position
+    ; If not, then load sprite pattern at scenery first (second?) position
     ld      hl, Fence_SpritePatterns                                                ; Source on RAM
     ld      de, SCENERY_SPRITE_ADDR_VRAM                                            ; Destiny on VRAM
     ld      bc, 32 * 1                                                              ; Size

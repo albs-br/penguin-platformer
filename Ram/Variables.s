@@ -97,6 +97,7 @@ EnemyTypeB_1_CurrentSpriteLoaded:                     rb 1
 EnemyTypeB_2_CurrentSpriteLoaded:                     rb 1
 
 Scenery_1_CurrentSpriteLoaded:                          rb 1
+; Scenery_2_CurrentSpriteLoaded:                          rb 1
 
 
 
