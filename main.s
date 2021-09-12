@@ -66,8 +66,6 @@ Execute:
 	im      1                   ; interrupt mode 1
     ld      sp, (BIOS_HIMEM)    ; init SP
 
-    ;call    EnableTurboMode ; test
-
     call    ClearRam
 
     call    InitVram
@@ -91,7 +89,8 @@ Execute:
 	ld	    (HTIMI + 1), hl
 	ei
  
-    ;call    EnableTurboMode ; test
+    ; TODO: it looks like the turbo is enabled on WSX, but it has no effect over the speed
+    call    EnableTurboMode             ; test
 
 InitGame:
     ;call    NewGame

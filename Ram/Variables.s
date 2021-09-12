@@ -225,10 +225,10 @@ Scenery_2_1st_Sprite_Pattern:         rb 1
 Scenery_2_1st_Sprite_Color:           rb 1
 ; ---------------------
 
-; Some debug variables
+; Some system/debug variables
 FramesSkipped:                          rb 1
 CurrentJiffy:                           rb 1
-
+TurboMode:                              rb 1
 
 ; [debug]
 ; D_Above:    rb 1

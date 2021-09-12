@@ -475,16 +475,23 @@ EnableTurboMode_old:
 
 ; TODO: NOT WORKING YET
 EnableTurboMode:
+    xor     a
+    ld      (TurboMode), a
+
     ; Activate Turbo mode in Panasonic MSX2+ WX/WSX/FX models:
     ; Code sent to me by Pitpan, taken from here: http://map.grauw.nl/resources/msx_io_ports.php
-    ld a,8
-    out (0x40),a     ;out the manufacturer code 8 (Panasonic) to I/O port 40h
-    in a,(0x40)      ;read the value you have just written
-    cpl             ;complement all bits of the value
-    cp 8            ;if it does not match the value you originally wrote,
-    ret nz ;jr nz,Not_WX    ;it is not a WX/WSX/FX.
-    xor a           ;write 0 to I/O port 41h
-    out (0x41),a     ;and the mode changes to high-speed clock    
+    ld      a, 8
+    out     (0x40), a           ;out the manufacturer code 8 (Panasonic) to I/O port 40h
+    in      a, (0x40)           ;read the value you have just written
+    cpl                         ;complement all bits of the value
+    cp      8                   ;if it does not match the value you originally wrote,
+    ret     nz ;jr nz,Not_WX    ;it is not a WX/WSX/FX.
+    xor     a                   ;write 0 to I/O port 41h
+    out     (0x41), a           ;and the mode changes to high-speed clock
+
+    ld      a, 1
+    ld      (TurboMode), a
+
     ret
 
 ; Disable turbo mode
