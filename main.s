@@ -89,6 +89,17 @@ Execute:
 	ld	    (HTIMI + 1), hl
 	ei
  
+    ; Get VDP Version (will be used to make unrolled OUTI's if possible)
+    call    VDP_GetVersion
+    ld      a, (VDP_Version)
+    jp      z, .vdpIs9918
+    xor     a
+    jp      .continue
+.vdpIs9918:
+    ld      a, 1
+.continue:
+    ld      (VDP_Is9918), a
+
     ; TODO: it looks like the turbo is enabled on WSX, but it has no effect over the speed
     call    EnableTurboMode             ; test
 

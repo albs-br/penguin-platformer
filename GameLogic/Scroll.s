@@ -329,10 +329,16 @@ DrawBackground_3_Thirds_New:
             ld	    c, a
 
             ; if MSX 2 or over use unrolled OUTIs
-            ld      a, (MSXID3) ; MSX version number ; 0 = MSX 1 ; 1 = MSX 2 ; 2 = MSX 2+ ; 3 = MSX turbo R
-            or      a
-            jp      z, .isMSX1
+            ; ld      a, (MSXID3) ; MSX version number ; 0 = MSX 1 ; 1 = MSX 2 ; 2 = MSX 2+ ; 3 = MSX turbo R
+            ; or      a
+            ; jp      z, .isMSX1
             
+            ; Check VDP is better than checking MSX version, because there are some MSX's 1 with 9938 VDP (e.g. Yamaha CX11)
+            ld      a, (VDP_Is9918) ; 1 = 9918 ; 0 = other VDPs
+            or      a
+            jp      nz, .isMSX1
+
+
             ; 32 Unrolled OUTIs (use only during v-blank OR if MSX version >= 2)
             OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
             jp      .continue_1

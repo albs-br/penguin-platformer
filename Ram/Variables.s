@@ -229,6 +229,8 @@ Scenery_2_1st_Sprite_Color:           rb 1
 FramesSkipped:                          rb 1
 CurrentJiffy:                           rb 1
 TurboMode:                              rb 1
+VDP_Version:                            rb 1    ; 0: TMS9918A, 1: V9938, 2: V9958, x: VDP ID
+VDP_Is9918:                             rb 1
 
 ; [debug]
 ; D_Above:    rb 1

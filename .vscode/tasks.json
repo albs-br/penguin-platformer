@@ -28,14 +28,14 @@
                         "quoting": "strong"
                     },
                     {
-                        // When changing this, it's necessary build the app twice, as in the first time the new setting won't apply
-                        // Obs.: if you save this file and wait a few seconds before build, it works fine
+                        // When changing this, it's necessary to first save this file before build, it will not work with
+                        // the "auto save all unsaved files before build" feature of VS Code (it executes this file before save)
                         
-                        //"value": "-machine Panasonic_FS-A1GT",          // MSX Turbo R
-                        //"value": "-machine Gradiente_Expert_GPC-1",     // MSX 1
+                        "value": "-machine Gradiente_Expert_GPC-1",     // MSX 1
                         //"value": "-machine Yamaha_CX11",                // MSX 1 with V9938
                         //"value": "-machine Sony_HB-F1XD",               // MSX 2
-                        "value": "-machine Panasonic_FS-A1WSX",         // MSX 2+ with turbo
+                        //"value": "-machine Panasonic_FS-A1WSX",         // MSX 2+ with turbo
+                        //"value": "-machine Panasonic_FS-A1GT",          // MSX Turbo R
                         
                         "quoting": "escape"
                     },

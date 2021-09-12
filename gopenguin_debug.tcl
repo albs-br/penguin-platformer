@@ -75,4 +75,6 @@
 ram_watch   add     0xD09a      -type byte      -desc FramesSkipped     -format dec
 ram_watch   add     0x002d      -type byte      -desc MSXID3            -format dec
 ram_watch   add     0xd09c      -type byte      -desc TurboMode         -format dec
+ram_watch   add     0xd09d      -type byte      -desc VDP_Version       -format dec
+ram_watch   add     0xd09e      -type byte      -desc VDP_Is9918        -format dec
 
