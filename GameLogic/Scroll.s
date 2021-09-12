@@ -328,10 +328,22 @@ DrawBackground_3_Thirds_New:
             ld	    a, (BIOS_VDP_DW)
             ld	    c, a
 
+            ; if MSX 2 or over use unrolled OUTIs
+            ld      a, (MSXID3) ; MSX version number ; 0 = MSX 1 ; 1 = MSX 2 ; 2 = MSX 2+ ; 3 = MSX turbo R
+            or      a
+            jp      z, .isMSX1
+            
+            ; 32 Unrolled OUTIs (use only during v-blank OR if MSX version >= 2)
+            OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI OUTI 
+            jp      .continue_1
+
+            .isMSX1:
                     ld      b, 32
                 .loopOUTI:
                     outi
                     jp	    nz, .loopOUTI
+            
+            .continue_1:
 
             ; Update bgIndex to next line
             ; BgIndex += 128 * 8

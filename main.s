@@ -22,6 +22,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
 ; Include common routines (~ 1 Kb)
 CommonIncludes_Start:
     INCLUDE "Include/MsxBios.s"
+    ;INCLUDE "Include/Symbols.s" ; commented out cos it has many names conflicting with other files
     INCLUDE "Include/MsxConstants.s"
     INCLUDE "Include/Vram.s"
     INCLUDE "Include/CommonRoutines.s"
