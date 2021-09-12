@@ -114,10 +114,11 @@ MainLoop:
 
     ; ----------------------------------------------------------------
 
-    ; [debug]
-    ; Check if previous frame ended
-    ld      a, (hl)
-    ld      (CurrentJiffy), a
+    IFDEF DEBUG
+        ; Save Jiffy to check if previous frame ended
+        ld      a, (hl)
+        ld      (CurrentJiffy), a
+    ENDIF    
 
     ; ----------------------------------------------------------------
 
@@ -208,11 +209,14 @@ MainLoop:
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF
 
-    ld      a, (BIOS_JIFFY)
-    ld      b, a
-    ld      a, (CurrentJiffy)
-    cp      b
-    call    nz, .frameSkip
+    IFDEF DEBUG
+        ; Checks if main loop takes more than one frame to run
+        ld      a, (BIOS_JIFFY)
+        ld      b, a
+        ld      a, (CurrentJiffy)
+        cp      b
+        call    nz, .frameSkip
+    ENDIF
 
 
 	jp	    MainLoop
