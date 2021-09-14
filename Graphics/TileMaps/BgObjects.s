@@ -82,8 +82,8 @@ BgObjectsInitialState_Start:
     ;db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
     db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ELEPHANT_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
     ;db       9,     SCENERY,                8 * 2 * 8,      1,  0,  SCENERY_TYPE_BUSH,          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-    db       8,     SCENERY,                9 * 2 * 8,      1,  0,  SCENERY_TYPE_FENCE,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-    db       9,     SCENERY,                9 * 2 * 8,      1,  0,  SCENERY_TYPE_FENCE,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+    db       8,     SCENERY,                9 * 2 * 8,      1,  0,  SCENERY_TYPE_BUSH,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+    db       9,     SCENERY,                9 * 2 * 8,      1,  0,  SCENERY_TYPE_BUSH,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db      11,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     
@@ -116,8 +116,8 @@ BgObjectsInitialState_Start:
     db      20,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 
     db      27,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-    db      29,     SCENERY,                8 * 2 * 8,      1,  0,  SCENERY_TYPE_BUSH,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-    db      30,     SCENERY,                8 * 2 * 8,      1,  0,  SCENERY_TYPE_BUSH,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+    db      29,     SCENERY,                8 * 2 * 8,      1,  0,  SCENERY_TYPE_FENCE,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+    db      30,     SCENERY,                8 * 2 * 8,      1,  0,  SCENERY_TYPE_FENCE,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 
     ;db      29,     ENEMY,                  8 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 
@@ -152,7 +152,7 @@ BgObjectsInitialState_Start:
     db      34,     ENEMY_TYPE_B,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_DINO_LEFT,      (10 * 2 * 8) + 14,  (10 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
 
 
-    db      36,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+    ;db      36,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db      42,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 
     ;db      42,     SCENERY,                6 * 2 * 8,      1,  0,  SCENERY_TYPE_BUSH,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
@@ -172,7 +172,8 @@ BgObjectsInitialState_Start:
     ; db      49,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ; db      50,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 
-    db      56,     ENEMY_TYPE_B,           6 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,      (6 * 2 * 8) + 15,  (6 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
+    db      56,     SCENERY,                6 * 2 * 8,      1,  0,  SCENERY_TYPE_BUSH,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+    ;db      56,     ENEMY_TYPE_B,           6 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,      (6 * 2 * 8) + 15,  (6 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
     db      58,     ENEMY_TYPE_B,           8 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (8 * 2 * 8) + 9,   (8 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
     db      60,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,     (10 * 2 * 8) + 15, (10 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
 

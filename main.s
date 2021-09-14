@@ -147,6 +147,7 @@ MainLoop:
 
 
 
+    ; ----------------------------------------------------------------
 
 
 
@@ -161,6 +162,7 @@ MainLoop:
 ; ----------------------------------------------------------------
 
 
+    ; this routines uses most of CPU (blue and light blue borders)
     call    DrawStaticBg
 
 

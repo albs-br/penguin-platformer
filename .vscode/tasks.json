@@ -21,7 +21,7 @@
             }
         },
         {
-            "command": "C:\\Program Files\\openMSX\\openmsx",
+            "command": "C:\\Program Files\\openMSX\\openmsx.exe",
                 "args": [
                     {
                         "value": "C:\\Users\\albs_\\source\\repos\\penguim-platformer\\go-penguin.rom",
