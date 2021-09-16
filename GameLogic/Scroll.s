@@ -92,10 +92,27 @@ ScrollRight:
     ret     nc                          ; hl >= de
 
 
+
+    ; Adjust FrameIndex when ScrollSpeed = 2 (running)
+    ; to fix bug (screen corrupted when running and changing direction left/right fast)
+    ; if(FrameIndex is odd) ScrollSpeed = 1
+    ld      a, (FrameIndex)
+    bit     0, a
+    jp      nz, .frameIndexIsOdd
+    jp      .frameIndexIsEven
+.frameIndexIsOdd:
+    ld      a, 1
+    ld      (ScrollSpeed), a
+.frameIndexIsEven:
+
+
+
     ; BC = ScrollSpeed; Normal: 1, Fast: 2
     ld      a, (ScrollSpeed)
     ld      b, 0
     ld      c, a
+
+
 
     ld      d, c
         ; Invert signal of C
