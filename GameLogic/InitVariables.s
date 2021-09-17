@@ -54,24 +54,7 @@ InitVariables:
     ld      (Scenery_1_CurrentSpriteLoaded), a
 
 ; ----------------------------------------------------------------------------
-; ------------ Background ------------
 
-    ; Load level Bg (static blocks)
-    ; ld      hl, TileMap_LevelTest_LastLine_Start
-    ld      hl, TileMap_LevelTest_Start
-    ld      (BgAddrIndex), hl
-    ld      (BgAddrIndexFirstFrame), hl
-
-
-
-    ; Load bg dynamic objects (like diamonds) initial state
-    ld      hl, BgObjectsInitialState_Start
-    ld      de, BgObjects_Start
-    ld      bc, BgObjectsInitialState_End - BgObjectsInitialState_Start
-    ldir                                    ; copies BC bytes from HL to DE
-
-
-; ----------------------------------------------------------------------------
 
 
     ; Animation for sparkles

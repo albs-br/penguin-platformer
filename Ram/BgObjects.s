@@ -11,5 +11,4 @@ NUMBER_OF_SCREENS_PER_LEVEL:            equ 16      ; Each level length is fixed
 
 ;BgObjects_Start:            rb (32 * 8) * 16
 BgObjects_Start:            rb (NUMBER_OF_BG_OBJS_PER_SCREEN * BG_OBJ_STRUCT_SIZE) * NUMBER_OF_SCREENS_PER_LEVEL   ; (number of items per screen * size of struct) * number of pages
-
-BgObjects_End:
+.end:

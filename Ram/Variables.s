@@ -26,6 +26,13 @@ Player_Jumping_Addr:        rw 1        ; Jumping/falling current address on the
 Player_Facing:              rb 1        ; 1: left, 2: right
 Player_DeathAnimation:      rb 1
 
+
+; Variables for background of the current level
+CurrentLevel_BgObjectsInitialState_Start:   rw  1
+CurrentLevel_BgObjectsInitialState_Size:    rw  1
+CurrentLevel_TileMap_LevelTest_Start:       rw  1
+
+
 CurrentMegaRomPage:         rb 1
 
 BgCurrentIndex:             rw 1        ; current position of screen in the background (0 - (TILE_MAP_WIDTH_IN_8X8_COLUMNS * 8)), that is (0-4095)

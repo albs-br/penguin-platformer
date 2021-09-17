@@ -42,6 +42,7 @@ GameIncludes_Start:
     INCLUDE "GameLogic/Scroll.s"
     INCLUDE "GameLogic/CheckBackGround.s"
     INCLUDE "GameLogic/InitVariables.s"
+    INCLUDE "GameLogic/LoadLevel.s"
     INCLUDE "GameLogic/GameConstants.s"
     INCLUDE "GameLogic/UpdateBgObjects.s"
     INCLUDE "GameLogic/UpdateAnimations.s"
@@ -107,6 +108,8 @@ InitGame:
     ;call    NewGame
 
     call    InitVariables
+
+    call    LoadLevel
 
     call    AkgPlayer_InitPlayer
     ;call    AkyPlayer_InitPlayer
