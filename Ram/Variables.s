@@ -30,7 +30,7 @@ Player_DeathAnimation:      rb 1
 ; Variables for background of the current level
 CurrentLevel_BgObjectsInitialState_Start:   rw  1
 CurrentLevel_BgObjectsInitialState_Size:    rw  1
-CurrentLevel_TileMap_LevelTest_Start:       rw  1
+CurrentLevel_TileMap_Start:                 rw  1
 
 
 CurrentMegaRomPage:         rb 1
