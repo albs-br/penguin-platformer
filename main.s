@@ -56,7 +56,8 @@ GameData_Start:
     INCLUDE "Graphics/Sprites/Sprites.s"
     INCLUDE "Graphics/Tiles/Patterns/Patterns.s"
     INCLUDE "Graphics/Tiles/Colors/Colors.s"
-    INCLUDE "Graphics/TileMaps/BgObjects.s"
+    INCLUDE "Graphics/TileMaps/TileMaps_Constants.s"
+    INCLUDE "Graphics/TileMaps/TestLevel_1/BgObjects.s"
     INCLUDE "Sound/Sound.s"
 GameData_Start.size:      equ $ - GameData_Start
 
@@ -263,37 +264,37 @@ End:
 	org	8000h, 0BFFFh
 
 TileMap_LevelTest_Start:
-    INCLUDE "Graphics/TileMaps/TileMap_Page_1.s"
+    INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_1.s"
 	ds PageSize - ($ - 8000h), 255
 
 ; ------- Page 2 --------------------------------------
 	org	8000h, 0BFFFh
 
-    INCLUDE "Graphics/TileMaps/TileMap_Page_2.s"
+    INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_2.s"
 	ds PageSize - ($ - 8000h), 255
 
 ; ------- Page 3 --------------------------------------
 	org	8000h, 0BFFFh
 
-    INCLUDE "Graphics/TileMaps/TileMap_Page_3.s"
+    INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_3.s"
 	ds PageSize - ($ - 8000h), 255
 
 ; ------- Page 4 --------------------------------------
 	org	8000h, 0BFFFh
 
-    INCLUDE "Graphics/TileMaps/TileMap_Page_4.s"
+    INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_4.s"
 	ds PageSize - ($ - 8000h), 255
 
 ; ------- Page 5 --------------------------------------
 	org	8000h, 0BFFFh
 
-    INCLUDE "Graphics/TileMaps/TileMap_Page_5.s"
+    INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_5.s"
 	ds PageSize - ($ - 8000h), 255
 
 ; ------- Page 6 --------------------------------------
 	org	8000h, 0BFFFh
 
-    INCLUDE "Graphics/TileMaps/TileMap_Page_6.s"
+    INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_6.s"
 	ds PageSize - ($ - 8000h), 255
 
 
