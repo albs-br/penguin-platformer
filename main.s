@@ -57,7 +57,11 @@ GameData_Start:
     INCLUDE "Graphics/Tiles/Patterns/Patterns.s"
     INCLUDE "Graphics/Tiles/Colors/Colors.s"
     INCLUDE "Graphics/TileMaps/TileMaps_Constants.s"
+    
+    ; TODO: put these on a MegaRom page
     INCLUDE "Graphics/TileMaps/TestLevel_1/BgObjects.s"
+    ;INCLUDE "Graphics/TileMaps/TestLevel_2/BgObjects.s"
+    
     INCLUDE "Sound/Sound.s"
 GameData_Start.size:      equ $ - GameData_Start
 
@@ -110,6 +114,7 @@ InitGame:
 
     call    InitVariables
 
+    ld      a, 1
     call    LoadLevel
 
     call    AkgPlayer_InitPlayer
@@ -260,10 +265,12 @@ End:
 
 ; ------------------------------ Mega ROM pages for level tilemap ------------------------------------------
 
+
+; ---------------------- Test Level 1 -------------------------------
 ; ------- Page 1 --------------------------------------
 	org	8000h, 0BFFFh
 
-TileMap_LevelTest_Start:
+;TileMap_TestLevel_1_Start:
     INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_1.s"
 	ds PageSize - ($ - 8000h), 255
 
@@ -299,10 +306,55 @@ TileMap_LevelTest_Start:
 
 
 
+
+
+; ---------------------- Test Level 2 -------------------------------
+; ------- Page 7 --------------------------------------
+	org	8000h, 0BFFFh
+
+;TileMap_TestLevel_2_Start:
+    INCLUDE "Graphics/TileMaps/TestLevel_2/TileMap_Page_1.s"
+	ds PageSize - ($ - 8000h), 255
+
+; ------- Page 8 --------------------------------------
+	org	8000h, 0BFFFh
+
+    INCLUDE "Graphics/TileMaps/TestLevel_2/TileMap_Page_2.s"
+	ds PageSize - ($ - 8000h), 255
+
+; ------- Page 9 --------------------------------------
+	org	8000h, 0BFFFh
+
+    INCLUDE "Graphics/TileMaps/TestLevel_2/TileMap_Page_3.s"
+	ds PageSize - ($ - 8000h), 255
+
+; ------- Page 10 --------------------------------------
+	org	8000h, 0BFFFh
+
+    INCLUDE "Graphics/TileMaps/TestLevel_2/TileMap_Page_4.s"
+	ds PageSize - ($ - 8000h), 255
+
+; ------- Page 11 --------------------------------------
+	org	8000h, 0BFFFh
+
+    INCLUDE "Graphics/TileMaps/TestLevel_2/TileMap_Page_5.s"
+	ds PageSize - ($ - 8000h), 255
+
+; ------- Page 12 --------------------------------------
+	org	8000h, 0BFFFh
+
+    INCLUDE "Graphics/TileMaps/TestLevel_2/TileMap_Page_6.s"
+	ds PageSize - ($ - 8000h), 255
+
+
+
+
+
+
 ; ------------------------------ Mega ROM pages for music ------------------------------------------
 
-AKG_MUSIC_MEGAROM_PAGE:     equ 7
-; ------- Page 7 --------------------------------------
+AKG_MUSIC_MEGAROM_PAGE:     equ 13
+; ------- Page 13 --------------------------------------
 	org	8000h, 0BFFFh
 
 MusicAKG_Start:
@@ -312,8 +364,8 @@ MusicAKG_Start.size:      equ $ - MusicAKG_Start
 	ds PageSize - ($ - 8000h), 255
 
 
-AKY_MUSIC_MEGAROM_PAGE:     equ 8
-; ------- Page 8 --------------------------------------
+AKY_MUSIC_MEGAROM_PAGE:     equ 14
+; ------- Page 14 --------------------------------------
 	org	8000h, 0BFFFh
 
 MusicAKY_Start:
@@ -323,11 +375,11 @@ MusicAKY_Start.size:      equ $ - MusicAKY_Start
 	ds PageSize - ($ - 8000h), 255
 
 
-; -------------------------------------------- Mega ROM page for some sprites ----------------
+; ----------------------------- Mega ROM page for some sprites ----------------
 
 ; TODO: change this name, as it now has enemies and scenery
-SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE:     equ 9
-; ------- Page 9 --------------------------------------
+SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE:     equ 15
+; ------- Page 15 --------------------------------------
 	org	8000h, 0BFFFh
 
 ; --------- Type B enemies

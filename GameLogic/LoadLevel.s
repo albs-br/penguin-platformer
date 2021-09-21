@@ -1,27 +1,40 @@
+; Input:
+;   A: level to be loaded
 LoadLevel:
 
 ; CurrentLevel_BgObjectsInitialState_Start:   rw  1
 ; CurrentLevel_BgObjectsInitialState_Size:    rw  1
-; CurrentLevel_TileMap_Start:                 rw  1
 
 
-    ; TODO: implement routine to load correct level (passed by A register)
-    ; Test - loading level info dinamically
-    ld      hl, BgObjectsInitialState_LevelTest_Start
+    cp      1
+    jp      z, .load_TestLevel_1
+    jp      .load_TestLevel_2
+
+.load_TestLevel_1:
+    ld      hl, BgObjectsInitialState_TestLevel_1_Start
     ld      (CurrentLevel_BgObjectsInitialState_Start), hl
-    ld      hl, BgObjectsInitialState_LevelTest_End - BgObjectsInitialState_LevelTest_Start
+    ld      hl, BgObjectsInitialState_TestLevel_1_End - BgObjectsInitialState_TestLevel_1_Start
     ld      (CurrentLevel_BgObjectsInitialState_Size), hl
-    ld      hl, TileMap_LevelTest_Start
-    ld      (CurrentLevel_TileMap_Start), hl
+    ld      a, 1
+    ld      (CurrentLevel_InitialMegaRomPage), a
+    jp      .continue
+
+.load_TestLevel_2:
+    ;TODO:
+    ld      hl, BgObjectsInitialState_TestLevel_1_Start 
+    ld      (CurrentLevel_BgObjectsInitialState_Start), hl
+    ld      hl, BgObjectsInitialState_TestLevel_1_End - BgObjectsInitialState_TestLevel_1_Start
+    ld      (CurrentLevel_BgObjectsInitialState_Size), hl
+    ld      a, 7
+    ld      (CurrentLevel_InitialMegaRomPage), a
+    jp      .continue
 
 
 
-
-
-
+.continue:
     ; Load level Bg (static blocks)
     ; ld      hl, TileMap_LevelTest_Start
-    ld      hl, (CurrentLevel_TileMap_Start)
+    ld      hl, 0x8000                          ; all levels are in the same address, only the MegaROM page is different
     ld      (BgAddrIndex), hl
     ld      (BgAddrIndexFirstFrame), hl
 

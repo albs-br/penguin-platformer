@@ -291,7 +291,8 @@ SCROLL_TILE_LINES_AFTER_VBLANK:         equ 24 - SCROLL_TILE_LINES_DURING_VBLANK
 
 DrawBackground_3_Thirds_New:
     ; set MegaROM initial page
-    ld      a, 1
+    ; ld      a, 1
+    ld      a, (CurrentLevel_InitialMegaRomPage)
     ld      (CurrentMegaRomPage), a
     ld	    (Seg_P8000_SW), a
     

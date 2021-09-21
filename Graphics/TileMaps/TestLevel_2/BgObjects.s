@@ -23,7 +23,7 @@
         ; not used
         ; not used
         ; not used
-BgObjectsInitialState_TestLevel_1_Start:
+BgObjectsInitialState_TestLevel_2_Start:
 
 ; screen / page 0 (columns 0-15)
     ;db      5,      DIAMOND_FIRST_TILE,     2 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
@@ -274,4 +274,4 @@ BgObjectsInitialState_TestLevel_1_Start:
 
 ; -----------------------------------------------------------
 
-BgObjectsInitialState_TestLevel_1_End:
+BgObjectsInitialState_TestLevel_2_End:

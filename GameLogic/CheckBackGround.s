@@ -57,7 +57,12 @@ CheckBackGround_Right:
     and     0001 1100 b         ; mask to get the page number (0-5)
     srl     a                   ; align to right
     srl     a
-    inc     a                   ; pages are numbered 1-6, not 0-5
+    
+    ;inc     a                   ; pages are numbered 1-6, not 0-5
+    ld      b, a                                    ; page += CurrentLevel_InitialMegaRomPage
+    ld      a, (CurrentLevel_InitialMegaRomPage)    ;
+    add     b                                       ;
+
     ld	    (Seg_P8000_SW), a
 
     ld      hl, (BgAddrIndex)
@@ -131,7 +136,12 @@ CheckBackGround_Left:
     and     0001 1100 b         ; mask to get the page number (0-5)
     srl     a                   ; align to right
     srl     a
-    inc     a                   ; pages are numbered 1-6, not 0-5
+
+    ;inc     a                   ; pages are numbered 1-6, not 0-5
+    ld      b, a                                    ; page += CurrentLevel_InitialMegaRomPage
+    ld      a, (CurrentLevel_InitialMegaRomPage)    ;
+    add     b                                       ;
+
     ld	    (Seg_P8000_SW), a
 
     ld      hl, (BgAddrIndex)
