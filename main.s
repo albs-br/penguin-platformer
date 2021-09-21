@@ -9,7 +9,7 @@ FNAME "go-penguin.rom"      ; output file
 
 
 PageSize:	    equ	0x4000	        ; 16kB
-Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 8000h-BFFFh (ASCII 16k Mapper)
+Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-BFFFh (ASCII 16k Mapper)
 
 
 DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
@@ -51,17 +51,12 @@ GameIncludes_Start:
     INCLUDE "GameLogic/CopyEnemyPatternsToVRAM.s"
 GameIncludes_Start.size:      equ $ - GameIncludes_Start
 
-; Include game data (~ 10.3 Kb)
+; Include game data (~ 5.9 Kb)
 GameData_Start:
     INCLUDE "Graphics/Sprites/Sprites.s"
     INCLUDE "Graphics/Tiles/Patterns/Patterns.s"
     INCLUDE "Graphics/Tiles/Colors/Colors.s"
     INCLUDE "Graphics/TileMaps/TileMaps_Constants.s"
-    
-    ; TODO: put these on a MegaRom page
-    INCLUDE "Graphics/TileMaps/TestLevel_1/BgObjects.s"
-    ;INCLUDE "Graphics/TileMaps/TestLevel_2/BgObjects.s"
-    
     INCLUDE "Sound/Sound.s"
 GameData_Start.size:      equ $ - GameData_Start
 
@@ -114,7 +109,7 @@ InitGame:
 
     call    InitVariables
 
-    ld      a, 1
+    ld      a, 2
     call    LoadLevel
 
     call    AkgPlayer_InitPlayer
@@ -267,84 +262,85 @@ End:
 
 
 ; ---------------------- Test Level 1 -------------------------------
-; ------- Page 1 --------------------------------------
-	org	8000h, 0BFFFh
+TEST_LEVEL_1_MEGAROM_PAGE:     equ 1
 
-;TileMap_TestLevel_1_Start:
+; ------- Page 1 --------------------------------------
+	org	0x8000, 0xBFFF
+
     INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_1.s"
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 ; ------- Page 2 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
     INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_2.s"
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 ; ------- Page 3 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
     INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_3.s"
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 ; ------- Page 4 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
     INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_4.s"
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 ; ------- Page 5 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
     INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_5.s"
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 ; ------- Page 6 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
     INCLUDE "Graphics/TileMaps/TestLevel_1/TileMap_Page_6.s"
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 
 
 
 
 ; ---------------------- Test Level 2 -------------------------------
+TEST_LEVEL_2_MEGAROM_PAGE:     equ 7
 ; ------- Page 7 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
-;TileMap_TestLevel_2_Start:
     INCLUDE "Graphics/TileMaps/TestLevel_2/TileMap_Page_1.s"
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 ; ------- Page 8 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
     INCLUDE "Graphics/TileMaps/TestLevel_2/TileMap_Page_2.s"
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 ; ------- Page 9 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
     INCLUDE "Graphics/TileMaps/TestLevel_2/TileMap_Page_3.s"
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 ; ------- Page 10 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
     INCLUDE "Graphics/TileMaps/TestLevel_2/TileMap_Page_4.s"
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 ; ------- Page 11 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
     INCLUDE "Graphics/TileMaps/TestLevel_2/TileMap_Page_5.s"
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 ; ------- Page 12 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
     INCLUDE "Graphics/TileMaps/TestLevel_2/TileMap_Page_6.s"
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 
 
@@ -355,24 +351,24 @@ End:
 
 AKG_MUSIC_MEGAROM_PAGE:     equ 13
 ; ------- Page 13 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
 MusicAKG_Start:
     INCLUDE "Sound/playerAKG/disassembled.asm"
 MusicAKG_Start.size:      equ $ - MusicAKG_Start
 
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 
 AKY_MUSIC_MEGAROM_PAGE:     equ 14
 ; ------- Page 14 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
 MusicAKY_Start:
     INCLUDE "Sound/playerAKY/disassembled.asm"
 MusicAKY_Start.size:      equ $ - MusicAKY_Start
 
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 
 ; ----------------------------- Mega ROM page for some sprites ----------------
@@ -380,7 +376,7 @@ MusicAKY_Start.size:      equ $ - MusicAKY_Start
 ; TODO: change this name, as it now has enemies and scenery
 SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE:     equ 15
 ; ------- Page 15 --------------------------------------
-	org	8000h, 0BFFFh
+	org	0x8000, 0xBFFF
 
 ; --------- Type B enemies
     INCLUDE "Graphics/Sprites/Armadillo.s"
@@ -392,9 +388,21 @@ SPRITES_ENEMY_TYPE_B_MEGAROM_PAGE:     equ 15
     INCLUDE "Graphics/Sprites/Bush.s"
     INCLUDE "Graphics/Sprites/Fence.s"
 
-	ds PageSize - ($ - 8000h), 255
+	ds PageSize - ($ - 0x8000), 255
 
 
+
+; ----------------------------- Mega ROM page for BgObjects data of levels ----------------
+BG_OBJECTS_MEGAROM_PAGE:     equ 16
+; ------- Page 16 --------------------------------------
+	org	0x8000, 0xBFFF
+
+    ; Each file has 16 screens * 256 bytes = 4096 bytes
+    ; Each MegaROM page fits 4 BgObjects files
+    INCLUDE "Graphics/TileMaps/TestLevel_1/BgObjects.s"
+    INCLUDE "Graphics/TileMaps/TestLevel_2/BgObjects.s"
+
+	ds PageSize - ($ - 0x8000), 255
 
 
 

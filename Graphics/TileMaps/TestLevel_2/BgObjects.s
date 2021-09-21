@@ -32,8 +32,8 @@ BgObjectsInitialState_TestLevel_2_Start:
     db      1,      DIAMOND_FIRST_TILE,     4 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 
     ; db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (10 * 2 * 8) + 9,  (10 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
-    ;db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
-    db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ELEPHANT_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
+    db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
+    ;db      12,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ELEPHANT_LEFT,    (10 * 2 * 8) + 15,  (10 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
     ;db       9,     SCENERY,                8 * 2 * 8,      1,  0,  SCENERY_TYPE_BUSH,          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db       8,     SCENERY,                9 * 2 * 8,      1,  0,  SCENERY_TYPE_BUSH,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db       9,     SCENERY,                9 * 2 * 8,      1,  0,  SCENERY_TYPE_BUSH,         0,  0,  0,  0,  0,  0,  0,  0,  0,  0
@@ -49,14 +49,14 @@ BgObjectsInitialState_TestLevel_2_Start:
     ;db      11,     ENEMY_TYPE_A,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (3 * 2 * 8) + 9,  (3 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
     
-    db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_DINO_LEFT,      (3 * 2 * 8) + 14,  (3 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
+    ;db      11,     ENEMY_TYPE_B,          3 * 2 * 8,      1,  0,  ENEMY_TYPE_DINO_LEFT,      (3 * 2 * 8) + 14,  (3 * 2 * 8) - 5,  0,  0,  0,  0,  0,  0,  0,  0
 
     ; db      14,     ENEMY_TYPE_B,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,      (6 * 2 * 8) + 9,  (6 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      14,     ENEMY_TYPE_B,          6 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,      (6 * 2 * 8) + 15,  (6 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
 
     ;db      15,     ENEMY_TYPE_B,          9 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (9 * 2 * 8) + 15,  (9 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      15,     ENEMY_TYPE_B,          9 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (9 * 2 * 8) + 9,  (9 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0000)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0000)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -76,7 +76,7 @@ BgObjectsInitialState_TestLevel_2_Start:
 
     ;db      36,     ENEMY,                  * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_RIGHT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0100)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0100)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -113,7 +113,7 @@ BgObjectsInitialState_TestLevel_2_Start:
     ;db      44,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      44,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0
     ; db      44,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0200)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0200)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -131,7 +131,7 @@ BgObjectsInitialState_TestLevel_2_Start:
     db      60,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,     (10 * 2 * 8) + 15, (10 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
 
     ;db      63,     ENEMY_TYPE_A,                 10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0300)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0300)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -153,7 +153,7 @@ BgObjectsInitialState_TestLevel_2_Start:
     db      76,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db      76,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db      76,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0400)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0400)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -163,7 +163,7 @@ BgObjectsInitialState_TestLevel_2_Start:
     db      84,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db      86,     DIAMOND_FIRST_TILE,     4 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0500)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0500)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -185,7 +185,7 @@ BgObjectsInitialState_TestLevel_2_Start:
     
     ; WARNING: Watch the max size here
     db     109,     DIAMOND_FIRST_TILE,    11 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0600)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0600)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -197,7 +197,7 @@ BgObjectsInitialState_TestLevel_2_Start:
     db     115,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db     119,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db     123,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0700)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0700)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -211,7 +211,7 @@ BgObjectsInitialState_TestLevel_2_Start:
     db     140,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db     142,     DIAMOND_FIRST_TILE,     7 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0800)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0800)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -223,7 +223,7 @@ BgObjectsInitialState_TestLevel_2_Start:
     db     150,     DIAMOND_FIRST_TILE,    7 * 2 * 8,       1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db     152,     DIAMOND_FIRST_TILE,    7 * 2 * 8,       1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db     160,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0900)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0900)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -231,14 +231,14 @@ BgObjectsInitialState_TestLevel_2_Start:
     db     166,     ENEMY_TYPE_A,          2 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db     169,     ENEMY_TYPE_A,          2 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0a00)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0a00)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
 ; screen / page 11 (columns 176-191)
 
     db     190,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0b00)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0b00)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -246,7 +246,7 @@ BgObjectsInitialState_TestLevel_2_Start:
     
     db     206,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db     204,     ENEMY_TYPE_A,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_SNAIL_LEFT,      0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0c00)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0c00)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -254,14 +254,14 @@ BgObjectsInitialState_TestLevel_2_Start:
     
     db     224,     DIAMOND_FIRST_TILE,    10 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     db     220,     ENEMY_TYPE_A,          1 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,      0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0d00)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0d00)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
 ; screen / page 14 (columns 224-239)
     
     db     229,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,     (10 * 2 * 8) + 15, (10 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0e00)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0e00)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 
@@ -270,7 +270,7 @@ BgObjectsInitialState_TestLevel_2_Start:
     db     242,     ENEMY_TYPE_B,           5 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,     (5 * 2 * 8) + 15,  (5 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
     db     240,     ENEMY_TYPE_B,          10 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (10 * 2 * 8) + 9,  (10 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
     db     248,     DIAMOND_FIRST_TILE,    5 * 2 * 8,      1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-	ds     256 - ($ - (BgObjectsInitialState_TestLevel_1_Start + 0x0f00)), 0                 ; fill with 0s until end of block
+	ds     256 - ($ - (BgObjectsInitialState_TestLevel_2_Start + 0x0f00)), 0                 ; fill with 0s until end of block
 
 ; -----------------------------------------------------------
 

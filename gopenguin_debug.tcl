@@ -71,9 +71,9 @@
 
 #ram_watch load gopenguin_debug
 
-ram_watch   add     0xD0a0      -type byte      -desc FramesSkipped     -format dec
-ram_watch   add     0x002d      -type byte      -desc MSXID3            -format dec
-ram_watch   add     0xd0a2      -type byte      -desc TurboMode         -format dec
-ram_watch   add     0xd0a3      -type byte      -desc VDP_Version       -format dec
-ram_watch   add     0xd0a4      -type byte      -desc VDP_Is9918        -format dec
+#ram_watch   add     0xD0a0      -type byte      -desc FramesSkipped     -format dec
+#ram_watch   add     0x002d      -type byte      -desc MSXID3            -format dec
+#ram_watch   add     0xd0a2      -type byte      -desc TurboMode         -format dec
+#ram_watch   add     0xd0a3      -type byte      -desc VDP_Version       -format dec
+#ram_watch   add     0xd0a4      -type byte      -desc VDP_Is9918        -format dec
 

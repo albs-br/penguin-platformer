@@ -15,17 +15,16 @@ LoadLevel:
     ld      (CurrentLevel_BgObjectsInitialState_Start), hl
     ld      hl, BgObjectsInitialState_TestLevel_1_End - BgObjectsInitialState_TestLevel_1_Start
     ld      (CurrentLevel_BgObjectsInitialState_Size), hl
-    ld      a, 1
+    ld      a, TEST_LEVEL_1_MEGAROM_PAGE
     ld      (CurrentLevel_InitialMegaRomPage), a
     jp      .continue
 
 .load_TestLevel_2:
-    ;TODO:
-    ld      hl, BgObjectsInitialState_TestLevel_1_Start 
+    ld      hl, BgObjectsInitialState_TestLevel_2_Start 
     ld      (CurrentLevel_BgObjectsInitialState_Start), hl
-    ld      hl, BgObjectsInitialState_TestLevel_1_End - BgObjectsInitialState_TestLevel_1_Start
+    ld      hl, BgObjectsInitialState_TestLevel_2_End - BgObjectsInitialState_TestLevel_2_Start
     ld      (CurrentLevel_BgObjectsInitialState_Size), hl
-    ld      a, 7
+    ld      a, TEST_LEVEL_2_MEGAROM_PAGE
     ld      (CurrentLevel_InitialMegaRomPage), a
     jp      .continue
 
@@ -52,6 +51,11 @@ LoadLevel:
 
     ; Load bg dynamic objects (like diamonds) initial state
     ; ld      hl, BgObjectsInitialState_Start
+    ; TODO: will be necessary a variable for this megarom page,
+    ; as only 4 per page are allowed
+    ld      a, BG_OBJECTS_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a               ; set MegaROM page for BgObjects
+
     ld      hl, (CurrentLevel_BgObjectsInitialState_Start)
     ld      de, BgObjects_Start
     ; ld      bc, BgObjectsInitialState_End - BgObjectsInitialState_Start
