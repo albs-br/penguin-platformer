@@ -190,7 +190,7 @@ MainLoop:
 
     
     IFDEF DEBUG
-        ld 		a, COLOR_DARK_YELLOW       	; Border color
+        ld 		a, COLOR_DARK_YELLOW    ; Border color
         ld 		(BIOS_BDRCLR), a    
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF    
@@ -254,7 +254,7 @@ End:
 
     db      "End ROM started at 0x4000"
 
-	ds PageSize - ($ - 4000h), 255	; Fill the unused area with 0FFh
+	ds PageSize - ($ - 0x4000), 255	; Fill the unused area with 0FFh
 
 
 
@@ -398,7 +398,7 @@ BG_OBJECTS_MEGAROM_PAGE:     equ 16
 	org	0x8000, 0xBFFF
 
     ; Each file has 16 screens * 256 bytes = 4096 bytes
-    ; Each MegaROM page fits 4 BgObjects files
+    ; Each MegaROM page fits 4 BgObjects files (many more if compacted with pletter/zx0)
     INCLUDE "Graphics/TileMaps/TestLevel_1/BgObjects.s"
     INCLUDE "Graphics/TileMaps/TestLevel_2/BgObjects.s"
 
@@ -413,7 +413,7 @@ BG_OBJECTS_MEGAROM_PAGE:     equ 16
     ;org 0xe000                          ; for machines with 8kb of RAM (use it if you need 8kb RAM or less, will work on any machine)
 
 ; use max addr for RAM:
-;         ORG  4000h,7FFFh        ; start from 4000h, warn if exceeding 7FFFh
+;         ORG  0x4000, 0x7FFF        ; start from 0x4000, warn if exceeding 0x7FFF
 
 RamStart:
 
