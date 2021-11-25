@@ -15,6 +15,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-BFFFh (ASCII 1
 DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
 
 ; Compilation address
+; TODO: is this final address correct? Souldn't be 0x7fff ?
 	org 0x4000, 0xbeff	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
  
     INCLUDE "Include/RomHeader.s"

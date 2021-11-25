@@ -1,28 +1,4 @@
-; ----------------------- Format:
-
-;       column position (1-255), based on 16x16 tiles; 0 is forbidden
-
-;       object tile first frame number (254 or 255 = enemy)
-
-;       row number in pixels (same as Y coord): n * 2 * 8, n is row number (0-11), based on 16x16 tiles
-
-;       state: enabled: 1; disabled: 0; > 1 : animation for enemy dying
-
-; -- these properties are only for enemies type A/B:
-;       x offset (0-15)
-;       enemy type (bit 7: 0-facing left; 1-facing right)
-;       y coord 2nd sprite (usually the same as Y coord MINUS a few pixels)
-;       y coord 3rd sprite (usually the same as Y coord PLUS a few pixels)
-
-        ;                   Y position (used to make it possible 3-color sprites with only 2 at any given line)
-        ; First sprite:     0 px (main sprite)
-        ; Second sprite:   +m px
-        ; Third sprite:    -n px
-
-        ; Patterns loaded flag (zero until enemy shows on screen, after 1); only used on Type B enemy
-        ; not used
-        ; not used
-        ; not used
+; Formatting rules for BgObjects file on "TileMaps\TileMaps_Constants.s"
 BgObjectsInitialState_TestLevel_1_Start:
 
 ; screen / page 0 (columns 0-15)
@@ -40,7 +16,7 @@ BgObjectsInitialState_TestLevel_1_Start:
     db      11,     DIAMOND_FIRST_TILE,     8 * 2 * 8,      1,  0,  0,                          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      12,     DIAMOND_FIRST_TILE,     9 * 2 * 8,      1,  0,  0,                          0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     
-    ;db      11,     ENEMY_TYPE_A,                  0 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+    ;db      11,     ENEMY_TYPE_A,          0 * 2 * 8,      1,  0,  ENEMY_TYPE_LADYBUG_LEFT,    0,  0,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      11,     ENEMY_TYPE_B,          0 * 2 * 8,      1,  0,  ENEMY_TYPE_ARMADILLO_LEFT,    (0 * 2 * 8) + 9,  (0 * 2 * 8) - 7,  0,  0,  0,  0,  0,  0,  0,  0
     ;db      11,     ENEMY_TYPE_B,          0 * 2 * 8,      1,  0,  ENEMY_TYPE_CENTIPEDE_LEFT,    (0 * 2 * 8) + 15,  (0 * 2 * 8) - 4,  0,  0,  0,  0,  0,  0,  0,  0
 
