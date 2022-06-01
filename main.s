@@ -50,6 +50,7 @@ GameIncludes_Start:
     INCLUDE "GameLogic/Score.s"
     INCLUDE "GameLogic/SwitchNamesTable.s"
     INCLUDE "GameLogic/CopyEnemyPatternsToVRAM.s"
+    INCLUDE "TitleScreen.s"
 GameIncludes_Start.size:      equ $ - GameIncludes_Start
 
 ; Include game data (~ 5.9 Kb)
@@ -104,6 +105,12 @@ Execute:
 
     ; TODO: it looks like the turbo is enabled on WSX, but it has no effect over the speed
     call    EnableTurboMode             ; test
+
+
+TitleScreen:
+    call    ShowTitleScreen
+.loop:
+    jp      .loop
 
 InitGame:
     ;call    NewGame
