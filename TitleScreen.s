@@ -24,6 +24,7 @@ ShowTitleScreen:
 
 	call 	BIOS_DISSCR
 
+	call 	ClearVRAM
 
 
 
@@ -48,14 +49,40 @@ ShowTitleScreen:
     call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
     ; Load Names Table
-	ld		hl, TitleNamesTable        				; RAM address (source)
-	ld		de, NamesTable				            ; VRAM address (destiny)
-	ld		bc, TitleNamesTable.size				; Block length
-    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+	; ld		hl, TitleNamesTable        				; RAM address (source)
+	; ld		de, NamesTable				            ; VRAM address (destiny)
+	; ld		bc, TitleNamesTable.size				; Block length
+    ; call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
+    ; Load Names Table to buffer
+    ld      hl, TitleNamesTable                                 ; source
+    ld      de, NamesTableBuffer                                ; destiny
+    ld      bc, TitleNamesTable.size                            ; size
+    ldir                                                        ; Copy BC bytes from HL to DE
 
 
 	call 	BIOS_ENASCR 
+
+
+.titleScreenLoop:
+    ld      hl, BIOS_JIFFY              ; (v-blank sync)
+    ld      a, (hl)
+.waitVBlank:
+    cp      (hl)
+    jr      z, .waitVBlank
+
+
+    ; ----------- title screen logic here
+
+
+    ; Load Names Table from buffer to VRAM
+	ld		hl, NamesTableBuffer        			; RAM address (source)
+	ld		de, NamesTable				            ; VRAM address (destiny)
+	ld		bc, NamesTableBuffer.size				; Block length
+    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+
+
+    jp      .titleScreenLoop
 
     ret
 
