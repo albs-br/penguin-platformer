@@ -1,7 +1,7 @@
 InitVariables:
     ld      a, (BIOS_JIFFY)                  ; MSX BIOS time variable
     or      0x80                             ; A value different of zero is granted
-    ld      (Seed), a
+    ld      (Seed), a       ; TODO: Seed is a word, is not being initialized correctly (check msx-wings code)
 
 
     ; Writing to Names Table 2 while showing Names Table 1
