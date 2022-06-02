@@ -139,26 +139,43 @@ TitlePatterns:
     db      11111110 b
     db      11111110 b
     db      00000000 b
+    ; db      11111110 b
+    ; db      11111110 b
+    ; db      11111110 b
+    ; db      11111110 b
+    ; db      11111110 b
+    ; db      11111110 b
+    ; db      11111110 b
+    ; db      00000000 b
+
+    ; db      00000000 b
+    ; db      00000000 b
+    ; db      00111000 b
+    ; db      00111000 b
+    ; db      00111000 b
+    ; db      00000000 b
+    ; db      00000000 b
+    ; db      00000000 b
 .size:  equ $ - TitlePatterns
 
 TitleColors:
-    db      0x80
-    db      0x80
-    db      0x80
-    db      0x80
-    db      0x80
-    db      0x80
-    db      0x80
-    db      0x80
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
 
-    db      0x08
-    db      0x08
-    db      0x08
-    db      0x08
-    db      0x08
-    db      0x08
-    db      0x08
-    db      0x08
+    db      0xf0
+    db      0xf0
+    db      0xf0
+    db      0xf0
+    db      0xf0
+    db      0xf0
+    db      0xf0
+    db      0xf0
 .size:  equ $ - TitleColors
 
 TitleNamesTable:
