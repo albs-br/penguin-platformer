@@ -254,3 +254,8 @@ VDP_Is9918:                             rb 1
 ; Test_Sprite_Y:              rb 1
 
 Temp_Addr:                              rw 1
+
+
+;----------------------
+; Title
+Title_Index:                            rb 1

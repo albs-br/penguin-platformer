@@ -63,6 +63,11 @@ ShowTitleScreen:
 
 	call 	BIOS_ENASCR 
 
+.initTitle:
+    ; Init title vars
+    ld      a, 32                       ; last column
+    ld      (Title_Index), a
+
 
 .titleScreenLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
@@ -71,8 +76,38 @@ ShowTitleScreen:
     cp      (hl)
     jr      z, .waitVBlank
 
+    ;call    WaitSomeSeconds
 
-    ; ----------- title screen logic here
+    ; ----------- Title screen logic
+    ld      a, (Title_Index)
+    dec     a
+    cp      -1
+    jp      z, .initTitle
+    ld      (Title_Index), a
+
+
+    ld      hl, NamesTableBuffer
+    ld      b, 0
+    ld      c, a
+    add     hl, bc
+
+    ld      b, 16           ; number of lines
+.loopLines:
+    ld      a, (hl)
+    cp      1
+    jp      z, .set_0
+;set_1
+    ld      a, 1
+    jp      .continue
+.set_0:
+    ld      a, 0
+.continue:
+    ld      (hl), a
+
+    ld      de, 32
+    add     hl, de
+
+    djnz    .loopLines
 
 
     ; Load Names Table from buffer to VRAM
@@ -107,28 +142,28 @@ TitlePatterns:
 .size:  equ $ - TitlePatterns
 
 TitleColors:
-    db      0xf0
-    db      0xf0
-    db      0xf0
-    db      0xf0
-    db      0xf0
-    db      0xf0
-    db      0xf0
-    db      0xf0
+    db      0x80
+    db      0x80
+    db      0x80
+    db      0x80
+    db      0x80
+    db      0x80
+    db      0x80
+    db      0x80
 
-    db      0x48
-    db      0x48
-    db      0x48
-    db      0x48
-    db      0x48
-    db      0x48
-    db      0x48
-    db      0x48
+    db      0x08
+    db      0x08
+    db      0x08
+    db      0x08
+    db      0x08
+    db      0x08
+    db      0x08
+    db      0x08
 .size:  equ $ - TitleColors
 
 TitleNamesTable:
     ; db      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ; db      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    db      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     db      1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     db      1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     db      1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -143,5 +178,5 @@ TitleNamesTable:
     db      1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1
     db      1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1
     db      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ;db      0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1
+    db      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 .size:  equ $ - TitleNamesTable
