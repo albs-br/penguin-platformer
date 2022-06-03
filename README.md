@@ -11,4 +11,10 @@ https://webmsx.org/?MACHINE=MSX1&ROM=https://github.com/albs-br/penguin-platform
 Info on development here:
 https://www.msx.org/forum/msx-talk/development/first-test-horizontal-scrolling-game-possibly-named-penguim-platformer#comment-400553
 
+How to compile
+--------------
+* Install Java runtime in your PATH;
+* Install mdl.jar from [mdlz80optimizer](https://github.com/santiontanon/mdlz80optimizer);
+* Set MDL variable at the beginning of the Makefile to point to where you put mdl.jar.
+
 [![HitCount](http://hits.dwyl.com/albs-br/penguin-platformer.svg)](http://hits.dwyl.com/albs-br/penguin-platformer)
