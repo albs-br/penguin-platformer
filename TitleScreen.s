@@ -94,13 +94,25 @@ ShowTitleScreen:
     ld      b, 16           ; number of lines
 .loopLines:
     ld      a, (hl)
-    cp      1
+
+;   --- switch 0/1 logic
+;     cp      1
+;     jp      z, .set_0
+; ;set_1
+;     ld      a, 1
+;     jp      .continue
+; .set_0:
+;     ld      a, 0
+
+;   --- loop 0-3 logic
+    inc     a
+    cp      4
     jp      z, .set_0
-;set_1
-    ld      a, 1
     jp      .continue
 .set_0:
     ld      a, 0
+
+
 .continue:
     ld      (hl), a
 
@@ -131,12 +143,30 @@ TitlePatterns:
     db      11111110 b
     db      00000000 b
 
+    db      00000000 b
+    db      00000000 b
+    db      00111110 b
+    db      00111110 b
+    db      01111110 b
+    db      01111110 b
     db      11111110 b
+    db      00000000 b
+
+    db      00000000 b
+    db      00000000 b
+    db      00000000 b
+    db      00000000 b
+    db      00000110 b
+    db      00111110 b
     db      11111110 b
-    db      11111110 b
-    db      11111110 b
-    db      11111110 b
-    db      11111110 b
+    db      00000000 b
+
+    db      00000000 b
+    db      00000000 b
+    db      00000000 b
+    db      00000000 b
+    db      00000000 b
+    db      00000000 b
     db      11111110 b
     db      00000000 b
     ; db      11111110 b
@@ -168,14 +198,32 @@ TitleColors:
     db      0x70
     db      0x70
 
-    db      0xf0
-    db      0xf0
-    db      0xf0
-    db      0xf0
-    db      0xf0
-    db      0xf0
-    db      0xf0
-    db      0xf0
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
 .size:  equ $ - TitleColors
 
 TitleNamesTable:
