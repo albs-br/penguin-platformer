@@ -144,21 +144,15 @@ ShowTitleScreen:
 ; .set_0:
 ;     ld      a, 0
 
-;   -- if(a == 3) a = 4
-    cp      3
-    jp      nz, .dontSet_0
-; .set_0:
-    ld      a, 4                ; start animation
-    jp      .continue
-.dontSet_0:
-;   -- if(a == 0) a = 1
+;   -- if(a == 0 || a == 3) inc a
     cp      0
-    jp      nz, .continue
-; .set_6:
-    ld      a, 1                ; start animation
+    jp      z, .startAnimation
+    cp      3
+    jp      z, .startAnimation
+    jp      .continue
 
-;   -- if(a == 3) a = 4
-
+.startAnimation:
+    inc     a
 
 .continue:
     ld      (hl), a
