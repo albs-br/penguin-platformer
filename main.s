@@ -50,7 +50,7 @@ GameIncludes_Start:
     INCLUDE "GameLogic/Score.s"
     INCLUDE "GameLogic/SwitchNamesTable.s"
     INCLUDE "GameLogic/CopyEnemyPatternsToVRAM.s"
-    INCLUDE "TitleScreen.s"
+    INCLUDE "TitleScreen/TitleScreen.s"
 GameIncludes_Start.size:      equ $ - GameIncludes_Start
 
 ; Include game data (~ 5.9 Kb)
@@ -60,6 +60,7 @@ GameData_Start:
     INCLUDE "Graphics/Tiles/Colors/Colors.s"
     INCLUDE "Graphics/TileMaps/TileMaps_Constants.s"
     INCLUDE "Sound/Sound.s"
+    INCLUDE "TitleScreen/Data.s"
 GameData_Start.size:      equ $ - GameData_Start
 
 ; Program code entry point
