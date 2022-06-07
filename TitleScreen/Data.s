@@ -1,7 +1,10 @@
+TitleScreen_Constants:
+    .NUMBER_OF_COLUMNS:  equ 32         ; don't change
+    .NUMBER_OF_LINES:    equ 16
 
-FIRST_TILE:     equ 0
-MID_TILE:       equ 3
-LAST_TILE:      equ 5
+    .FIRST_TILE:         equ 0
+    .MID_TILE:           equ 3
+    .LAST_TILE:          equ 5
 
 TitlePatterns:
     ; db      11111110 b
@@ -143,59 +146,59 @@ TitlePatterns:
 .size:  equ $ - TitlePatterns
 
 TitleColors:
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
 .size:  equ $ - TitleColors
 
 TitleNamesTable:

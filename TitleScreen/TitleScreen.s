@@ -65,7 +65,7 @@ ShowTitleScreen:
 
 .initTitle:
     ; Init title vars
-    ld      a, 32                       ; last column
+    ld      a, TitleScreen_Constants.NUMBER_OF_COLUMNS          ; last column
     ld      (Title_Index), a
 
 
@@ -88,12 +88,12 @@ ShowTitleScreen:
         
         ld      a, (hl)
         ; ignore if (a == 0) or (a == 3)
-        cp      FIRST_TILE
+        cp      TitleScreen_Constants.FIRST_TILE
         jp      z, .skip
-        cp      MID_TILE
+        cp      TitleScreen_Constants.MID_TILE
         jp      z, .skip
 
-        cp      LAST_TILE
+        cp      TitleScreen_Constants.LAST_TILE
         jp      nz, .skip_set_0
         ld      a, -1           ; will be 0 after increment
 .skip_set_0:
@@ -113,7 +113,7 @@ ShowTitleScreen:
     ; ----------- Title screen logic
     ld      a, (Title_Index)
     dec     a
-    cp      FIRST_TILE - 1
+    cp      TitleScreen_Constants.FIRST_TILE - 1
     jp      z, .initTitle
     ld      (Title_Index), a
 
@@ -123,31 +123,14 @@ ShowTitleScreen:
     ld      c, a
     add     hl, bc
 
-    ld      b, 16           ; number of lines
+    ld      b, TitleScreen_Constants.NUMBER_OF_LINES
 .loopLines:
     ld      a, (hl)
 
-;   --- switch 0/1 logic
-;     cp      1
-;     jp      z, .set_0
-; ;set_1
-;     ld      a, 1
-;     jp      .continue
-; .set_0:
-;     ld      a, 0
-
-;   --- loop 0-3 logic
-;     inc     a
-;     cp      6
-;     jp      z, .set_0
-;     jp      .continue
-; .set_0:
-;     ld      a, 0
-
 ;   -- if(a == 0 || a == 3) inc a
-    cp      FIRST_TILE
+    cp      TitleScreen_Constants.FIRST_TILE
     jp      z, .startAnimation
-    cp      MID_TILE
+    cp      TitleScreen_Constants.MID_TILE
     jp      z, .startAnimation
     jp      .continue
 
@@ -157,8 +140,8 @@ ShowTitleScreen:
 .continue:
     ld      (hl), a
 
-    ld      de, 32
-    add     hl, de
+    ld      de, TitleScreen_Constants.NUMBER_OF_COLUMNS
+    add     hl, de                                          ; next line
 
     djnz    .loopLines
 

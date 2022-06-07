@@ -1,4 +1,3 @@
-FIRST_TILE: equ 00h ; last def. pass 3
 BIOS_H_FRME: equ 0FF66h ; last def. pass 3
 ClearRam.loop: equ 041E5h ; last def. pass 3
 BIOS_FSTPOS: equ 0FBCAh ; last def. pass 3
@@ -36,6 +35,7 @@ FillColorTable_3thirds: equ 041A1h ; last def. pass 3
 BIOS_FILNM2: equ 0F871h ; last def. pass 3
 PLY_AKG_READLINKER: equ 08DCAh ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_491: equ 0963Ch ; last def. pass 3
+TitleScreen_Constants.LAST_TILE: equ 05h ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_465: equ 092FFh ; last def. pass 3
 BIOS_RAWPRT: equ 0F418h ; last def. pass 3
 ShowTitleScreen.skip: equ 05862h ; last def. pass 3
@@ -100,7 +100,6 @@ PLY_AKG_CHANNEL3_GENERATEDCURRENTPITCH: equ 0E6E4h ; last def. pass 3
 PLY_AKG_CHANNEL2_ARPEGGIOTABLESPEED: equ 0E677h ; last def. pass 3
 CheckCollision_16x16_16x16.x1IsLarger: equ 043E8h ; last def. pass 3
 Scenery_2_1st_Sprite_Color: equ 0D09Eh ; last def. pass 3
-MID_TILE: equ 03h ; last def. pass 3
 LastVisibleColumn: equ 0D021h ; last def. pass 3
 SCENERY_TYPE_BUSH: equ 020h ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_154_LOOP: equ 0953Bh ; last def. pass 3
@@ -896,7 +895,6 @@ PLY_AKG_EFFECT_VOLUMESLIDE: equ 095F1h ; last def. pass 3
 BIOS_HIGH: equ 0F408h ; last def. pass 3
 Finished: equ 072C1h ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_674: equ 09BD7h ; last def. pass 3
-LAST_TILE: equ 05h ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_165: equ 09AF5h ; last def. pass 3
 BIOS_BDRCLR: equ 0F3EBh ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_485: equ 099B3h ; last def. pass 3
@@ -914,6 +912,7 @@ PLY_AKG_CHANNEL2_MAYBEEFFECTS: equ 093F8h ; last def. pass 3
 BIOS_H_MKI: equ 0FE30h ; last def. pass 3
 BIOS_H_RSLF: equ 0FE8Fh ; last def. pass 3
 BIOS_FNKSB: equ 0C9h ; last def. pass 3
+TitleScreen_Constants: equ 06F9Dh ; last def. pass 3
 Scenery_1_X: equ 0D097h ; last def. pass 3
 PLY_AKG_CHANNEL1_VOLUMESETAGAIN: equ 0901Eh ; last def. pass 3
 BIOS_ARYTAB: equ 0F6C4h ; last def. pass 3
@@ -1031,6 +1030,7 @@ PLY_AKY_RRB_IS_SOFTWAREONLY_NONOISE: equ 09D7Fh ; last def. pass 3
 PLY_AKG_CHANNEL2_ARPEGGIOTABLECURRENTSTEP: equ 0E674h ; last def. pass 3
 MAIN_SUBSONG0_TRACK_58: equ 08255h ; last def. pass 3
 SCREEN_WIDTH_IN_TILES: equ 020h ; last def. pass 3
+TitleScreen_Constants.NUMBER_OF_COLUMNS: equ 020h ; last def. pass 3
 BIOS_DIMFLG: equ 0F662h ; last def. pass 3
 UpdateBgObjects_Enemy_TypeA_n_Y: equ 0D045h ; last def. pass 3
 PLY_AKG_CHANNEL3_PITCHTRACKDECIMALINSTRANDVALUERETURNJP: equ 0E6E1h ; last def. pass 3
@@ -1253,6 +1253,7 @@ InitVram: equ 04010h ; last def. pass 3
 DIRECTION_RIGHT: equ 01h ; last def. pass 3
 BIOS_RG2SAV: equ 0F3E1h ; last def. pass 3
 BIOS_CASPRV: equ 0FCB1h ; last def. pass 3
+TitleScreen_Constants.FIRST_TILE: equ 00h ; last def. pass 3
 PLY_AKG_EFFECT_GLIDEWITHNOTE: equ 09647h ; last def. pass 3
 CheckIfEnemyHitPenguin: equ 0466Bh ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_22: equ 09798h ; last def. pass 3
@@ -1733,6 +1734,7 @@ Enemy_TypeB_2_2nd_Sprite_Pattern: equ 0D090h ; last def. pass 3
 BIOS_MCLFLG: equ 0F958h ; last def. pass 3
 RotateTile.loop: equ 0416Dh ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_368: equ 0997Fh ; last def. pass 3
+TitleScreen_Constants.NUMBER_OF_LINES: equ 010h ; last def. pass 3
 BIOS_ENASCR: equ 044h ; last def. pass 3
 BIOS_H_ERAF: equ 0FDB8h ; last def. pass 3
 Enemy_TypeA_1_BaseAddress: equ 0D069h ; last def. pass 3
@@ -1816,6 +1818,7 @@ Enemy_TypeB_Logic.animateEnemyDying: equ 04BC5h ; last def. pass 3
 PLY_AKG_CHANNEL3_AFTERNOTEKNOWN: equ 08FA5h ; last def. pass 3
 JUSTADDCREAM_SUBSONG0_TRACK18: equ 087B6h ; last def. pass 3
 BIOS_H_KEYC: equ 0FDCCh ; last def. pass 3
+TitleScreen_Constants.MID_TILE: equ 03h ; last def. pass 3
 PLY_AKG_CHANNEL1_GENERATEDCURRENTARPNOTE: equ 0E634h ; last def. pass 3
 BIOS_KEYINT: equ 038h ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_678: equ 094D4h ; last def. pass 3
