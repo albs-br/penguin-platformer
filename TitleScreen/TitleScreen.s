@@ -76,7 +76,12 @@ ShowTitleScreen:
     cp      (hl)
     jr      z, .waitVBlank
 
-    ; call    WaitSomeSeconds
+
+    ; animation only at even frames
+    ld      a, (BIOS_JIFFY)
+    and     0000 0001 b
+    jp      nz, .skipAnimation
+
 
 
     ; loop through all tiles doing animation
@@ -90,7 +95,11 @@ ShowTitleScreen:
         ; ignore if (a == 0) or (a == 3)
         cp      TitleScreen_Constants.FIRST_TILE
         jp      z, .skip
-        cp      TitleScreen_Constants.MID_TILE
+        cp      TitleScreen_Constants.MID_TILE_1
+        jp      z, .skip
+        cp      TitleScreen_Constants.MID_TILE_2
+        jp      z, .skip
+        cp      TitleScreen_Constants.MID_TILE_3
         jp      z, .skip
 
         cp      TitleScreen_Constants.LAST_TILE
@@ -108,12 +117,13 @@ ShowTitleScreen:
     dec     c
     jp      nz, .loop_1
 
+.skipAnimation:
 
 
     ; ----------- Title screen logic
     ld      a, (Title_Index)
     dec     a
-    cp      TitleScreen_Constants.FIRST_TILE - 1
+    cp      -1                      ; if first column, restart
     jp      z, .initTitle
     ld      (Title_Index), a
 
@@ -130,7 +140,11 @@ ShowTitleScreen:
 ;   -- if(a == 0 || a == 3) inc a
     cp      TitleScreen_Constants.FIRST_TILE
     jp      z, .startAnimation
-    cp      TitleScreen_Constants.MID_TILE
+    cp      TitleScreen_Constants.MID_TILE_1
+    jp      z, .startAnimation
+    cp      TitleScreen_Constants.MID_TILE_2
+    jp      z, .startAnimation
+    cp      TitleScreen_Constants.MID_TILE_3
     jp      z, .startAnimation
     jp      .continue
 

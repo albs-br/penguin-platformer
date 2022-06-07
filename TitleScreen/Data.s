@@ -3,8 +3,10 @@ TitleScreen_Constants:
     .NUMBER_OF_LINES:    equ 16
 
     .FIRST_TILE:         equ 0
-    .MID_TILE:           equ 3
-    .LAST_TILE:          equ 5
+    .MID_TILE_1:         equ 3
+    .MID_TILE_2:         equ 6
+    .MID_TILE_3:         equ 9
+    .LAST_TILE:          equ 11
 
 TitlePatterns:
     ; db      11111110 b
@@ -126,6 +128,60 @@ TitlePatterns:
     db      11111110 b
     db      00000000 b
 
+    db      01111100 b
+    db      01111100 b
+    db      01111100 b
+    db      01111100 b
+    db      01111100 b
+    db      01111100 b
+    db      01111100 b
+    db      00000000 b
+
+    db      00111000 b
+    db      00111000 b
+    db      00111000 b
+    db      00111000 b
+    db      00111000 b
+    db      00111000 b
+    db      00111000 b
+    db      00000000 b
+
+    db      00010000 b
+    db      00010000 b
+    db      00010000 b
+    db      00010000 b
+    db      00010000 b
+    db      00010000 b
+    db      00010000 b
+    db      00000000 b
+
+    db      00111000 b
+    db      00111000 b
+    db      00111000 b
+    db      00111000 b
+    db      00111000 b
+    db      00111000 b
+    db      00111000 b
+    db      00000000 b
+
+    db      01111100 b
+    db      01111100 b
+    db      01111100 b
+    db      01111100 b
+    db      01111100 b
+    db      01111100 b
+    db      01111100 b
+    db      00000000 b
+
+    db      11111110 b
+    db      11111110 b
+    db      11111110 b
+    db      11111110 b
+    db      11111110 b
+    db      11111110 b
+    db      11111110 b
+    db      00000000 b
+
     ; db      11111110 b
     ; db      11111110 b
     ; db      11111110 b
@@ -146,59 +202,114 @@ TitlePatterns:
 .size:  equ $ - TitlePatterns
 
 TitleColors:
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
 
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
 
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
 
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
 
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
 
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
-    db      0xa0
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+    db      0x70
+
 .size:  equ $ - TitleColors
 
 TitleNamesTable:
