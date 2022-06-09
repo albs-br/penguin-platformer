@@ -54,18 +54,72 @@ ShowTitleScreen:
 	; ld		bc, TitleNamesTable.size				; Block length
     ; call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
+
+
+	call 	BIOS_ENASCR 
+
+
+.initTitle_1:
+    ; revert left to right direction
+    ld      a, (TitleScreen_Direction)
+    cp      -1
+    jp      z, .initTitle_LeftToRight
+
+.initTitle_RightToLeft:
     ; Load Names Table to buffer
     ld      hl, TitleNamesTable                                 ; source
     ld      de, NamesTableBuffer                                ; destiny
     ld      bc, TitleNamesTable.size                            ; size
     ldir                                                        ; Copy BC bytes from HL to DE
 
+    ; Init Variables (right to left)
+    ld      a, -1
+    ld      (TitleScreen_Direction), a
+    
+    ld      a, -1                                               ; first column - 1
+    ld      (TitleScreen_EndColumn), a
+    
+    ld      a, TitleScreen_Constants.NUMBER_OF_COLUMNS          ; last column + 1
+    ld      (TitleScreen_StartColumn), a
 
-	call 	BIOS_ENASCR 
+    jp      .initTitle
+
+.initTitle_LeftToRight:
+    ; Load Names Table to buffer (inverted)
+    ld      hl, TitleNamesTable                                 ; source
+    ld      de, NamesTableBuffer                                ; destiny
+    ld      bc, TitleNamesTable.size                            ; size
+    ; ldir                                                        ; Copy BC bytes from HL to DE
+.loop_10:
+    ld      a, (hl)
+    sub     3           ; if (a == 3) a = 0 else a = 3
+    jp      z, .cont
+    ld      a, 3
+.cont:    
+    ld      (de), a
+    inc     hl
+    inc     de
+    dec     bc
+    ld      a, b
+    or      c
+    jp      nz, .loop_10
+
+    ; Init Variables (left to right)
+    ld      a, +1
+    ld      (TitleScreen_Direction), a
+    
+    ld      a, TitleScreen_Constants.NUMBER_OF_COLUMNS          ; last column + 1
+    ld      (TitleScreen_EndColumn), a
+    
+    ld      a, -1                                               ; first column - 1
+    ld      (TitleScreen_StartColumn), a
+
+
 
 .initTitle:
     ; Init title vars
-    ld      a, TitleScreen_Constants.NUMBER_OF_COLUMNS          ; last column
+    ;ld      a, TitleScreen_Constants.NUMBER_OF_COLUMNS          ; last column
+    ld      a, (TitleScreen_StartColumn)
     ld      (Title_Index), a
 
 
@@ -77,9 +131,9 @@ ShowTitleScreen:
     jr      z, .waitVBlank
 
 
-    ; animation only at even frames
+    ; animation only at each four frames
     ld      a, (BIOS_JIFFY)
-    and     0000 0001 b
+    and     0000 0011 b
     jp      nz, .skipAnimation
 
 
@@ -122,9 +176,17 @@ ShowTitleScreen:
 
     ; ----------- Title screen logic
     ld      a, (Title_Index)
-    dec     a
-    cp      -1                      ; if first column, restart
-    jp      z, .initTitle
+    
+    ;dec     a
+    ld      hl, TitleScreen_Direction
+    add     (hl)
+
+    ;cp      -1                      ; if first column, restart
+    ld      hl, TitleScreen_EndColumn
+    cp      (hl)
+
+
+    jp      z, .initTitle_1
     ld      (Title_Index), a
 
 

@@ -259,3 +259,6 @@ Temp_Addr:                              rw 1
 ;----------------------
 ; Title
 Title_Index:                            rb 1
+TitleScreen_Direction:                  rb 1
+TitleScreen_StartColumn:                rb 1
+TitleScreen_EndColumn:                  rb 1
