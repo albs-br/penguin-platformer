@@ -201,116 +201,149 @@ TitlePatterns:
     ; db      00000000 b
 .size:  equ $ - TitlePatterns
 
-TitleColors:
+TitleColors_1:
     db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    db      0x50
+    db      0x50
+    db      0x50
+    db      0x40
+    db      0x40
+    db      0x40
+    db      0x40
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    ; db      0x70
+    ; db      0x50
+    ; db      0x50
+    ; db      0x50
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    ; db      0x70
+    ; db      0x50
+    ; db      0x50
+    ; db      0x50
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    ; db      0x70
+    ; db      0x50
+    ; db      0x50
+    ; db      0x50
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    ; db      0x70
+    ; db      0x50
+    ; db      0x50
+    ; db      0x50
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    ; db      0x70
+    ; db      0x50
+    ; db      0x50
+    ; db      0x50
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    ; db      0x70
+    ; db      0x50
+    ; db      0x50
+    ; db      0x50
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    ; db      0x70
+    ; db      0x50
+    ; db      0x50
+    ; db      0x50
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    ; db      0x70
+    ; db      0x50
+    ; db      0x50
+    ; db      0x50
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    ; db      0x70
+    ; db      0x50
+    ; db      0x50
+    ; db      0x50
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    ; db      0x70
+    ; db      0x50
+    ; db      0x50
+    ; db      0x50
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
 
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
-    db      0x70
+    ; db      0x70
+    ; db      0x50
+    ; db      0x50
+    ; db      0x50
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
+    ; db      0x40
 
-.size:  equ $ - TitleColors
+.size:  equ $ - TitleColors_1
+
+TitleColors_2:
+    db      0x90
+    db      0x80
+    db      0x80
+    db      0x80
+    db      0x60
+    db      0x60
+    db      0x60
+    db      0x60
+.size:  equ $ - TitleColors_2
+
+TitleColors_3:
+    db      0x30
+    db      0x20
+    db      0x20
+    db      0x20
+    db      0xc0
+    db      0xc0
+    db      0xc0
+    db      0xc0
+.size:  equ $ - TitleColors_3
+
+TitleColors_4:
+    db      0xf0
+    db      0xb0
+    db      0xb0
+    db      0xb0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+    db      0xa0
+.size:  equ $ - TitleColors_4
 
 TitleNamesTable:
     ; db      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0

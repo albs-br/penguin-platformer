@@ -38,15 +38,15 @@ ShowTitleScreen:
 	ld		bc, TitlePatterns.size					; Block length
     call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
-    ; Load Colors
-	ld		hl, TitleColors        				    ; RAM address (source)
-	ld		de, ColorsTable_1st_Third				; VRAM address (destiny)
-	ld		bc, TitleColors.size					; Block length
-    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
-	ld		hl, TitleColors        				    ; RAM address (source)
-	ld		de, ColorsTable_2nd_Third				; VRAM address (destiny)
-	ld		bc, TitleColors.size					; Block length
-    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+    ; ; Load Colors
+	; ld		hl, TitleColors_1        				    ; RAM address (source)
+	; ld		de, ColorsTable_1st_Third				; VRAM address (destiny)
+	; ld		bc, TitleColors_1.size					; Block length
+    ; call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+	; ld		hl, TitleColors_1        				    ; RAM address (source)
+	; ld		de, ColorsTable_2nd_Third				; VRAM address (destiny)
+	; ld		bc, TitleColors_1.size					; Block length
+    ; call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
     ; Load Names Table
 	; ld		hl, TitleNamesTable        				; RAM address (source)
@@ -66,6 +66,11 @@ ShowTitleScreen:
     jp      z, .initTitle_LeftToRight
 
 .initTitle_RightToLeft:
+
+    ; Set tile colors
+    ld      hl, TitleColors_1
+    ld      (TitleScreen_ColorsAddr), hl
+
     ; Load Names Table to buffer
     ld      hl, TitleNamesTable                                 ; source
     ld      de, NamesTableBuffer                                ; destiny
@@ -85,6 +90,11 @@ ShowTitleScreen:
     jp      .initTitle
 
 .initTitle_LeftToRight:
+
+    ; Set tile colors
+    ld      hl, TitleColors_1
+    ld      (TitleScreen_ColorsAddr), hl
+
     ; Load Names Table to buffer (inverted)
     ld      hl, TitleNamesTable                                 ; source
     ld      de, NamesTableBuffer                                ; destiny
@@ -122,6 +132,7 @@ ShowTitleScreen:
     ld      a, (TitleScreen_StartColumn)
     ld      (Title_Index), a
 
+    call    LoadColors
 
 .titleScreenLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
@@ -231,5 +242,56 @@ ShowTitleScreen:
 
 
     jp      .titleScreenLoop
+
+    ret
+
+LoadColors:
+    ; Load Colors
+
+	; Repeat 8-bit color patterns 12x
+    ld      b, 12
+    ld		de, ColorsTable_1st_Third				        ; VRAM address (destiny)
+.loop_1st:
+    push    bc
+        push    de
+            ld      hl, (TitleScreen_ColorsAddr)
+            ld		bc, 8 ; TitleColors_1.size			    ; Block length
+            call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+        pop     de
+
+        ex      de, hl
+        ld      bc, 8
+        add     hl, bc
+        ex      de, hl
+
+    pop     bc
+    djnz    .loop_1st
+
+
+
+	; Repeat 8-bit color patterns 12x
+    ld      b, 12
+    ld		de, ColorsTable_2nd_Third				        ; VRAM address (destiny)
+.loop_2nd:
+    push    bc
+        push    de
+            ld      hl, (TitleScreen_ColorsAddr)
+            ld		bc, 8                                   ; Block length
+            call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+        pop     de
+
+        ex      de, hl
+        ld      bc, 8
+        add     hl, bc
+        ex      de, hl
+
+    pop     bc
+    djnz    .loop_2nd
+
+	; ;ld		hl, TitleColors_1        				; RAM address (source)
+    ; ld      hl, (TitleScreen_ColorsAddr)
+	; ld		de, ColorsTable_2nd_Third				; VRAM address (destiny)
+	; ld		bc, TitleColors_1.size					; Block length
+    ; call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
     ret

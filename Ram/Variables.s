@@ -262,3 +262,4 @@ Title_Index:                            rb 1
 TitleScreen_Direction:                  rb 1
 TitleScreen_StartColumn:                rb 1
 TitleScreen_EndColumn:                  rb 1
+TitleScreen_ColorsAddr:                 rw 1
