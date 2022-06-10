@@ -70,6 +70,7 @@ ShowTitleScreen:
     ; Set tile colors
     ld      hl, TitleColors_1
     ld      (TitleScreen_ColorsAddr), hl
+    call    LoadColors
 
     ; Load Names Table to buffer
     ld      hl, TitleNamesTable                                 ; source
@@ -94,6 +95,7 @@ ShowTitleScreen:
     ; Set tile colors
     ld      hl, TitleColors_1
     ld      (TitleScreen_ColorsAddr), hl
+    call    LoadColors
 
     ; Load Names Table to buffer (inverted)
     ld      hl, TitleNamesTable                                 ; source
@@ -131,8 +133,6 @@ ShowTitleScreen:
     ;ld      a, TitleScreen_Constants.NUMBER_OF_COLUMNS          ; last column
     ld      a, (TitleScreen_StartColumn)
     ld      (Title_Index), a
-
-    call    LoadColors
 
 .titleScreenLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
@@ -246,12 +246,46 @@ ShowTitleScreen:
     ret
 
 LoadColors:
-    ; Load Colors
-
 	; Repeat 8-bit color patterns 12x
     ld      b, 12
     ld		de, ColorsTable_1st_Third				        ; VRAM address (destiny)
-.loop_1st:
+    call    LoadColors_OneThird
+; .loop_1st:
+;     push    bc
+;         push    de
+;             ld      hl, (TitleScreen_ColorsAddr)
+;             ld		bc, 8 ; TitleColors_1.size			    ; Block length
+;             call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+;         pop     de
+
+;         ex      de, hl
+;         ld      bc, 8
+;         add     hl, bc
+;         ex      de, hl
+
+;     pop     bc
+;     djnz    .loop_1st
+
+
+
+	; Repeat 8-bit color patterns 12x
+    ld      b, 12
+    ld		de, ColorsTable_2nd_Third				        ; VRAM address (destiny)
+    call    LoadColors_OneThird
+
+	; ;ld		hl, TitleColors_1        				; RAM address (source)
+    ; ld      hl, (TitleScreen_ColorsAddr)
+	; ld		de, ColorsTable_2nd_Third				; VRAM address (destiny)
+	; ld		bc, TitleColors_1.size					; Block length
+    ; call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+
+    ret
+
+
+; Inputs:
+; DE: destiny addr on VRAM
+; B: number of 8-bit patterns
+LoadColors_OneThird:
     push    bc
         push    de
             ld      hl, (TitleScreen_ColorsAddr)
@@ -265,33 +299,5 @@ LoadColors:
         ex      de, hl
 
     pop     bc
-    djnz    .loop_1st
-
-
-
-	; Repeat 8-bit color patterns 12x
-    ld      b, 12
-    ld		de, ColorsTable_2nd_Third				        ; VRAM address (destiny)
-.loop_2nd:
-    push    bc
-        push    de
-            ld      hl, (TitleScreen_ColorsAddr)
-            ld		bc, 8                                   ; Block length
-            call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
-        pop     de
-
-        ex      de, hl
-        ld      bc, 8
-        add     hl, bc
-        ex      de, hl
-
-    pop     bc
-    djnz    .loop_2nd
-
-	; ;ld		hl, TitleColors_1        				; RAM address (source)
-    ; ld      hl, (TitleScreen_ColorsAddr)
-	; ld		de, ColorsTable_2nd_Third				; VRAM address (destiny)
-	; ld		bc, TitleColors_1.size					; Block length
-    ; call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
-
+    djnz    LoadColors_OneThird
     ret
