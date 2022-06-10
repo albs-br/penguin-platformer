@@ -72,7 +72,7 @@ Execute:
 
     call    ClearRam
 
-    call    InitVram
+    ; call    InitVram
 
     call    EnableRomPage2
 
@@ -110,10 +110,9 @@ Execute:
 
 TitleScreen:
     call    ShowTitleScreen
-.loop:
-    jp      .loop
 
 InitGame:
+    call    InitVram
     ;call    NewGame
 
     call    InitVariables

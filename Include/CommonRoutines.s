@@ -209,7 +209,7 @@ FillColorTable_3thirds:
 
 WaitSomeSeconds:
     ; Wait some seconds
-    ld hl, 1000
+    ld hl, 3000
     ld b, 255
 .wait:
     djnz .wait

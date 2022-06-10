@@ -7,7 +7,7 @@ ShowTitleScreen:
     ; call BIOS_INIGRP        ; Screen 2
 
 
-; Define screen colors and mode
+    ; Define screen colors and mode
     ld 		a, COLOR_WHITE       	; Foregoung color
     ld 		(BIOS_FORCLR), a    
     ld 		a, COLOR_BLACK   		; Backgroung color
@@ -17,7 +17,7 @@ ShowTitleScreen:
     call 	BIOS_CHGCLR        		; Change Screen Color
 
 
-; Set screen 2
+    ; Set screen 2
 	ld		a, 2	               	; Screen Mode (0..3 for MSX 1)
     call 	BIOS_CHGMOD        		; 
 
@@ -37,6 +37,10 @@ ShowTitleScreen:
 	ld		de, PatternsTable_2nd_Third				; VRAM address (destiny)
 	ld		bc, TitlePatterns.size					; Block length
     call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+	ld		hl, TitlePatterns        				; RAM address (source)
+	ld		de, PatternsTable_3rd_Third				; VRAM address (destiny)
+	ld		bc, TitlePatterns.size					; Block length
+    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
     ; ; Load Colors
 	; ld		hl, TitleColors_1        				    ; RAM address (source)
@@ -48,13 +52,18 @@ ShowTitleScreen:
 	; ld		bc, TitleColors_1.size					; Block length
     ; call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
-    ; Load Names Table
-	; ld		hl, TitleNamesTable        				; RAM address (source)
-	; ld		de, NamesTable				            ; VRAM address (destiny)
-	; ld		bc, TitleNamesTable.size				; Block length
-    ; call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
+    ; Load Names Table to buffer
+    ld      hl, TitleNamesTable                                 ; source
+    ld      de, NamesTableBuffer                                ; destiny
+    ld      bc, TitleNamesTable.size                            ; size
+    ldir                                                        ; Copy BC bytes from HL to DE
 
+    ; Initial Load Names Table (768 bytes)
+	ld		hl, NamesTableBuffer        	        ; RAM address (source)
+	ld		de, NamesTable				            ; VRAM address (destiny)
+	ld		bc, TitleNamesTable.size				; Block length
+    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
 	call 	BIOS_ENASCR 
 
@@ -75,7 +84,7 @@ ShowTitleScreen:
     ; Load Names Table to buffer
     ld      hl, TitleNamesTable                                 ; source
     ld      de, NamesTableBuffer                                ; destiny
-    ld      bc, TitleNamesTable.size                            ; size
+    ld      bc, 512; TitleNamesTable.size                            ; size
     ldir                                                        ; Copy BC bytes from HL to DE
 
     ; Init Variables (right to left)
@@ -100,7 +109,7 @@ ShowTitleScreen:
     ; Load Names Table to buffer (inverted)
     ld      hl, TitleNamesTable                                 ; source
     ld      de, NamesTableBuffer                                ; destiny
-    ld      bc, TitleNamesTable.size                            ; size
+    ld      bc, 512 ; TitleNamesTable.size                            ; size
     ; ldir                                                        ; Copy BC bytes from HL to DE
 .loop_10:
     ld      a, (hl)
@@ -140,6 +149,14 @@ ShowTitleScreen:
 .waitVBlank:
     cp      (hl)
     jr      z, .waitVBlank
+
+
+    ; read keyboard
+    ld      a, 8                    ; 8th line
+    call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
+    bit     0, a                    ; 0th bit (space bar)
+    jp      z, EndTitleScreen
+
 
 
     ; animation only at each four frames
@@ -273,6 +290,11 @@ LoadColors:
     ld		de, ColorsTable_2nd_Third				        ; VRAM address (destiny)
     call    LoadColors_OneThird
 
+	; Repeat 8-bit color patterns 12x
+    ld      b, 12
+    ld		de, ColorsTable_3rd_Third				        ; VRAM address (destiny)
+    call    LoadColors_OneThird
+
 	; ;ld		hl, TitleColors_1        				; RAM address (source)
     ; ld      hl, (TitleScreen_ColorsAddr)
 	; ld		de, ColorsTable_2nd_Third				; VRAM address (destiny)
@@ -283,8 +305,8 @@ LoadColors:
 
 
 ; Inputs:
-; DE: destiny addr on VRAM
-; B: number of 8-bit patterns
+;   DE: destiny addr on VRAM
+;   B: number of 8-bit patterns
 LoadColors_OneThird:
     push    bc
         push    de
@@ -300,4 +322,56 @@ LoadColors_OneThird:
 
     pop     bc
     djnz    LoadColors_OneThird
+    ret
+
+
+EndTitleScreen:
+
+    ld      b, 24
+.loop:
+    push    bc
+
+        ld      hl, NamesTableBuffer + (32 * 23)
+        ld      b, 24
+    .loopLines:
+        
+        ld      a, (hl)         ; read current line
+
+        ld      d, a
+
+        ld      a, 255
+        ld      (hl), a         ; clear current line
+
+        ld      a, d
+
+        ld      de, 32
+        add     hl, de
+        ld      (hl), a         ; write to line above
+
+        or      a
+        ld      de, 64
+        sbc     hl, de          ; go back 2 lines
+
+        djnz    .loopLines
+
+
+        ld      hl, BIOS_JIFFY              ; (v-blank sync)
+        ld      a, (hl)
+    .waitVBlank:
+        cp      (hl)
+        jr      z, .waitVBlank
+
+        ; Load Names Table from buffer to VRAM
+        ld		hl, NamesTableBuffer        			; RAM address (source)
+        ld		de, NamesTable				            ; VRAM address (destiny)
+        ld		bc, NamesTableBuffer.size				; Block length
+        call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+
+    pop     bc
+    djnz    .loop
+
+
+
+    call    WaitSomeSeconds
+
     ret
