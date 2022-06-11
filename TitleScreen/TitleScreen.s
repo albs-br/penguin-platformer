@@ -327,39 +327,52 @@ LoadColors_OneThird:
 
 EndTitleScreen:
 
-    ld      b, 24
+    ld      b, 24           ; number of frames
 .loop:
     push    bc
 
-        ld      hl, NamesTableBuffer + (32 * 23)
-        ld      b, 24
-    .loopLines:
+
+        ld      b, 16           ; number of columns of screen
+    .loopColumns:
+        push    bc
+
+            ld      hl, NamesTableBuffer + (32 * 23)
+            ld      c, b
+            ld      b, 0
+            sla     c               ; multiply C x 2
+            dec     bc              ; column number is between 0 and 31
+            add     hl, bc
+            ld      b, 24           ; number of lines of screen
+        .loopLines:
+            
+            ld      a, (hl)         ; read current line
+
+            ld      d, a
+
+            ld      a, 255
+            ld      (hl), a         ; clear current line
+
+            ld      a, d
+
+            ld      de, 32
+            add     hl, de
+            ld      (hl), a         ; write to line above
+
+            or      a
+            ld      de, 64
+            sbc     hl, de          ; go back 2 lines
+
+            djnz    .loopLines
         
-        ld      a, (hl)         ; read current line
-
-        ld      d, a
-
-        ld      a, 255
-        ld      (hl), a         ; clear current line
-
-        ld      a, d
-
-        ld      de, 32
-        add     hl, de
-        ld      (hl), a         ; write to line above
-
-        or      a
-        ld      de, 64
-        sbc     hl, de          ; go back 2 lines
-
-        djnz    .loopLines
+        pop     bc
+        djnz    .loopColumns
 
 
-        ld      hl, BIOS_JIFFY              ; (v-blank sync)
-        ld      a, (hl)
-    .waitVBlank:
-        cp      (hl)
-        jr      z, .waitVBlank
+    ;     ld      hl, BIOS_JIFFY              ; (v-blank sync)
+    ;     ld      a, (hl)
+    ; .waitVBlank:
+    ;     cp      (hl)
+    ;     jr      z, .waitVBlank
 
         ; Load Names Table from buffer to VRAM
         ld		hl, NamesTableBuffer        			; RAM address (source)
