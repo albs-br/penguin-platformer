@@ -51,6 +51,7 @@ GameIncludes_Start:
     INCLUDE "GameLogic/SwitchNamesTable.s"
     INCLUDE "GameLogic/CopyEnemyPatternsToVRAM.s"
     INCLUDE "TitleScreen/TitleScreen.s"
+    INCLUDE "LevelScreen/LevelScreen.s"
 GameIncludes_Start.size:      equ $ - GameIncludes_Start
 
 ; Include game data (~ 5.9 Kb)
