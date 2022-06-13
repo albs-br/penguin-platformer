@@ -112,6 +112,11 @@ Execute:
 TitleScreen:
     call    ShowTitleScreen
 
+
+
+    call    LevelScreen
+
+
 InitGame:
     call    InitVram
     ;call    NewGame

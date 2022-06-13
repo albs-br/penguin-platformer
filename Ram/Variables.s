@@ -256,10 +256,14 @@ VDP_Is9918:                             rb 1
 Temp_Addr:                              rw 1
 
 
-;----------------------
-; Title
+; ----------------------
+; Title screen
 Title_Index:                            rb 1
 TitleScreen_Direction:                  rb 1
 TitleScreen_StartColumn:                rb 1
 TitleScreen_EndColumn:                  rb 1
 TitleScreen_ColorsAddr:                 rw 1
+
+; --------------------
+; Level screen
+LevelScreen_Counter:                    rb 1
