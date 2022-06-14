@@ -1,53 +1,7 @@
+; Set up VRAM for normal gameplay
 InitVram:
 
-	call 	BIOS_DISSCR		; 
-
-
-    ld 		a, 0
-    ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
-
-    ; call BIOS_INIGRP        ; Screen 2
-
-
-; Define screen colors and mode
-    ld 		a, COLOR_WHITE       	; Foregoung color
-    ld 		(BIOS_FORCLR), a    
-    ld 		a, COLOR_BLACK   		; Backgroung color
-    ld 		(BIOS_BAKCLR), a     
-    ld 		a, COLOR_BLACK       	; Border color
-    ld 		(BIOS_BDRCLR), a    
-    call 	BIOS_CHGCLR        		; Change Screen Color
-
-
-; Set screen 2
-	ld		a, 2	               	; Screen Mode (0..3 for MSX 1)
-    call 	BIOS_CHGMOD        		; 
-
-	call 	BIOS_DISSCR		; 
-
-
-; Write to VDP register 1 (Set Screen mode, sprites size, Vblank, Display, VRAM mode setting)
-; Set it to 225 (‭1110 0001‬ b)
-; bit 7: 4/16K selects VRAM configuration. Write 1 if the VDP is not a V9938 nor V9958.
-; bit 6: BL disables the screen display when reseted.VDP's commands work a bit faster as well. Screen display is displayed by default.
-; bit 5: IE0 enables (1) or disable (0) the vertical retrace interrupts that occur at just after each display of the screen (foreground).
-; bit 4: M2 is one of bits that defines the screen mode. (Write 1 to set the SCREEN 3)
-; bit 3: M1 is one of bits that defines the screen mode. (Write 1 to set the SCREEN 0)
-; bit 2: not used (always 0)
-; bit 1: SI defines the sprite size. Write 1 to use 16x16 sprites, 0 to use 8x8 sprites.
-; bit 0: MAG enlarges the sprites when 1 is written. (0 by default)
-; https://www.msx.org/wiki/VDP_Mode_Registers#Control_Register_1
-	ld		c, 1	               		; VDP Register Number (0..27, 32..46)
-	ld		b, 1110 0010 b   	        ; Data To Write
-    call 	BIOS_WRTVDP        		    ; 
-
-
-
-; --------------------------------------------------
-	call 	BIOS_DISSCR		; 
-
-
-	call 	ClearVRAM
+    call    BasicInitScreen2
 
 
     call    LoadTilePatterns
@@ -253,3 +207,56 @@ SetNameTable_2:
     call BIOS_WRTVDP        		; Block transfer to VRAM from memory
 	ret
 
+
+
+BasicInitScreen2:
+	call 	BIOS_DISSCR		; 
+
+
+    ld 		a, 0
+    ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
+
+    ; call BIOS_INIGRP        ; Screen 2
+
+
+; Define screen colors and mode
+    ld 		a, COLOR_WHITE       	; Foregoung color
+    ld 		(BIOS_FORCLR), a    
+    ld 		a, COLOR_BLACK   		; Backgroung color
+    ld 		(BIOS_BAKCLR), a     
+    ld 		a, COLOR_BLACK       	; Border color
+    ld 		(BIOS_BDRCLR), a    
+    call 	BIOS_CHGCLR        		; Change Screen Color
+
+
+; Set screen 2
+	ld		a, 2	               	; Screen Mode (0..3 for MSX 1)
+    call 	BIOS_CHGMOD        		; 
+
+	call 	BIOS_DISSCR		; 
+
+
+; Write to VDP register 1 (Set Screen mode, sprites size, Vblank, Display, VRAM mode setting)
+; Set it to 225 (‭1110 0001‬ b)
+; bit 7: 4/16K selects VRAM configuration. Write 1 if the VDP is not a V9938 nor V9958.
+; bit 6: BL disables the screen display when reseted.VDP's commands work a bit faster as well. Screen display is displayed by default.
+; bit 5: IE0 enables (1) or disable (0) the vertical retrace interrupts that occur at just after each display of the screen (foreground).
+; bit 4: M2 is one of bits that defines the screen mode. (Write 1 to set the SCREEN 3)
+; bit 3: M1 is one of bits that defines the screen mode. (Write 1 to set the SCREEN 0)
+; bit 2: not used (always 0)
+; bit 1: SI defines the sprite size. Write 1 to use 16x16 sprites, 0 to use 8x8 sprites.
+; bit 0: MAG enlarges the sprites when 1 is written. (0 by default)
+; https://www.msx.org/wiki/VDP_Mode_Registers#Control_Register_1
+	ld		c, 1	               		; VDP Register Number (0..27, 32..46)
+	ld		b, 1110 0010 b   	        ; Data To Write
+    call 	BIOS_WRTVDP        		    ; 
+
+
+
+; --------------------------------------------------
+	call 	BIOS_DISSCR		; 
+
+
+	call 	ClearVRAM
+
+    ret

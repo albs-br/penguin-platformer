@@ -1,32 +1,6 @@
 ShowTitleScreen:
-	call 	BIOS_DISSCR
 
-    ld 		a, 0
-    ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
-
-    ; call BIOS_INIGRP        ; Screen 2
-
-
-    ; Define screen colors and mode
-    ld 		a, COLOR_WHITE       	; Foregoung color
-    ld 		(BIOS_FORCLR), a    
-    ld 		a, COLOR_BLACK   		; Backgroung color
-    ld 		(BIOS_BAKCLR), a     
-    ld 		a, COLOR_BLACK       	; Border color
-    ld 		(BIOS_BDRCLR), a    
-    call 	BIOS_CHGCLR        		; Change Screen Color
-
-
-    ; Set screen 2
-	ld		a, 2	               	; Screen Mode (0..3 for MSX 1)
-    call 	BIOS_CHGMOD        		; 
-
-
-	call 	BIOS_DISSCR
-
-	call 	ClearVRAM
-
-
+    call    BasicInitScreen2
 
     ; Load Patterns
 	ld		hl, TitlePatterns        				; RAM address (source)
