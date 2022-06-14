@@ -14,6 +14,9 @@ LevelScreen:
     cp      (hl)
     jr      z, .waitVBlank
 
+
+
+
     ld      a, (LevelScreen_Counter)
     
     cp      4               ; if(a >=0 && a<= 3)

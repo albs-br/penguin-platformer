@@ -301,6 +301,18 @@ LoadColors_OneThird:
 
 EndTitleScreen:
 
+    ld      ixh, 0
+    call    ColumnsDown
+    ld      ixh, 1
+    call    ColumnsDown
+
+    ret
+
+
+
+; Input
+;   IXH: 0: even columns; 1: odd columns
+ColumnsDown:
     ld      b, 24           ; number of frames
 .loop:
     push    bc
@@ -313,8 +325,16 @@ EndTitleScreen:
             ld      hl, NamesTableBuffer + (32 * 23)
             ld      c, b
             ld      b, 0
-            sla     c               ; multiply C x 2
-            dec     bc              ; column number is between 0 and 31
+            sla     c               ; multiply C x 2            (32-2, only even)
+            dec     bc              ; column number:            (31-1, only odd)
+            
+            ; if (IXH == 0) Even else Odd
+            ld      a, ixh
+            or      a
+            jp      nz, .odd
+            dec     bc              ; column number:            (30-0, only even)
+        .odd:
+
             add     hl, bc
             ld      b, 24           ; number of lines of screen
         .loopLines:
@@ -357,8 +377,6 @@ EndTitleScreen:
     pop     bc
     djnz    .loop
 
-
-
-    call    WaitSomeSeconds
+    ; call    WaitSomeSeconds
 
     ret
