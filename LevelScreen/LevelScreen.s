@@ -34,7 +34,7 @@ LevelScreen:
     call    z, .frame_3
     
     cp      32
-    ; call    z, .frame_4
+    call    z, .frame_4
     
     cp      40
     ; call    z, .frame_5
@@ -133,7 +133,7 @@ LevelScreen:
             ex      de, hl
         pop     hl
         
-        ld      bc, 8
+        ld      bc, 8   ; number of columns
         add     hl, bc  ; next pattern line
 
     pop     bc
@@ -143,47 +143,8 @@ LevelScreen:
 
     ; --------------------------- frame 3:  Tiles               (pixel size 8x8)
 .frame_3:
-    
-    call    HideAllSprites
 
-    ; set sprites normal size
-	ld		c, 1	               		; VDP Register Number (0..27, 32..46)
-	ld		b, 1110 0010 b   	        ; Data To Write
-    call 	BIOS_WRTVDP        		    ; 
-
-    ; Load Tile Patterns
-	ld		hl, PATTERN_TABLE_FRAME_3			    ; RAM address (source)
-	ld		de, PatternsTable_1st_Third + (8 * 1)   ; VRAM address (destiny)
-	ld		bc, PATTERN_TABLE_FRAME_3.size		    ; Block length
-    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
-
-	ld		hl, PATTERN_TABLE_FRAME_3			    ; RAM address (source)
-	ld		de, PatternsTable_2nd_Third + (8 * 1)   ; VRAM address (destiny)
-	ld		bc, PATTERN_TABLE_FRAME_3.size		    ; Block length
-    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
-
-	ld		hl, PATTERN_TABLE_FRAME_3			    ; RAM address (source)
-	ld		de, PatternsTable_3rd_Third + (8 * 1)   ; VRAM address (destiny)
-	ld		bc, PATTERN_TABLE_FRAME_3.size		    ; Block length
-    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
-
-
-    ; Load Tile Colors
-	ld		hl, COLOR_TABLE_FRAME_3			        ; RAM address (source)
-	ld		de, ColorsTable_1st_Third + (8 * 1)     ; VRAM address (destiny)
-	ld		bc, COLOR_TABLE_FRAME_3.size		    ; Block length
-    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
-
-	ld		hl, COLOR_TABLE_FRAME_3			        ; RAM address (source)
-	ld		de, ColorsTable_2nd_Third + (8 * 1)     ; VRAM address (destiny)
-	ld		bc, COLOR_TABLE_FRAME_3.size		    ; Block length
-    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
-
-	ld		hl, COLOR_TABLE_FRAME_3			        ; RAM address (source)
-	ld		de, ColorsTable_3rd_Third + (8 * 1)     ; VRAM address (destiny)
-	ld		bc, COLOR_TABLE_FRAME_3.size		    ; Block length
-    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
-
+    call    .InitFrames_3_And_Above
 
     ; Load Names Table
 	ld		hl, NAMES_TABLE_FRAME_3			        ; RAM address (source)
@@ -203,20 +164,100 @@ LevelScreen:
             ex      de, hl
         pop     hl
         
-        ld      bc, 16
+        ld      bc, 16  ; number of columns
         add     hl, bc  ; next pattern line
 
     pop     bc
     djnz    .loop_NamesTable_1
 
-.test:
-jp .test
-
     ret    
 
 
-    ; frame 4:  Tiles               (pixel size 16x16)
+    ; --------------------- frame 4:  Tiles               (pixel size 16x16)
+.frame_4:
+
+    call    .InitFrames_3_And_Above
+
+    ; Load all names table
+	ld		hl, NAMES_TABLE_FRAME_4			        ; RAM address (source)
+	ld		de, NamesTable                          ; VRAM address (destiny)
+	ld		bc, NAMES_TABLE_FRAME_4.size		    ; Block length
+    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
+
+; 	ld		hl, NAMES_TABLE_FRAME_4			        ; RAM address (source)
+; 	ld		de, NamesTable                          ; VRAM address (destiny)
+;     ld      b, 24 ; number of lines
+; .loop_NamesTable_2:
+;     push    bc
+;         push    hl
+;             push    de
+;                 ld		bc, 32 ; number of columns
+;                 call 	fast_LDIRVM        			; Block transfer to VRAM from memory
+;             pop     de
+
+;             ex      de, hl
+;             ld      bc, 32
+;             add     hl, bc  ; next namestable line
+;             ex      de, hl
+;         pop     hl
+        
+;         ld      bc, 32 ; number of columns
+;         add     hl, bc  ; next pattern line
+
+;     pop     bc
+;     djnz    .loop_NamesTable_2
+
+.test:
+jp .test
+
+    ret
+
+
+
     ; frame 5:  Tiles               (pixel size 32x32)
 
     ; 6 frames x 4 = 24 frames (less than half second)
 
+
+.InitFrames_3_And_Above:
+    call    HideAllSprites
+
+    ; set sprites normal size
+	ld		c, 1	               		; VDP Register Number (0..27, 32..46)
+	ld		b, 1110 0010 b   	        ; Data To Write
+    call 	BIOS_WRTVDP        		    ; 
+
+    ; Load Tile Patterns
+	ld		hl, PATTERN_TABLE_FRAME_3_AND_ABOVE			    ; RAM address (source)
+	ld		de, PatternsTable_1st_Third + (8 * 1)   ; VRAM address (destiny)
+	ld		bc, PATTERN_TABLE_FRAME_3_AND_ABOVE.size		    ; Block length
+    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
+
+	ld		hl, PATTERN_TABLE_FRAME_3_AND_ABOVE			    ; RAM address (source)
+	ld		de, PatternsTable_2nd_Third + (8 * 1)   ; VRAM address (destiny)
+	ld		bc, PATTERN_TABLE_FRAME_3_AND_ABOVE.size		    ; Block length
+    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
+
+	ld		hl, PATTERN_TABLE_FRAME_3_AND_ABOVE			    ; RAM address (source)
+	ld		de, PatternsTable_3rd_Third + (8 * 1)   ; VRAM address (destiny)
+	ld		bc, PATTERN_TABLE_FRAME_3_AND_ABOVE.size		    ; Block length
+    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
+
+
+    ; Load Tile Colors
+	ld		hl, COLOR_TABLE_FRAME_3_AND_ABOVE			        ; RAM address (source)
+	ld		de, ColorsTable_1st_Third + (8 * 1)     ; VRAM address (destiny)
+	ld		bc, COLOR_TABLE_FRAME_3_AND_ABOVE.size		    ; Block length
+    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
+
+	ld		hl, COLOR_TABLE_FRAME_3_AND_ABOVE			        ; RAM address (source)
+	ld		de, ColorsTable_2nd_Third + (8 * 1)     ; VRAM address (destiny)
+	ld		bc, COLOR_TABLE_FRAME_3_AND_ABOVE.size		    ; Block length
+    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
+
+	ld		hl, COLOR_TABLE_FRAME_3_AND_ABOVE			        ; RAM address (source)
+	ld		de, ColorsTable_3rd_Third + (8 * 1)     ; VRAM address (destiny)
+	ld		bc, COLOR_TABLE_FRAME_3_AND_ABOVE.size		    ; Block length
+    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
+
+    ret

@@ -26,14 +26,19 @@ NAMES_TABLE_FRAME_2:
 .size: equ $ - NAMES_TABLE_FRAME_2
 
 ; -----------------------------------------------------------
-PATTERN_TABLE_FRAME_3:
-    INCLUDE "LevelScreen/Data/Frame_3/pattern_table.s"
-.size: equ $ - PATTERN_TABLE_FRAME_3
+; Data common to frames 3 onwards
+PATTERN_TABLE_FRAME_3_AND_ABOVE:
+    INCLUDE "LevelScreen/Data/Common/pattern_table.s"
+.size: equ $ - PATTERN_TABLE_FRAME_3_AND_ABOVE
 
-COLOR_TABLE_FRAME_3:
-    INCLUDE "LevelScreen/Data/Frame_3/color_table.s"
-.size: equ $ - COLOR_TABLE_FRAME_3
-
+COLOR_TABLE_FRAME_3_AND_ABOVE:
+    INCLUDE "LevelScreen/Data/Common/color_table.s"
+.size: equ $ - COLOR_TABLE_FRAME_3_AND_ABOVE
+; -----------------------------------------------------------
 NAMES_TABLE_FRAME_3:
     INCLUDE "LevelScreen/Data/Frame_3/names_table.s"
 .size: equ $ - NAMES_TABLE_FRAME_3
+; -----------------------------------------------------------
+NAMES_TABLE_FRAME_4:
+    INCLUDE "LevelScreen/Data/Frame_4/names_table.s"
+.size: equ $ - NAMES_TABLE_FRAME_4
