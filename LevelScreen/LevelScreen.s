@@ -24,19 +24,19 @@ LevelScreen:
     cp      0
     call    z, .frame_0
     
-    cp      4
+    cp      8
     call    z, .frame_1
     
-    cp      8
+    cp      16
     call    z, .frame_2
     
-    cp      12
-    ;call    z, .frame_3
+    cp      24
+    call    z, .frame_3
     
-    cp      16
+    cp      32
     ; call    z, .frame_4
     
-    cp      20
+    cp      40
     ; call    z, .frame_5
     
     ; cp      255
@@ -187,7 +187,7 @@ LevelScreen:
 
     ; Load Names Table
 	ld		hl, NAMES_TABLE_FRAME_3			        ; RAM address (source)
-	ld		de, NamesTable + 0 + (32/2) - (16/2)  ; VRAM address (destiny)
+	ld		de, NamesTable + ((24/2) - (16/2))*32 + ((32/2) - (16/2))  ; VRAM address (destiny)
     ld      b, 16 ; number of lines
 .loop_NamesTable_1:
     push    bc
