@@ -62,6 +62,7 @@ GameData_Start:
     INCLUDE "Graphics/TileMaps/TileMaps_Constants.s"
     INCLUDE "Sound/Sound.s"
     INCLUDE "TitleScreen/Data.s"
+    INCLUDE "LevelScreen/Data.s"
 GameData_Start.size:      equ $ - GameData_Start
 
 ; Program code entry point

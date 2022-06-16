@@ -27,16 +27,16 @@ LevelScreen:
     cp      4
     call    z, .frame_1
     
-    ; cp      8
-    ; call    z, .frame_2
+    cp      8
+    call    z, .frame_2
     
-    cp      12              ; if(a >=12 && a<= 15)
+    cp      12
     ; call    z, .frame_3
     
-    cp      16              ; if(a >=16 && a<= 19)
+    cp      16
     ; call    z, .frame_4
     
-    cp      20              ; if(a >=20 && a<= 23)
+    cp      20
     ; call    z, .frame_5
     
     ; cp      255
@@ -93,25 +93,57 @@ LevelScreen:
 
 
 
-    ; frame 2:  Tiles               (pixel size 4x4)
+    ; -------------------- frame 2:  Tiles               (pixel size 4x4)
+.frame_2:
+    
+    call    HideAllSprites
+
+    ; set sprites normal size
+	ld		c, 1	               		; VDP Register Number (0..27, 32..46)
+	ld		b, 1110 0010 b   	        ; Data To Write
+    call 	BIOS_WRTVDP        		    ; 
+
+    ; Load Tile Patterns
+	ld		hl, PATTERN_TABLE_FRAME_2			    ; RAM address (source)
+	ld		de, PatternsTable_2nd_Third + (8 * 1)   ; VRAM address (destiny)
+	ld		bc, PATTERN_TABLE_FRAME_2.size		    ; Block length
+    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+
+    ; Load Tile Colors
+	ld		hl, COLOR_TABLE_FRAME_2			        ; RAM address (source)
+	ld		de, ColorsTable_2nd_Third + (8 * 1)     ; VRAM address (destiny)
+	ld		bc, COLOR_TABLE_FRAME_2.size		    ; Block length
+    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+
+    ; Load Names Table
+	ld		hl, NAMES_TABLE_FRAME_2			        ; RAM address (source)
+	ld		de, NamesTable + 256 + (32/2) - (8/2)   ; VRAM address (destiny)
+    ld      b, 8
+.loop_NamesTable:
+    push    bc
+        push    hl
+            push    de
+                ld		bc, 8 ;NAMES_TABLE_FRAME_2.size		    ; Block length
+                call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+            pop     de
+
+            ex      de, hl
+            ld      bc, 32
+            add     hl, bc  ; next namestable line
+            ex      de, hl
+        pop     hl
+        
+        ld      bc, 8
+        add     hl, bc  ; next pattern line
+
+    pop     bc
+    djnz    .loop_NamesTable
+
+    ret    
+
     ; frame 3:  Tiles               (pixel size 8x8)
     ; frame 4:  Tiles               (pixel size 16x16)
     ; frame 5:  Tiles               (pixel size 32x32)
 
     ; 6 frames x 4 = 24 frames (less than half second)
 
-
-
-
-; --------------- Data
-SPRITE_ATT_TABLE_FRAME_0:
-    ; Y, X, pat, color
-    db (192/2)-8, (256/2)-8, 1*4, 4
-    db (192/2)-8, (256/2)-8, 2*4, 15
-.size: equ $ - SPRITE_ATT_TABLE_FRAME_0
-
-SPRITE_ATT_TABLE_FRAME_1:
-    ; Y, X, pat, color
-    db (192/2)-16, (256/2)-16, 1*4, 4
-    db (192/2)-16, (256/2)-16, 2*4, 15
-.size: equ $ - SPRITE_ATT_TABLE_FRAME_1

@@ -252,11 +252,9 @@ BasicInitScreen2:
     call 	BIOS_WRTVDP        		    ; 
 
 
-
-; --------------------------------------------------
-	call 	BIOS_DISSCR		; 
-
-
 	call 	ClearVRAM
+
+
+	call 	BIOS_DISSCR		; 
 
     ret
