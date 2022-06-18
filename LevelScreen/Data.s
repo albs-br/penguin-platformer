@@ -42,3 +42,7 @@ NAMES_TABLE_FRAME_3:
 NAMES_TABLE_FRAME_4:
     INCLUDE "LevelScreen/Data/Frame_4/names_table.s"
 .size: equ $ - NAMES_TABLE_FRAME_4
+; -----------------------------------------------------------
+NAMES_TABLE_FRAME_5:
+    INCLUDE "LevelScreen/Data/Frame_5/names_table.s"
+.size: equ $ - NAMES_TABLE_FRAME_5

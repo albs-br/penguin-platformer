@@ -19,28 +19,36 @@ LevelScreen:
 
 
 
+    ld      a, LEVEL_SCREEN_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a               ; set MegaROM page for BgObjects
+
+
+
     ld      a, (LevelScreen_Counter)
+    
+.LEVEL_SCREEN_ZOOM_SPEED: equ 1      ; 6 frames x 4 = 24 frames (less than half second)
+;.LEVEL_SCREEN_ZOOM_SPEED: equ 2      ; 6 frames x 8 = 48 frames (almost 1 second)
     
     cp      0
     call    z, .frame_0
     
-    cp      8
+    cp      4 * .LEVEL_SCREEN_ZOOM_SPEED
     call    z, .frame_1
     
-    cp      16
+    cp      8 * .LEVEL_SCREEN_ZOOM_SPEED
     call    z, .frame_2
     
-    cp      24
+    cp      12 * .LEVEL_SCREEN_ZOOM_SPEED
     call    z, .frame_3
     
-    cp      32
+    cp      16 * .LEVEL_SCREEN_ZOOM_SPEED
     call    z, .frame_4
     
-    cp      40
-    ; call    z, .frame_5
+    cp      20 * .LEVEL_SCREEN_ZOOM_SPEED
+    call    z, .frame_5
     
-    ; cp      255
-    ; jp    z, .end
+    cp      24 * .LEVEL_SCREEN_ZOOM_SPEED
+    jp      z, .end
 
 
     ld      hl, LevelScreen_Counter
@@ -207,17 +215,29 @@ LevelScreen:
 ;     pop     bc
 ;     djnz    .loop_NamesTable_2
 
-.test:
-jp .test
+    ret
+
+
+
+    ; -------------------- frame 5:  Tiles               (pixel size 32x32)
+.frame_5:
+
+    call    .InitFrames_3_And_Above
+
+    ; Load all names table
+	ld		hl, NAMES_TABLE_FRAME_5			        ; RAM address (source)
+	ld		de, NamesTable                          ; VRAM address (destiny)
+	ld		bc, NAMES_TABLE_FRAME_5.size		    ; Block length
+    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
 
     ret
 
 
 
-    ; frame 5:  Tiles               (pixel size 32x32)
-
-    ; 6 frames x 4 = 24 frames (less than half second)
-
+.end:
+    ;call    ClearVRAM
+    ; return to main.s
+    ret
 
 .InitFrames_3_And_Above:
     call    HideAllSprites
