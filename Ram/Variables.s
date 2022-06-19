@@ -263,7 +263,7 @@ TitleScreen_Direction:                  rb 1
 TitleScreen_StartColumn:                rb 1
 TitleScreen_EndColumn:                  rb 1
 TitleScreen_ColorsAddr:                 rw 1
-
+TitleScreen_Counter:                    rb 1
 ; --------------------
 ; Level screen
 LevelScreen_Counter:                    rb 1

@@ -41,6 +41,10 @@ ShowTitleScreen:
 
 	call 	BIOS_ENASCR 
 
+    
+    xor     a
+    ld      (TitleScreen_Counter), a
+
 
 .initTitle_1:
     ; revert left to right direction
@@ -50,10 +54,12 @@ ShowTitleScreen:
 
 .initTitle_RightToLeft:
 
+    call    .updateColors
+
     ; Set tile colors
-    ld      hl, TitleColors_1
-    ld      (TitleScreen_ColorsAddr), hl
-    call    LoadColors
+    ; ld      hl, TitleColors_1
+    ; ld      (TitleScreen_ColorsAddr), hl
+    call    LoadTitleColors
 
     ; Load Names Table to buffer
     ld      hl, TitleNamesTable                                 ; source
@@ -75,10 +81,12 @@ ShowTitleScreen:
 
 .initTitle_LeftToRight:
 
+    call    .updateColors
+
     ; Set tile colors
-    ld      hl, TitleColors_1
-    ld      (TitleScreen_ColorsAddr), hl
-    call    LoadColors
+    ; ld      hl, TitleColors_1
+    ; ld      (TitleScreen_ColorsAddr), hl
+    call    LoadTitleColors
 
     ; Load Names Table to buffer (inverted)
     ld      hl, TitleNamesTable                                 ; source
@@ -236,26 +244,47 @@ ShowTitleScreen:
 
     ret
 
-LoadColors:
+
+
+.updateColors:
+    ld      a, (TitleScreen_Counter)
+    inc     a
+    ld      (TitleScreen_Counter), a
+
+    and     0000 1100 b ; mask to change colors only at each n frames
+
+    cp      0
+    call    z, .setTitleColors_1
+    cp      4
+    call    z, .setTitleColors_2
+    cp      8
+    call    z, .setTitleColors_3
+    cp      12
+    call    z, .setTitleColors_4
+
+    ld      (TitleScreen_ColorsAddr), hl
+
+    ret
+.setTitleColors_1:
+    ld      hl, TitleColors_1
+    ret
+.setTitleColors_2:
+    ld      hl, TitleColors_2
+    ret
+.setTitleColors_3:
+    ld      hl, TitleColors_3
+    ret
+.setTitleColors_4:
+    ld      hl, TitleColors_4
+    ret
+
+
+
+LoadTitleColors:
 	; Repeat 8-bit color patterns 12x
     ld      b, 12
     ld		de, ColorsTable_1st_Third				        ; VRAM address (destiny)
     call    LoadColors_OneThird
-; .loop_1st:
-;     push    bc
-;         push    de
-;             ld      hl, (TitleScreen_ColorsAddr)
-;             ld		bc, 8 ; TitleColors_1.size			    ; Block length
-;             call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
-;         pop     de
-
-;         ex      de, hl
-;         ld      bc, 8
-;         add     hl, bc
-;         ex      de, hl
-
-;     pop     bc
-;     djnz    .loop_1st
 
 
 
@@ -310,7 +339,7 @@ EndTitleScreen:
 
 
 
-; Input
+; Input:
 ;   IXH: 0: even columns; 1: odd columns
 ColumnsDown:
     ld      b, 24           ; number of frames

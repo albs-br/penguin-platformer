@@ -248,36 +248,36 @@ LevelScreen:
     call 	BIOS_WRTVDP        		    ; 
 
     ; Load Tile Patterns
-	ld		hl, PATTERN_TABLE_FRAME_3_AND_ABOVE			    ; RAM address (source)
+	ld		hl, PATTERN_TABLE_FRAME_3_AND_ABOVE		; RAM address (source)
 	ld		de, PatternsTable_1st_Third + (8 * 1)   ; VRAM address (destiny)
-	ld		bc, PATTERN_TABLE_FRAME_3_AND_ABOVE.size		    ; Block length
+	ld		bc, PATTERN_TABLE_FRAME_3_AND_ABOVE.size; Block length
     call 	fast_LDIRVM        						; Block transfer to VRAM from memory
 
-	ld		hl, PATTERN_TABLE_FRAME_3_AND_ABOVE			    ; RAM address (source)
+	ld		hl, PATTERN_TABLE_FRAME_3_AND_ABOVE		; RAM address (source)
 	ld		de, PatternsTable_2nd_Third + (8 * 1)   ; VRAM address (destiny)
-	ld		bc, PATTERN_TABLE_FRAME_3_AND_ABOVE.size		    ; Block length
+	ld		bc, PATTERN_TABLE_FRAME_3_AND_ABOVE.size; Block length
     call 	fast_LDIRVM        						; Block transfer to VRAM from memory
 
-	ld		hl, PATTERN_TABLE_FRAME_3_AND_ABOVE			    ; RAM address (source)
+	ld		hl, PATTERN_TABLE_FRAME_3_AND_ABOVE		; RAM address (source)
 	ld		de, PatternsTable_3rd_Third + (8 * 1)   ; VRAM address (destiny)
-	ld		bc, PATTERN_TABLE_FRAME_3_AND_ABOVE.size		    ; Block length
+	ld		bc, PATTERN_TABLE_FRAME_3_AND_ABOVE.size; Block length
     call 	fast_LDIRVM        						; Block transfer to VRAM from memory
 
 
     ; Load Tile Colors
-	ld		hl, COLOR_TABLE_FRAME_3_AND_ABOVE			        ; RAM address (source)
+	ld		hl, COLOR_TABLE_FRAME_3_AND_ABOVE		; RAM address (source)
 	ld		de, ColorsTable_1st_Third + (8 * 1)     ; VRAM address (destiny)
-	ld		bc, COLOR_TABLE_FRAME_3_AND_ABOVE.size		    ; Block length
+	ld		bc, COLOR_TABLE_FRAME_3_AND_ABOVE.size	; Block length
     call 	fast_LDIRVM        						; Block transfer to VRAM from memory
 
-	ld		hl, COLOR_TABLE_FRAME_3_AND_ABOVE			        ; RAM address (source)
+	ld		hl, COLOR_TABLE_FRAME_3_AND_ABOVE		; RAM address (source)
 	ld		de, ColorsTable_2nd_Third + (8 * 1)     ; VRAM address (destiny)
-	ld		bc, COLOR_TABLE_FRAME_3_AND_ABOVE.size		    ; Block length
+	ld		bc, COLOR_TABLE_FRAME_3_AND_ABOVE.size	; Block length
     call 	fast_LDIRVM        						; Block transfer to VRAM from memory
 
-	ld		hl, COLOR_TABLE_FRAME_3_AND_ABOVE			        ; RAM address (source)
+	ld		hl, COLOR_TABLE_FRAME_3_AND_ABOVE		; RAM address (source)
 	ld		de, ColorsTable_3rd_Third + (8 * 1)     ; VRAM address (destiny)
-	ld		bc, COLOR_TABLE_FRAME_3_AND_ABOVE.size		    ; Block length
+	ld		bc, COLOR_TABLE_FRAME_3_AND_ABOVE.size	; Block length
     call 	fast_LDIRVM        						; Block transfer to VRAM from memory
 
     ret
