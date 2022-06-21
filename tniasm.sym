@@ -251,7 +251,7 @@ BIOS_NSETRD: equ 016Eh ; last def. pass 3
 PLY_AKG_OPCODE_JP: equ 080C3h ; last def. pass 3
 BIOS_JIFFY: equ 0FC9Eh ; last def. pass 3
 JUSTADDCREAM_EFFECTBLOCK_P5P0P15P64P0P6P0: equ 081D4h ; last def. pass 3
-MainLoop: equ 075CEh ; last def. pass 3
+MainLoop: equ 075D4h ; last def. pass 3
 PLY_AKG_CHANNEL3_ARPEGGIOTABLE: equ 0E6C3h ; last def. pass 3
 Scenery_Logic.return: equ 04DB4h ; last def. pass 3
 PLY_AKG_INITTABLEORA_END: equ 08D91h ; last def. pass 3
@@ -458,7 +458,7 @@ AkgPlayer_InitPlayer: equ 071C4h ; last def. pass 3
 BIOS_SLTTBL: equ 0FCC5h ; last def. pass 3
 BIOS_DSCTMP: equ 0F698h ; last def. pass 3
 CheckBackGround_Right.continue: equ 05223h ; last def. pass 3
-End: equ 07641h ; last def. pass 3
+End: equ 07647h ; last def. pass 3
 CurrentLevel_InitialMegaRomPage: equ 0D016h ; last def. pass 3
 JUSTADDCREAM_INSTRUMENT6: equ 080C2h ; last def. pass 3
 PLY_AKG_PSES_READFIRSTBYTE: equ 08BE3h ; last def. pass 3
@@ -794,7 +794,7 @@ Scenery_Logic.continue: equ 04D9Ch ; last def. pass 3
 copy_to_VDP_loop: equ 04237h ; last def. pass 3
 PLY_AKG_CHANNEL3_ARPEGGIOTABLECURRENTSTEP: equ 0E6B5h ; last def. pass 3
 MAIN_SUBSONG0_TRACK_0: equ 08495h ; last def. pass 3
-MainLoop.waitVBlank: equ 075D2h ; last def. pass 3
+MainLoop.waitVBlank: equ 075D8h ; last def. pass 3
 BIOS_MINUPD: equ 0F3EFh ; last def. pass 3
 MAIN_SUBSONG0_TRACK_8: equ 085DCh ; last def. pass 3
 JUSTADDCREAM_START: equ 08000h ; last def. pass 3
@@ -920,7 +920,7 @@ Enemy_TypeA_1_RAM_Pattern_Addr: equ 0D06Dh ; last def. pass 3
 JUSTADDCREAM_EFFECTBLOCK_P6P1: equ 0818Eh ; last def. pass 3
 PLY_AKG_EFFECT_VOLUMESLIDE: equ 095F1h ; last def. pass 3
 BIOS_HIGH: equ 0F408h ; last def. pass 3
-Finished: equ 0763Fh ; last def. pass 3
+Finished: equ 07645h ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_674: equ 09BD7h ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_165: equ 09AF5h ; last def. pass 3
 BIOS_BDRCLR: equ 0F3EBh ; last def. pass 3
@@ -1419,7 +1419,7 @@ JUSTADDCREAM_SUBSONG0_TRACK29: equ 08ACCh ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_40: equ 097F8h ; last def. pass 3
 Enemy_TypeB_2_2nd_Sprite_Color: equ 0D091h ; last def. pass 3
 Player_IsJumping: equ 0D00Dh ; last def. pass 3
-MainLoop.frameSkip: equ 0763Ah ; last def. pass 3
+MainLoop.frameSkip: equ 07640h ; last def. pass 3
 GameLogic.savePlayerFrame: equ 0448Fh ; last def. pass 3
 MAIN_SUBSONG0_REGISTERBLOCK_665: equ 09BC6h ; last def. pass 3
 CurrentLevel_BgObjectsInitialState_Start: equ 0D012h ; last def. pass 3

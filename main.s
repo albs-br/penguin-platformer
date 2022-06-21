@@ -129,7 +129,11 @@ InitGame:
     call    AkgPlayer_InitPlayer
     ;call    AkyPlayer_InitPlayer
 
+    call    BIOS_DISSCR
+
     call    DrawBackground_3_Thirds
+
+    call    BIOS_ENASCR
 
 
 ; Main loop
