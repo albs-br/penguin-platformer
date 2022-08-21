@@ -366,8 +366,44 @@ DrawBackground_3_Thirds_New:
                 .loopOUTI:
                     outi
                     jp	    nz, .loopOUTI
-            
+
+
             .continue_1:
+
+
+            ; ------------------- 2nd BG layer logic (bad logic, also uses a lt of cycles)
+            
+            ; ;push    de
+            ;     ; HL -= 32
+            ;     ld      bc, 32
+            ;     or      a       ; Clear carry
+            ;     sbc     hl, bc  ; HL = HL - BC
+
+            ;     ld	    a, (BIOS_VDP_DW)
+            ;     ld	    c, a
+
+            ;     ; loop through 32 HL's
+            ;     ld      b, 32
+            ;     .loop_Bg2nLayer:
+            ;         ; if ((HL) == 0 && has2ndBgTile)
+            ;         ld      a, (hl)
+            ;         or      a
+            ;         jp      nz, .skip_Bg2nLayer
+
+            ;         ; if (B == 24)
+            ;         ld      a, b
+            ;         cp      24
+            ;         jp      nz, .skip_Bg2nLayer
+
+            ;         ld      a, 10
+            ;         out     (c), a
+
+            ;         .skip_Bg2nLayer:
+            ;             inc     hl
+            ;     djnz    .loop_Bg2nLayer
+            ; ;pop     de            
+
+            ; ------------------- 
 
             ; Update bgIndex to next line
             ; BgIndex += 128 * 8
