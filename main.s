@@ -123,7 +123,7 @@ InitGame:
 
     call    InitVariables
 
-    ld      a, 2
+    ld      a, 1
     call    LoadLevel
 
     call    AkgPlayer_InitPlayer

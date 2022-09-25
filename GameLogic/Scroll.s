@@ -16,6 +16,10 @@ DrawBackground_3_Thirds:
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF    
 
+
+    ;call    DrawBg2ndLayer
+
+
     ; reset some variables of objects (enemies and scenery)
     call    InitObjectsVariables
 
@@ -438,3 +442,53 @@ UpdateSpritesX:
     ld      (HitFlash_X), a
 
     ret
+
+
+
+; DrawBg2ndLayer:
+
+;     ; If you want to find the first occurrence of 124 in the valid memory space:
+
+;     ; LD HL,0000h
+;     ; LD BC,0000h
+;     ; LD A,124
+;     ; CPIR
+
+;     ld      hl, Bg2ndLayer_Data
+;     ld      bc, 256
+; .next:
+;     ld      a, 11       ; value to be found
+;     cpir
+
+;     ;if(BC == 0)    ret
+;     ld      a, c
+;     or      b
+;     ret     z
+
+;     ; found!
+;     ; check if has tile on BG at this place
+;     ; if there isn't, place 2nd layer tile there
+;     jp      .next
+
+; ;     ld      hl, Bg2ndLayer_Data
+; ;     xor     a
+; ;     ld      b, 0
+; ; .loop:
+; ;     cp      (hl)
+; ;     jp      z, .next
+
+; ; .next:
+; ;     inc     hl
+; ;     djnz    .loop
+
+;     ; ret
+
+; Bg2ndLayer_Data:
+;     db  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,10, 0, 0, 0, 0, 0, 0
+;     db  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+;     db  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+;     db  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+;     db  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+;     db  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+;     db  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+;     db  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
