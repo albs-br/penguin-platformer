@@ -9,6 +9,20 @@ LevelScreen:
     xor     a
     ld      (LevelScreen_Counter), a
 
+
+
+    ld      a, LEVEL_SCREEN_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a               ; set MegaROM page for BgObjects
+
+    ; Load Sprite Attributes
+	ld		hl, SPRITE_ATT_TABLE_FRAME_0			; RAM address (source)
+	ld		de, SpriteAttrTable					    ; VRAM address (destiny)
+	ld		bc, SPRITE_ATT_TABLE_FRAME_0.size		; Block length
+    call 	fast_LDIRVM        						; Block transfer to VRAM from memory
+
+    ; TODO:
+    ; write "LEVEL n" to the screen (just below penguin stop position (Y = 192-8+16))
+
 .levelScreenLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
     ld      a, (hl)
@@ -24,30 +38,40 @@ LevelScreen:
 
 
 
-    ld      a, (LevelScreen_Counter)
-    
+
+.PENGUIN_FALLING_FRAMES: equ ((192/2) - 8) / 2
+.WAIT_FRAMES: equ 90
 .LEVEL_SCREEN_ZOOM_SPEED: equ 1      ; 6 frames x 4 = 24 frames (less than half second)
 ;.LEVEL_SCREEN_ZOOM_SPEED: equ 2      ; 6 frames x 8 = 48 frames (almost 1 second)
     
-    cp      0
+    ; if (LevelScreen_Counter < .PENGUIN_FALLING_FRAMES)
+    ld      a, (LevelScreen_Counter)
+    cp      .PENGUIN_FALLING_FRAMES
+    call    c, .penguinFallingAnimation
+
+
+
+    ld      a, (LevelScreen_Counter)
+
+    cp      .PENGUIN_FALLING_FRAMES + .WAIT_FRAMES + 0
     call    z, .frame_0
     
-    cp      4 * .LEVEL_SCREEN_ZOOM_SPEED
+    cp      .PENGUIN_FALLING_FRAMES + .WAIT_FRAMES + (4 * .LEVEL_SCREEN_ZOOM_SPEED)
     call    z, .frame_1
     
-    cp      8 * .LEVEL_SCREEN_ZOOM_SPEED
+    cp      .PENGUIN_FALLING_FRAMES + .WAIT_FRAMES + (8 * .LEVEL_SCREEN_ZOOM_SPEED)
     call    z, .frame_2
     
-    cp      12 * .LEVEL_SCREEN_ZOOM_SPEED
+    cp      .PENGUIN_FALLING_FRAMES + .WAIT_FRAMES + (12 * .LEVEL_SCREEN_ZOOM_SPEED)
     call    z, .frame_3
     
-    cp      16 * .LEVEL_SCREEN_ZOOM_SPEED
+    cp      .PENGUIN_FALLING_FRAMES + .WAIT_FRAMES + (16 * .LEVEL_SCREEN_ZOOM_SPEED)
     call    z, .frame_4
     
-    cp      20 * .LEVEL_SCREEN_ZOOM_SPEED
+    cp      .PENGUIN_FALLING_FRAMES + .WAIT_FRAMES + (20 * .LEVEL_SCREEN_ZOOM_SPEED)
     call    z, .frame_5
     
-    cp      24 * .LEVEL_SCREEN_ZOOM_SPEED
+    cp      .PENGUIN_FALLING_FRAMES + .WAIT_FRAMES + (24 * .LEVEL_SCREEN_ZOOM_SPEED)
     jp      z, .end
 
 
@@ -57,6 +81,21 @@ LevelScreen:
     jp      .levelScreenLoop
 
 
+
+.penguinFallingAnimation:
+
+    ; update Y of both sprites
+    ld      hl, SpriteAttrTable					    ; VRAM address (destiny)
+    ld      a, (LevelScreen_Counter)
+    sla     a                   ; shift left A (multiply by 2)
+    call	BIOS_WRTVRM         ; Writes data in VRAM
+
+    ld      hl, SpriteAttrTable + 4					    ; VRAM address (destiny)
+    ld      a, (LevelScreen_Counter)
+    sla     a                   ; shift left A (multiply by 2)
+    call	BIOS_WRTVRM         ; Writes data in VRAM
+
+    ret
 
     ; -------------------- frame 0:  Sprite normal       (pixel size 1x1)
 .frame_0:

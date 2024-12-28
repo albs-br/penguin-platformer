@@ -6,7 +6,7 @@
         {
             "label": "assembly",
             "type": "shell",
-            "command": "C:\\Program Files\\tniasm045\\tniasm.exe",
+            "command": "C:\\Users\\Public\\msx\\tniasm\\tniasm.exe", //"C:\\Program Files\\tniasm045\\tniasm.exe",
                 "args": [
                     {
                       "value": "Main.s",
@@ -21,10 +21,11 @@
             }
         },
         {
-            "command": "C:\\Program Files\\openMSX\\openmsx.exe",
+            "command": "C:\\Users\\Public\\msx\\openmsx\\openmsx.exe", //"C:\\Program Files\\openMSX\\openmsx.exe",
                 "args": [
                     {
-                        "value": "C:\\Users\\albs_\\source\\repos\\penguim-platformer\\go-penguin.rom",
+                        "value": "${workspaceFolder}\\go-penguin.rom",
+                        //"value": "${fileBasenameNoExtension}.rom",
                         "quoting": "strong"
                     },
                     {
@@ -34,18 +35,21 @@
                         "value": "-machine Gradiente_Expert_GPC-1",     // MSX 1
                         //"value": "-machine Yamaha_CX11",                // MSX 1 with V9938
                         //"value": "-machine Sony_HB-F1XD",               // MSX 2
+                        //"value": "-machine Sony_HB-F1XDJ",                // MSX 2+
                         //"value": "-machine Panasonic_FS-A1WSX",         // MSX 2+ with turbo
                         //"value": "-machine Panasonic_FS-A1GT",          // MSX Turbo R
+
                         
-                        "quoting": "escape"
+
+                        "quoting": "weak"
                     },
                     {
                         "value": "-romtype ASCII16",
-                        "quoting": "escape"
+                        "quoting": "weak"
                     },
                     {
-                        "value": "-script C:\\Users\\albs_\\source\\repos\\penguim-platformer\\gopenguin_debug.tcl",
-                        "quoting": "escape"
+                        "value": "-script ${workspaceFolder}\\gopenguin_debug.tcl",
+                        "quoting": "weak"
                     }
                 ],
             "label": "run openmsx",
